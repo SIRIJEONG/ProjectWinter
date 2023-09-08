@@ -19,6 +19,7 @@ public class SG_PlayerActionControler : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask;
 
+
     // 필요한 컴포넌트
     [SerializeField]
     private TextMeshProUGUI actionText;
@@ -35,7 +36,7 @@ public class SG_PlayerActionControler : MonoBehaviour
     }
 
     void Start()
-    {
+    {        
         theInventory.ItemDestroyEvent += ItemDestroy;
     }
 
