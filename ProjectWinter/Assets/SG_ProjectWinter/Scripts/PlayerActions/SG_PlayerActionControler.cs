@@ -17,7 +17,10 @@ public class SG_PlayerActionControler : MonoBehaviour
 
     // 아이템 레이어에만 반응 하도록 레이어 마스크 설정
     [SerializeField]
-    private LayerMask layerMask;
+    private LayerMask itemLayerMask;
+    // 웨어 하우스가 아니면 조건을 통과하지 못하게 해줄 LayerMask 선언
+    [SerializeField]
+    private LayerMask whreHouseMask;
 
 
     // 필요한 컴포넌트
@@ -44,6 +47,7 @@ public class SG_PlayerActionControler : MonoBehaviour
     void Update()
     {
         CheckItem();
+        CheckWarehouse();
         TryAction();
 
     }
@@ -57,10 +61,11 @@ public class SG_PlayerActionControler : MonoBehaviour
         }
     }
 
+    // 레이를 쏘아서 맞은것이 Item 이라는 Layer를 가지고 있다면통과하는 로직
     private void CheckItem()
     {
         if (Physics.Raycast
-            (transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range, layerMask))
+            (transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range, itemLayerMask))
         {
             if (hitInfo.transform.tag == "Item")
             {
@@ -70,7 +75,7 @@ public class SG_PlayerActionControler : MonoBehaviour
         else { InfoDisappear(); }
     }
 
-
+    // 레이를 쏘아서 아이템이라는 레이어 마스크가 있으면 아이템이름 E 키를 눌러라 라는 text 출력하는 함수
     private void ItemInfoAppear()
     {
         pickupActivated = true;
@@ -79,14 +84,14 @@ public class SG_PlayerActionControler : MonoBehaviour
             + " Get Input Key E";
     }
 
-
+    // 아이템 줍고나면 E 를 누르라는 text 끄는 함수
     private void InfoDisappear()
     {
         pickupActivated = false;
         actionText.gameObject.SetActive(false);
     }
 
-
+    // 아이템을 인벤토리에 넣는 함수
     private void CanPickUp()
     {
         if(pickupActivated == true)
@@ -110,6 +115,13 @@ public class SG_PlayerActionControler : MonoBehaviour
     public void ItemDestroy()
     {
         Destroy(hitInfo.transform.gameObject);
+    }
+
+    // ---------------------------------- 웨어 하우스 함수 -----------------------------------
+
+    private void CheckWarehouse()
+    {
+
     }
 
 }   // NAMESPACE
