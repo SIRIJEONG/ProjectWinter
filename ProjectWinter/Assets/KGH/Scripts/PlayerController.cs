@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
@@ -11,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private float horizontal;
     private float vertical;
-    private int speed = 5;
+    public static int speed = 5;
 
     // 플레이어의 직업
     public static bool isSurvivor;
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
         moveVec = new Vector3(horizontal, 0, vertical).normalized;
 
-        transform.position += moveVec * 5 * Time.deltaTime;
+        transform.position += moveVec * speed * Time.deltaTime;
 
         transform.LookAt(transform.position + moveVec);
         // 좌표이동
