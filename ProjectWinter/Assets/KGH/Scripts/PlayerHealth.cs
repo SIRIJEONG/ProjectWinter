@@ -22,12 +22,12 @@ public class PlayerHealth : LivingEntity
         livingEntityClass = FindAnyObjectByType<LivingEntity>();
         livingEntityClass.onDeath += Down;
 
-        playerHP = health;
     }
 
     // Update is called once per frame
     void Update()
     {
+        playerHP = health;
 
     }
 
@@ -54,9 +54,10 @@ public class PlayerHealth : LivingEntity
 
     private void OnTriggerEnter(Collider other)
     {
-        if( other.tag.Equals("hit"))
-        { 
-
+        if (other.CompareTag("hit"))
+        {
+            Debug.Log(playerHP);
+            OnDamage(10, other.ClosestPoint(transform.position), transform.position - other.transform.position);
         }
     }
 
