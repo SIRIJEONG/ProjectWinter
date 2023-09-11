@@ -17,7 +17,11 @@ public class SG_PlayerActionControler : MonoBehaviour
 
     // 아이템 레이어에만 반응 하도록 레이어 마스크 설정
     [SerializeField]
-    private LayerMask layerMask;
+    private LayerMask itemLayerMask;
+    // 웨어 하우스가 아니면 조건을 통과하지 못하게 해줄 LayerMask 선언
+    [SerializeField]
+    private LayerMask whreHouseMask;
+
 
     // 필요한 컴포넌트
     [SerializeField]
@@ -26,12 +30,17 @@ public class SG_PlayerActionControler : MonoBehaviour
     [SerializeField]
     private SG_Inventory theInventory;
 
+    // 창고를 열기위한  플레이어의 이벤트 선언 창고가 인식하면 창고를 열고 닫고 해줄 이벤트 델리게이트
+    public delegate void WareHouseDelegate();
+
+    public event WareHouseDelegate WareHouseEvent;
+
 
     //public SG_Inventory inventoryClass;
 
     private void Awake()
     {
-        
+
     }
 
     void Start()
@@ -43,25 +52,27 @@ public class SG_PlayerActionControler : MonoBehaviour
     void Update()
     {
         CheckItem();
+        CheckWarehouse();
         TryAction();
 
     }
 
     private void TryAction()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             CheckItem();
             CanPickUp();
         }
     }
 
+    // 레이를 쏘아서 맞은것이 Item 이라는 Layer를 가지고 있다면통과하는 로직
     private void CheckItem()
     {
         if (Physics.Raycast
-            (transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range, layerMask))
+            (transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range, itemLayerMask))
         {
-            if (hitInfo.transform.tag == "Item")
+            if (hitInfo.transform.CompareTag("Item"))
             {
                 ItemInfoAppear();
             }
@@ -70,6 +81,7 @@ public class SG_PlayerActionControler : MonoBehaviour
     }
 
 
+    // 레이를 쏘아서 아이템이라는 레이어 마스크가 있으면 아이템이름 E 키를 눌러라 라는 text 출력하는 함수
     private void ItemInfoAppear()
     {
         pickupActivated = true;
@@ -78,25 +90,25 @@ public class SG_PlayerActionControler : MonoBehaviour
             + " Get Input Key E";
     }
 
-
+    // 아이템 줍고나면 E 를 누르라는 text 끄는 함수
     private void InfoDisappear()
     {
         pickupActivated = false;
         actionText.gameObject.SetActive(false);
     }
 
-
+    // 아이템을 인벤토리에 넣는 함수
     private void CanPickUp()
     {
-        if(pickupActivated == true)
+        if (pickupActivated == true)
         {
-            if(hitInfo.transform != null)
+            if (hitInfo.transform != null)
             {
                 //Debug.Log("아이템 획득");
                 theInventory.AcquireItem(hitInfo.transform.GetComponent<SG_ItemPickUp>().item);
                 //Destroy(hitInfo.transform.gameObject);
                 InfoDisappear();
-                
+
             }
         }
     }
@@ -109,6 +121,25 @@ public class SG_PlayerActionControler : MonoBehaviour
     public void ItemDestroy()
     {
         Destroy(hitInfo.transform.gameObject);
+    }
+
+    // ---------------------------------- 웨어 하우스 함수 -----------------------------------
+
+    private void CheckWarehouse()
+    {
+        if (Physics.Raycast
+        (transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range, whreHouseMask))
+        {
+            if (hitInfo.transform.CompareTag("Warehouse"))
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    //Debug.Log("레이를 쏘고 창고가 맞을때 E 를 눌러야한다는 조건이 잘들어오나?");
+                    // 산장창고 열고 닫는 함수 부르기
+                    WareHouseEvent?.Invoke();
+                }
+            }
+        }
     }
 
 }   // NAMESPACE

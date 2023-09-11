@@ -22,7 +22,7 @@ public class SG_Item : ScriptableObject
     {
         // 무기,사용템,재료템,기타탬
         Weapon,
-        Used,   
+        Used,
         Ingredient,
         ETC
     }
