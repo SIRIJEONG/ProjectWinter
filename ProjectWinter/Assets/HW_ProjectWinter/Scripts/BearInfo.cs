@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BearInfo : MonoBehaviour
 {
+
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {

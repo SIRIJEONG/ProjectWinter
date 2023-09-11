@@ -1,18 +1,28 @@
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MooseInfo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static MooseInfo Moose;
 
-    // Update is called once per frame
-    void Update()
+
+    public float hp = 100.0f;
+    public float attackDamage = 5.0f;
+
+
+    public void Awake()
     {
-        
+        if (Moose == null)
+        {
+            Moose = this;
+
+        }
+        else
+        {
+            DontDestroyOnLoad(Moose);
+        }
+
     }
 }
