@@ -89,29 +89,24 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
 
             yield return null; // 다음 프레임까지 대기
         }
-
-        timerText.text = "시간 종료"; // 시간이 다 떨어졌을 때의 처리
         isLimitOver = true;
     }
 
     public void RepairPowerStation()
     {
         isRepairPowerStation = true;
-        GFunc.GetRootObject("UiCanvas").FindChildComponent<TMP_Text>("PowerStationText").text
-            = string.Format("발전소 상태 : 수리 완료");
+        UIManager.instance.UpdatePowerStaionText();
     }
 
     public void RepairHelipad()
     {
         isRepairHeliPad = true;
-        GFunc.GetRootObject("UiCanvas").FindChildComponent<TMP_Text>("HeliPadText").text
-            = string.Format("헬리패드 상태 : 수리 완료");
+        UIManager.instance.UpdateHeliPadText();
     }
 
     public void CallHeli()
     {
         isCallHeli = true;
-        GFunc.GetRootObject("UiCanvas").FindChildComponent<TMP_Text>("EscapeText").text
-            = string.Format("탈출 차량 접근 중.");
+        UIManager.instance.UpdateEscapeText();
     }
 }
