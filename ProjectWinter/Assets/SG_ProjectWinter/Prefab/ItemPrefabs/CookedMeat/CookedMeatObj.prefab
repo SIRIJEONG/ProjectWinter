@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1079103181815009066}
   - component: {fileID: 3733262128411301356}
   - component: {fileID: 4408028709847513386}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: CookedMeatObj
   m_TagString: Item
   m_Icon: {fileID: 0}

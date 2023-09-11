@@ -1366,7 +1366,7 @@ GameObject:
   - component: {fileID: 276897342}
   - component: {fileID: 276897341}
   - component: {fileID: 276897340}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: WareHouseCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3035,7 +3035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4161,7 +4161,7 @@ GameObject:
   - component: {fileID: 776974817}
   - component: {fileID: 776974816}
   - component: {fileID: 776974820}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: TempWarehouse
   m_TagString: Warehouse
   m_Icon: {fileID: 0}
@@ -4273,8 +4273,8 @@ GameObject:
   - component: {fileID: 809229804}
   - component: {fileID: 809229803}
   - component: {fileID: 809229802}
-  - component: {fileID: 809229801}
   - component: {fileID: 809229807}
+  - component: {fileID: 809229808}
   m_Layer: 0
   m_Name: TempPlayer
   m_TagString: Player
@@ -4282,18 +4282,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &809229801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 809229800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05e59162f9d31c54dbbaa66793284f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &809229802
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4404,12 +4392,24 @@ MonoBehaviour:
   range: 3
   itemLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 128
   whreHouseMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 288
   actionText: {fileID: 1493955862}
   theInventory: {fileID: 2060766626}
+--- !u!114 &809229808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809229800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5882ad39ca269564f84754b9fadb620b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &824198526
 GameObject:
   m_ObjectHideFlags: 0
@@ -7926,7 +7926,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1445712294}
   - component: {fileID: 1445712295}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8146,7 +8146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1477706561}
   - component: {fileID: 1477706562}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: WareHouseInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8401,7 +8401,7 @@ GameObject:
   - component: {fileID: 1516635108}
   - component: {fileID: 1516635110}
   - component: {fileID: 1516635109}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: WareHouseinventoryBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9359,7 +9359,7 @@ GameObject:
   - component: {fileID: 1692448570}
   - component: {fileID: 1692448572}
   - component: {fileID: 1692448571}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: WareHouseText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

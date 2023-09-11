@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9036461847746052597}
   - component: {fileID: 1422616023955012194}
   - component: {fileID: 4974694367889281750}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: RedFruit
   m_TagString: Item
   m_Icon: {fileID: 0}

@@ -36,7 +36,11 @@ public class SG_InventoryClickScript : MonoBehaviour,
     //    //Debug.Log("드래그 마치고 마우스클릭을 때면 불리나?");
     //}
 
+    private Vector3 tempPos;
+
     private RectTransform rectTransform;
+    private Transform originalParent; // 아이템의 원래 부모
+    private Vector3 originalPosition; // 아이템의 원래 위치
 
     private void Awake()
     {
@@ -45,12 +49,18 @@ public class SG_InventoryClickScript : MonoBehaviour,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-
+        originalParent = transform.parent;
+        originalPosition = transform.position;
+        
+        Debug.Log(eventData.pointerDrag.gameObject.name);
+        //Debug.Log(tempPos);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta / transform.lossyScale.x;
+        rectTransform.anchoredPosition += eventData.delta / transform.lossyScale.x;        
+        
+        
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -60,23 +70,45 @@ public class SG_InventoryClickScript : MonoBehaviour,
 
     public void OnDrop(PointerEventData eventData)
     {
-        Image image = eventData.pointerDrag.gameObject.GetComponent<Image>();
-        Debug.LogFormat("pointerDrag -> {0}", image.sprite.name);
-        if (eventData.pointerDrag == null)
-            
-            return;
+        if (eventData.pointerDrag != null)
+        {
+            // 드롭한 위치의 UI 요소를 검사
+            RectTransform dropTarget = eventData.pointerEnter.GetComponent<RectTransform>();
 
-        // 현재 아이템 슬롯
-        //InventoryItem draggedItem = eventData.pointerDrag.GetComponent<InventoryItem>();
-        //if (draggedItem == null)
-        //    return;
+            if (dropTarget != null)
+            {
+                // 부모를 원래 부모로 변경
+                transform.SetParent(originalParent);
+                // 아이템을 원래 위치로 돌리기
+                transform.position = originalPosition;
+            }
+        }
 
-        // 드래그한 아이템 슬롯의 위치
-        RectTransform otherSlotRectTransform = GetComponent<RectTransform>();
+            //eventData.pointerDrag.gameObject.transform.position = tempPos;
 
-        // Swap 로직
-        Vector3 tempPosition = rectTransform.anchoredPosition;
-        rectTransform.anchoredPosition = otherSlotRectTransform.anchoredPosition;
-        otherSlotRectTransform.anchoredPosition = tempPosition;
-    }
+            //if (eventData.pointerDrag == null)
+            //{
+
+            //    return;
+            //}
+            //else if(eventData.pointerDrag != null)
+            //{
+            //    Image image = eventData.pointerDrag.gameObject.GetComponent<Image>();
+            //    //Debug.LogFormat("pointerDrag -> {0}", image.sprite.name);
+            //}
+
+
+            // 현재 아이템 슬롯
+            //InventoryItem draggedItem = eventData.pointerDrag.GetComponent<InventoryItem>();
+            //if (draggedItem == null)
+            //    return;
+
+            //// 드래그한 아이템 슬롯의 위치
+            //RectTransform otherSlotRectTransform = GetComponent<RectTransform>();
+
+            //// Swap 로직
+            //Vector3 tempPosition = rectTransform.anchoredPosition;
+            //rectTransform.anchoredPosition = otherSlotRectTransform.anchoredPosition;
+            //otherSlotRectTransform.anchoredPosition = tempPosition;
+        }
 }
