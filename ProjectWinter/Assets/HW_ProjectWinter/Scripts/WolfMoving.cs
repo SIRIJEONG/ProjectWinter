@@ -4,7 +4,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI; // AI, 내비게이션 시스템 관련 코드를 가져오기
 
-public class BearMoving : LivingEntity
+public class WolfMoving : LivingEntity
 {
 
     public LayerMask whatIsTarget; // 공격 대상 레이어 
@@ -105,7 +105,7 @@ public class BearMoving : LivingEntity
             if (hasTarget)
             {
 
-                animalAnimator.SetBool("BearWalk", true);
+                animalAnimator.SetBool("WolfWalk", true);
 
                 //Debug.Log("타겟을 찾았다.");
                 // 추적 대상 존재 : 경로를 갱신하고 AI 이동을 계속 진행
@@ -120,8 +120,8 @@ public class BearMoving : LivingEntity
 
                 // 추적 대상 없음 : AI 이동 중지
                 navMeshAgent.isStopped = true;
-                animalAnimator.SetBool("BearAttack", false);
-                animalAnimator.SetBool("BearWalk", false);
+                animalAnimator.SetBool("WolfAttack", false);
+                animalAnimator.SetBool("WolfWalk", false);
 
                 //WayPointMoving();
 
@@ -221,7 +221,7 @@ public class BearMoving : LivingEntity
             if (attackTarget != null && attackTarget == targetEntity)
             {
 
-                animalAnimator.SetBool("BearAttack", true);
+                animalAnimator.SetBool("WolfAttack", true);
 
 
                 // 최근 공격 시간을 갱신

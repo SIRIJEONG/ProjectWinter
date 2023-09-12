@@ -100,21 +100,20 @@ public class MooseMoving : LivingEntity
     private IEnumerator UpdatePath()
     {
         // 살아있는 동안 무한 루프
-        while (!isDead)
+        while (!isDead )
         {
             if (hasTarget)
             {
-                Debug.Log("타겟을 찾았다.");
+                //Debug.Log("타겟을 찾았다.");
                 // 추적 대상 존재 : 경로를 갱신하고 AI 이동을 계속 진행
                 navMeshAgent.isStopped = false;
                 navMeshAgent.SetDestination(targetEntity.transform.position);
 
-                animalAnimator.SetBool("Attack", true); 
 
             }
             else
             {
-                Debug.Log("타겟을 못찾았다.");
+                //Debug.Log("타겟을 못찾았다.");
 
                 // 추적 대상 없음 : AI 이동 중지
                 navMeshAgent.isStopped = true;
@@ -205,7 +204,7 @@ public class MooseMoving : LivingEntity
 
         // 자신이 사망하지 않았으며,
         // 최근 공격 시점에서 timeBetAttack 이상 시간이 지났다면 공격 가능
-        if (!isDead && Time.time >= lastAttackTime + timeBetAttack)
+        if (!isDead && Time.time >= lastAttackTime + timeBetAttack )
         {
             // 상대방으로부터 LivingEntity 타입을 가져오기 시도
             LivingEntity attackTarget
@@ -214,6 +213,10 @@ public class MooseMoving : LivingEntity
             // 상대방의 LivingEntity가 자신의 추적 대상이라면 공격 실행
             if (attackTarget != null && attackTarget == targetEntity)
             {
+
+                animalAnimator.SetBool("Attack", true);
+
+
                 // 최근 공격 시간을 갱신
                 lastAttackTime = Time.time;
 
@@ -221,6 +224,7 @@ public class MooseMoving : LivingEntity
                 Vector3 hitPoint = other.ClosestPoint(transform.position);
                 Vector3 hitNormal = transform.position - other.transform.position;
 
+                
                 // 공격 실행
                 attackTarget.OnDamage(damage, hitPoint, hitNormal);
             }
