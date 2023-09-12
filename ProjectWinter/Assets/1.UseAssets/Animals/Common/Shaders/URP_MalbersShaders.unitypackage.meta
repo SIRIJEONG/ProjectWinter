@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:ProjectWinter/Assets/1.UseAssets/Animals/Common/Shaders/URP_MalbersShaders.unitypackage.meta
 guid: d3d07393d06772d40a4860e02ad181ae
+========
+guid: 289c823c5fb9e8a4fa57df49c721d2f3
+>>>>>>>> origin/KGH001:ProjectWinter/Assets/AmplifyAnimationPack/BlenderSource/BlenderSource.unitypackage.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
