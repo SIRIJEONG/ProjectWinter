@@ -11,6 +11,7 @@ public class SG_ItemSlot : MonoBehaviour
     public int itemCount;   // 획득한 아이템의 갯수
     public Image itemImage; // 획득한 아이템의 이미지
 
+    public int slotCount = 0;
 
     // 필요한 컴포넌트
     [SerializeField]
@@ -47,6 +48,8 @@ public class SG_ItemSlot : MonoBehaviour
             text_Count.text = "0";
             itemCountImg.SetActive(false);
         }
+
+        Debug.Log(slotCount);
 
         SetColor(1);
     }

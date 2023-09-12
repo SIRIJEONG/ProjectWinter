@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3232005533758961373}
   - component: {fileID: 3538674976261335200}
   - component: {fileID: 3780225761157310868}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: RockPiece
   m_TagString: Item
   m_Icon: {fileID: 0}
