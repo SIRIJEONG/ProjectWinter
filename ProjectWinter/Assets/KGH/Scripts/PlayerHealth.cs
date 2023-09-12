@@ -8,7 +8,9 @@ public class PlayerHealth : LivingEntity
 
     // 체력관련
     private float playerDown = 100;
-    private bool isDown = false;
+    public bool isDown = false;
+
+    private bool playerEnd;
 
     //private bool isDead = false;
     // 체력관련
@@ -17,8 +19,9 @@ public class PlayerHealth : LivingEntity
     void Start()
     {
         animator = GetComponent<Animator>();
-        
-       // onDeath += Down;
+
+        // onDeath += Down;
+        playerEnd = false;
 
     }
 
@@ -31,11 +34,11 @@ public class PlayerHealth : LivingEntity
     public override void Die()
     {
         base.Die();
-        isDown = true;
     }
 
     private void onDeath()
     {
+        isDown = true;
         animator.SetBool("Down", isDown);
         PlayerController.speed = 2;
         // 시간당 playerDown을 줄여나감
@@ -47,17 +50,8 @@ public class PlayerHealth : LivingEntity
 
     private void Dead()
     {
-        animator.SetBool("Dead", isDead);
+        playerEnd = true;
+        animator.SetBool("Dead", playerEnd);
 
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("hit"))
-        {
-            Debug.Log(health);
-            OnDamage(10, other.ClosestPoint(transform.position), transform.position - other.transform.position);
-        }
-    }
-
 }

@@ -14,13 +14,21 @@ public class PlayerController : MonoBehaviour
     private float vertical;
     public static int speed = 5;
 
+    private bool doSomething = false;
+
     // 플레이어의 직업
     public static bool isSurvivor;
     public static bool isTrator;
     // 플레이어의 직업
 
+    private bool hand = false;
+
+    private RaycastHit hitInfo;
+
+
     private Vector3 moveVec;
 
+    private GameObject hitObject;
     // 공격관련
     private float attackPower;  // 마우스로 공격 차지
     private bool isAttack;
@@ -35,20 +43,52 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        PlayerMove();
-
-        PLayerIsClick();
-
-        // 플레이어의 앞에 있는 물체를 판별
-        RaycastHit hitInfo;
-        if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f))
+        if (!doSomething)
         {
+            PlayerMove();
+
+            PLayerIsClick();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if(!doSomething)
+            {
+                // 플레이어의 앞에 있는 물체를 판별
+                if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f))
+                {
+                    if (hitInfo.collider.gameObject.tag == "Player")
+                    {
+                        PlayerHealth playerHealth = hitInfo.collider.gameObject.GetComponent<PlayerHealth>();
+                        bool isPlayerDown = playerHealth.isDown;
+                        if (isPlayerDown)
+                        {
+                            PressE();        
+                        }
+                            
+                    }
+                }
+                // 플레이어의 앞에 있는 물체를 판별
+
+                // 행동이 완료돼 끝났을때도 두썸띵 거짓으로 만들기
+            }
+            else
+            {
+                doSomething = false;
+                animator.SetBool("DoSomething", doSomething);
+            }
 
         }
+       
+
         // 플레이어의 앞에 있는 물체를 판별
+        //if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f))
+        //{
+        //    
+        //
+        //}
+        // 플레이어의 앞에 있는 물체를 판별        
 
-
-        
     }
 
 
@@ -88,28 +128,84 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
-        isAttack = true;
+            isAttack = true;
             StartCoroutine(EndAttack());
         }
     }
 
     private void Attack()
     {
-        animator.Play("AttackAnimation", -1, 0.35f);
+        if(!hand)
+        {       //아이템 안들었을때
+            animator.Play("Punch_R", -1, 0.35f);
 
-        attackPower += Time.deltaTime;
+            attackPower += Time.deltaTime;
+        }
+        else
+        {       //아이템 들었을때
+
+            animator.Play("AttackAnimation", -1, 0.35f);
+
+            attackPower += Time.deltaTime;
+        }
     }
 
     private IEnumerator EndAttack()
     {
-            Debug.Log(isAttack);
-        animator.SetBool("attack", isAttack);
+        if (!hand)
+        {       //아이템 안들었을때
+            animator.SetBool("attack", isAttack);
 
-        yield return new WaitForSeconds(0.8f);
-        isAttack = false;
-        attackPower = 0;
+            yield return new WaitForSeconds(0.8f);
+            isAttack = false;
+            attackPower = 0;
+        }
+        else
+        {       //아이템 들었을때
+            animator.SetBool("attack", isAttack);
+
+            yield return new WaitForSeconds(0.8f);
+            isAttack = false;
+            attackPower = 0;
+        }
     }
     #endregion
     // 공격   
+
+    private void PressE()
+    {
+        if (hitInfo.collider.gameObject.tag == "Item") // 루팅모션
+        {
+            
+        }
+        else        // 작업모션
+        {
+            animator.SetFloat("Speed", 0);
+            doSomething = true;
+            animator.SetBool("DoSomething", doSomething);
+            animator.Play("DoSomething");
+        }
+        // 행동이 완료되기까지 남은 시간 게이지
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Building"))
+        {
+            Debug.Log("1");
+            CameraFollow.inside = other.gameObject;
+            CameraFollow.isInside = true;
+        }
+
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Building"))
+        {
+            CameraFollow.isInside = false;
+
+        }
+    }
+
 }
 //animator.SetLayerWeight(1, 0.0f);       // 두번째(1) 레이어의 애니메이션을 멈춤
