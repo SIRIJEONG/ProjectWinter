@@ -48,6 +48,8 @@ public class SG_Inventory : MonoBehaviour
         //TryOpenInventory();
     }
 
+    /*LEGACY
+
     // { ProjectWiter 게임에는 필요하지 않는 기능
     // I버튼은 눌렀을때에 인벤토리 열리는 기능
     // ProjectWinter에 이 기능은 필요없을수도 있음
@@ -68,6 +70,8 @@ public class SG_Inventory : MonoBehaviour
         }
     }
 
+    
+
     private void OpenInventory()
     {
         inventoryBase.SetActive(true);
@@ -78,6 +82,8 @@ public class SG_Inventory : MonoBehaviour
         inventoryBase.SetActive(false);
     }
     // } ProjectWiter 게임에는 필요하지 않는 기능
+
+    LEGACY*/
 
     // { AcquireItem()
     public void AcquireItem(SG_Item _item, int _count = 1)
@@ -114,7 +120,10 @@ public class SG_Inventory : MonoBehaviour
             if (slots[i].item == null)
             {
                 slots[i].AddItem(_item, _count);
-                // TODO : Distroy 먹은 아이템을 Distroy 하도록 추가해야함
+
+                // 스왑시 자신이 몇번째 배열인지 알려주기 위한 삽입
+                slots[i].slotCount = i + 10;
+
                 ItemDestroyEventShot();
                 return;
             }         
