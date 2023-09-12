@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:ProjectWinter/Assets/SG_ProjectWinter/Prefab/Inventorys/TempWarehouse.prefab.meta
 guid: 30cb79f0e115cc44c976182009e888e1
 PrefabImporter:
+========
+guid: f86ac5c3b9fa53446bdf09ffa564f81f
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> origin/KGH001:ProjectWinter/Assets/Samples.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
