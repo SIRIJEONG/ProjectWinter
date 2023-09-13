@@ -8,6 +8,8 @@ TagManager:
   - Animal
   - Warehouse
   - Building
+  - PlayerSlot
+  - WareHouseSlot
   layers:
   - Default
   - TransparentFX

@@ -13,7 +13,7 @@ public class SG_WareHouseItemSlot : MonoBehaviour
     public SG_Item item;    // 아이템의 정보가 들어있는 곳
     public int itemCount;   // 획득한 아이템의 갯수
     public Image itemImage; // 획득한 아이템의 이미지
-
+    public int wareHouseSlotCount;
 
     // 필요한 컴포넌트
     [SerializeField]
