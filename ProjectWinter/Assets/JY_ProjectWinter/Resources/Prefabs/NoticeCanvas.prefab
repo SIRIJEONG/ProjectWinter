@@ -193,6 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   completeUi: {fileID: 8373782001050478150}
   noticeUi: {fileID: 6632879605843320433}
+  noticeText: {fileID: 7196801186785530022}
   progressBar: {fileID: 3923966865229230495}
   isComplete: 0
 --- !u!1 &6088941018697030617
@@ -457,6 +458,18 @@ PrefabInstance:
     - target: {fileID: 4219951673867981538, guid: 7f0bc7d69eba5ab49a56bc4131c6c992, type: 3}
       propertyPath: m_Name
       value: CircleCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251921946138784460, guid: 7f0bc7d69eba5ab49a56bc4131c6c992, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4252021936387962068, guid: 7f0bc7d69eba5ab49a56bc4131c6c992, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4252155096826686886, guid: 7f0bc7d69eba5ab49a56bc4131c6c992, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f0bc7d69eba5ab49a56bc4131c6c992, type: 3}

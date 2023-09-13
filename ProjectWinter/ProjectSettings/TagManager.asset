@@ -7,6 +7,11 @@ TagManager:
   - Item
   - Animal
   - Warehouse
+  - Building
+  - PlayerSlot
+  - WareHouseSlot
+  - Operate
+  - Repair
   layers:
   - Default
   - TransparentFX
@@ -17,7 +22,7 @@ TagManager:
   - Player
   - Item
   - Warehouse
-  - 
+  - Object
   - 
   - 
   - 
