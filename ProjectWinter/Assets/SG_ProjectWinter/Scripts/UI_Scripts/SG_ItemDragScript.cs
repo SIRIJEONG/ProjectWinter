@@ -158,14 +158,14 @@ public class SG_ItemDragScript : MonoBehaviour,
         //Debug.Log(giveByPlayer == null);
 
 
-        if (this.transform.parent.gameObject.CompareTag("PlayerSlot"))
-        {
-            giveByPlayer = this.transform.parent.gameObject.GetComponent<SG_ItemSlot>();
-        }
-        else if(this.transform.parent.gameObject.CompareTag("WareHouseSlot"))
-        {
-            giveByWareHouse = this.transform.parent.gameObject.GetComponent<SG_WareHouseItemSlot>();
-        }
+        //if (this.transform.parent.gameObject.CompareTag("PlayerSlot"))
+        //{
+        //    giveByPlayer = this.transform.parent.gameObject.GetComponent<SG_ItemSlot>();
+        //}
+        //else if(this.transform.parent.gameObject.CompareTag("WareHouseSlot"))
+        //{
+        //    giveByWareHouse = this.transform.parent.gameObject.GetComponent<SG_WareHouseItemSlot>();
+        //}
 
         
 
@@ -175,7 +175,7 @@ public class SG_ItemDragScript : MonoBehaviour,
         {
             // 매개변수 정보 : 주는얘 주소, 받는얘주소 , 플레이어 슬롯, 인벤토리 슬롯
             swapManagerClass.ItemSwap(giveSlotCount, acceptSlotCount, playerItemSlotClass, werehouseItemSlotClass);
-            giveByPlayer = null;
+            
         }
 
 
@@ -207,6 +207,7 @@ public class SG_ItemDragScript : MonoBehaviour,
                 playerItemSlotClass = clickedUIElement.GetComponent<SG_ItemSlot>();
                 //누른플레이어의 고유번호 추출
                 giveSlotCount = playerItemSlotClass.slotCount;
+                Debug.Log(giveSlotCount);
             }
 
             

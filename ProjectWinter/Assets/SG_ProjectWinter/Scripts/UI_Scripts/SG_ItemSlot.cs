@@ -89,10 +89,10 @@ public class SG_ItemSlot : MonoBehaviour
     {
         item = null;
         itemCount = 0;
-        //itemImage.sprite = null;
+        itemImage.sprite = null;
         SetColor(0);
 
-        //text_Count.text = "0";
+        text_Count.text = "0";
        // itemCountImg.SetActive(false);
     }
 

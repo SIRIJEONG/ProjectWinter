@@ -51,7 +51,7 @@ public class SG_ItemSwapManager : MonoBehaviour
         //Debug.LogFormat("창고 매개변수slots이 정확한 지정좌표를 가지고 있나? -> {0}", _wereHouseSlots.wareHouseSlotCount);
 
         #region _GiveSlotCount가 플레이어일 경우
-        if (_GiveSlotCount > 1 && _GiveSlotCount > 20) // 플레이어 -> 인벤토리 이동시
+        if (_GiveSlotCount > 1 && _GiveSlotCount < 20) // 플레이어 -> 인벤토리 이동시
         {
             // 이번엔 부모의 부모의 부모 3번 찾아야함
             //1 -> Grid
@@ -73,6 +73,8 @@ public class SG_ItemSwapManager : MonoBehaviour
                     // 아이템 갯수 를 매개 변수로 안받아도 될듯?
                     tempItemCount = playerInven.slots[i].itemCount;
                     playerInven.slots[i].ClearSlot();
+                    Debug.Log("Swap의 플레이어 For문 들어오나?");
+                    Debug.LogFormat("moveItem -> {0} tempItemCount -> {1}", moveItem, tempItemCount);
                     break;
                 }
             }
@@ -104,6 +106,9 @@ public class SG_ItemSwapManager : MonoBehaviour
                     wareHouseItemSlot = wareHouseInven.slots[i].GetComponent<SG_WareHouseItemSlot>();
                     wareHouseItemSlot.item = moveItem;
                     wareHouseItemSlot.itemCount = tempItemCount;
+                    Debug.LogFormat("창고에 아이템이 Null? -> {0}", wareHouseItemSlot.item == null);
+                    Debug.LogFormat("들어간 아이템 -> {0}", moveItem.name);
+
                     break;
                 }
             }

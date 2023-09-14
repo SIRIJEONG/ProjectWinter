@@ -59,7 +59,7 @@ public class SG_InventoryClickScript : MonoBehaviour,IPointerEnterHandler,IDropH
 
         // 아이템 슬롯의 색상을 원래색으로 변경
         image.color = defaultColor32;
-        Debug.Log(this.gameObject.tag);
+        //Debug.Log(this.gameObject.tag);
         if(this.gameObject.CompareTag("WareHouseSlot"))
         {
             image.color = Color.black;
