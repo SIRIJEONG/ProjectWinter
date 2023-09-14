@@ -6,6 +6,7 @@ public class PressEKey : MonoBehaviour
 {
     public GameObject completeUi;
     public GameObject noticeUi;
+    public Text noticeText;
     public Slider progressBar;
     public bool isComplete = false;
 
@@ -19,6 +20,8 @@ public class PressEKey : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(transform.parent.name);
+        noticeText.text = string.Format("{0}",UIManager.instance.FormatNoticeText(transform.parent));
         completeUi.SetActive(false);
         progressBar.value = 0;
         isComplete = false;
@@ -88,6 +91,7 @@ public class PressEKey : MonoBehaviour
     private void OffCompleteUi()
     {
         noticeUi.SetActive(true);
+        progressBar.value = 0f;
         isComplete = false;
         completeUi.SetActive(false);
     }
