@@ -84,7 +84,6 @@ public class PlayerController : MonoBehaviour
                 }
                 // 플레이어의 앞에 있는 물체를 판별
 
-                // 행동이 완료돼 끝났을때도 두썸띵 거짓으로 만들기
             }
 
         }
@@ -93,15 +92,16 @@ public class PlayerController : MonoBehaviour
             UiFallowPlayer.Gauge();
 
         }
-        else if (Input.GetKeyUp(KeyCode.E) && doSomething)
+        else if (Input.GetKeyUp(KeyCode.E) && doSomething)  // E키를 떼면 작업을 멈추기
         {
+            doingTime = 0;
             doSomething = false;
             animator.SetBool("DoSomething", doSomething);
             UiFallowPlayer.currentValue = 0;
             UiFallowPlayer.LoadingBar.fillAmount = UiFallowPlayer.currentValue / 100;
         }
 
-        if (doingTime > 2)
+        if (doingTime > 2 && doSomething)       // 작업이 끝났을 때 행동을 멈추기
         {
             shouldStartTiming = false;
 
