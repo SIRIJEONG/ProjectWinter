@@ -24,10 +24,12 @@ public class PlayerController : MonoBehaviour
 
     private RaycastHit hitInfo;
 
-
     private Vector3 moveVec;
 
-    private GameObject hitObject;
+    private float doingTime;
+    private float startTime;
+    private bool shouldStartTiming = false;
+
     // 공격관련
     private float attackPower;  // 마우스로 공격 차지
     private bool isAttack;
@@ -38,10 +40,13 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
+        doingTime = 0;
+        
     }
 
     private void Update()
     {
+        Debug.LogFormat("두잉타임 {0}", doingTime);
         if (!doSomething)
         {
             PlayerMove();
@@ -49,49 +54,72 @@ public class PlayerController : MonoBehaviour
             PLayerIsClick();
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (shouldStartTiming)
         {
-            if(!doSomething)
+            doingTime = Time.time - startTime;
+            //Debug.Log("경과 시간: " + doingTime.ToString("F2") + "초");
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && !doSomething)
+        {
+            if (!doSomething)
             {
                 // 플레이어의 앞에 있는 물체를 판별
                 if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f))
                 {
+                    DoingTime();
                     if (hitInfo.collider.gameObject.tag == "Player")
                     {
                         PlayerHealth playerHealth = hitInfo.collider.gameObject.GetComponent<PlayerHealth>();
                         bool isPlayerDown = playerHealth.isDown;
                         if (isPlayerDown)
                         {
-                            PressE();        
+                            StartCoroutine(PressE());
                         }
-                            
+                    }
+                    if (hitInfo.collider.gameObject.tag == "Warehouse")
+                    {
+                        StartCoroutine(PressE());
                     }
                 }
                 // 플레이어의 앞에 있는 물체를 판별
 
-                // 행동이 완료돼 끝났을때도 두썸띵 거짓으로 만들기
-            }
-            else
-            {
-                doSomething = false;
-                animator.SetBool("DoSomething", doSomething);
             }
 
         }
-       
+        else if (Input.GetKey(KeyCode.E) && doSomething)
+        {
+            UiFallowPlayer.Gauge();
 
-        // 플레이어의 앞에 있는 물체를 판별
-        //if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f))
-        //{
-        //    
-        //
-        //}
-        // 플레이어의 앞에 있는 물체를 판별        
+        }
+        else if (Input.GetKeyUp(KeyCode.E) && doSomething)  // E키를 떼면 작업을 멈추기
+        {
+            doingTime = 0;
+            doSomething = false;
+            animator.SetBool("DoSomething", doSomething);
+            UiFallowPlayer.currentValue = 0;
+            UiFallowPlayer.LoadingBar.fillAmount = UiFallowPlayer.currentValue / 100;
+        }
 
+        if (doingTime > 2 && doSomething)       // 작업이 끝났을 때 행동을 멈추기
+        {
+            shouldStartTiming = false;
+
+            doingTime = 0;
+            UiFallowPlayer.currentValue = 0;
+            UiFallowPlayer.LoadingBar.fillAmount = UiFallowPlayer.currentValue / 100;
+            doSomething = false;
+            animator.SetBool("DoSomething", doSomething);
+
+            Debug.Log("1");
+            // 여기에 완료됐을때 상호작용을 실행할 코드를 추가해야됨
+
+        }
     }
 
-
-    private void PlayerMove()           // 플레이어 움직임
+    // 플레이어 움직임
+    #region
+    private void PlayerMove()          
     {
         // 좌표이동
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -116,6 +144,8 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Speed", aniSpeed);
         // 애니메이션
     }
+    #endregion
+    // 플레이어 움직임
 
     // 공격
     #region
@@ -124,6 +154,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0) && !isAttack)
         {
             Attack();
+            UiFallowPlayer.Gauge();
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -136,7 +167,7 @@ public class PlayerController : MonoBehaviour
     {
         if(!hand)
         {       //아이템 안들었을때
-            animator.Play("Punch_R", -1, 0.35f);
+            animator.Play("Punch_R", -1, 0.2f);
 
             attackPower += Time.deltaTime;
         }
@@ -151,6 +182,8 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator EndAttack()
     {
+        UiFallowPlayer.currentValue = 0;
+        UiFallowPlayer.LoadingBar.fillAmount = UiFallowPlayer.currentValue / 100;
         if (!hand)
         {       //아이템 안들었을때
             animator.SetBool("attack", isAttack);
@@ -167,15 +200,25 @@ public class PlayerController : MonoBehaviour
             isAttack = false;
             attackPower = 0;
         }
+        
     }
+
+
     #endregion
     // 공격   
 
-    private void PressE()
+    private IEnumerator PressE()
     {
+        shouldStartTiming = true;
+        startTime = Time.time;
         if (hitInfo.collider.gameObject.tag == "Item") // 루팅모션
         {
-            
+
+            yield return new WaitForSeconds(1.2f);
+        }
+        else if(hitInfo.collider.gameObject.tag == "Player")
+        {
+
         }
         else        // 작업모션
         {
@@ -183,16 +226,24 @@ public class PlayerController : MonoBehaviour
             doSomething = true;
             animator.SetBool("DoSomething", doSomething);
             animator.Play("DoSomething");
+            yield return new WaitForSeconds(1.2f);
         }
         // 행동이 완료되기까지 남은 시간 게이지
+    }
+        
+    private void DoingTime()
+    {
+        doingTime = 
+            
+            - startTime;
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Building"))
+        if (other.CompareTag("Building"))           // 플레이어가 건물 안으로 들어갔으면
         {
-            Debug.Log("1");
-            CameraFollow.inside = other.gameObject;
+            CameraFollow.inside = other.gameObject; // 카메라를 둘 오브잭트를 찾아 카메라를 둠
             CameraFollow.isInside = true;
         }
 
@@ -202,7 +253,6 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Building"))
         {
             CameraFollow.isInside = false;
-
         }
     }
 
