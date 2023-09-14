@@ -13,16 +13,13 @@ public class SG_InventoryClickScript : MonoBehaviour,IPointerEnterHandler,IDropH
     private RectTransform rect;   
     private Color32 defaultColor32;
 
-    private SG_ItemSlot playerItemSlotClass;
-    private SG_WareHouseItemSlot werehouseItemSlotClass;
-    private SG_ItemSwapManager swapManagerClass;
+ 
 
     private void Awake()
     {
        image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();       
-        defaultColor32 = new Color32(180, 180, 180, 255);
-        swapManagerClass = GetComponent<SG_ItemSwapManager>();
+        defaultColor32 = new Color32(180, 180, 180, 255);        
 
 
     }
@@ -49,10 +46,7 @@ public class SG_InventoryClickScript : MonoBehaviour,IPointerEnterHandler,IDropH
             eventData.pointerDrag.transform.SetParent(transform);
             eventData.pointerDrag.GetComponent<RectTransform>().position = rect.position;
 
-            // 여기에 SwapClass 에게 아이템 정보 들고 있는 것을 쏴주어야 할거같음
-            playerItemSlotClass = this.GetComponent<SG_ItemSlot>();
-            werehouseItemSlotClass = eventData.pointerDrag.transform.GetComponent<SG_WareHouseItemSlot>();
-            //swapManagerClass.ItemSwap(playerItemSlotClass.slotCount, werehouseItemSlotClass.slotCount);
+
         }
     }
 
@@ -65,6 +59,11 @@ public class SG_InventoryClickScript : MonoBehaviour,IPointerEnterHandler,IDropH
 
         // 아이템 슬롯의 색상을 원래색으로 변경
         image.color = defaultColor32;
+        //Debug.Log(this.gameObject.tag);
+        if(this.gameObject.CompareTag("WareHouseSlot"))
+        {
+            image.color = Color.black;
+        }
         //image.color = Color.black;
     }
 

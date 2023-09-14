@@ -34,7 +34,7 @@ public class SG_WareHouseInventory : MonoBehaviour
     private GameObject warehouseTextObj;
 
     // 창고의 슬롯을 배열로 선언
-    private SG_WareHouseItemSlot[] slots;
+    public SG_WareHouseItemSlot[] slots;
 
     // 인벤토리에서 주웠는지 확인후 PlayerAction Class에있는 Distroy실행시키는 방향으로만들기
 
@@ -44,7 +44,7 @@ public class SG_WareHouseInventory : MonoBehaviour
     // event를 델리게이트를 지정해서 델리게이트가 가지고 있는 void 의 리턴값과 매개변수가 없어야한다는 조건을넣어준샘이됨
     public event ItemDestroyDelegate ItemDestroyEvent;
    
-
+   
 
 
     private void Awake()
@@ -54,7 +54,12 @@ public class SG_WareHouseInventory : MonoBehaviour
 
     void Start()
     {
-        slots = slotsParent.GetComponentsInChildren<SG_WareHouseItemSlot>();        
+        slots = slotsParent.GetComponentsInChildren<SG_WareHouseItemSlot>();
+        
+        for(int i = 0; i < slots.Length; i++)
+        {
+            slots[i].wareHouseSlotCount = i + 100;
+        }
     }
 
     void Update()
