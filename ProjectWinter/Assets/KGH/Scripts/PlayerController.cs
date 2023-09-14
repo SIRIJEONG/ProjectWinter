@@ -46,7 +46,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Debug.LogFormat("두잉타임 {0}", doingTime);
         if (!doSomething)
         {
             PlayerMove();
@@ -59,7 +58,6 @@ public class PlayerController : MonoBehaviour
             doingTime = Time.time - startTime;
             //Debug.Log("경과 시간: " + doingTime.ToString("F2") + "초");
         }
-
         if (Input.GetKeyDown(KeyCode.E) && !doSomething)
         {
             if (!doSomething)
@@ -67,7 +65,9 @@ public class PlayerController : MonoBehaviour
                 // 플레이어의 앞에 있는 물체를 판별
                 if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f))
                 {
-                    DoingTime();
+                    Debug.DrawLine(transform.position, hitInfo.point, Color.red);
+
+                    //DoingTime();
                     if (hitInfo.collider.gameObject.tag == "Player")
                     {
                         PlayerHealth playerHealth = hitInfo.collider.gameObject.GetComponent<PlayerHealth>();
@@ -77,12 +77,21 @@ public class PlayerController : MonoBehaviour
                             StartCoroutine(PressE());
                         }
                     }
-                    if (hitInfo.collider.gameObject.tag == "Warehouse")
+                    if (hitInfo.collider.gameObject.tag == "Warehouse")     // 아래 else와 합쳐도 될듯?
+                    {
+                        StartCoroutine(PressE());
+                    }
+                    else
                     {
                         StartCoroutine(PressE());
                     }
                 }
                 // 플레이어의 앞에 있는 물체를 판별
+                else
+                {
+                    Debug.DrawRay(transform.position, transform.forward * 1.0f, Color.green);
+
+                }
 
             }
 
@@ -94,6 +103,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.E) && doSomething)  // E키를 떼면 작업을 멈추기
         {
+            shouldStartTiming = false;
             doingTime = 0;
             doSomething = false;
             animator.SetBool("DoSomething", doSomething);
@@ -213,6 +223,9 @@ public class PlayerController : MonoBehaviour
         startTime = Time.time;
         if (hitInfo.collider.gameObject.tag == "Item") // 루팅모션
         {
+            doSomething = true;
+            animator.SetBool("DoSomething", doSomething);
+            animator.Play("Looting");
 
             yield return new WaitForSeconds(1.2f);
         }
@@ -220,7 +233,7 @@ public class PlayerController : MonoBehaviour
         {
 
         }
-        else        // 작업모션
+        else if (hitInfo.collider.gameObject.tag == "Warehouse") // 작업모션
         {
             animator.SetFloat("Speed", 0);
             doSomething = true;
@@ -230,15 +243,9 @@ public class PlayerController : MonoBehaviour
         }
         // 행동이 완료되기까지 남은 시간 게이지
     }
-        
-    private void DoingTime()
-    {
-        doingTime = 
-            
-            - startTime;
 
-    }
-
+    // 실내 여부
+    #region
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Building"))           // 플레이어가 건물 안으로 들어갔으면
@@ -255,6 +262,8 @@ public class PlayerController : MonoBehaviour
             CameraFollow.isInside = false;
         }
     }
+    #endregion
+    // 실내 여부
 
 }
 //animator.SetLayerWeight(1, 0.0f);       // 두번째(1) 레이어의 애니메이션을 멈춤
