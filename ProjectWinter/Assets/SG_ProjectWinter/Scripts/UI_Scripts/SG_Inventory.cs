@@ -98,7 +98,7 @@ public class SG_Inventory : MonoBehaviour
     public void AcquireItem(SG_Item _item, int _count = 1)
     {
         // 아이템을 주우면 들어오는함수이지만 플레이어가 아니라면 바로 나가게 만듦
-        if(!topParentObj.CompareTag("Plaeyr"))
+        if(!topParentObj.CompareTag("Player"))
         {
             return;
         }

@@ -17,32 +17,27 @@ public class SG_ItemDragScript : MonoBehaviour,
 
     // 23.09.12 10 : 48 위 선언문 수정하고 아래 동작 수정해야함
     private Image itemImage;
-
-    // 23.09.13 Drag 쪽에서 쏴줘야 할거같음
-
-    private SG_ItemSlot playerItemSlotClass;
-    private SG_ItemSwapManager swapManagerClass;
-
-    // 아래부터 자신과 상대를 검출하기 위한 Class 선언
-
+     
+    private SG_ItemSlot giveItemSlotClass;       // 드래그 시작할떄 받아올 슬롯의 클래스
+    private SG_ItemSlot acceptItemSlotClass;     // 드롭 할때에 받아올 클래스
+    private SG_ItemSwapManager swapManagerClass; // 스왑 처리를 위한 클래스
 
     // 임시 주는 슬롯 받는 슬롯 고유번호 여기서 받아서 넘겨줄 거임
     private int giveSlotCount;
     private int acceptSlotCount;
 
-
-
+    [SerializeField]
+    private LayerMask slotLayer;
 
 
     private void Awake()
-    {
-        canvasTrans = FindAnyObjectByType<Canvas>().transform;
+    {  
+        canvasTrans = FindAnyObjectByType<Canvas>().transform;       
+        swapManagerClass = FindAnyObjectByType<SG_ItemSwapManager>();  
+
         rectTrans = GetComponent<RectTransform>();
-
-        //canvasGroup = GetComponent<CanvasGroup>();
         itemImage = GetComponent<Image>();
-
-       
+        //canvasGroup = GetComponent<CanvasGroup>();
     }
     /// <summary>
     /// 현재 오브젝트를 드래그하기 시작할 때 1회 호출
@@ -54,16 +49,11 @@ public class SG_ItemDragScript : MonoBehaviour,
 
         // 현재 드래그중인 UI가 화면의 최상단에 출력되도록 하기 위해
         this.transform.SetParent(canvasTrans);  // 부모 오브젝트를 Canvas로 설정
-        transform.SetAsLastSibling();           // 가장 앞에 보이도록 마지막 자식으로 설정
-
-        // 드래그 가능한 오브젝트가 하나가 아닌 자식들을 가지고 있을 수도 있기 때문에 CanvasGroup으로
-        // 알파값을 0.6으로 설정하고, 광선 충돌처리가 되지 않도록 한다.
-        //canvasGroup.alpha = 0.6f;
-        //canvasGroup.blocksRaycasts = false;
+        transform.SetAsLastSibling();           // 가장 앞에 보이도록 마지막 자식으로 설정        
 
         // 클릭한 슬롯의 고유번호 추출을 위한 함수
         ClickDown();
-        itemImage.raycastTarget = false;
+        itemImage.raycastTarget = false;    //드래그할때에 레이가 끌고있는것에 맞지않도록 Target flase
 
     }
 
@@ -100,11 +90,7 @@ public class SG_ItemDragScript : MonoBehaviour,
 
         ClickUp();
 
-
-        //TODO : 아래는 매개변수가 플레이어가 창고로 옮기는것인데 추후 따로두던지 차이점을 주어서 누가 주었는지 인식시켜야
-        // 다방면으올 사용가능할거같음
-        // 위 문제 방안 1 -> 자신의 부모오브젝트의 tag에 따라서 주는스크립트와 받는 스크립트를 구별한다
-        //  클래스의 선언이 좀 많아질것으로 예상
+        
 
 
         itemImage.raycastTarget = true;
@@ -136,14 +122,25 @@ public class SG_ItemDragScript : MonoBehaviour,
 
             // 여기에 감지된 clikedUIElement 변수에서 누른 슬롯을 추출해내면 될거같음
             Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
-          
-            //여기서 고유번호 추출
-            if(clickedUIElement.gameObject.CompareTag("WareHouseSlot"))
-            {
 
+            //여기서 고유번호 추출
+            if (clickedUIElement.CompareTag("ItemSlot")) // 아이템 슬롯을 눌렀을경우
+            {
+                acceptItemSlotClass = clickedUIElement.GetComponent<SG_ItemSlot>();
+                //누른 아이템슬롯의 고유번호 추출
+                acceptSlotCount = acceptItemSlotClass.slotCount;
+                Debug.LogFormat("클릭을 땔때주는 스롯의 고유번호 -> {0}", acceptSlotCount);
+                //Debug.LogFormat("받는 스롯의 고유번호 -> {0}",acceptSlotCount);
             }
 
             // 클릭한 UI 요소에 대한 작업을 수행할 수 있습니다.
+
+            // 아래함수 테스트후 아래함수는 giveSlotCount != null && acceptSlotCount != null 로 조건넣으면 될듯
+            Debug.LogFormat("giveSlotCount -> {0} acceptSlotCount -> {1}", giveSlotCount, acceptSlotCount);
+            Debug.LogFormat("giveItemSlotClass = null? -> {0}  acceptItemSlotClass = null? -> {1}", giveItemSlotClass == null, acceptItemSlotClass == null);
+            Debug.LogFormat("giveItemSlotClass -> {0}  acceptItemSlotClass -> {1}", giveItemSlotClass, acceptItemSlotClass);
+            Debug.Log(giveItemSlotClass.transform.parent.parent == gameObject);
+            swapManagerClass.ItemSwap(giveSlotCount, acceptSlotCount, giveItemSlotClass, acceptItemSlotClass);
         }
         else
         {
@@ -172,20 +169,17 @@ public class SG_ItemDragScript : MonoBehaviour,
             GameObject clickedUIElement = results[0].gameObject;
 
             // 여기에 감지된 clikedUIElement 변수에서 누른 슬롯을 추출해내면 될거같음
-            Debug.Log("클릭한 UI 요소: " + clickedUIElement.name);
+            Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
 
 
-            if(clickedUIElement.CompareTag("PlayerSlot")) // 플레이어 슬롯을 눌렀을경우
+            if(clickedUIElement.CompareTag("ItemSlot")) // 아이템 슬롯을 눌렀을경우
             {
-                playerItemSlotClass = clickedUIElement.GetComponent<SG_ItemSlot>();
-                //누른플레이어의 고유번호 추출
-                giveSlotCount = playerItemSlotClass.slotCount;
-                Debug.Log(giveSlotCount);
+                giveItemSlotClass = clickedUIElement.GetComponent<SG_ItemSlot>();
+                //누른 아이템슬롯의 고유번호 추출
+                giveSlotCount = giveItemSlotClass.slotCount;
+                Debug.LogFormat("클릭시 스롯의 고유번호 -> {0}", giveSlotCount);
             }
-
             
-
-            // 클릭한 UI 요소에 대한 작업을 수행할 수 있습니다.
         }
         else
         {

@@ -2439,7 +2439,7 @@ GameObject:
   - component: {fileID: 404892790}
   m_Layer: 5
   m_Name: Slot01 (3)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2482,6 +2482,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &404892791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2954,7 +2956,7 @@ GameObject:
   - component: {fileID: 480640311}
   m_Layer: 5
   m_Name: Slot01 (8)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2997,6 +2999,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &480640312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3062,7 +3066,7 @@ GameObject:
   - component: {fileID: 486737468}
   m_Layer: 5
   m_Name: Slot01 (9)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3105,6 +3109,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &486737469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3260,7 +3266,7 @@ GameObject:
   - component: {fileID: 511088407}
   m_Layer: 5
   m_Name: Slot01 (13)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3303,6 +3309,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &511088408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3688,7 +3696,7 @@ GameObject:
   - component: {fileID: 576711590}
   m_Layer: 5
   m_Name: Slot01 (1)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3731,6 +3739,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &576711591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4186,7 +4196,7 @@ GameObject:
   - component: {fileID: 616497194}
   m_Layer: 5
   m_Name: Slot01 (14)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4229,6 +4239,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &616497195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5092,7 +5104,7 @@ GameObject:
   - component: {fileID: 842225889}
   m_Layer: 5
   m_Name: Slot01 (15)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5135,6 +5147,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &842225890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5933,7 +5947,7 @@ GameObject:
   - component: {fileID: 937943534}
   m_Layer: 5
   m_Name: Slot01 (10)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5976,6 +5990,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &937943535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7732,7 +7748,7 @@ GameObject:
   - component: {fileID: 1138249698}
   m_Layer: 5
   m_Name: Slot01 (12)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7775,6 +7791,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &1138249699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8630,7 +8648,7 @@ GameObject:
   - component: {fileID: 1386431212}
   m_Layer: 5
   m_Name: Slot01 (5)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8673,6 +8691,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &1386431213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9162,7 +9182,7 @@ GameObject:
   - component: {fileID: 1460976870}
   m_Layer: 5
   m_Name: Slot01 (6)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9205,6 +9225,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &1460976871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10001,7 +10023,7 @@ GameObject:
   - component: {fileID: 1601494633}
   m_Layer: 5
   m_Name: Slot01 (7)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10044,6 +10066,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &1601494634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10114,7 +10138,7 @@ GameObject:
   - component: {fileID: 1633440224}
   m_Layer: 5
   m_Name: Slot01 (4)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10157,6 +10181,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &1633440225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11019,7 +11045,7 @@ GameObject:
   - component: {fileID: 1789083658}
   m_Layer: 5
   m_Name: Slot01 (2)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11062,6 +11088,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &1789083659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11127,7 +11155,7 @@ GameObject:
   - component: {fileID: 1795490534}
   m_Layer: 5
   m_Name: Slot01 (11)
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11170,6 +11198,8 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}
 --- !u!114 &1795490535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12889,7 +12919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5846409542135938007, guid: d4787fd12f8ecd94aae275cb5a4500b4, type: 3}
       propertyPath: m_TagString
-      value: PlayerSlot
+      value: ItemSlot
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7333732971187879648, guid: d4787fd12f8ecd94aae275cb5a4500b4, type: 3}
@@ -12996,7 +13026,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5846409542135938007, guid: d4787fd12f8ecd94aae275cb5a4500b4, type: 3}
       propertyPath: m_TagString
-      value: PlayerSlot
+      value: ItemSlot
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7333732971187879648, guid: d4787fd12f8ecd94aae275cb5a4500b4, type: 3}
@@ -14057,7 +14087,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5846409542135938007, guid: d4787fd12f8ecd94aae275cb5a4500b4, type: 3}
       propertyPath: m_TagString
-      value: PlayerSlot
+      value: ItemSlot
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7333732971187879648, guid: d4787fd12f8ecd94aae275cb5a4500b4, type: 3}
@@ -14176,7 +14206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5846409542135938007, guid: d4787fd12f8ecd94aae275cb5a4500b4, type: 3}
       propertyPath: m_TagString
-      value: PlayerSlot
+      value: ItemSlot
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7333732971187879648, guid: d4787fd12f8ecd94aae275cb5a4500b4, type: 3}
@@ -14375,7 +14405,7 @@ GameObject:
   - component: {fileID: 7635789513380080398}
   m_Layer: 5
   m_Name: Slot01
-  m_TagString: WareHouseSlot
+  m_TagString: ItemSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14456,3 +14486,5 @@ MonoBehaviour:
   itemImagePrefab: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
+  itemCountImg: {fileID: 0}
+  slotTopParentObj: {fileID: 0}

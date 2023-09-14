@@ -13,14 +13,14 @@ public class SG_InventoryClickScript : MonoBehaviour,IPointerEnterHandler,IDropH
     private RectTransform rect;   
     private Color32 defaultColor32;
 
- 
+    private SG_ItemSlot itemSlotClass;
 
     private void Awake()
     {
        image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();       
-        defaultColor32 = new Color32(180, 180, 180, 255);        
-
+        defaultColor32 = new Color32(180, 180, 180, 255);
+        itemSlotClass = this.transform.GetComponent<SG_ItemSlot>();
 
     }
 
@@ -60,7 +60,7 @@ public class SG_InventoryClickScript : MonoBehaviour,IPointerEnterHandler,IDropH
         // 아이템 슬롯의 색상을 원래색으로 변경
         image.color = defaultColor32;
         //Debug.Log(this.gameObject.tag);
-        if(this.gameObject.CompareTag("WareHouseSlot"))
+        if(itemSlotClass.slotTopParentObj.gameObject.CompareTag("Warehouse"))
         {
             image.color = Color.black;
         }
