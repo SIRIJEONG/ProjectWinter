@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/HW_ProjectWinter/Scene/HW_Lobby.unity
+    guid: 9dd89d5643f23624d8a2c44d78d4d864
+  - enabled: 1
+    path: Assets/HW_ProjectWinter/Scene/HW_WaitingRoom.unity
+    guid: be89eab549069204f8aaa0637b515fd1
   m_configObjects: {}
