@@ -9,8 +9,8 @@ public class CameraFollow : MonoBehaviour
     private float distance = 8.0f; 
     private float height = 11.0f;
 
-    public static bool isInside = false;
-    public static GameObject inside;
+    public static bool isInside = false;                // 수정필요############### static 삭제
+    public static GameObject inside;                    // 수정필요############### static 삭제
 
     private Vector3 offset = new Vector3(0.0f, 8.0f, -11.0f);
 

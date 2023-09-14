@@ -33,16 +33,22 @@ public class PlayerHealth : LivingEntity
 
     public override void Die()
     {
-        base.Die();
+        //base.Die();        
+        onDeath();
+        
     }
 
     private void onDeath()
     {
         isDown = true;
         animator.SetBool("Down", isDown);
-        PlayerController.speed = 2;
+        PlayerController playerController = transform.gameObject.GetComponent<PlayerController>();
+        playerController.speed = 2;
+
         // 시간당 playerDown을 줄여나감
-        if(playerDown <= 0)
+        playerDown -= Time.deltaTime * 3;
+
+        if (playerDown <= 0)
         {
             Dead();
         }
@@ -51,7 +57,19 @@ public class PlayerHealth : LivingEntity
     private void Dead()
     {
         playerEnd = true;
+        isDead = true;
         animator.SetBool("Dead", playerEnd);
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("attack"))
+        {
+            PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
+            int getDamage = playerController.damage;
+            Vector3 hitPoint = other.ClosestPoint(transform.position);
+            Vector3 hitNormal = transform.position - other.transform.position;
+            OnDamage(getDamage, hitPoint, hitNormal);
+        }
     }
 }

@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     private float horizontal;
     private float vertical;
-    public static int speed = 5;
+    public int speed = 5;
 
     private bool doSomething = false;
 
@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
     public static bool isSurvivor;
     public static bool isTrator;
     // 플레이어의 직업
+
+    public GameObject weapon;
+    public GameObject fist;
+    public GameObject ui;
 
     private bool hand = false;
 
@@ -30,9 +34,12 @@ public class PlayerController : MonoBehaviour
     private float startTime;
     private bool shouldStartTiming = false;
 
+    private UiFallowPlayer uiFallowPlayer;
+
     // 공격관련
     private float attackPower;  // 마우스로 공격 차지
     private bool isAttack;
+    public int damage;         // 줄 데미지
     // 공격관련
     
     private void Start()
@@ -41,7 +48,10 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         doingTime = 0;
+
+        uiFallowPlayer = ui.GetComponent<UiFallowPlayer>();
         
+
     }
 
     private void Update()
@@ -60,7 +70,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E) && !doSomething)
         {
-            if (!doSomething)
+            if (!doSomething && !Input.GetMouseButton(0))
             {
                 // 플레이어의 앞에 있는 물체를 판별
                 if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f))
@@ -98,7 +108,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.E) && doSomething)
         {
-            UiFallowPlayer.Gauge();
+            uiFallowPlayer.Gauge(60);
 
         }
         else if (Input.GetKeyUp(KeyCode.E) && doSomething)  // E키를 떼면 작업을 멈추기
@@ -107,8 +117,8 @@ public class PlayerController : MonoBehaviour
             doingTime = 0;
             doSomething = false;
             animator.SetBool("DoSomething", doSomething);
-            UiFallowPlayer.currentValue = 0;
-            UiFallowPlayer.LoadingBar.fillAmount = UiFallowPlayer.currentValue / 100;
+            uiFallowPlayer.currentValue = 0;
+            uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
         }
 
         if (doingTime > 2 && doSomething)       // 작업이 끝났을 때 행동을 멈추기
@@ -116,12 +126,11 @@ public class PlayerController : MonoBehaviour
             shouldStartTiming = false;
 
             doingTime = 0;
-            UiFallowPlayer.currentValue = 0;
-            UiFallowPlayer.LoadingBar.fillAmount = UiFallowPlayer.currentValue / 100;
+            uiFallowPlayer.currentValue = 0;
+            uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
             doSomething = false;
             animator.SetBool("DoSomething", doSomething);
 
-            Debug.Log("1");
             // 여기에 완료됐을때 상호작용을 실행할 코드를 추가해야됨
 
         }
@@ -164,9 +173,9 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0) && !isAttack)
         {
             Attack();
-            UiFallowPlayer.Gauge();
+            uiFallowPlayer.Gauge(120);
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0) && !isAttack)
         {
             isAttack = true;
             StartCoroutine(EndAttack());
@@ -192,21 +201,38 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator EndAttack()
     {
-        UiFallowPlayer.currentValue = 0;
-        UiFallowPlayer.LoadingBar.fillAmount = UiFallowPlayer.currentValue / 100;
+        uiFallowPlayer.currentValue = 0;
+        uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
         if (!hand)
         {       //아이템 안들었을때
-            animator.SetBool("attack", isAttack);
+            if (attackPower >= 0.9f)           // 데미지 수치 수정 필요
+            { damage = 2; }
+            else
+            { damage = 1; }
+            Debug.Log(damage);
 
-            yield return new WaitForSeconds(0.8f);
+            animator.SetBool("attack", isAttack);
+            yield return new WaitForSeconds(0.2f);
+            fist.SetActive(true);
+            yield return new WaitForSeconds(0.6f);
+            fist.SetActive(false);
+
             isAttack = false;
             attackPower = 0;
         }
         else
         {       //아이템 들었을때
-            animator.SetBool("attack", isAttack);
+            if (attackPower >= 0.9f)           // 데미지 수치 수정 필요
+            { damage = 2; }
+            else
+            { damage = 1; }
 
-            yield return new WaitForSeconds(0.8f);
+            animator.SetBool("attack", isAttack);
+            yield return new WaitForSeconds(0.1f);
+            weapon.SetActive(true);
+            yield return new WaitForSeconds(0.9f);
+            weapon.SetActive(false);
+
             isAttack = false;
             attackPower = 0;
         }
@@ -251,7 +277,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Building"))           // 플레이어가 건물 안으로 들어갔으면
         {
             CameraFollow.inside = other.gameObject; // 카메라를 둘 오브잭트를 찾아 카메라를 둠
-            CameraFollow.isInside = true;
+            CameraFollow.isInside = true;           // 수정필요
         }
 
     }
