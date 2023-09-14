@@ -24,9 +24,13 @@ public class SG_ItemSlot : MonoBehaviour
     private TextMeshProUGUI text_Count;
     private GameObject itemCountImg;
 
+    private GameObject slotTopParentObj;
+
     private void Start()
     {
-        
+        slotTopParentObj = this.transform.parent.gameObject;
+        // slot의 최상위 오브젝트 태그로 누군지 구별하기위해 최상위 오브젝트 삽입해주는 함수
+        GetThisTopParentObj();  
     }
 
 
@@ -42,11 +46,11 @@ public class SG_ItemSlot : MonoBehaviour
     // 아이템 획득
     public void AddItem(SG_Item _item, int _count = 1)
     {
-        //TODO : 아이템 스크립트 만든후 아이템 얻었을떄에
-        //          추가해주는함수 에 넣어주어야함
+        // 플레이어 가 아니라면 Inventory Script 에서 Return을 때리기 떄문에 조건문 삽입 X
+    
+
         item = _item;
         itemCount = _count;
-        //Debug.Log("아이템 =");
         //itemImage.sprite = item.itemImage;
 
         if (item.itemType != SG_Item.ItemType.Weapon)
@@ -65,8 +69,6 @@ public class SG_ItemSlot : MonoBehaviour
             text_Count.text = "0";
             //itemCountImg.SetActive(false);
         }
-
-        //Debug.Log(slotCount);
 
         SetColor(1);
     }
@@ -106,7 +108,24 @@ public class SG_ItemSlot : MonoBehaviour
     }
 
     // 아이템 Image 클론 만든후 자식의 자식의 자식 까지 찾아서 집어넣어주기
+    
     private void ChildSet()
+    {
+        
+        GameObject tempObj;
+        tempObj = this.gameObject.transform.GetChild(0).gameObject;
+        itemImage = tempObj.GetComponent<Image>();
+
+        GameObject tempObj002;
+        tempObj002 = tempObj.gameObject.transform.GetChild(0).gameObject;
+        itemCountImg = tempObj002.GetComponent<GameObject>();
+
+        // 맨위에 tempObj 재활용
+        tempObj = tempObj002.gameObject.transform.GetChild(0).gameObject;
+        text_Count = tempObj.GetComponent<TextMeshProUGUI>();
+    }
+
+    public void MoveItemSet()
     {
         GameObject tempObj;
         tempObj = this.gameObject.transform.GetChild(0).gameObject;
@@ -119,6 +138,14 @@ public class SG_ItemSlot : MonoBehaviour
         // 맨위에 tempObj 재활용
         tempObj = tempObj002.gameObject.transform.GetChild(0).gameObject;
         text_Count = tempObj.GetComponent<TextMeshProUGUI>();
+    }
+    private void GetThisTopParentObj()
+    {        
+        //최상위 부모 오브젝트 태그를 가져오기 위해 찾는 로직
+        while (slotTopParentObj.transform.parent != null)
+        {          
+            slotTopParentObj = slotTopParentObj.transform.parent.gameObject;
+        }
     }
 
 }

@@ -21,13 +21,10 @@ public class SG_ItemDragScript : MonoBehaviour,
     // 23.09.13 Drag 쪽에서 쏴줘야 할거같음
 
     private SG_ItemSlot playerItemSlotClass;
-    private SG_WareHouseItemSlot werehouseItemSlotClass;
     private SG_ItemSwapManager swapManagerClass;
 
     // 아래부터 자신과 상대를 검출하기 위한 Class 선언
-    private SG_ItemSlot giveByPlayer;
-    private SG_WareHouseItemSlot giveByWareHouse;
-    //perent = this.transform.parent.gameObject.GetComponent<SG_ItemSlot>();
+
 
     // 임시 주는 슬롯 받는 슬롯 고유번호 여기서 받아서 넘겨줄 거임
     private int giveSlotCount;
@@ -143,8 +140,7 @@ public class SG_ItemDragScript : MonoBehaviour,
             //여기서 고유번호 추출
             if(clickedUIElement.gameObject.CompareTag("WareHouseSlot"))
             {
-                werehouseItemSlotClass = clickedUIElement.GetComponent<SG_WareHouseItemSlot>();
-                acceptSlotCount = werehouseItemSlotClass.wareHouseSlotCount;
+
             }
 
             // 클릭한 UI 요소에 대한 작업을 수행할 수 있습니다.
@@ -155,31 +151,8 @@ public class SG_ItemDragScript : MonoBehaviour,
             Debug.Log("Click Up UI 요소를 클릭하지 않았거나, 클릭한 UI 요소가 없습니다.");
         }
 
-        //Debug.Log(giveByPlayer == null);
 
-
-        //if (this.transform.parent.gameObject.CompareTag("PlayerSlot"))
-        //{
-        //    giveByPlayer = this.transform.parent.gameObject.GetComponent<SG_ItemSlot>();
-        //}
-        //else if(this.transform.parent.gameObject.CompareTag("WareHouseSlot"))
-        //{
-        //    giveByWareHouse = this.transform.parent.gameObject.GetComponent<SG_WareHouseItemSlot>();
-        //}
-
-        
-
-        // 이곳에서 자신이 누구인지 눌렀을때 대상이 누구인지 알수 있음
-        // 여기서 Swap을 쏴주면 될거같기도함
-        if(giveByPlayer != null) //눌럿다 땟는데 슬롯이 플레이어의 것이면
-        {
-            // 매개변수 정보 : 주는얘 주소, 받는얘주소 , 플레이어 슬롯, 인벤토리 슬롯
-            swapManagerClass.ItemSwap(giveSlotCount, acceptSlotCount, playerItemSlotClass, werehouseItemSlotClass);
-            
-        }
-
-
-
+  
     }   // ClickUP()
 
     // 클릭했을때에 UI라면 해당하는 슬롯의 고유번호를 받아줄 함수

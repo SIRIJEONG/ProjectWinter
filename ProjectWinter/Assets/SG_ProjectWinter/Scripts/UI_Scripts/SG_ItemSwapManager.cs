@@ -46,7 +46,9 @@ public class SG_ItemSwapManager : MonoBehaviour
     public void ItemSwap(int _GiveSlotCount, int _AcceptSlotCount,
                          SG_ItemSlot _playerSlots, SG_WareHouseItemSlot _wereHouseSlots)
     {
-
+        Debug.Log("Swap 함수는 들어오기는 하는가?");
+        Debug.LogFormat("매개변수 _GiveCount -> {0} _AcceptCount -> {1} _PSlot = null? -> {2} _WSlot = null? -> {3}",
+            _GiveSlotCount, _AcceptSlotCount, _playerSlots, _wereHouseSlots);
         //Debug.LogFormat("Player매개변수slots이 정확한 지정좌표를 가지고 있나? -> {0}", _playerSlots.slotCount);
         //Debug.LogFormat("창고 매개변수slots이 정확한 지정좌표를 가지고 있나? -> {0}", _wereHouseSlots.wareHouseSlotCount);
 
