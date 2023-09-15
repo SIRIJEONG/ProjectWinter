@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AwakeNoticeCanvas : MonoBehaviour
 {
+    // 알림 UI 오브젝트
     public GameObject noticeCanvas;
 
     // Start is called before the first frame update
