@@ -4,23 +4,22 @@ using UnityEngine.UI;
 
 public class PressEKey : MonoBehaviour
 {
-    public GameObject completeUi;
-    public GameObject noticeUi;
-    public Text noticeText;
-    public Slider progressBar;
-    public bool isComplete = false;
+    public GameObject completeUi;   // 완료! UI
+    public GameObject noticeUi;     // 알림 UI
+    public Text noticeText;         // 알림 UI의 텍스트
+    public Slider progressBar;      // E버튼 진행도
+    public bool isComplete = false; // 수리나 작동을 완료했는지
 
-    private bool isEPressed = false;
+    private bool isEPressed = false;// 누르고 있는지 확인
     private float ePressStartTime = 0f;
     private float ePressDuration = 1.5f; // 1.5초 동안 눌러야 함
 
-    private float currentValue = 0f;
-    private Coroutine fillingCoroutine;
+    private float currentValue = 0f;     // 현재 Filled타입의 채워진 양
+    private Coroutine fillingCoroutine;  
     
 
     private void Start()
     {
-        Debug.Log(transform.parent.name);
         noticeText.text = string.Format("{0}",UIManager.instance.FormatNoticeText(transform.parent));
         completeUi.SetActive(false);
         progressBar.value = 0;

@@ -12,6 +12,9 @@ TagManager:
   - WareHouseSlot
   - Operate
   - Repair
+  - Box
+  - ItemSlot
+  - Attack
   layers:
   - Default
   - TransparentFX
