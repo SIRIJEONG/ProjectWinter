@@ -12,8 +12,8 @@ TagManager:
   - WareHouseSlot
   - Operate
   - Repair
-  - Box
   - ItemSlot
+  - Box
   - Attack
   layers:
   - Default
