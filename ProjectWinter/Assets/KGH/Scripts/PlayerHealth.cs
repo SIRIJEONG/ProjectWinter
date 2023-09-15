@@ -28,7 +28,10 @@ public class PlayerHealth : LivingEntity
     // Update is called once per frame
     void Update()
     {
-
+        if(isDown)
+        {
+            onDeath();
+        }
     }
 
     public override void Die()
@@ -63,13 +66,27 @@ public class PlayerHealth : LivingEntity
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("attack"))
+        if(other.CompareTag("Attack"))
         {
-            PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
-            int getDamage = playerController.damage;
-            Vector3 hitPoint = other.ClosestPoint(transform.position);
-            Vector3 hitNormal = transform.position - other.transform.position;
-            OnDamage(getDamage, hitPoint, hitNormal);
-        }
+            if (!isDown)
+            {/*
+                PlayerController playercontroller = other.transform.parent.GetComponent<PlayerController>();
+                //PlayerHealth playerHealth = transform.parent.GetComponent<PlayerHealth>();
+                int getdamage = playercontroller.damage;
+                */
+                int getdamage = 10;
+                Vector3 hitpoint = other.ClosestPoint(transform.position);
+                Vector3 hitnormal = transform.position - other.transform.position;
+                OnDamage(getdamage, hitpoint, hitnormal);
+            }
+            else
+            {
+                PlayerController playercontroller = other.transform.parent.GetComponent<PlayerController>();
+                //PlayerHealth playerHealth = transform.parent.GetComponent<PlayerHealth>();
+                int getdamage = playercontroller.damage;
+
+                playerDown -= getdamage;
+            }
+        }        
     }
 }

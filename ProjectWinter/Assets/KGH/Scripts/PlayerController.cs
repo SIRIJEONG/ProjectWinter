@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,25 +24,30 @@ public class PlayerController : MonoBehaviour
     public GameObject weapon;
     public GameObject fist;
     public GameObject ui;
+    public GameObject cameraObject;
 
     private bool hand = false;
 
     private RaycastHit hitInfo;
-
     private Vector3 moveVec;
 
     private float doingTime;
     private float startTime;
     private bool shouldStartTiming = false;
+    private int doingCase;      // 뭘 하는 도중인지
 
     private UiFallowPlayer uiFallowPlayer;
+
+    private PlayerHealth health;
 
     // 공격관련
     private float attackPower;  // 마우스로 공격 차지
     private bool isAttack;
     public int damage;         // 줄 데미지
+    private bool eat = false;
+
     // 공격관련
-    
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -50,13 +56,13 @@ public class PlayerController : MonoBehaviour
         doingTime = 0;
 
         uiFallowPlayer = ui.GetComponent<UiFallowPlayer>();
-        
 
+        health = transform.GetComponent<PlayerHealth>();
     }
 
     private void Update()
     {
-        if (!doSomething)
+        if (!doSomething && !health.isDown)
         {
             PlayerMove();
 
@@ -131,8 +137,32 @@ public class PlayerController : MonoBehaviour
             doSomething = false;
             animator.SetBool("DoSomething", doSomething);
 
-            // 여기에 완료됐을때 상호작용을 실행할 코드를 추가해야됨
+            if(eat)
+            {
+                // 먹은 음식에 따른 회복
+            }
 
+            // 여기에 완료됐을때 상호작용을 실행할 코드를 추가해야됨
+            if (doingCase == 1)
+            {
+                //아이템
+            }
+            else if( doingCase == 2)
+            {
+                //플레이어
+                Collider hitCollider = hitInfo.collider;
+
+                GameObject toRevive = hitCollider.gameObject;
+
+                PlayerHealth playerHealth = toRevive.GetComponent<PlayerHealth>();
+
+                playerHealth.health = 20;
+                playerHealth.isDown = false;
+            }
+            else if (doingCase == 3)
+            {
+                //상자
+            }
         }
     }
 
@@ -170,15 +200,33 @@ public class PlayerController : MonoBehaviour
     #region
     private void PLayerIsClick()
     {
-        if (Input.GetMouseButton(0) && !isAttack)
+        if (Input.GetMouseButton(0) && !isAttack)   // 추가조건 : 손에 음식이 없을때, 안전지대에선 안되게
         {
             Attack();
             uiFallowPlayer.Gauge(120);
         }
-        else if (Input.GetMouseButtonUp(0) && !isAttack)
+        //else if(true)//(음식이 손에 있을때)
+        //{
+           
+
+        //    uiFallowPlayer.Gauge(120);
+        //    StartCoroutine(Eat());
+        //}
+        else if (Input.GetMouseButtonUp(0) && !isAttack)    // 추가조건 : 손에 음식이 없을때, 안전지대에선 안되게
         {
-            isAttack = true;
-            StartCoroutine(EndAttack());
+            if (!eat)
+            {
+
+                isAttack = true;
+                StartCoroutine(EndAttack());
+            }
+            else
+            {
+                eat = false;
+                doSomething = false;
+                shouldStartTiming = false;
+
+            }
         }
     }
 
@@ -239,6 +287,16 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    private IEnumerator Eat()
+    {
+        eat = true;
+
+        shouldStartTiming = true;
+        startTime = Time.time;
+        animator.Play("Eat");
+        yield return new WaitForSeconds(1.2f);
+
+    }
 
     #endregion
     // 공격   
@@ -252,12 +310,19 @@ public class PlayerController : MonoBehaviour
             doSomething = true;
             animator.SetBool("DoSomething", doSomething);
             animator.Play("Looting");
-
             yield return new WaitForSeconds(1.2f);
+
+            doingCase = 1;
         }
         else if(hitInfo.collider.gameObject.tag == "Player")
         {
+            animator.SetFloat("Speed", 0);
+            doSomething = true;
+            animator.SetBool("DoSomething", doSomething);
+            animator.Play("DoSomething");
+            yield return new WaitForSeconds(1.2f);
 
+            doingCase = 2;
         }
         else if (hitInfo.collider.gameObject.tag == "Warehouse") // 작업모션
         {
@@ -266,8 +331,13 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("DoSomething", doSomething);
             animator.Play("DoSomething");
             yield return new WaitForSeconds(1.2f);
+
+            doingCase = 3;
         }
         // 행동이 완료되기까지 남은 시간 게이지
+
+        // 경우의수 변경 ############################################
+
     }
 
     // 실내 여부
@@ -276,16 +346,20 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Building"))           // 플레이어가 건물 안으로 들어갔으면
         {
-            CameraFollow.inside = other.gameObject; // 카메라를 둘 오브잭트를 찾아 카메라를 둠
-            CameraFollow.isInside = true;           // 수정필요
+            GameObject cameraObject = GameObject.Find("CM vcam1");
+            CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // 카메라를 둘 오브잭트를 찾아 카메라를 둠
+            cameraFollow.inside = other.gameObject;
+            cameraFollow.isInside = true;
         }
-
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Building"))
         {
-            CameraFollow.isInside = false;
+            cameraObject = GameObject.Find("CM vcam1");
+            CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // 카메라를 둘 오브잭트를 찾아 카메라를 둠
+            bool isInside = cameraFollow.isInside;
+            cameraFollow.isInside =  false;
         }
     }
     #endregion
