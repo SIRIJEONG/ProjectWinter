@@ -28,21 +28,30 @@ public class PlayerHealth : LivingEntity
     // Update is called once per frame
     void Update()
     {
-
+        if(isDown)
+        {
+            onDeath();
+        }
     }
 
     public override void Die()
     {
-        base.Die();
+        //base.Die();        
+        onDeath();
+        
     }
 
     private void onDeath()
     {
         isDown = true;
         animator.SetBool("Down", isDown);
-        PlayerController.speed = 2;
+        PlayerController playerController = transform.gameObject.GetComponent<PlayerController>();
+        playerController.speed = 2;
+
         // 시간당 playerDown을 줄여나감
-        if(playerDown <= 0)
+        playerDown -= Time.deltaTime * 3;
+
+        if (playerDown <= 0)
         {
             Dead();
         }
@@ -51,7 +60,33 @@ public class PlayerHealth : LivingEntity
     private void Dead()
     {
         playerEnd = true;
+        isDead = true;
         animator.SetBool("Dead", playerEnd);
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Attack"))
+        {
+            if (!isDown)
+            {/*
+                PlayerController playercontroller = other.transform.parent.GetComponent<PlayerController>();
+                //PlayerHealth playerHealth = transform.parent.GetComponent<PlayerHealth>();
+                int getdamage = playercontroller.damage;
+                */
+                int getdamage = 10;
+                Vector3 hitpoint = other.ClosestPoint(transform.position);
+                Vector3 hitnormal = transform.position - other.transform.position;
+                OnDamage(getdamage, hitpoint, hitnormal);
+            }
+            else
+            {
+                PlayerController playercontroller = other.transform.parent.GetComponent<PlayerController>();
+                //PlayerHealth playerHealth = transform.parent.GetComponent<PlayerHealth>();
+                int getdamage = playercontroller.damage;
+
+                playerDown -= getdamage;
+            }
+        }        
     }
 }

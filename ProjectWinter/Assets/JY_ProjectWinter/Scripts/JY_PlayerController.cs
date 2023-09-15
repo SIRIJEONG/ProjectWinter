@@ -191,9 +191,10 @@ public class JY_PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Building"))
         {
-            Debug.Log("1");
-            CameraFollow.inside = other.gameObject;
-            CameraFollow.isInside = true;
+            GameObject cameraObject = GameObject.Find("CM vcam1");
+            CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // 카메라를 둘 오브잭트를 찾아 카메라를 둠
+            bool isInside = cameraFollow.isInside;
+            cameraFollow.isInside = true;
         }
 
     }
@@ -201,8 +202,10 @@ public class JY_PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Building"))
         {
-            CameraFollow.isInside = false;
-
+            GameObject cameraObject = GameObject.Find("CM vcam1");
+            CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // 카메라를 둘 오브잭트를 찾아 카메라를 둠
+            bool isInside = cameraFollow.isInside;
+            cameraFollow.isInside = false;
         }
     }
 

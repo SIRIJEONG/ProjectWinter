@@ -8,9 +8,9 @@ public class UiFallowPlayer : MonoBehaviour
 {
     public Transform player;
 
-    public static Image LoadingBar;
-    public static float currentValue;
-    public static float speed = 60;
+    public Image LoadingBar;
+    public float currentValue;
+    
 
     private void Start()
     {
@@ -26,7 +26,7 @@ public class UiFallowPlayer : MonoBehaviour
         
     }
 
-    public static void Gauge()
+    public void Gauge(float speed)
     {
         if (currentValue < 100)
         {

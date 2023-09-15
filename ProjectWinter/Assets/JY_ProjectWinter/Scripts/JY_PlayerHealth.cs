@@ -40,9 +40,10 @@ public class JY_PlayerHealth : LivingEntity
     {
         isDown = true;
         animator.SetBool("Down", isDown);
-        PlayerController.speed = 2;
+        PlayerController playerController = transform.gameObject.GetComponent<PlayerController>();
+        playerController.speed = 2;
         // 시간당 playerDown을 줄여나감
-        if(playerDown <= 0)
+        if (playerDown <= 0)
         {
             Dead();
         }
