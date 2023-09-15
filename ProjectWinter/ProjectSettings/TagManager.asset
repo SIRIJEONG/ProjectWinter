@@ -12,6 +12,9 @@ TagManager:
   - WareHouseSlot
   - Operate
   - Repair
+  - Box
+  - ItemSlot
+  - Attack
   layers:
   - Default
   - TransparentFX
@@ -50,5 +53,5 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: UI
-    uniqueID: 3247892599
+    uniqueID: 3031783403
     locked: 0

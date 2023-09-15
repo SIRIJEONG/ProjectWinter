@@ -4,16 +4,21 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+//using static System.Net.Mime.MediaTypeNames;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    public Text StatusText;
-    public InputField roomInput, NickNameInput;
+    public Text severText;
+    public InputField roomInput, nickNameInput;
+
+    private List<string> playerNicknames = new List<string>();
+
+    void Awake() => Screen.SetResolution(1280  , 720, false);
 
 
-    void Awake() => Screen.SetResolution(960, 540, false);
-
-    void Update() => StatusText.text = PhotonNetwork.NetworkClientState.ToString();
+    void Update()
+    {
+    }
 
 
 
@@ -21,8 +26,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
+        severText.text = "Connected Server";
         print("서버접속완료");
-        PhotonNetwork.LocalPlayer.NickName = NickNameInput.text;
+        PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
     }
 
 
@@ -51,7 +57,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnCreatedRoom() => print("방만들기완료");
 
-    public override void OnJoinedRoom() => print("방참가완료");
+    public override void OnJoinedRoom()
+    {
+        PhotonNetwork.LoadLevel("HW_WaitingRoom");
+        print("방참가완료");
+
+    }
+
+
 
     public override void OnCreateRoomFailed(short returnCode, string message) => print("방만들기실패");
 

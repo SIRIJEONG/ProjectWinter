@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/HW_ProjectWinter/Scene/HW_WaitingRoom.unity
     guid: be89eab549069204f8aaa0637b515fd1
+  - enabled: 1
+    path: Assets/HW_ProjectWinter/Scene/HW_PlayScene.unity
+    guid: aba4f36b00b21064eb58e9bab3e04024
   m_configObjects: {}
