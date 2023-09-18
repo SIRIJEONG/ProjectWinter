@@ -141,6 +141,13 @@ public class SG_ItemSlot : MonoBehaviour
         itemCountImg = null;
         item = null;
         itemCount = 0;
+        Transform childTrans;
+        if (this.transform.childCount > 0)
+        {
+            childTrans = this.transform.GetChild(0);
+            Destroy(childTrans.gameObject);
+            SG_ItemDragScript.allItemDragScrip.Remove(childTrans.GetComponent<SG_ItemDragScript>());
+        }
     }
 
     // 아이템 슬롯 초기화
