@@ -44,9 +44,11 @@ public class PlayerController : MonoBehaviour
     private float attackPower;  // 마우스로 공격 차지
     private bool isAttack;
     public int damage;         // 줄 데미지
-    private bool eat = false;
+    private bool eat = false;       // 임시로 넣은것, 나중에 음식을 먹으면 on, 회복 후 off로 재활용
 
     // 공격관련
+
+    public PlayerHealth playerHealth;
 
     private void Start()
     {
@@ -58,15 +60,20 @@ public class PlayerController : MonoBehaviour
         uiFallowPlayer = ui.GetComponent<UiFallowPlayer>();
 
         health = transform.GetComponent<PlayerHealth>();
+
     }
 
     private void Update()
     {
-        if (!doSomething && !health.isDown)
+        
+        animator.SetBool("attack", isAttack);
+        if (!doSomething && !health.isDead)
         {
             PlayerMove();
-
-            PLayerIsClick();
+            if (!health.isDown)
+            {
+                PLayerIsClick();
+            }
         }
 
         if (shouldStartTiming)
@@ -74,7 +81,7 @@ public class PlayerController : MonoBehaviour
             doingTime = Time.time - startTime;
             //Debug.Log("경과 시간: " + doingTime.ToString("F2") + "초");
         }
-        if (Input.GetKeyDown(KeyCode.E) && !doSomething)
+        if (Input.GetKeyDown(KeyCode.E) && !doSomething && !health.isDead && !health.isDown)
         {
             if (!doSomething && !Input.GetMouseButton(0))
             {
@@ -112,12 +119,12 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        else if (Input.GetKey(KeyCode.E) && doSomething)
+        else if (Input.GetKey(KeyCode.E) && doSomething && !health.isDead && !health.isDown)
         {
             uiFallowPlayer.Gauge(60);
 
         }
-        else if (Input.GetKeyUp(KeyCode.E) && doSomething)  // E키를 떼면 작업을 멈추기
+        else if (Input.GetKeyUp(KeyCode.E) && doSomething && !health.isDead && !health.isDown)  // E키를 떼면 작업을 멈추기
         {
             shouldStartTiming = false;
             doingTime = 0;
@@ -125,6 +132,12 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("DoSomething", doSomething);
             uiFallowPlayer.currentValue = 0;
             uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
+        }
+
+        if(isAttack && health.health <= 0)
+        {
+            isAttack = false;
+            animator.SetBool("attack", isAttack);
         }
 
         if (doingTime > 2 && doSomething)       // 작업이 끝났을 때 행동을 멈추기
@@ -154,9 +167,10 @@ public class PlayerController : MonoBehaviour
 
                 GameObject toRevive = hitCollider.gameObject;
 
-                PlayerHealth playerHealth = toRevive.GetComponent<PlayerHealth>();
+                playerHealth = toRevive.GetComponent<PlayerHealth>();
 
                 playerHealth.health = 20;
+                playerHealth.playerDown = 100;
                 playerHealth.isDown = false;
             }
             else if (doingCase == 3)
@@ -200,7 +214,7 @@ public class PlayerController : MonoBehaviour
     #region
     private void PLayerIsClick()
     {
-        if (Input.GetMouseButton(0) && !isAttack)   // 추가조건 : 손에 음식이 없을때, 안전지대에선 안되게
+        if (Input.GetMouseButton(0) && !isAttack && !health.isInside)   // 추가조건 : 손에 음식이 없을때
         {
             Attack();
             uiFallowPlayer.Gauge(120);
@@ -212,7 +226,7 @@ public class PlayerController : MonoBehaviour
         //    uiFallowPlayer.Gauge(120);
         //    StartCoroutine(Eat());
         //}
-        else if (Input.GetMouseButtonUp(0) && !isAttack)    // 추가조건 : 손에 음식이 없을때, 안전지대에선 안되게
+        else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside)    // 추가조건 : 손에 음식이 없을때
         {
             if (!eat)
             {

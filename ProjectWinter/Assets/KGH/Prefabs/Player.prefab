@@ -235,6 +235,7 @@ GameObject:
   - component: {fileID: 796856824759624338}
   - component: {fileID: 3160073553476111240}
   - component: {fileID: 33983290080049456}
+  - component: {fileID: 2994216498188355511}
   m_Layer: 5
   m_Name: hunger_full
   m_TagString: Untagged
@@ -300,6 +301,110 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2994216498188355511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178373986480588354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fe28cba1b5cf648b508896d9e82864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentValue: 0
+--- !u!1 &1396256002679652920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3848047405450823429}
+  - component: {fileID: 2938911523726139606}
+  - component: {fileID: 4035249460024329387}
+  - component: {fileID: 1878864233699461770}
+  m_Layer: 0
+  m_Name: DownGauge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3848047405450823429
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396256002679652920}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.124804996, y: 0.124804996, z: 0.124804996}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2917221569621652874}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2938911523726139606
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396256002679652920}
+  m_CullTransparentMesh: 1
+--- !u!114 &4035249460024329387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396256002679652920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0.009149075, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 6cb73bc65bd066e458b171bcddc48124, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 0
+  m_FillOrigin: 2
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1878864233699461770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396256002679652920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad1ea6ed9fd6cd4ea85dafa8ff848da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GaugeBar: {fileID: 4035249460024329387}
+  currentValue: 0
 --- !u!1 &1862972393000585910
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,13 +664,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 9c6c77f4496a0374a90d6ab2728a0d5e, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillAmount: 0
+  m_FillClockwise: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!114 &8171238992800396834
@@ -826,7 +931,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35fe28cba1b5cf648b508896d9e82864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GaugeBar: {fileID: 7430613213540072288}
   currentValue: 0
 --- !u!1 &5583166925320885955
 GameObject:
@@ -983,6 +1087,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7970437790324047821}
+  - {fileID: 3848047405450823429}
   m_Father: {fileID: 9175855721789480104}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1063,6 +1168,7 @@ GameObject:
   - component: {fileID: 5880254720561001426}
   - component: {fileID: 3831358685175155278}
   - component: {fileID: 4251582313172453255}
+  - component: {fileID: 7559665857188543697}
   m_Layer: 5
   m_Name: cold_full
   m_TagString: Untagged
@@ -1128,6 +1234,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7559665857188543697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9026601134586118136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fe28cba1b5cf648b508896d9e82864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentValue: 0
 --- !u!1 &9175855720602277185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,7 +1450,12 @@ MonoBehaviour:
   startingHealth: 100
   health: 0
   isDead: 0
+  playerDown: 100
+  hunger: 100
+  cold: 100
   isDown: 0
+  powerGauge: {fileID: 4474086132459785609}
+  downGauge: {fileID: 1396256002679652920}
 --- !u!114 &9175855721789480107
 MonoBehaviour:
   m_ObjectHideFlags: 0

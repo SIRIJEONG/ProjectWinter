@@ -11572,6 +11572,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+--- !u!1 &247941413 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2084120191193572058, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+  m_PrefabInstance: {fileID: 9175855720992075997}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &247941417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247941413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f3643d289be5d4bab582bc812dee03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &248403788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96714,6 +96731,42 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2965524994976626930, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2965524994976626930, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2965524994976626930, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3671142184896511948, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3671142184896511948, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3671142184896511948, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_FillMethod
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3848047405450823429, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3848047405450823429, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3848047405450823429, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 4157181647346164994, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
       propertyPath: m_Type
       value: 3
@@ -96750,6 +96803,26 @@ PrefabInstance:
       propertyPath: m_FillClockwise
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4251582313172453255, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609244961542109917, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609244961542109917, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609244961542109917, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5371814714471941278, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6573939200091815266, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
       propertyPath: m_Camera
       value: 
@@ -96761,6 +96834,18 @@ PrefabInstance:
     - target: {fileID: 6573939200091815266, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
       propertyPath: m_SortingOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430613213540072288, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430613213540072288, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430613213540072288, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7970437790324047821, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
       propertyPath: m_LocalScale.x
