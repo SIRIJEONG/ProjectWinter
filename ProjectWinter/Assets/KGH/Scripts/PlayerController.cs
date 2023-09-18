@@ -1,3 +1,5 @@
+using Cinemachine;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -45,8 +47,9 @@ public class PlayerController : MonoBehaviour
     private bool isAttack;
     public int damage;         // 줄 데미지
     private bool eat = false;       // 임시로 넣은것, 나중에 음식을 먹으면 on, 회복 후 off로 재활용
-
     // 공격관련
+
+    private CameraFollow cameraFollow;
 
     public PlayerHealth playerHealth;
 
@@ -60,6 +63,16 @@ public class PlayerController : MonoBehaviour
         uiFallowPlayer = ui.GetComponent<UiFallowPlayer>();
 
         health = transform.GetComponent<PlayerHealth>();
+
+        //if (photonView.isMine)
+        {
+            CinemachineVirtualCamera followCam = FindObjectOfType<CinemachineVirtualCamera>();
+            followCam.LookAt = transform;
+
+            cameraFollow = followCam.GetComponent<CameraFollow>();
+            cameraFollow.playerController = this;
+            //followCam.LookAt = transform;
+        }
 
     }
 
@@ -93,7 +106,7 @@ public class PlayerController : MonoBehaviour
                     //DoingTime();
                     if (hitInfo.collider.gameObject.tag == "Player")
                     {
-                        PlayerHealth playerHealth = hitInfo.collider.gameObject.GetComponent<PlayerHealth>();
+                        playerHealth = hitInfo.collider.gameObject.GetComponent<PlayerHealth>();
                         bool isPlayerDown = playerHealth.isDown;
                         if (isPlayerDown)
                         {
@@ -160,7 +173,7 @@ public class PlayerController : MonoBehaviour
             {
                 //아이템
             }
-            else if( doingCase == 2)
+            else if( doingCase == 2)    // 다운된 플레이어일때 살림
             {
                 //플레이어
                 Collider hitCollider = hitInfo.collider;
@@ -348,32 +361,40 @@ public class PlayerController : MonoBehaviour
 
             doingCase = 3;
         }
-        // 행동이 완료되기까지 남은 시간 게이지
-
-        // 경우의수 변경 ############################################
-
     }
 
     // 실내 여부
     #region
+    // ###########################
+    // isMine일때만 실행
+    // ###########################
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Building"))           // 플레이어가 건물 안으로 들어갔으면
         {
-            GameObject cameraObject = GameObject.Find("CM vcam1");
-            CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // 카메라를 둘 오브잭트를 찾아 카메라를 둠
+            //cameraObject = GameObject.Find("CM vcam1");
+            //CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // 카메라를 둘 오브잭트를 찾아 카메라를 둠
             cameraFollow.inside = other.gameObject;
             cameraFollow.isInside = true;
+
+           
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Building"))
         {
-            cameraObject = GameObject.Find("CM vcam1");
-            CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // 카메라를 둘 오브잭트를 찾아 카메라를 둠
-            bool isInside = cameraFollow.isInside;
+            //cameraObject = GameObject.Find("CM vcam1");
+            //CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // 카메라를 둘 오브잭트를 찾아 카메라를 둠
+            //bool isInside = cameraFollow.isInside;
             cameraFollow.isInside =  false;
+            
+            //if (photonView.isMine)
+            //{
+            //    CinemachineVirtualCamera followCam = FindObjectOfType<CinemachineVirtualCamera>();
+            //    followCam.LookAt = transform;
+            //}
         }
     }
     #endregion

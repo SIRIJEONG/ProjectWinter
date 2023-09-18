@@ -1,3 +1,5 @@
+using Cinemachine;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,24 +11,33 @@ public class CameraFollow : MonoBehaviour
     private float distance = 8.0f; 
     private float height = 11.0f;
 
-    public bool isInside = false;                // 수정필요############### static 삭제
-    public GameObject inside;                    // 수정필요############### static 삭제
+    public bool isInside = false;
+    public GameObject inside;
 
     private Vector3 offset = new Vector3(0.0f, 8.0f, -11.0f);
+
+    public PlayerController playerController;
+    public GhostController ghostController;
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = playerController.gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isInside)
+        if (ghostController != null)
         {
-            GameObject playerObject = GameObject.Find("Player");
-            toFallow = playerObject.transform;
+            player = ghostController.gameObject;
+
+        }
+        if (!isInside)           // 변경필요, isMIne 일 때 따라오게 변경 필요
+        {
+            //GameObject playerObject = GameObject.Find("Player");
+            toFallow = player.transform;
             Vector3 targetPosition = toFallow.position + offset;
 
             transform.position = targetPosition;

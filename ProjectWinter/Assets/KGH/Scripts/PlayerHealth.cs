@@ -15,6 +15,7 @@ public class PlayerHealth : LivingEntity
 
     private bool playerEnd;
 
+    public GameObject ghost;
     public GameObject powerGauge;
     public GameObject downGauge;
     //private bool isDead = false;
@@ -42,6 +43,13 @@ public class PlayerHealth : LivingEntity
         { hunger = 100;}
         if ( cold > 100)
         { cold = 100;}
+
+        if ( health < 0) //최소치를 넘길시 최소치로 초기화
+        { health = 0;}
+        if ( cold < 0) 
+        {  cold = 0;}
+        if ( hunger < 0) 
+        {  hunger = 0;}
 
         if (isDown)
         {
@@ -94,7 +102,6 @@ public class PlayerHealth : LivingEntity
     {
         //base.Die();        
         onDeath();
-        
     }
 
     private void onDeath()
@@ -110,6 +117,13 @@ public class PlayerHealth : LivingEntity
         if (playerDown <= 0)
         {
             Dead();
+
+            ghost.SetActive(true);
+
+            //GetComponent<BoxCollider>().enabled = false;
+
+            playerController.enabled = false;
+
         }
     }
 
@@ -134,7 +148,7 @@ public class PlayerHealth : LivingEntity
                 PlayerController playercontroller = other.transform.parent.GetComponent<PlayerController>();
                 //PlayerHealth playerHealth = transform.parent.GetComponent<PlayerHealth>();
                 int getdamage = playercontroller.damage;
-                */
+                */      // 멀티 적용시 주석 풀고 아래 정수형 지워야됨
                 int getdamage = 10;
                 Vector3 hitpoint = other.ClosestPoint(transform.position);
                 Vector3 hitnormal = transform.position - other.transform.position;
