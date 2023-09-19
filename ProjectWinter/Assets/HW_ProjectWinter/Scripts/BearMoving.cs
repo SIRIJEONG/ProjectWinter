@@ -24,6 +24,8 @@ public class BearMoving : LivingEntity
 
     private int currentWaypointIndex = 1;
 
+    public float rotationSpeed = 5f; // 바라보는 속도
+
 
     // 추적할 대상이 존재하는지 알려주는 프로퍼티
     private bool hasTarget
@@ -89,10 +91,18 @@ public class BearMoving : LivingEntity
         //    return;
         //}
 
+        bool hasValidTarget = hasTarget && targetEntity != null && !targetEntity.isDead;
+
         // 추적 대상의 존재 여부에 따라 다른 애니메이션을 재생
-        animalAnimator.SetBool("HasTarget", hasTarget);
+        animalAnimator.SetBool("HasTarget", hasValidTarget);
 
-
+        if (hasValidTarget)
+        {
+            // 타겟 방향으로 봄
+            Vector3 lookDirection = (targetEntity.transform.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(lookDirection.x, 0, lookDirection.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+        }
     }
 
 
@@ -107,7 +117,7 @@ public class BearMoving : LivingEntity
 
                 animalAnimator.SetBool("BearWalk", true);
 
-                //Debug.Log("타겟을 찾았다.");
+                Debug.Log("타겟을 찾았다.");
                 // 추적 대상 존재 : 경로를 갱신하고 AI 이동을 계속 진행
                 navMeshAgent.isStopped = false;
                 navMeshAgent.SetDestination(targetEntity.transform.position);
@@ -116,7 +126,7 @@ public class BearMoving : LivingEntity
             }
             else
             {
-                //Debug.Log("타겟을 못찾았다.");
+                Debug.Log("타겟을 못찾았다.");
 
                 // 추적 대상 없음 : AI 이동 중지
                 navMeshAgent.isStopped = true;
@@ -128,7 +138,7 @@ public class BearMoving : LivingEntity
                 // 20 유닛의 반지름을 가진 가상의 구를 그렸을때, 구와 겹치는 모든 콜라이더를 가져옴
                 // 단, targetLayers에 해당하는 레이어를 가진 콜라이더만 가져오도록 필터링
                 Collider[] colliders =
-                    Physics.OverlapSphere(transform.position, 20f, whatIsTarget);
+                    Physics.OverlapSphere(transform.position, 15f, whatIsTarget);
 
                 // 모든 콜라이더들을 순회하면서, 살아있는 플레이어를 찾기
                 for (int i = 0; i < colliders.Length; i++)
@@ -210,9 +220,6 @@ public class BearMoving : LivingEntity
         // 최근 공격 시점에서 timeBetAttack 이상 시간이 지났다면 공격 가능
         if (!isDead && Time.time >= lastAttackTime + timeBetAttack)
         {
-
-
-
             // 상대방으로부터 LivingEntity 타입을 가져오기 시도
             LivingEntity attackTarget
                 = other.GetComponent<LivingEntity>();
@@ -234,6 +241,10 @@ public class BearMoving : LivingEntity
                 // 공격 실행
                 attackTarget.OnDamage(damage, hitPoint, hitNormal);
             }
+        }
+        else
+        {
+
         }
     }
 

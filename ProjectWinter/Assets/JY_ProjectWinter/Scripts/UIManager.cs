@@ -6,6 +6,16 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public enum PositionState
+    {
+        North,
+        South,
+        East,
+        West
+    }
+
+    public PositionState positionState;
+
     // 싱글톤 접근용 프로퍼티
     public static UIManager instance
     {
@@ -21,9 +31,18 @@ public class UIManager : MonoBehaviour
     }
 
     private static UIManager m_instance; // 싱글톤이 할당될 변수
-    public TMP_Text powerStationText;
-    public TMP_Text heliPadText;
-    public TMP_Text escapeText;
+
+    public Image[] miniMapImg;  // 미니맵 이미지 배열 (차례대로 북,남,동,서)
+    private Color standingColor = new Color(0.443f, 0.443f, 0.443f);
+    private Color basicColor = new Color (1f, 1f, 1f);
+    public Text powerStationText;
+    public Text heliPadText;
+    public Text escapeText;
+
+    private void Start()
+    {
+        positionState = PositionState.North;
+    }
 
     public void UpdatePowerStaionText()
     {
@@ -54,5 +73,30 @@ public class UIManager : MonoBehaviour
             return "수리하기";
         }
         return "알림 내용";
+    }
+
+    public void ChangeMiniMap()
+    {
+        for (int i = 0; i < miniMapImg.Length; i++)
+        {
+            miniMapImg[i].color = basicColor;
+        }
+        switch (positionState)
+        {
+            case PositionState.North:
+                miniMapImg[0].color = standingColor;
+                break;
+            case PositionState.South:
+                miniMapImg[1].color = standingColor;
+                break;
+            case PositionState.East:
+                miniMapImg[2].color = standingColor;
+                break;
+            case PositionState.West:
+                miniMapImg[3].color = standingColor;
+                break;
+            default:
+                break;
+        }
     }
 }
