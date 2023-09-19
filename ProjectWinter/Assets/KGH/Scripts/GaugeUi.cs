@@ -8,35 +8,23 @@ public class GaugeUi : MonoBehaviour
     private GameObject player;
     private PlayerHealth playerHealth;
 
-    private Image GaugeBar;
+    public Image GaugeBar;
     public float currentValue;
     private void Start()
     {
         GameObject currentObject = this.gameObject;
 
-        GaugeBar = GetComponent<Image>();
-
         while (currentObject.transform.parent != null)
         {
             currentObject = currentObject.transform.parent.gameObject;
-        } // 최상위 부모 오브젝트를 currentObject에 찾아서 저장.
+        }
 
+        // 최상위 부모 오브젝트를 currentObject에 찾아서 저장합니다.
         player = currentObject;
         playerHealth = player.GetComponent<PlayerHealth>();
     }
     private void Update()
     {
-        if(transform.name == "health_full")
-        {
-            GaugeBar.fillAmount = playerHealth.health / 100;
-        }
-        else if (transform.name == "cold_full")
-        {
-            GaugeBar.fillAmount = playerHealth.cold / 100;
-        }
-        else if (transform.name == "hunger_full")
-        {
-            GaugeBar.fillAmount = playerHealth.hunger / 100;
-        }
+        GaugeBar.fillAmount = playerHealth.health / 100;
     }
 }

@@ -30,6 +30,6 @@ public class MaxHP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GaugeBar.fillAmount = playerHealth.maxHP / 100;
+        //GaugeBar.fillAmount = playerHealth.maxHP / 100;
     }
 }

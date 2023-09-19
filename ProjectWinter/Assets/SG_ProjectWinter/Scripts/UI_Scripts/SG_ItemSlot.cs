@@ -114,46 +114,33 @@ public class SG_ItemSlot : MonoBehaviour
 
     public void MoveItemSet()
     {
-        // 23.09.19 아이템 이 들어 있을때에만 작업하게 수정 정상이면 주석 삭제예정
+        GameObject tempObj;
+        tempObj = this.gameObject.transform.GetChild(0).gameObject;
+        itemImage = tempObj.GetComponent<Image>();
 
-        if(item != null && this.gameObject.transform.childCount > 0)
-        {
-            GameObject tempObj;
-            tempObj = this.gameObject.transform.GetChild(0).gameObject;
-            itemImage = tempObj.GetComponent<Image>();
+        GameObject tempObj002;
+        tempObj002 = tempObj.gameObject.transform.GetChild(0).gameObject;
+        itemCountImg = tempObj002.gameObject;
 
-            GameObject tempObj002;
-            tempObj002 = tempObj.gameObject.transform.GetChild(0).gameObject;
-            itemCountImg = tempObj002.gameObject;
+        // 맨위에 tempObj 재활용
+        tempObj = tempObj002.gameObject.transform.GetChild(0).gameObject;
+        text_Count = tempObj.GetComponent<TextMeshProUGUI>();
 
-            // 맨위에 tempObj 재활용
-            tempObj = tempObj002.gameObject.transform.GetChild(0).gameObject;
-            text_Count = tempObj.GetComponent<TextMeshProUGUI>();
-
-            // 스프라이트와 텍스트 출력
-            text_Count.text = itemCount.ToString();
-            itemImage.sprite = item.itemImage;
-        }
-       
+        // 스프라이트와 텍스트 출력
+        text_Count.text = itemCount.ToString();
+        itemImage.sprite = item.itemImage;
     }
 
     // 찾아넣은 아이템과의 연결 끊어주는 함수 -> 이미지,카운트텍스트,카운트이미지
     public void DisconnectedItem()
     {
-        //text_Count.text = "0";
+        text_Count.text = "0";
         text_Count = null;
         itemImage.sprite = null;
         itemImage = null;
         itemCountImg = null;
         item = null;
         itemCount = 0;
-        Transform childTrans;
-        if (this.transform.childCount > 0)
-        {
-            childTrans = this.transform.GetChild(0);
-            Destroy(childTrans.gameObject);
-            SG_ItemDragScript.allItemDragScrip.Remove(childTrans.GetComponent<SG_ItemDragScript>());
-        }
     }
 
     // 아이템 슬롯 초기화

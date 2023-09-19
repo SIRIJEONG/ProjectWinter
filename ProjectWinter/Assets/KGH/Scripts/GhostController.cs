@@ -27,7 +27,7 @@ public class GhostController : MonoBehaviour
             followCam.LookAt = transform;
 
             cameraFollow = followCam.GetComponent<CameraFollow>();
-            cameraFollow.ghostController = this;
+            //cameraFollow.ghostController = this;
             //followCam.LookAt = transform;
         }
     }
