@@ -161,17 +161,20 @@ public class SG_ItemDragScript : MonoBehaviour,
                 //Debug.LogFormat("클릭을 땔때주는 스롯의 고유번호 -> {0}", acceptSlotCount);
                 //Debug.LogFormat("받는 스롯의 고유번호 -> {0}",acceptSlotCount);
 
-
                 // 클릭한 UI 요소에 대한 작업을 수행할 수 있습니다.
-
+                //Debug.LogFormat("받는얘 번호 -> {0}", acceptSlotCount);
                 // 아래함수 테스트후 아래함수는 giveSlotCount != null && acceptSlotCount != null 로 조건넣으면 될듯
                 //Debug.LogFormat("giveSlotCount -> {0} acceptSlotCount -> {1}", giveSlotCount, acceptSlotCount);
                 //Debug.LogFormat("giveItemSlotClass = null? -> {0}  acceptItemSlotClass = null? -> {1}", giveItemSlotClass == null, acceptItemSlotClass == null);
                 //Debug.LogFormat("giveItemSlotClass -> {0}  acceptItemSlotClass -> {1}", giveItemSlotClass, acceptItemSlotClass);
                 //Debug.Log(giveItemSlotClass.transform.parent.parent == gameObject);
+                //Debug.LogFormat("Swap 매개변수 null 인지 thisClass -> {0}, giveSlotCount -> {1}, acceptSlotCount -> {2}" +
+                //    "giveItemSlot == null? -> {3}, acceptItemSlotClass == null? -> {4} ", thisClass == null,giveSlotCount,acceptSlotCount
+                //    ,giveItemSlotClass == null,acceptItemSlotClass == null);
+                    swapManagerClass.ItemSwap(thisClass,giveSlotCount, acceptSlotCount, giveItemSlotClass, acceptItemSlotClass);
+
                 if (giveItemSlotClass != acceptItemSlotClass)
                 {
-                    swapManagerClass.ItemSwap(thisClass,giveSlotCount, acceptSlotCount, giveItemSlotClass, acceptItemSlotClass);
 
                 }
             }
@@ -179,7 +182,7 @@ public class SG_ItemDragScript : MonoBehaviour,
         else
         {
             // UI 요소가 없거나 클릭하지 않았을 때의 처리를 여기에 추가
-            Debug.Log("Click Up UI 요소를 클릭하지 않았거나, 클릭한 UI 요소가 없습니다.");
+            //Debug.Log("Click Up UI 요소를 클릭하지 않았거나, 클릭한 UI 요소가 없습니다.");
         }
 
     }   // ClickUP()
@@ -187,6 +190,7 @@ public class SG_ItemDragScript : MonoBehaviour,
     // 클릭했을때에 UI라면 해당하는 슬롯의 고유번호를 받아줄 함수
     private void ClickDown()
     {
+        //Debug.Log("ClickDown은 들어오긴하나?" +"");
         // 마우스 포인터 이벤트 데이터 생성       
         pointerEventDataDown.position = Input.mousePosition;
 
@@ -200,12 +204,15 @@ public class SG_ItemDragScript : MonoBehaviour,
             // 여기에 감지된 clikedUIElement 변수에서 누른 슬롯을 추출해내면 될거같음
             //Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
 
-
+            Debug.Log(clickedUIElement.tag);
             if (clickedUIElement.CompareTag("ItemSlot")) // 아이템 슬롯을 눌렀을경우
             {
+                //Debug.Log("ClickDown속 Tag 조건에 들어오나?");
+
                 giveItemSlotClass = clickedUIElement.GetComponent<SG_ItemSlot>();
                 //누른 아이템슬롯의 고유번호 추출
                 giveSlotCount = giveItemSlotClass.slotCount;
+                //Debug.LogFormat("주는얘 번호 -> {0}", giveSlotCount);
                 //Debug.LogFormat("클릭시 스롯의 고유번호 -> {0}", giveSlotCount);
             }
 
@@ -213,7 +220,7 @@ public class SG_ItemDragScript : MonoBehaviour,
         else
         {
             // UI 요소가 없거나 클릭하지 않았을 때의 처리를 여기에 추가
-            Debug.Log("ClickIn() UI 요소를 클릭하지 않았거나, 클릭한 UI 요소가 없습니다.");
+            //Debug.Log("ClickIn() UI 요소를 클릭하지 않았거나, 클릭한 UI 요소가 없습니다.");
         }
     }
 
@@ -244,7 +251,7 @@ public class SG_ItemDragScript : MonoBehaviour,
     // 스왑후 잔여아이템이 남아있다면 다시 부모 오브젝트로가게 만들 함수
     public void SetTransformParent()
     {
-        Debug.Log("원래대로 돌려주며 Sprite 를 집어넣는 함수에 잘들어오나?");
+        //Debug.Log("원래대로 돌려주며 Sprite 를 집어넣는 함수에 잘들어오나?");
         // 마지막에 소속되어 잇었던 previousParent의 자식으로 설정하고, 해당 위치로 설정
         transform.SetParent(previousParent);
         rectTrans.position = previousParent.GetComponent<RectTransform>().position;

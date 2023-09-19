@@ -41,20 +41,40 @@ public class SG_ItemSwapManager : MonoBehaviour
     private byte accepSlotCount;
 
     private bool isPassExamine = true;  // 아이템 검사하고 검사 조건에 들어가면 false 로바꿔줄거임
+    private bool isSwap = true;         // 받는 아이템에서 조건에 안맞으면 스왑 못하게 false 로 만들고 함수들을 return시켜줄거임
+    private bool sameSlot = false;
 
     public void ItemSwap(SG_ItemDragScript _itemDragScript, int _GiveSlotCount, int _AcceptSlotCount,
                          SG_ItemSlot _giveSlots, SG_ItemSlot _accepSlots)
     {
         giveItemDragScript = _itemDragScript;
-        //Debug.Log("Swap 함수는 들어오기는 하는가?");
-        SearchGiveSlot(_GiveSlotCount, _giveSlots);
-        SerchAccepSlots(_AcceptSlotCount, _accepSlots);
-        GiveExchangeAfter();
-        // 아이템최대 갯수를 초과했다면 초과한만큼 돌려주는 함수
-        AcceptExchangeAfter();
+        ThisSameSlot(_GiveSlotCount,_AcceptSlotCount);  // 슬롯이 같은지 확인후 다를때만 Swap이 이루어지게 만들어주는 함수
+
+
+        if(sameSlot == false)
+        {
+            //스왑시 필요한 로직
+            SearchGiveSlot(_GiveSlotCount, _giveSlots);     // 주는슬롯을 찾아서 아이템을 저장하는 함수
+            SerchAccepSlots(_AcceptSlotCount, _accepSlots); // 받는 슬롯을 찾고 아이템을 조건에 따라받고 검수하는 함수로 넘겨주는 함수
+            GiveExchangeAfter();  // 아이템을 정상적으로 넘겼을때에 준 슬롯을 초기화 하는 함수
+            AcceptExchangeAfter();// 아이템을 정상적으로 넘겼을때 받은슬롯이 정상적으로 출력되도록 해주는 함수            
+        }
+
+        InitialValue();       // 초기값으로 돌아와야하는 변수를 초기값으로 돌려주는 함수
+
 
     }   // ItemSwap()
 
+    // 같은 슬롯에 놓았는지 -> ex) 주는슬롯 = 1 , 받는 슬롯 = 1 일경우
+
+    private void ThisSameSlot(int _GiveSlotCount, int _AcceptSlotCount)
+    {
+        if (_GiveSlotCount == _AcceptSlotCount)
+        {
+            sameSlot = true;
+        }
+        else { /*PASS*/ }
+    }
 
     // 주는 슬롯을 찾아서 아이템을 변수에 저장하는 함수
     public void SearchGiveSlot(int _GiveSlotCount, SG_ItemSlot _giveSlots)
@@ -71,11 +91,6 @@ public class SG_ItemSwapManager : MonoBehaviour
             //3 -> Inventory
             giveInvenClass = tempTrans002.transform.parent.GetComponent<SG_Inventory>();
 
-
-            // 사용후 비워주기
-            tempTrans001 = null;
-            tempTrans002 = null;
-
             for (byte i = 0; i < giveInvenClass.slots.Length; i++)    //슬롯들을 싹 뒤지면서 주는 Slot의 고유번호 찾기
             {
                 if (giveInvenClass.slots[i].slotCount == _GiveSlotCount) // 고유번호를 찾았을때 들어갈 조건문
@@ -84,8 +99,6 @@ public class SG_ItemSwapManager : MonoBehaviour
                     moveItem = giveInvenClass.slots[i].item;
                     tempItemCount = giveInvenClass.slots[i].itemCount;
                     giveSlotCount = i;
-                    //giveInvenClass.slots[i].ClearSlot();
-                    //Debug.LogFormat("moveItem -> {0} tempItemCount -> {1}", moveItem, tempItemCount);
                     break;
                 }
             }
@@ -104,8 +117,6 @@ public class SG_ItemSwapManager : MonoBehaviour
             tempTrans002 = tempTrans001.transform.parent.GetComponent<Transform>();
             //3 -> Inventory
             giveInvenClass = tempTrans002.transform.parent.GetComponent<SG_Inventory>();
-            tempTrans001 = null;
-            tempTrans002 = null;
 
             for (byte i = 0; i < giveInvenClass.slots.Length; i++)    //슬롯들을 싹 뒤지면서 주는 Slot의 고유번호 찾기
             {
@@ -115,8 +126,6 @@ public class SG_ItemSwapManager : MonoBehaviour
                     moveItem = giveInvenClass.slots[i].item;
                     tempItemCount = giveInvenClass.slots[i].itemCount;
                     giveSlotCount = i;
-                    //giveInvenClass.slots[i].ClearSlot();
-                    //Debug.LogFormat("moveItem -> {0} tempItemCount -> {1}", moveItem, tempItemCount);
                     break;
                 }
             }
@@ -140,44 +149,31 @@ public class SG_ItemSwapManager : MonoBehaviour
             tempTrans002 = tempTrans001.transform.parent.GetComponent<Transform>();
             //3 -> Inventory
             acceptInvenClass = tempTrans002.transform.parent.GetComponent<SG_Inventory>();
-            // 사용후 비워주기
-            tempTrans001 = null;
-            tempTrans002 = null;
 
-            #region LEGACY
-            //if (acceptInvenClass.slots[i].slotCount == _AcceptSlotCount) // 고유번호를 찾았을때 들어갈 조건문
-            //{
-            //    // 아이템 정보를 집어넣어줌
-            //    acceptInvenClass.slots[i].item = moveItem;
-            //    acceptInvenClass.slots[i].itemCount = tempItemCount;
-            //    accepSlotCount = i;
-            //    Debug.LogFormat("moveItem -> {0} tempItemCount -> {1}", moveItem, tempItemCount);
-            //    //아이템을 넣고 아이템 갯수 체크한뒤에 아이템을 3개로 만들어주고 GiveSlot을 초기화 시키지 않고
-            //    //Item최대치를 넘어간만큼 줌 
-            //    ItemExamine();
-            //    break;
-            //}
-            #endregion LEGACY
             for (byte i = 0; i < acceptInvenClass.slots.Length; i++)    //슬롯들을 싹 뒤지면서 주는 Slot의 고유번호 찾기
             {
                 if (acceptInvenClass.slots[i].slotCount == _AcceptSlotCount) // 고유번호를 찾았을때 들어갈 조건문
                 {
-                    if (acceptInvenClass.slots[i].item == null)
+                    //아이템이 비어있지 않고 넣는아이템과 들어가 있는 아이템이 같지 않을때
+                    if (acceptInvenClass.slots[i].item != null && acceptInvenClass.slots[i].item != moveItem)
+                    {
+                        isSwap = false;
+                    }
+                    else if (acceptInvenClass.slots[i].item == moveItem)
+                    {
+                        acceptInvenClass.slots[i].itemCount = acceptInvenClass.slots[i].itemCount + tempItemCount;
+                        //Debug.LogFormat("받은얘의 아이템 갯수 -> {0}", acceptInvenClass.slots[i].itemCount);
+                        ItemExamine();
+                    }
+                    else if (acceptInvenClass.slots[i].item == null)
                     {
                         // 아이템 정보를 집어넣어줌
                         acceptInvenClass.slots[i].item = moveItem;
                         acceptInvenClass.slots[i].itemCount = tempItemCount;
                         accepSlotCount = i;
-                        //Debug.LogFormat("moveItem -> {0} tempItemCount -> {1}", moveItem, tempItemCount);
-                        //아이템을 넣고 아이템 갯수 체크한뒤에 아이템을 3개로 만들어주고 GiveSlot을 초기화 시키지 않고
-                        //Item최대치를 넘어간만큼 줌 
-                    }
-                    else if (acceptInvenClass.slots[i].item == moveItem)
-                    {
-                        acceptInvenClass.slots[i].itemCount = acceptInvenClass.slots[i].itemCount + tempItemCount;
                         ItemExamine();
                     }
-                    Debug.LogFormat("Accept() Give -> {0} Accept -> {1}", giveSlotCount, accepSlotCount);
+                    //Debug.LogFormat("Accept() Give -> {0} Accept -> {1}", giveSlotCount, accepSlotCount);
                     break;
                 }
             }
@@ -196,30 +192,32 @@ public class SG_ItemSwapManager : MonoBehaviour
             tempTrans002 = tempTrans001.transform.parent.GetComponent<Transform>();
             //3 -> Inventory
             acceptInvenClass = tempTrans002.transform.parent.GetComponent<SG_Inventory>();
-            // 사용후 비워주기
-            tempTrans001 = null;
-            tempTrans002 = null;
 
             for (byte i = 0; i < acceptInvenClass.slots.Length; i++)    //슬롯들을 싹 뒤지면서 주는 Slot의 고유번호 찾기
             {
                 if (acceptInvenClass.slots[i].slotCount == _AcceptSlotCount) // 고유번호를 찾았을때 들어갈 조건문
                 {
-                    if (acceptInvenClass.slots[i].item == null)
+                    //아이템이 비어있지 않고 넣는아이템과 들어가 있는 아이템이 같지 않을때
+                    if (acceptInvenClass.slots[i].item != null && acceptInvenClass.slots[i].item != moveItem)
+                    {
+                        isSwap = false;
+                    }
+                    else if (acceptInvenClass.slots[i].item == moveItem)
+                    {
+                        acceptInvenClass.slots[i].itemCount = acceptInvenClass.slots[i].itemCount + tempItemCount;
+                        //Debug.LogFormat("받은얘의 아이템 갯수 -> {0}", acceptInvenClass.slots[i].itemCount);
+                        accepSlotCount = i;
+                        ItemExamine();
+                    }
+                    else if (acceptInvenClass.slots[i].item == null)
                     {
                         // 아이템 정보를 집어넣어줌
                         acceptInvenClass.slots[i].item = moveItem;
                         acceptInvenClass.slots[i].itemCount = tempItemCount;
                         accepSlotCount = i;
-                        //Debug.LogFormat("moveItem -> {0} tempItemCount -> {1}", moveItem, tempItemCount);
-                        //아이템을 넣고 아이템 갯수 체크한뒤에 아이템을 3개로 만들어주고 GiveSlot을 초기화 시키지 않고
-                        //Item최대치를 넘어간만큼 줌 
-                    }
-                    else if (acceptInvenClass.slots[i].item == moveItem)
-                    {
-                        acceptInvenClass.slots[i].itemCount = acceptInvenClass.slots[i].itemCount + tempItemCount;
                         ItemExamine();
                     }
-                    Debug.LogFormat("Accept() Give -> {0} Accept -> {1}", giveSlotCount, accepSlotCount);
+                    //Debug.LogFormat("Accept() Give -> {0} Accept -> {1}", giveSlotCount, accepSlotCount);
                     break;
                 }
             }
@@ -234,12 +232,15 @@ public class SG_ItemSwapManager : MonoBehaviour
     // 아이템 갯수가 넘는지 넘지 않는지 검사하는 함수
     private void ItemExamine()
     {
+        //Debug.Log("아이템 갯수 체크하는 함수가 잘 들어와지는가?");
         if (acceptInvenClass.slots[accepSlotCount].itemCount > 3)    // 받는쪽의 아이템이 3개가 넘는지 체크
         {
             int tempItemCount001 = acceptInvenClass.slots[accepSlotCount].itemCount;
             int tempItemCount002 = tempItemCount001 - 3;
 
             acceptInvenClass.slots[accepSlotCount].itemCount = 3;
+            //Debug.Log($"카운트 3개로 조정후 갯수 -> {acceptInvenClass.slots[accepSlotCount].itemCount}");
+
             isPassExamine = false;
             ItemExanineAfter(tempItemCount002);
 
@@ -261,7 +262,11 @@ public class SG_ItemSwapManager : MonoBehaviour
     // 아이템을주고 후처리해주는 함수 -> 슬롯 초기화
     public void GiveExchangeAfter()
     {
-        Debug.LogFormat("Give -> {0} Accept -> {1}", giveSlotCount, accepSlotCount);
+        if (isSwap == false)
+        { return; }
+        else { /*PASS*/ }
+
+        //Debug.LogFormat("Give -> {0} Accept -> {1}", giveSlotCount, accepSlotCount);
         #region LEGACY
         //// 인벤토리 클래스는 아직 인벤토리의 Script를 담고 있기 때문에 그대로 사용해도 됨
         //for (byte i = 0; i < giveInvenClass.slots.Length; i++)    //슬롯들을 싹 뒤지면서 주는 Slot의 고유번호 찾기
@@ -279,7 +284,7 @@ public class SG_ItemSwapManager : MonoBehaviour
             {
                 if (isPassExamine == true)
                 {
-                    // TODO : 아이템이 못들어갔을때에 Clear하지 못하도록 조건을 수정해야함
+                    
                     giveInvenClass.slots[giveSlotCount].DisconnectedItem();
                     //isPassExamine = false;
                 }
@@ -297,6 +302,10 @@ public class SG_ItemSwapManager : MonoBehaviour
     // 아이템을받고 후처리해주는 함수 -> 슬롯이 다시 받은아이템을 출력하기
     public void AcceptExchangeAfter()
     {
+        if (isSwap == false)
+        { return; }
+        else { /*PASS*/ }
+
         #region LEGACY
         // 인벤토리 클래스는 아직 인벤토리의 Script를 담고 있기 때문에 그대로 사용해도 됨       
         //for (byte i = 0; i < acceptInvenClass.slots.Length; i++)    //슬롯들을 싹 뒤지면서 주는 Slot의 고유번호 찾기
@@ -308,8 +317,15 @@ public class SG_ItemSwapManager : MonoBehaviour
         //    }
         //}
         #endregion LEGACY
+        //if (acceptInvenClass.slots[accepSlotCount])
+        acceptInvenClass.slots[accepSlotCount].MoveItemSet();
+    }
 
-            acceptInvenClass.slots[accepSlotCount].MoveItemSet();
+    // 마지막에 무조건적으로 다시 원래대로 초기화 되어야 하는 변수를 원래대로 해주는 함수
+    private void InitialValue()
+    {
+        isSwap = true;
+        sameSlot = false;
     }
 
 }   //NameSpace 
