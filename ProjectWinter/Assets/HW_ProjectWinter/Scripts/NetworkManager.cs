@@ -13,8 +13,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private List<string> playerNicknames = new List<string>();
 
-    void Awake() => Screen.SetResolution(1280  , 720, false);
 
+
+
+    void Awake() => Screen.SetResolution(1920, 1080, false);
+
+    //void Start()
+    //{
+    //    RoomOptions roomOptions = new RoomOptions();
+    //    roomOptions.CustomRoomPropertiesForLobby = new string[] { "IsReady" }; // Custom Property 동기화를 활성화할 속성 지정
+        //roomOptions.CustomRoomProperties = new Hashtable() { { "IsReady", false } };
+
+    //    // 방에 입장하거나 생성할 때 RoomOptions 설정
+    //    PhotonNetwork.JoinOrCreateRoom("RoomName", roomOptions, TypedLobby.Default);
+    //}
 
     void Update()
     {
@@ -27,7 +39,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         severText.text = "Connected Server";
-        print("서버접속완료");
+        Debug.Log("서버접속완료");
         PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
     }
 
@@ -45,11 +57,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 
 
-    public void CreateRoom() => PhotonNetwork.CreateRoom(roomInput.text, new RoomOptions { MaxPlayers = 6 });
+    public void CreateRoom() 
+    {
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.CustomRoomPropertiesForLobby = new string[] { "IsReady" }; // Custom Property 동기화를 활성화할 속성 지정
+        PhotonNetwork.CreateRoom(roomInput.text, new RoomOptions { MaxPlayers = 6 });
+    } 
 
     public void JoinRoom() => PhotonNetwork.JoinRoom(roomInput.text);
 
-    public void JoinOrCreateRoom() => PhotonNetwork.JoinOrCreateRoom(roomInput.text, new RoomOptions { MaxPlayers = 6 }, null);
+    public void JoinOrCreateRoom()
+    {
+        PhotonNetwork.JoinOrCreateRoom(roomInput.text, new RoomOptions { MaxPlayers = 6 }, null);
+    }
+
 
     public void JoinRandomRoom() => PhotonNetwork.JoinRandomRoom();
 
