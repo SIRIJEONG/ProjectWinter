@@ -23,24 +23,24 @@ public class PlayerController : MonoBehaviour
     public static bool isTrator;
     // 플레이어의 직업
 
-    public GameObject weapon;
-    public GameObject fist;
-    public GameObject ui;
-    public GameObject cameraObject;
+    public GameObject weapon;       // 무기 들었을때 공격범위
+    public GameObject fist;         // 주먹일때 공격범위
+    public GameObject ui;           // 파워 게이지 ui
+    //public GameObject cameraObject;
 
-    private bool hand = false;
+    private bool hand = false;      // 임시 : 손에 무기 들었는지
 
     private RaycastHit hitInfo;
     private Vector3 moveVec;
 
-    private float doingTime;
+    private float doingTime;    // 행동을 한 시간 체크
     private float startTime;
     private bool shouldStartTiming = false;
     private int doingCase;      // 뭘 하는 도중인지
 
     private UiFallowPlayer uiFallowPlayer;
 
-    private PlayerHealth health;
+    private PlayerHealth health;    // 본인의 PlayerHealth
 
     // 공격관련
     private float attackPower;  // 마우스로 공격 차지
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     private CameraFollow cameraFollow;
 
-    public PlayerHealth playerHealth;
+    public PlayerHealth playerHealth;   // 남의 PlayerHealth
 
     private void Start()
     {
@@ -73,12 +73,11 @@ public class PlayerController : MonoBehaviour
             cameraFollow.playerController = this;
             //followCam.LookAt = transform;
         }
-
     }
 
     private void Update()
     {
-        
+
         animator.SetBool("attack", isAttack);
         if (!doSomething && !health.isDead)
         {
@@ -92,8 +91,10 @@ public class PlayerController : MonoBehaviour
         if (shouldStartTiming)
         {
             doingTime = Time.time - startTime;
-            //Debug.Log("경과 시간: " + doingTime.ToString("F2") + "초");
         }
+
+        Debug.DrawRay(transform.position, transform.forward * 1.0f, Color.magenta);
+
         if (Input.GetKeyDown(KeyCode.E) && !doSomething && !health.isDead && !health.isDown)
         {
             if (!doSomething && !Input.GetMouseButton(0))
@@ -103,7 +104,6 @@ public class PlayerController : MonoBehaviour
                 {
                     Debug.DrawLine(transform.position, hitInfo.point, Color.red);
 
-                    //DoingTime();
                     if (hitInfo.collider.gameObject.tag == "Player")
                     {
                         playerHealth = hitInfo.collider.gameObject.GetComponent<PlayerHealth>();
@@ -125,7 +125,6 @@ public class PlayerController : MonoBehaviour
                 // 플레이어의 앞에 있는 물체를 판별
                 else
                 {
-                    Debug.DrawRay(transform.position, transform.forward * 1.0f, Color.green);
 
                 }
 
@@ -147,7 +146,7 @@ public class PlayerController : MonoBehaviour
             uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
         }
 
-        if(isAttack && health.health <= 0)
+        if (isAttack && health.health <= 0)
         {
             isAttack = false;
             animator.SetBool("attack", isAttack);
@@ -163,7 +162,7 @@ public class PlayerController : MonoBehaviour
             doSomething = false;
             animator.SetBool("DoSomething", doSomething);
 
-            if(eat)
+            if (eat)
             {
                 // 먹은 음식에 따른 회복
             }
@@ -172,8 +171,10 @@ public class PlayerController : MonoBehaviour
             if (doingCase == 1)
             {
                 //아이템
+
+                doingCase = 0;
             }
-            else if( doingCase == 2)    // 다운된 플레이어일때 살림
+            else if (doingCase == 2)    // 다운된 플레이어일때 살림
             {
                 //플레이어
                 Collider hitCollider = hitInfo.collider;
@@ -185,10 +186,14 @@ public class PlayerController : MonoBehaviour
                 playerHealth.health = 20;
                 playerHealth.playerDown = 100;
                 playerHealth.isDown = false;
+
+                doingCase = 0;
             }
             else if (doingCase == 3)
             {
                 //상자
+
+                doingCase = 0;
             }
         }
     }
@@ -227,7 +232,7 @@ public class PlayerController : MonoBehaviour
     #region
     private void PLayerIsClick()
     {
-        if (Input.GetMouseButton(0) && !isAttack && !health.isInside)   // 추가조건 : 손에 음식이 없을때
+        if (Input.GetMouseButton(0) && !isAttack && !health.isInside && !health.isInside)   // 추가조건 : 손에 음식이 없을때
         {
             Attack();
             uiFallowPlayer.Gauge(120);
@@ -239,7 +244,7 @@ public class PlayerController : MonoBehaviour
         //    uiFallowPlayer.Gauge(120);
         //    StartCoroutine(Eat());
         //}
-        else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside)    // 추가조건 : 손에 음식이 없을때
+        else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside && !health.isInside)    // 추가조건 : 손에 음식이 없을때
         {
             if (!eat)
             {

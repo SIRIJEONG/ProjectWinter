@@ -15,7 +15,7 @@ public class PlayerHealth : LivingEntity
 
     private bool playerEnd;
 
-    public GameObject ghost;
+    public GameObject ghost;        // 죽었을때 불러올 오브잭트
     public GameObject powerGauge;
     public GameObject downGauge;
     //private bool isDead = false;
@@ -64,7 +64,7 @@ public class PlayerHealth : LivingEntity
             downGauge.SetActive(false);
         }
 
-        if (hunger >= 0)
+        if (hunger > 0)
         {
             hunger -= Time.deltaTime / 5;       // 매 프레임마다 허기 감소
         }
@@ -116,13 +116,11 @@ public class PlayerHealth : LivingEntity
 
         if (playerDown <= 0)
         {
-            Dead();
+            Dead();     // 죽고
 
-            ghost.SetActive(true);
+            ghost.SetActive(true);      // 플레이어 유령상태 키고
 
-            //GetComponent<BoxCollider>().enabled = false;
-
-            playerController.enabled = false;
+            playerController.enabled = false;       // 컨트롤러 비활성화해서 못움직이게
 
         }
     }

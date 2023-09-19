@@ -34,9 +34,8 @@ public class CameraFollow : MonoBehaviour
             player = ghostController.gameObject;
 
         }
-        if (!isInside)           // 변경필요, isMIne 일 때 따라오게 변경 필요
+        if (!isInside)
         {
-            //GameObject playerObject = GameObject.Find("Player");
             toFallow = player.transform;
             Vector3 targetPosition = toFallow.position + offset;
 

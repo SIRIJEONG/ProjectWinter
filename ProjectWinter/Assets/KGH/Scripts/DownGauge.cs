@@ -13,10 +13,10 @@ public class DownGauge : MonoBehaviour
     private GameObject player;
     private PlayerHealth playerHealth;
 
-    private Renderer objectRenderer;
+    //private Renderer objectRenderer;
 
     public Image GaugeBar;
-    public float currentValue;
+    //public float currentValue;
     // Start is called before the first frame update
     void Start()
     {
