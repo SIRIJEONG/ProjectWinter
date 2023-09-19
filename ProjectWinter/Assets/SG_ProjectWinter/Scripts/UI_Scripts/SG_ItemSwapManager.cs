@@ -163,6 +163,7 @@ public class SG_ItemSwapManager : MonoBehaviour
                     {
                         acceptInvenClass.slots[i].itemCount = acceptInvenClass.slots[i].itemCount + tempItemCount;
                         //Debug.LogFormat("받은얘의 아이템 갯수 -> {0}", acceptInvenClass.slots[i].itemCount);
+                        accepSlotCount = i;
                         ItemExamine();
                     }
                     else if (acceptInvenClass.slots[i].item == null)
@@ -172,10 +173,12 @@ public class SG_ItemSwapManager : MonoBehaviour
                         acceptInvenClass.slots[i].itemCount = tempItemCount;
                         accepSlotCount = i;
                         ItemExamine();
+                        Debug.LogFormat("For_accepSlotCount -> {0}", accepSlotCount);
                     }
                     //Debug.LogFormat("Accept() Give -> {0} Accept -> {1}", giveSlotCount, accepSlotCount);
                     break;
                 }
+               
             }
             return; // 찾아서 슬롯에 아이템을 넣어주었다면 return으로 함수 즉시탈출
         }
@@ -233,8 +236,12 @@ public class SG_ItemSwapManager : MonoBehaviour
     private void ItemExamine()
     {
         //Debug.Log("아이템 갯수 체크하는 함수가 잘 들어와지는가?");
+        Debug.LogFormat("accepSlotCount -> {0}", accepSlotCount);
+        //Debug.LogFormat("AccepSlot ItemCount -> {0}", acceptInvenClass.slots[accepSlotCount].itemCount);
+        //Debug.LogFormat("AccInvenClassNotNull? -> {0}",acceptInvenClass != null);
         if (acceptInvenClass.slots[accepSlotCount].itemCount > 3)    // 받는쪽의 아이템이 3개가 넘는지 체크
         {
+            //Debug.LogFormat("아이템이 3개가 넘어가서 조건에 잘들어왔는가?");
             int tempItemCount001 = acceptInvenClass.slots[accepSlotCount].itemCount;
             int tempItemCount002 = tempItemCount001 - 3;
 
