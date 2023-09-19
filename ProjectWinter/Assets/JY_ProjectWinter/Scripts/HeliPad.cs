@@ -46,8 +46,7 @@ public class HeliPad : MonoBehaviourPun
                     break;
                 }
             }
-        }
-        
+        }       
     }
 
 
