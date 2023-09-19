@@ -21,9 +21,7 @@ public class UiFallowPlayer : MonoBehaviour
         if (player != null)
         {
             transform.position = player.position + new Vector3(0, 2.2f, 0); 
-        }
-
-        
+        }        
     }
 
     public void Gauge(float speed)
@@ -32,7 +30,6 @@ public class UiFallowPlayer : MonoBehaviour
         {
             currentValue += speed * Time.deltaTime;
         }
-
         LoadingBar.fillAmount = currentValue / 100;
     }
 }

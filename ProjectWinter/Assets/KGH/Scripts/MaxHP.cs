@@ -1,16 +1,18 @@
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GaugeUi : MonoBehaviour
+
+public class MaxHP : MonoBehaviour
 {
     private GameObject player;
     private PlayerHealth playerHealth;
 
     private Image GaugeBar;
-    public float currentValue;
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         GameObject currentObject = this.gameObject;
 
@@ -24,19 +26,10 @@ public class GaugeUi : MonoBehaviour
         player = currentObject;
         playerHealth = player.GetComponent<PlayerHealth>();
     }
-    private void Update()
+
+    // Update is called once per frame
+    void Update()
     {
-        if(transform.name == "health_full")
-        {
-            GaugeBar.fillAmount = playerHealth.health / 100;
-        }
-        else if (transform.name == "cold_full")
-        {
-            GaugeBar.fillAmount = playerHealth.cold / 100;
-        }
-        else if (transform.name == "hunger_full")
-        {
-            GaugeBar.fillAmount = playerHealth.hunger / 100;
-        }
+        GaugeBar.fillAmount = playerHealth.maxHP / 100;
     }
 }
