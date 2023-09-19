@@ -17,10 +17,13 @@ public class SG_ItemDragScript : MonoBehaviour,
 
     // 23.09.12 10 : 48 위 선언문 수정하고 아래 동작 수정해야함
     private Image itemImage;
-     
+
+    private SG_ItemSlot thisParentSlotClass;
     private SG_ItemSlot giveItemSlotClass;       // 드래그 시작할떄 받아올 슬롯의 클래스
     private SG_ItemSlot acceptItemSlotClass;     // 드롭 할때에 받아올 클래스
     private SG_ItemSwapManager swapManagerClass; // 스왑 처리를 위한 클래스
+    
+    private SG_ItemDragScript thisClass;  
 
     // 임시 주는 슬롯 받는 슬롯 고유번호 여기서 받아서 넘겨줄 거임
     private int giveSlotCount;
@@ -29,16 +32,49 @@ public class SG_ItemDragScript : MonoBehaviour,
     [SerializeField]
     private LayerMask slotLayer;
 
+    public delegate void RayTargerEventHandler();
+    public event RayTargerEventHandler RayTargerEvent;
+
+    // 마우스 포인터 이벤트 데이터 생성
+    PointerEventData pointerEventDataDown;
+    List<RaycastResult> resultsDown;// List로 변경
+
+    // 마우스 포인터 이벤트 데이터 생성   
+    PointerEventData pointerEventDataUp;
+    List<RaycastResult> resultsUp; // List로 변경
+
+    // Test
+    public static List<SG_ItemDragScript> allItemDragScrip = default;
 
     private void Awake()
-    {  
-        canvasTrans = FindAnyObjectByType<Canvas>().transform;       
-        swapManagerClass = FindAnyObjectByType<SG_ItemSwapManager>();  
+    {
+        canvasTrans = FindAnyObjectByType<Canvas>().transform;
+        swapManagerClass = FindAnyObjectByType<SG_ItemSwapManager>();
 
         rectTrans = GetComponent<RectTransform>();
         itemImage = GetComponent<Image>();
         //canvasGroup = GetComponent<CanvasGroup>();
+
+        resultsUp = new List<RaycastResult>();
+        resultsDown = new List<RaycastResult>();
+        pointerEventDataDown = new PointerEventData(EventSystem.current);
+        pointerEventDataUp = new PointerEventData(EventSystem.current);
+
+        // Init Test
+        if(allItemDragScrip == null || allItemDragScrip == default)
+        {
+            allItemDragScrip = new List<SG_ItemDragScript>();
+        }
+        allItemDragScrip.Add(this);
     }
+
+    public void Start()
+    {
+        RayTargerEvent += RayTargetControler_All;
+
+        thisClass = this.GetComponent<SG_ItemDragScript>();
+    }
+
     /// <summary>
     /// 현재 오브젝트를 드래그하기 시작할 때 1회 호출
     /// </summary>    
@@ -53,7 +89,8 @@ public class SG_ItemDragScript : MonoBehaviour,
 
         // 클릭한 슬롯의 고유번호 추출을 위한 함수
         ClickDown();
-        itemImage.raycastTarget = false;    //드래그할때에 레이가 끌고있는것에 맞지않도록 Target flase
+        RayTargerEvent?.Invoke();
+        //itemImage.raycastTarget = false;    //드래그할때에 레이가 끌고있는것에 맞지않도록 Target flase
 
     }
 
@@ -64,8 +101,6 @@ public class SG_ItemDragScript : MonoBehaviour,
     {
         // 현재 스크린상의 마우스 위치를 UI 위치로 설정 (UI가 마우스를 쫒아다니는 상태)
         rectTrans.position = eventData.position;
-
-
 
     }
 
@@ -87,13 +122,11 @@ public class SG_ItemDragScript : MonoBehaviour,
 
         // 자신의 상위 오브젝트의 태그 = Slot 의 태그에 따라서 주는인벤토리가 어느곳인지 판단할함수        
         // 받는곳의 Slot이 어떤건지 UI로 체크 해주는 함수        
-
         ClickUp();
+        RayTargerEvent?.Invoke();
 
-        
+        //itemImage.raycastTarget = true;
 
-
-        itemImage.raycastTarget = true;
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -107,21 +140,17 @@ public class SG_ItemDragScript : MonoBehaviour,
     // 자신의 부모오브젝트에 태그가 무엇인지에 따라 주는 오브젝트가 달라짐
     private void ClickUp()
     {
-        // 마우스 포인터 이벤트 데이터 생성
-        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
-        pointerEventData.position = Input.mousePosition;
+        pointerEventDataUp.position = Input.mousePosition;
 
-        // UI 요소 검출
-        List<RaycastResult> results = new List<RaycastResult>(); // List로 변경
-        EventSystem.current.RaycastAll(pointerEventData, results);
+        EventSystem.current.RaycastAll(pointerEventDataUp, resultsUp);
 
-        if (results.Count > 0)
+        if (resultsUp.Count > 0)
         {
             // UI 요소를 클릭했을 때의 처리를 여기에 추가
-            GameObject clickedUIElement = results[0].gameObject;
+            GameObject clickedUIElement = resultsUp[0].gameObject;
 
             // 여기에 감지된 clikedUIElement 변수에서 누른 슬롯을 추출해내면 될거같음
-            Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
+            //Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
 
             //여기서 고유번호 추출
             if (clickedUIElement.CompareTag("ItemSlot")) // 아이템 슬롯을 눌렀을경우
@@ -129,67 +158,108 @@ public class SG_ItemDragScript : MonoBehaviour,
                 acceptItemSlotClass = clickedUIElement.GetComponent<SG_ItemSlot>();
                 //누른 아이템슬롯의 고유번호 추출
                 acceptSlotCount = acceptItemSlotClass.slotCount;
-                Debug.LogFormat("클릭을 땔때주는 스롯의 고유번호 -> {0}", acceptSlotCount);
+                //Debug.LogFormat("클릭을 땔때주는 스롯의 고유번호 -> {0}", acceptSlotCount);
                 //Debug.LogFormat("받는 스롯의 고유번호 -> {0}",acceptSlotCount);
+
+                // 클릭한 UI 요소에 대한 작업을 수행할 수 있습니다.
+                //Debug.LogFormat("받는얘 번호 -> {0}", acceptSlotCount);
+                // 아래함수 테스트후 아래함수는 giveSlotCount != null && acceptSlotCount != null 로 조건넣으면 될듯
+                //Debug.LogFormat("giveSlotCount -> {0} acceptSlotCount -> {1}", giveSlotCount, acceptSlotCount);
+                //Debug.LogFormat("giveItemSlotClass = null? -> {0}  acceptItemSlotClass = null? -> {1}", giveItemSlotClass == null, acceptItemSlotClass == null);
+                //Debug.LogFormat("giveItemSlotClass -> {0}  acceptItemSlotClass -> {1}", giveItemSlotClass, acceptItemSlotClass);
+                //Debug.Log(giveItemSlotClass.transform.parent.parent == gameObject);
+                //Debug.LogFormat("Swap 매개변수 null 인지 thisClass -> {0}, giveSlotCount -> {1}, acceptSlotCount -> {2}" +
+                //    "giveItemSlot == null? -> {3}, acceptItemSlotClass == null? -> {4} ", thisClass == null,giveSlotCount,acceptSlotCount
+                //    ,giveItemSlotClass == null,acceptItemSlotClass == null);
+                    swapManagerClass.ItemSwap(thisClass,giveSlotCount, acceptSlotCount, giveItemSlotClass, acceptItemSlotClass);
+
+                if (giveItemSlotClass != acceptItemSlotClass)
+                {
+
+                }
             }
-
-            // 클릭한 UI 요소에 대한 작업을 수행할 수 있습니다.
-
-            // 아래함수 테스트후 아래함수는 giveSlotCount != null && acceptSlotCount != null 로 조건넣으면 될듯
-            Debug.LogFormat("giveSlotCount -> {0} acceptSlotCount -> {1}", giveSlotCount, acceptSlotCount);
-            Debug.LogFormat("giveItemSlotClass = null? -> {0}  acceptItemSlotClass = null? -> {1}", giveItemSlotClass == null, acceptItemSlotClass == null);
-            Debug.LogFormat("giveItemSlotClass -> {0}  acceptItemSlotClass -> {1}", giveItemSlotClass, acceptItemSlotClass);
-            Debug.Log(giveItemSlotClass.transform.parent.parent == gameObject);
-            swapManagerClass.ItemSwap(giveSlotCount, acceptSlotCount, giveItemSlotClass, acceptItemSlotClass);
         }
         else
         {
             // UI 요소가 없거나 클릭하지 않았을 때의 처리를 여기에 추가
-            Debug.Log("Click Up UI 요소를 클릭하지 않았거나, 클릭한 UI 요소가 없습니다.");
+            //Debug.Log("Click Up UI 요소를 클릭하지 않았거나, 클릭한 UI 요소가 없습니다.");
         }
 
-
-  
     }   // ClickUP()
 
     // 클릭했을때에 UI라면 해당하는 슬롯의 고유번호를 받아줄 함수
     private void ClickDown()
     {
-        // 마우스 포인터 이벤트 데이터 생성
-        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
-        pointerEventData.position = Input.mousePosition;
+        //Debug.Log("ClickDown은 들어오긴하나?" +"");
+        // 마우스 포인터 이벤트 데이터 생성       
+        pointerEventDataDown.position = Input.mousePosition;
 
-        // UI 요소 검출
-        List<RaycastResult> results = new List<RaycastResult>(); // List로 변경
-        EventSystem.current.RaycastAll(pointerEventData, results);
+        EventSystem.current.RaycastAll(pointerEventDataDown, resultsDown);
 
-        if (results.Count > 0)
+        if (resultsDown.Count > 0)
         {
             // UI 요소를 클릭했을 때의 처리를 여기에 추가
-            GameObject clickedUIElement = results[0].gameObject;
+            GameObject clickedUIElement = resultsDown[0].gameObject;
 
             // 여기에 감지된 clikedUIElement 변수에서 누른 슬롯을 추출해내면 될거같음
-            Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
+            //Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
 
-
-            if(clickedUIElement.CompareTag("ItemSlot")) // 아이템 슬롯을 눌렀을경우
+            Debug.Log(clickedUIElement.tag);
+            if (clickedUIElement.CompareTag("ItemSlot")) // 아이템 슬롯을 눌렀을경우
             {
+                //Debug.Log("ClickDown속 Tag 조건에 들어오나?");
+
                 giveItemSlotClass = clickedUIElement.GetComponent<SG_ItemSlot>();
                 //누른 아이템슬롯의 고유번호 추출
                 giveSlotCount = giveItemSlotClass.slotCount;
-                Debug.LogFormat("클릭시 스롯의 고유번호 -> {0}", giveSlotCount);
+                //Debug.LogFormat("주는얘 번호 -> {0}", giveSlotCount);
+                //Debug.LogFormat("클릭시 스롯의 고유번호 -> {0}", giveSlotCount);
             }
-            
+
         }
         else
         {
             // UI 요소가 없거나 클릭하지 않았을 때의 처리를 여기에 추가
-            Debug.Log("ClickIn() UI 요소를 클릭하지 않았거나, 클릭한 UI 요소가 없습니다.");
+            //Debug.Log("ClickIn() UI 요소를 클릭하지 않았거나, 클릭한 UI 요소가 없습니다.");
         }
     }
 
 
+    protected void RayTargetControler()
+    {
+        //Debug.Log("이벤트 호출");
+        if (itemImage.raycastTarget == true)
+        {
+            itemImage.raycastTarget = false;
+        }
+
+        else if (itemImage.raycastTarget == false)
+        {
+            itemImage.raycastTarget = true;
+        }
+    }       // RayTargetControler()
+
+    public void RayTargetControler_All()
+    {
+        foreach(var ele in allItemDragScrip)
+        {
+            ele.RayTargetControler();
+        }
+    }       // RayTargetControler()
 
 
+    // 스왑후 잔여아이템이 남아있다면 다시 부모 오브젝트로가게 만들 함수
+    public void SetTransformParent()
+    {
+        //Debug.Log("원래대로 돌려주며 Sprite 를 집어넣는 함수에 잘들어오나?");
+        // 마지막에 소속되어 잇었던 previousParent의 자식으로 설정하고, 해당 위치로 설정
+        transform.SetParent(previousParent);
+        rectTrans.position = previousParent.GetComponent<RectTransform>().position;
+      
+        // 다시 돌아왔으니 Item InIt 해줘야할듯
+        thisParentSlotClass = this.transform.parent.gameObject.GetComponent<SG_ItemSlot>();
+        thisParentSlotClass.MoveItemSet();
+
+    }
 
 }   // NAMESPACE

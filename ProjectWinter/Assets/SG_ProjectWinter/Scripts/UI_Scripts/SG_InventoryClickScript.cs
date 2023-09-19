@@ -42,10 +42,12 @@ public class SG_InventoryClickScript : MonoBehaviour,IPointerEnterHandler,IDropH
         // PointerDrag는 현재 드래그 하고 있는 대상(= 아이템)
         if(eventData.pointerDrag != null)
         {
-            // 드래그 하고 있는 대상의 부모를 현재 오브젝트로 설정하고, 위치를 현재 오브젝트 위치와 동일하게 설정
-            eventData.pointerDrag.transform.SetParent(transform);
-            eventData.pointerDrag.GetComponent<RectTransform>().position = rect.position;
-
+            if(itemSlotClass.item == null)
+            {
+                // 드래그 하고 있는 대상의 부모를 현재 오브젝트로 설정하고, 위치를 현재 오브젝트 위치와 동일하게 설정            
+                eventData.pointerDrag.transform.SetParent(transform);
+                eventData.pointerDrag.GetComponent<RectTransform>().position = rect.position;
+            }
 
         }
     }

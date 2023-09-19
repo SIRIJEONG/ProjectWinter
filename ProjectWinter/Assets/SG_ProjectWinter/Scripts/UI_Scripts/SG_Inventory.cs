@@ -115,7 +115,7 @@ public class SG_Inventory : MonoBehaviour
                     {
                         if (slots[i].itemCount == 3)
                         {
-                            Debug.Log("3개 이상은 주울수 없음");
+                            //Debug.Log("3개 이상은 주울수 없음");
                             continue;
                         }
                         slots[i].SetSlotCount(_count);
@@ -197,7 +197,7 @@ public class SG_Inventory : MonoBehaviour
                     {
                         if (slots[i].itemCount == 3)
                         {
-                            Debug.Log("3개 이상은 주울수 없음");
+                            //Debug.Log("3개 이상은 주울수 없음");
                             continue;
                         }
                         slots[i].SetSlotCount(_count);
