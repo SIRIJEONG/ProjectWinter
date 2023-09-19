@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+//using UnityEditor.XR;
 
 public class WaitingRoomManager : MonoBehaviourPunCallbacks
 {
@@ -17,23 +18,24 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
 
     public Image[] targetImages; // 불투명도를 조절할 대상 이미지 배열
 
-    //public Image targetImage; // 불투명도를 조절할 대상 이미지
-    //public Image targetImage2; // 불투명도를 조절할 대상 이미지
-    //public Image targetImage3; // 불투명도를 조절할 대상 이미지
-    //public Image targetImage4; // 불투명도를 조절할 대상 이미지
-    //public Image targetImage5; // 불투명도를 조절할 대상 이미지
-    //public Image targetImage6; // 불투명도를 조절할 대상 이미지
 
     private Color originalColor; // 초기 이미지 색상
     private Color transparentColor; // 클릭 후 색상 
 
     private List<Text> nicknameBoxes = new List<Text>();
 
+    // 변수를 추가하여 모든 플레이어의 readyButton 상태를 추적합니다.
+    private Dictionary<string, bool> playerReadyStates = new Dictionary<string, bool>();
+
     public bool readyButton = true;
 
-    // Start is called before the first frame update
+
+    // Start is called before the first frame updated
     void Start()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
+
+
         // 텍스트 UI를 리스트에 추가
         nicknameBoxes.Add(nicknameBoxOne);
         nicknameBoxes.Add(nicknameBoxOne2);
@@ -52,16 +54,46 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         // 클릭후 색상 
         transparentColor = new Color(originalColor.r, originalColor.g, originalColor.b, 170f);
         UpdateNicknameText();
-        UpdateUserCount();
-
-
+        UpdateUserCount();     
     }
+
+    public void SetPlayerReady(bool isReady)
+    {
+        ExitGames.Client.Photon.Hashtable customProperties = new ExitGames.Client.Photon.Hashtable();
+        customProperties["IsReady"] = isReady;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(customProperties);
+    }
+
+
+    public bool AreAllPlayersReady()
+    {
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            object isReady;
+            if (player.CustomProperties.TryGetValue("IsReady", out isReady))
+            {
+                if (!(bool)isReady)
+                {
+                    return false; // 하나 이상의 플레이어가 아직 준비하지 않음
+                }
+            }
+            else
+            {
+                return false; // 플레이어의 준비 상태 Custom Property가 없거나 값을 가져올 수 없음
+            }
+        }
+        return true; // 모든 플레이어가 준비 완료
+    }
+
+
 
     // 다른 플레이어가 방에 입장할 때 호출되는 콜백
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         // 새로운 플레이어가 방에 입장하면 이벤트가 호출됩니다.
         // 이때 새로운 플레이어의 닉네임을 Text UI에 할당하여 표시합니다.
+        playerReadyStates[newPlayer.NickName] = false;
+
         UpdateNicknameText();
         UpdateUserCount();
     }
@@ -117,77 +149,56 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         userCount.text = PhotonNetwork.CurrentRoom.PlayerCount.ToString() + "/6";
     }
 
+
+
+
+
+    //public void SetPlayerReadyState(string playerNickname, bool isReady)
+    //{
+    //    playerReadyStates[playerNickname] = isReady;
+    //}
+
+    //public bool AreAllPlayersReady()
+    //{
+    //    foreach (var rc in playerReadyStates)
+    //    {
+    //        if (rc.Value)
+    //        {
+    //            return false; // 하나 이상의 플레이어가 아직 준비하지 않음
+    //        }
+    //    }
+    //    return true; // 모든 플레이어가 준비 완료
+    //}
+
+
+
+    // 게임 시작 버튼을 누를 때 호출되는 메서드
+    public void StartGame()
+    {
+        if (AreAllPlayersReady())
+        {
+            // 모든 플레이어가 준비 상태일 경우, 씬 전환 또는 게임 시작 로직을 수행합니다.
+            // 예를 들어, 씬을 전환하려면 다음과 같이 사용합니다.
+            Debug.Log("게임 시작 조건 충족: 모든 플레이어가 준비 상태입니다.");
+            PhotonNetwork.LoadLevel("HW_PlayScene");
+        }
+        else
+        {
+            Debug.Log("게임 시작 조건 미충족: 아직 모든 플레이어가 준비 상태가 아닙니다.");
+            // 아직 모든 플레이어가 준비 상태가 아님을 메시지로 표시하거나 다른 동작을 수행합니다.
+        }
+    }
+
+
+
+
+
+
     // Update is called once per frame
     void Update()
     {
 
     }
-
-    // public void GetReadyButton()
-    // {
-
-    //     // 로컬 플레이어의 입력 또는 어떤 조건에 따라 불투명도를 변경 가능 
-    //     if (Input.GetKeyDown(KeyCode.Space))
-    //     {
-    //         // 완전 투명한 색상으로 변경
-    //         photonView.RPC("SetImageColor", RpcTarget.AllBuffered, transparentColor);
-    //     }
-    //     SetImageColor(transparentColor);
-
-    //     클릭 후 이미지 색상
-    //     photonView.RPC("SetImageColor", RpcTarget.All);
-
-
-
-    // }
-    // RPC를 통해 이미지의 색상을 설정하는 메서드
-    //[PunRPC]
-    // public void SetImageColor(/*Color color*/)
-    // {
-    //     for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
-    //     {
-    //         if (i < nicknameBoxes.Count)
-    //         {
-
-    //             if (PhotonNetwork.PlayerList[i].NickName == nicknameBoxes[i].text)
-    //             {
-    //                 if (i == 0)
-    //                 {
-    //                     targetImage.color = transparentColor;
-    //                 }
-    //                 else if (i == 1)
-    //                 {
-    //                     targetImage2.color = transparentColor;
-    //                 }
-    //                 else if (i == 2)
-    //                 {
-    //                     targetImage3.color = transparentColor;
-    //                 }
-    //                 else if (i == 3)
-    //                 {
-    //                     targetImage4.color = transparentColor;
-    //                 }
-    //                 else if (i == 4)
-    //                 {
-    //                     targetImage5.color = transparentColor;
-    //                 }
-    //                 else if (i == 5)
-    //                 {
-    //                     targetImage6.color = transparentColor;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-
-
-
-
-
-
-
-
 
     public void GetReadyButton()
     {
@@ -200,15 +211,17 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
             if (readyButton == true)
             {
                 // 클릭 후 이미지 색상
-                photonView.RPC("SetImageColor", RpcTarget.All, playerIndex);
+                photonView.RPC("SetImageColor", RpcTarget.AllBuffered, playerIndex);
                 readyButton = false;
             }
             else if (readyButton == false)
             {
-                photonView.RPC("UnSetImageColor", RpcTarget.All, playerIndex);
+                photonView.RPC("UnSetImageColor", RpcTarget.AllBuffered, playerIndex);
                 readyButton = true;
             }
         }
+
+        SetPlayerReady(!readyButton);
 
     }
 
@@ -241,6 +254,8 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         }
     }
 
+
+
     // RPC를 통해 이미지의 색상을 설정하는 메서드
     [PunRPC]
     public void UnSetImageColor(int playerIndex)
@@ -255,4 +270,22 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
             }
         }
     }
+
+
+
+    public void LeftGame()
+    {
+        PhotonNetwork.Disconnect(); // 서버와의 연결을 끊음
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        base.OnDisconnected(cause);
+
+        // 서버와의 연결이 끊어지면 로비에 재접속
+        readyButton = true;
+        PhotonNetwork.LoadLevel("HW_Lobby");
+        PhotonNetwork.JoinLobby();
+    }
+
 }
