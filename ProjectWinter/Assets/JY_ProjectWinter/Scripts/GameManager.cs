@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
 using UnityEngine.SocialPlatforms.Impl;
+using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -27,10 +28,14 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     public static GameManager m_instance; // 싱글톤이 할당될 static 변수
 
     public GameObject playerPrefab; // 생성할 플레이어 캐릭터 프리팹
+    public GameObject survivorRolePanel;    // 생존자 역할일 경우 킬 UI
+    public GameObject traitorRolePanel;     // 배신자 역할일 경우 킬 UI
 
     public TMP_Text timerText;      // 눈보라 제한시간 텍스트
     public float limitTime = 900.0f; // 15분은 900초
     private float currentTime;
+
+    public int traitorNum;      // 배신자 역할의 ActorNumber
 
     public bool isLimitOver = false;
     public bool isRepairPowerStation = false;
@@ -61,8 +66,14 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        //캐릭터 산장 앞에 생성
-
+        //캐릭터 산장 앞에 생성 (좌표 x : -235 z : 380)
+        PhotonNetwork.Instantiate("Player", new Vector3(-235f, 1f, 380f), Quaternion.identity);
+        //역할 부여하기
+        if (PhotonNetwork.IsMasterClient)
+        {
+            traitorNum = Random.Range(1, PhotonNetwork.PlayerList.Length + 1);
+            photonView.RPC("CastTraitor", RpcTarget.AllBuffered, traitorNum);
+        }
         //타이머 시작
         currentTime = limitTime;
         StartCoroutine(UpdateTimer());
@@ -72,6 +83,24 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     void Update()
     {
 
+    }
+
+    // 플레이어마다 자신의 ActorNumber를 확인하여 배신자 번호일 경우 배신자 역할 판넬이 켜짐
+    [PunRPC]
+    public void CastTraitor(int traitorNum_)
+    {
+        if (photonView.IsMine)
+        {
+            traitorNum = traitorNum_;
+            if(photonView.Owner.ActorNumber == traitorNum_)
+            {
+                traitorRolePanel.SetActive(true);
+            }
+            else
+            {
+                survivorRolePanel.SetActive(true);
+            }
+        }
     }
 
     private IEnumerator UpdateTimer()
