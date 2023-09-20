@@ -30,10 +30,15 @@ public class SG_PlayerActionControler : MonoBehaviour
     [SerializeField]
     private SG_Inventory theInventory;
 
+    //창고
     // 창고를 열기위한  플레이어의 이벤트 선언 창고가 인식하면 창고를 열고 닫고 해줄 이벤트 델리게이트
     public delegate void WareHouseDelegate();
-
     public event WareHouseDelegate WareHouseEvent;
+
+    // 발전기
+    public delegate void PowerStationInventoryDelegate();
+    // event를 델리게이트를 지정해서 델리게이트가 가지고 있는 void 의 리턴값과 매개변수가 없어야한다는 조건을넣어준샘이됨
+    public event PowerStationInventoryDelegate PowerStationInventoryEvent;
 
 
     //public SG_Inventory inventoryClass;
@@ -52,7 +57,7 @@ public class SG_PlayerActionControler : MonoBehaviour
     void Update()
     {
         CheckItem();
-        CheckWarehouse();
+        CheckOpenObj();
         TryAction();
 
     }
@@ -123,12 +128,12 @@ public class SG_PlayerActionControler : MonoBehaviour
         Destroy(hitInfo.transform.gameObject);
     }
 
-    // ---------------------------------- 웨어 하우스 함수 -----------------------------------
+    // ---------------------------------- 인벤토리 Open 함수 -----------------------------------
 
-    private void CheckWarehouse()
+    private void CheckOpenObj()
     {
         if (Physics.Raycast
-        (transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range, whreHouseMask))
+        (transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range))
         {
             if (hitInfo.transform.CompareTag("Warehouse"))
             {
@@ -139,7 +144,19 @@ public class SG_PlayerActionControler : MonoBehaviour
                     WareHouseEvent?.Invoke();
                 }
             }
-        }
-    }
+            else { /*PASS*/ }
+
+            if (hitInfo.transform.CompareTag("PowerStation"))
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    PowerStationInventoryEvent?.Invoke();
+                }
+            }
+            else { /*PASS*/ }
+
+        }   // Ray IF
+
+    }   //CheckOpenObj()
 
 }   // NAMESPACE

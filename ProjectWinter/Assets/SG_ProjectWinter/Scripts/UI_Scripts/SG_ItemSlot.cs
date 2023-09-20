@@ -178,4 +178,4 @@ public class SG_ItemSlot : MonoBehaviour
         }
     }
 
-}
+}   // NameSpace
