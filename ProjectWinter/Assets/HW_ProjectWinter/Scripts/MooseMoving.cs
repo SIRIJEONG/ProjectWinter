@@ -24,6 +24,9 @@ public class MooseMoving : LivingEntity
 
     private int currentWaypointIndex = 1;
 
+    public float rotationSpeed = 5f; // 바라보는 속도
+
+
 
     // 추적할 대상이 존재하는지 알려주는 프로퍼티
     private bool hasTarget
@@ -90,9 +93,21 @@ public class MooseMoving : LivingEntity
         //}
 
         // 추적 대상의 존재 여부에 따라 다른 애니메이션을 재생
-        animalAnimator.SetBool("HasTarget", hasTarget);
+        bool hasValidTarget = hasTarget && targetEntity != null && !targetEntity.isDead;
 
-        
+        // 추적 대상의 존재 여부에 따라 다른 애니메이션을 재생
+        animalAnimator.SetBool("HasTarget", hasValidTarget);
+
+
+        if (hasValidTarget)
+        {
+            // 타겟 방향으로 봄
+            Vector3 lookDirection = (targetEntity.transform.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(lookDirection.x, 0, lookDirection.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+        }
+
+
     }
 
 
@@ -104,10 +119,28 @@ public class MooseMoving : LivingEntity
         {
             if (hasTarget)
             {
-                //Debug.Log("타겟을 찾았다.");
+                Debug.Log("타겟을 찾았다.");
                 // 추적 대상 존재 : 경로를 갱신하고 AI 이동을 계속 진행
                 navMeshAgent.isStopped = false;
-                navMeshAgent.SetDestination(targetEntity.transform.position);
+                navMeshAgent.stoppingDistance = 5;
+
+                float distanceToTarget = Vector3.Distance(transform.position, targetEntity.transform.position);
+
+
+                // 일정 거리 내에 도달하면 걸어가는 애니메이션을 끄고 공격 애니메이션을 켬
+                if (distanceToTarget <= navMeshAgent.stoppingDistance)
+                {
+                    animalAnimator.SetBool("Attack", true);
+                    yield return new WaitForSeconds(1.8f);
+                    animalAnimator.SetBool("Attack", false);
+                    yield return new WaitForSeconds(1f);
+
+                }
+                else
+                {
+                    animalAnimator.SetBool("Attack", false);
+                    navMeshAgent.SetDestination(targetEntity.transform.position);
+                }
 
 
             }
@@ -124,7 +157,7 @@ public class MooseMoving : LivingEntity
                 // 20 유닛의 반지름을 가진 가상의 구를 그렸을때, 구와 겹치는 모든 콜라이더를 가져옴
                 // 단, targetLayers에 해당하는 레이어를 가진 콜라이더만 가져오도록 필터링
                 Collider[] colliders =
-                    Physics.OverlapSphere(transform.position, 10f, whatIsTarget);
+                    Physics.OverlapSphere(transform.position, 15f, whatIsTarget);
 
                 // 모든 콜라이더들을 순회하면서, 살아있는 플레이어를 찾기
                 for (int i = 0; i < colliders.Length; i++)
@@ -204,29 +237,32 @@ public class MooseMoving : LivingEntity
 
         // 자신이 사망하지 않았으며,
         // 최근 공격 시점에서 timeBetAttack 이상 시간이 지났다면 공격 가능
-        if (!isDead && Time.time >= lastAttackTime + timeBetAttack )
+        if (!isDead && Time.time >= lastAttackTime + timeBetAttack && animalAnimator.GetBool("Attack"))
         {
             // 상대방으로부터 LivingEntity 타입을 가져오기 시도
             LivingEntity attackTarget
                 = other.GetComponent<LivingEntity>();
 
             // 상대방의 LivingEntity가 자신의 추적 대상이라면 공격 실행
-            if (attackTarget != null && attackTarget == targetEntity)
+            if (attackTarget != null)
             {
+                // 타겟이 사망하지 않은 경우에만 공격 실행
+                if (!attackTarget.isDead)
+                {
+                    // 최근 공격 시간을 갱신
+                    lastAttackTime = Time.time;
 
-                animalAnimator.SetBool("Attack", true);
+                    // 상대방의 피격 위치와 피격 방향을 근삿값으로 계산
+                    Vector3 hitPoint = other.ClosestPoint(transform.position);
+                    Vector3 hitNormal = transform.position - other.transform.position;
 
+                    if (animalAnimator.GetBool("Attack"))
+                    {
+                        // 공격 실행
+                        attackTarget.OnDamage(damage, hitPoint, hitNormal);
 
-                // 최근 공격 시간을 갱신
-                lastAttackTime = Time.time;
-
-                // 상대방의 피격 위치와 피격 방향을 근삿값으로 계산
-                Vector3 hitPoint = other.ClosestPoint(transform.position);
-                Vector3 hitNormal = transform.position - other.transform.position;
-
-                
-                // 공격 실행
-                attackTarget.OnDamage(damage, hitPoint, hitNormal);
+                    }
+                }
             }
         }
     }

@@ -19,11 +19,11 @@ public class WolfMoving : LivingEntity
     private float lastAttackTime; // 마지막 공격 시점
 
 
-    public Transform[] waypoints; // 경로 포인트 배열
     public float speed = 3f; // 이동 속도
 
     private int currentWaypointIndex = 1;
 
+    public float rotationSpeed = 5f; // 바라보는 속도
 
     // 추적할 대상이 존재하는지 알려주는 프로퍼티
     private bool hasTarget
@@ -73,11 +73,6 @@ public class WolfMoving : LivingEntity
         StartCoroutine(UpdatePath());
 
 
-        if (waypoints.Length > 0)
-        {
-            // 초기 위치 설정
-            transform.position = waypoints[0].position;
-        }
     }
 
     private void Update()
@@ -90,7 +85,18 @@ public class WolfMoving : LivingEntity
         //}
 
         // 추적 대상의 존재 여부에 따라 다른 애니메이션을 재생
-        animalAnimator.SetBool("HasTarget", hasTarget);
+        bool hasValidTarget = hasTarget && targetEntity != null && !targetEntity.isDead;
+
+        // 추적 대상의 존재 여부에 따라 다른 애니메이션을 재생
+        animalAnimator.SetBool("HasTarget", hasValidTarget);
+
+        if (hasValidTarget)
+        {
+            // 타겟 방향으로 봄
+            Vector3 lookDirection = (targetEntity.transform.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(lookDirection.x, 0, lookDirection.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+        }
 
 
     }
@@ -105,12 +111,31 @@ public class WolfMoving : LivingEntity
             if (hasTarget)
             {
 
-                animalAnimator.SetBool("WolfWalk", true);
-
-                //Debug.Log("타겟을 찾았다.");
+                Debug.Log("타겟을 찾았다.");
                 // 추적 대상 존재 : 경로를 갱신하고 AI 이동을 계속 진행
                 navMeshAgent.isStopped = false;
-                navMeshAgent.SetDestination(targetEntity.transform.position);
+                navMeshAgent.stoppingDistance = 2;
+
+                float distanceToTarget = Vector3.Distance(transform.position, targetEntity.transform.position);
+
+
+                // 일정 거리 내에 도달하면 걸어가는 애니메이션을 끄고 공격 애니메이션을 켬
+                if (distanceToTarget <= navMeshAgent.stoppingDistance)
+                {
+                    animalAnimator.SetBool("WolfWalk", false);
+                    animalAnimator.SetBool("WolfAttack", true);
+                    yield return new WaitForSeconds(0.5f);
+                    animalAnimator.SetBool("WolfAttack", false);
+                    yield return new WaitForSeconds(1f);
+
+                }
+                else
+                {
+                    animalAnimator.SetBool("WolfWalk", true);
+                    animalAnimator.SetBool("WolfAttack", false);
+                    navMeshAgent.SetDestination(targetEntity.transform.position);
+
+                }
 
 
             }
@@ -200,59 +225,44 @@ public class WolfMoving : LivingEntity
 
     private void OnTriggerStay(Collider other)
     {
-        //// 호스트가 아니라면 공격 실행 불가
-        //if (!PhotonNetwork.IsMasterClient)
-        //{
-        //    return;
-        //}
-
         // 자신이 사망하지 않았으며,
         // 최근 공격 시점에서 timeBetAttack 이상 시간이 지났다면 공격 가능
-        if (!isDead && Time.time >= lastAttackTime + timeBetAttack)
+        if (!isDead && Time.time >= lastAttackTime + timeBetAttack && animalAnimator.GetBool("WolfAttack"))
         {
-
-
-
             // 상대방으로부터 LivingEntity 타입을 가져오기 시도
-            LivingEntity attackTarget
-                = other.GetComponent<LivingEntity>();
+            LivingEntity attackTarget = other.GetComponent<LivingEntity>();
 
             // 상대방의 LivingEntity가 자신의 추적 대상이라면 공격 실행
-            if (attackTarget != null && attackTarget == targetEntity)
+            if (attackTarget != null)
             {
+                // 타겟이 사망하지 않은 경우에만 공격 실행
+                if (!attackTarget.isDead)
+                {
 
-                animalAnimator.SetBool("WolfAttack", true);
+                    Debug.Log("곰이 때리나?");
 
+                    // 최근 공격 시간을 갱신
+                    lastAttackTime = Time.time;
 
-                // 최근 공격 시간을 갱신
-                lastAttackTime = Time.time;
+                    // 상대방의 피격 위치와 피격 방향을 근삿값으로 계산
+                    Vector3 hitPoint = other.ClosestPoint(transform.position);
+                    Vector3 hitNormal = transform.position - other.transform.position;
 
-                // 상대방의 피격 위치와 피격 방향을 근삿값으로 계산
-                Vector3 hitPoint = other.ClosestPoint(transform.position);
-                Vector3 hitNormal = transform.position - other.transform.position;
-
-                // 공격 실행
-                attackTarget.OnDamage(damage, hitPoint, hitNormal);
+                    if (animalAnimator.GetBool("WolfAttack"))
+                    {
+                        attackTarget.OnDamage(damage, hitPoint, hitNormal);
+                    }
+                    // 공격 실행
+                }
             }
         }
-    }
-
-    public void WayPointMoving()
-    {
-        //if (waypoints.Length == 0)
-        //    return;
-
-        // 현재 경로 포인트
-        Transform currentWaypoint = waypoints[currentWaypointIndex];
-
-
-        transform.LookAt(currentWaypoint);
-
-        // 경로 포인트에 도달한 경우 다음 포인트로 이동
-        if (Vector3.Distance(transform.position, currentWaypoint.position) < 0.1f)
+        else
         {
-            // 다음 경로 포인트로 이동
-            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+            // 공격 중이 아니라면 추적을 멈추고 애니메이션을 초기화
+            navMeshAgent.isStopped = true;
+            animalAnimator.SetBool("WolfAttack", false);
         }
     }
+
+
 }

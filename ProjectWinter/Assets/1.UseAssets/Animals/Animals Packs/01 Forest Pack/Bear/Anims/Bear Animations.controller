@@ -461,13 +461,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: BearWalk
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1522,7 +1522,7 @@ AnimatorStateMachine:
     m_Position: {x: 590, y: 450, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102050940639944696}
-    m_Position: {x: 690, y: 390, z: 0}
+    m_Position: {x: 730, y: 360, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102587138815932466}
     m_Position: {x: 948, y: -180, z: 0}
@@ -1537,7 +1537,7 @@ AnimatorStateMachine:
     m_Position: {x: 950, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102794185363931242}
-    m_Position: {x: 680, y: -440, z: 0}
+    m_Position: {x: 670, y: -440, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102195845248634806}
     m_Position: {x: 1200, y: 260, z: 0}

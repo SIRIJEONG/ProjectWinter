@@ -19,7 +19,6 @@ public class BearMoving : LivingEntity
     private float lastAttackTime; // 마지막 공격 시점
 
 
-    public Transform[] waypoints; // 경로 포인트 배열
     public float speed = 3f; // 이동 속도
 
     private int currentWaypointIndex = 1;
@@ -74,12 +73,6 @@ public class BearMoving : LivingEntity
         // 게임 오브젝트 활성화와 동시에 AI의 추적 루틴 시작
         StartCoroutine(UpdatePath());
 
-
-        if (waypoints.Length > 0)
-        {
-            // 초기 위치 설정
-            transform.position = waypoints[0].position;
-        }
     }
 
     private void Update()
@@ -115,12 +108,31 @@ public class BearMoving : LivingEntity
             if (hasTarget)
             {
 
-                animalAnimator.SetBool("BearWalk", true);
-
                 Debug.Log("타겟을 찾았다.");
                 // 추적 대상 존재 : 경로를 갱신하고 AI 이동을 계속 진행
                 navMeshAgent.isStopped = false;
-                navMeshAgent.SetDestination(targetEntity.transform.position);
+                navMeshAgent.stoppingDistance = 5;
+
+                float distanceToTarget = Vector3.Distance(transform.position, targetEntity.transform.position);
+
+
+                // 일정 거리 내에 도달하면 걸어가는 애니메이션을 끄고 공격 애니메이션을 켬
+                if (distanceToTarget <= navMeshAgent.stoppingDistance)
+                {
+                    animalAnimator.SetBool("BearWalk", false);
+                    animalAnimator.SetBool("BearAttack", true);
+                    yield return new WaitForSeconds(2f);
+                    animalAnimator.SetBool("BearAttack", false);
+                    yield return new WaitForSeconds(1f);
+
+                }
+                else
+                {
+                    animalAnimator.SetBool("BearWalk", true);
+                    animalAnimator.SetBool("BearAttack", false);
+                    navMeshAgent.SetDestination(targetEntity.transform.position);
+
+                }
 
 
             }
@@ -210,60 +222,44 @@ public class BearMoving : LivingEntity
 
     private void OnTriggerStay(Collider other)
     {
-        //// 호스트가 아니라면 공격 실행 불가
-        //if (!PhotonNetwork.IsMasterClient)
-        //{
-        //    return;
-        //}
-
         // 자신이 사망하지 않았으며,
         // 최근 공격 시점에서 timeBetAttack 이상 시간이 지났다면 공격 가능
-        if (!isDead && Time.time >= lastAttackTime + timeBetAttack)
+        if (!isDead && Time.time >= lastAttackTime + timeBetAttack && animalAnimator.GetBool("BearAttack"))
         {
             // 상대방으로부터 LivingEntity 타입을 가져오기 시도
-            LivingEntity attackTarget
-                = other.GetComponent<LivingEntity>();
+            LivingEntity attackTarget = other.GetComponent<LivingEntity>();
 
             // 상대방의 LivingEntity가 자신의 추적 대상이라면 공격 실행
-            if (attackTarget != null && attackTarget == targetEntity)
+            if (attackTarget != null)
             {
+                // 타겟이 사망하지 않은 경우에만 공격 실행
+                if (!attackTarget.isDead)
+                {
 
-                animalAnimator.SetBool("BearAttack", true);
+                    Debug.Log("곰이 때리나?");
 
+                    // 최근 공격 시간을 갱신
+                    lastAttackTime = Time.time;
 
-                // 최근 공격 시간을 갱신
-                lastAttackTime = Time.time;
+                    // 상대방의 피격 위치와 피격 방향을 근삿값으로 계산
+                    Vector3 hitPoint = other.ClosestPoint(transform.position);
+                    Vector3 hitNormal = transform.position - other.transform.position;
 
-                // 상대방의 피격 위치와 피격 방향을 근삿값으로 계산
-                Vector3 hitPoint = other.ClosestPoint(transform.position);
-                Vector3 hitNormal = transform.position - other.transform.position;
-
-                // 공격 실행
-                attackTarget.OnDamage(damage, hitPoint, hitNormal);
+                    if(animalAnimator.GetBool("BearAttack"))
+                    {
+                    attackTarget.OnDamage(damage, hitPoint, hitNormal);
+                    }
+                    // 공격 실행
+                }
             }
         }
         else
         {
-
+            // 공격 중이 아니라면 추적을 멈추고 애니메이션을 초기화
+            navMeshAgent.isStopped = true;
+            animalAnimator.SetBool("BearAttack", false);
         }
     }
 
-    public void WayPointMoving()
-    {
-        //if (waypoints.Length == 0)
-        //    return;
 
-        // 현재 경로 포인트
-        Transform currentWaypoint = waypoints[currentWaypointIndex];
-
-
-        transform.LookAt(currentWaypoint);
-
-        // 경로 포인트에 도달한 경우 다음 포인트로 이동
-        if (Vector3.Distance(transform.position, currentWaypoint.position) < 0.1f)
-        {
-            // 다음 경로 포인트로 이동
-            currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
-        }
-    }
 }
