@@ -12,11 +12,6 @@ public class SG_WareHouseController : MonoBehaviour
 
     SG_PlayerActionControler playerActionClass;
 
-    public delegate void warehouseInventoryDelegate();
-
-    // event를 델리게이트를 지정해서 델리게이트가 가지고 있는 void 의 리턴값과 매개변수가 없어야한다는 조건을넣어준샘이됨
-    public event warehouseInventoryDelegate warehouseInventoryEvent;
-
     private void Start()
     {
         warehouseObjs.SetActive(false);

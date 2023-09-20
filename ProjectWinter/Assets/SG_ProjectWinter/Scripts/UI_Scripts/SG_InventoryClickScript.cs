@@ -66,6 +66,10 @@ public class SG_InventoryClickScript : MonoBehaviour,IPointerEnterHandler,IDropH
         {
             image.color = Color.black;
         }
+        else if(itemSlotClass.slotTopParentObj.gameObject.CompareTag("PowerStation"))
+        {
+            image.color = Color.black;
+        }
         //image.color = Color.black;
     }
 

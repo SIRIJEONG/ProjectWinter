@@ -142,7 +142,7 @@ public class SG_ItemSlot : MonoBehaviour
     {
         //text_Count.text = "0";
         text_Count = null;
-        itemImage.sprite = null;
+        //itemImage.sprite = null;        
         itemImage = null;
         itemCountImg = null;
         item = null;
@@ -178,4 +178,4 @@ public class SG_ItemSlot : MonoBehaviour
         }
     }
 
-}
+}   // NameSpace

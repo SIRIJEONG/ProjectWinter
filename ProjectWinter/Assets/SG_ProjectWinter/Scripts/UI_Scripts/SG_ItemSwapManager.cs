@@ -48,10 +48,10 @@ public class SG_ItemSwapManager : MonoBehaviour
                          SG_ItemSlot _giveSlots, SG_ItemSlot _accepSlots)
     {
         giveItemDragScript = _itemDragScript;
-        ThisSameSlot(_GiveSlotCount,_AcceptSlotCount);  // 슬롯이 같은지 확인후 다를때만 Swap이 이루어지게 만들어주는 함수
+        ThisSameSlot(_GiveSlotCount, _AcceptSlotCount);  // 슬롯이 같은지 확인후 다를때만 Swap이 이루어지게 만들어주는 함수
 
 
-        if(sameSlot == false)
+        if (sameSlot == false)
         {
             //스왑시 필요한 로직
             SearchGiveSlot(_GiveSlotCount, _giveSlots);     // 주는슬롯을 찾아서 아이템을 저장하는 함수
@@ -138,7 +138,7 @@ public class SG_ItemSwapManager : MonoBehaviour
 
     //받는 슬롯을 찾아서 아이템을넣어주는 함수
     public void SerchAccepSlots(int _AcceptSlotCount, SG_ItemSlot _accepSlots)
-    {        
+    {
         #region 플레이어가 받는 슬롯일때
         if (_AcceptSlotCount > 1 && _AcceptSlotCount < 20) // 플레이어가 받는 Slot일때에
         {
@@ -161,8 +161,8 @@ public class SG_ItemSwapManager : MonoBehaviour
                     }
                     else if (acceptInvenClass.slots[i].item == moveItem)
                     {
-                        acceptInvenClass.slots[i].itemCount = acceptInvenClass.slots[i].itemCount + tempItemCount;
-                        //Debug.LogFormat("받은얘의 아이템 갯수 -> {0}", acceptInvenClass.slots[i].itemCount);
+                        acceptInvenClass.slots[i].itemCount = acceptInvenClass.slots[i].itemCount + tempItemCount;                        
+                        accepSlotCount = i;
                         ItemExamine();
                     }
                     else if (acceptInvenClass.slots[i].item == null)
@@ -172,10 +172,12 @@ public class SG_ItemSwapManager : MonoBehaviour
                         acceptInvenClass.slots[i].itemCount = tempItemCount;
                         accepSlotCount = i;
                         ItemExamine();
+                        Debug.LogFormat("For_accepSlotCount -> {0}", accepSlotCount);
                     }
                     //Debug.LogFormat("Accept() Give -> {0} Accept -> {1}", giveSlotCount, accepSlotCount);
                     break;
                 }
+
             }
             return; // 찾아서 슬롯에 아이템을 넣어주었다면 return으로 함수 즉시탈출
         }
@@ -225,7 +227,7 @@ public class SG_ItemSwapManager : MonoBehaviour
         }
         else { /*PASS*/ }
         #endregion 산장창고가 받는 슬롯일때
-       
+
     }   //SerchAccepSlots
 
 
@@ -233,8 +235,12 @@ public class SG_ItemSwapManager : MonoBehaviour
     private void ItemExamine()
     {
         //Debug.Log("아이템 갯수 체크하는 함수가 잘 들어와지는가?");
+        Debug.LogFormat("accepSlotCount -> {0}", accepSlotCount);
+        //Debug.LogFormat("AccepSlot ItemCount -> {0}", acceptInvenClass.slots[accepSlotCount].itemCount);
+        //Debug.LogFormat("AccInvenClassNotNull? -> {0}",acceptInvenClass != null);
         if (acceptInvenClass.slots[accepSlotCount].itemCount > 3)    // 받는쪽의 아이템이 3개가 넘는지 체크
         {
+            //Debug.LogFormat("아이템이 3개가 넘어가서 조건에 잘들어왔는가?");
             int tempItemCount001 = acceptInvenClass.slots[accepSlotCount].itemCount;
             int tempItemCount002 = tempItemCount001 - 3;
 
@@ -280,20 +286,20 @@ public class SG_ItemSwapManager : MonoBehaviour
         #endregion  LEGACY
         //if (giveSlotCount >= 0 && giveSlotCount < giveInvenClass.slots.Length)
         //{
-            if (giveInvenClass.slots[giveSlotCount].item == acceptInvenClass.slots[accepSlotCount].item)
+        if (giveInvenClass.slots[giveSlotCount].item == acceptInvenClass.slots[accepSlotCount].item)
+        {
+            if (isPassExamine == true)
             {
-                if (isPassExamine == true)
-                {
-                    
-                    giveInvenClass.slots[giveSlotCount].DisconnectedItem();
-                    //isPassExamine = false;
-                }
-                else
-                {
-                    isPassExamine = true;
-                }
+
+                giveInvenClass.slots[giveSlotCount].DisconnectedItem();
+                //isPassExamine = false;
             }
-            else { /*PASS*/ }
+            else
+            {
+                isPassExamine = true;
+            }
+        }
+        else { /*PASS*/ }
         //}
         //else { Debug.LogError("Invalid giveSlotCount: " + giveSlotCount); }
     }

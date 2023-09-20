@@ -177,6 +177,12 @@ public class SG_Inventory : MonoBehaviour
                 slots[i].slotCount = i + 100;
             }
         }
+
+        // 발전기 고유번호 삽입 해줄 else if
+        //else if(topParentObj.CompareTag(""))
+        //{
+
+        //}
     }
 
 
