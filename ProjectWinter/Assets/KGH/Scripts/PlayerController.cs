@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviourPun
     private bool shouldStartTiming = false;
     private int doingCase;      // 뭘 하는 도중인지
 
-    private UiFallowPlayer uiFallowPlayer;
+    private UiFollowPlayer uiFollowPlayer;
 
     private PlayerHealth health;    // 본인의 PlayerHealth
 
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviourPun
 
         doingTime = 0;
 
-        uiFallowPlayer = ui.GetComponent<UiFallowPlayer>();
+        uiFollowPlayer = ui.GetComponent<UiFollowPlayer>();
 
         health = transform.GetComponent<PlayerHealth>();
 
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviourPun
         {
             CinemachineVirtualCamera followCam = FindObjectOfType<CinemachineVirtualCamera>();
             followCam.LookAt = transform;           
-            cameraFollow = followCam.GetComponent<CameraFollow>();
+            cameraFollow = transform.GetComponent<CameraFollow>();
             cameraFollow.playerController = this;
             cameraFollow.toFallow = transform;
             //followCam.LookAt = transform;
@@ -81,7 +81,8 @@ public class PlayerController : MonoBehaviourPun
 
     private void Update()
     {
-
+        if (!photonView.IsMine)
+        { return; }
         animator.SetBool("attack", isAttack);
         if (!doSomething && !health.isDead)
         {
@@ -137,7 +138,7 @@ public class PlayerController : MonoBehaviourPun
         }
         else if (Input.GetKey(KeyCode.E) && doSomething && !health.isDead && !health.isDown)
         {
-            uiFallowPlayer.Gauge(60);
+            uiFollowPlayer.Gauge(60);
 
         }
         else if (Input.GetKeyUp(KeyCode.E) && doSomething && !health.isDead && !health.isDown)  // E키를 떼면 작업을 멈추기
@@ -146,8 +147,8 @@ public class PlayerController : MonoBehaviourPun
             doingTime = 0;
             doSomething = false;
             animator.SetBool("DoSomething", doSomething);
-            uiFallowPlayer.currentValue = 0;
-            uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
+            uiFollowPlayer.currentValue = 0;
+            uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
         }
 
         if (isAttack && health.health <= 0)
@@ -161,8 +162,8 @@ public class PlayerController : MonoBehaviourPun
             shouldStartTiming = false;
 
             doingTime = 0;
-            uiFallowPlayer.currentValue = 0;
-            uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
+            uiFollowPlayer.currentValue = 0;
+            uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
             doSomething = false;
             animator.SetBool("DoSomething", doSomething);
 
@@ -212,11 +213,16 @@ public class PlayerController : MonoBehaviourPun
     {
         itemInHand = hitInfo.transform;
 
-        hitInfo.transform.SetParent(handle);
+        itemInHand.transform.SetParent(handle);
 
-        //hitInfo.transform.position = new Vector3(0, 0, 0);
-        hitInfo.transform.rotation = Quaternion.Euler(0, 0, 0);
-        hitInfo.transform.localScale = new Vector3(1, 1, 1);
+        itemInHand.transform.localPosition = Vector3.zero;
+        itemInHand.transform.localRotation = Quaternion.identity;
+        itemInHand.transform.localScale = Vector3.one;
+        Collider collider = hitInfo.collider;
+        Rigidbody rb = hitInfo.transform.GetComponent<Rigidbody>();
+        collider.enabled = false;
+        rb.useGravity = false;
+
         //    itemSet = true;
 
     }
@@ -258,13 +264,13 @@ public class PlayerController : MonoBehaviourPun
         if (Input.GetMouseButton(0) && !isAttack && !health.isInside && !health.isInside)   // 추가조건 : 손에 음식이 없을때
         {
             Attack();
-            uiFallowPlayer.Gauge(120);
+            uiFollowPlayer.Gauge(120);
         }
         //else if(true)//(음식이 손에 있을때)
         //{
            
 
-        //    uiFallowPlayer.Gauge(120);
+        //    uiFollowPlayer.Gauge(120);
         //    StartCoroutine(Eat());
         //}
         else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside && !health.isInside)    // 추가조건 : 손에 음식이 없을때
@@ -272,8 +278,8 @@ public class PlayerController : MonoBehaviourPun
             if (!eat)
             {
                 isAttack = true;
-                uiFallowPlayer.currentValue = 0;
-                uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
+                uiFollowPlayer.currentValue = 0;
+                uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
                 StartCoroutine(EndAttack());
             }
             else
@@ -399,6 +405,8 @@ public class PlayerController : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!photonView.IsMine)
+        { return; }
         if (other.CompareTag("Building"))           // 플레이어가 건물 안으로 들어갔으면
         {
             //cameraObject = GameObject.Find("CM vcam1");
@@ -411,6 +419,8 @@ public class PlayerController : MonoBehaviourPun
     }
     private void OnTriggerExit(Collider other)
     {
+        if (!photonView.IsMine)
+        { return; }
         if (other.CompareTag("Building"))
         {
             //cameraObject = GameObject.Find("CM vcam1");

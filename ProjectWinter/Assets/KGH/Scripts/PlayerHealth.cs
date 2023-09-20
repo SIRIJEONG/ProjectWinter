@@ -18,6 +18,7 @@ public class PlayerHealth : LivingEntity
     public GameObject ghost;        // 죽었을때 불러올 오브잭트
     public GameObject powerGauge;
     public GameObject downGauge;
+    public GameObject ui;
     //private bool isDead = false;
     // 체력관련
 
@@ -121,6 +122,8 @@ public class PlayerHealth : LivingEntity
         if (playerDown <= 0)
         {
             Dead();     // 죽고
+
+            ui.SetActive(false);
 
             GhostOn();
 

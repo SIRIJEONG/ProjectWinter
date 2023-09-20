@@ -80742,7 +80742,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1799475896}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd48dc2ec1eafee4a98f0b95fbe2efc6, type: 3}
   m_Name: 
@@ -96117,6 +96117,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7430613213540072288, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
       propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7879561929504770863, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7970437790324047821, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
