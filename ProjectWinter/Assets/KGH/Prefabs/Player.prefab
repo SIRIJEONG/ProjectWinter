@@ -405,7 +405,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GaugeBar: {fileID: 4035249460024329387}
-  currentValue: 0
 --- !u!1 &1862972393000585910
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,6 +932,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentValue: 0
+--- !u!1 &5413540197324767743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4033850479806800954}
+  m_Layer: 6
+  m_Name: Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4033850479806800954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5413540197324767743}
+  m_LocalRotation: {x: -0.08271029, y: 0.70225275, z: 0.08271032, w: 0.7022529}
+  m_LocalPosition: {x: -0.12, y: 0.006, z: -0.054}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9175855721672054310}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: -13.435, y: 90, z: 0}
 --- !u!1 &5583166925320885955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,7 +1506,6 @@ MonoBehaviour:
   weapon: {fileID: 5583166925320885955}
   fist: {fileID: 494510059149302207}
   ui: {fileID: 8061754847968728254}
-  cameraObject: {fileID: 0}
   damage: 0
   playerHealth: {fileID: 0}
 --- !u!1 &9175855720674739123
@@ -4553,6 +4582,7 @@ Transform:
   - {fileID: 9175855721270734947}
   - {fileID: 9175855721834882305}
   - {fileID: 9175855722593908693}
+  - {fileID: 4033850479806800954}
   m_Father: {fileID: 9175855721516041579}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

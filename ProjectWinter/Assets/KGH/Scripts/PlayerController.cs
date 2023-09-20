@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
     //public GameObject cameraObject;
 
     private bool hand = false;      // 임시 : 손에 무기 들었는지
+    public Transform itemInHand;
+    public Transform handle;
+    private bool itemSet = false;
+
 
     private RaycastHit hitInfo;
     private Vector3 moveVec;
@@ -102,13 +106,13 @@ public class PlayerController : MonoBehaviour
                 // 플레이어의 앞에 있는 물체를 판별
                 if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f))
                 {
-                    Debug.DrawLine(transform.position, hitInfo.point, Color.red);
 
                     if (hitInfo.collider.gameObject.tag == "Player")
                     {
                         playerHealth = hitInfo.collider.gameObject.GetComponent<PlayerHealth>();
                         bool isPlayerDown = playerHealth.isDown;
-                        if (isPlayerDown)
+                        bool isPlayerDeath = playerHealth.isDead;
+                        if (isPlayerDown && !isPlayerDeath)
                         {
                             StartCoroutine(PressE());
                         }
@@ -171,6 +175,7 @@ public class PlayerController : MonoBehaviour
             if (doingCase == 1)
             {
                 //아이템
+                PickUp();
 
                 doingCase = 0;
             }
@@ -183,9 +188,7 @@ public class PlayerController : MonoBehaviour
 
                 playerHealth = toRevive.GetComponent<PlayerHealth>();
 
-                playerHealth.health = 20;
-                playerHealth.playerDown = 100;
-                playerHealth.isDown = false;
+                Revive(playerHealth);
 
                 doingCase = 0;
             }
@@ -196,6 +199,26 @@ public class PlayerController : MonoBehaviour
                 doingCase = 0;
             }
         }
+    }
+
+    private void Revive(PlayerHealth playerHealth)
+    {
+        playerHealth.health = 20;
+        playerHealth.playerDown = 100;
+        playerHealth.isDown = false;
+    }
+
+    private void PickUp()
+    {
+        itemInHand = hitInfo.transform;
+
+        hitInfo.transform.SetParent(handle);
+
+        //hitInfo.transform.position = new Vector3(0, 0, 0);
+        hitInfo.transform.rotation = Quaternion.Euler(0, 0, 0);
+        hitInfo.transform.localScale = new Vector3(1, 1, 1);
+        //    itemSet = true;
+
     }
 
     // 플레이어 움직임
@@ -248,8 +271,9 @@ public class PlayerController : MonoBehaviour
         {
             if (!eat)
             {
-
                 isAttack = true;
+                uiFallowPlayer.currentValue = 0;
+                uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
                 StartCoroutine(EndAttack());
             }
             else
@@ -281,8 +305,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator EndAttack()
     {
-        uiFallowPlayer.currentValue = 0;
-        uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
+        
         if (!hand)
         {       //아이템 안들었을때
             if (attackPower >= 0.9f)           // 데미지 수치 수정 필요
