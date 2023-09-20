@@ -12722,6 +12722,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7122bc32c69f8b429b34adc7e925898, type: 3}
+--- !u!4 &269444619 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9175855721789480104, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+  m_PrefabInstance: {fileID: 9175855720992075997}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &269597765
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80742,7 +80747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd48dc2ec1eafee4a98f0b95fbe2efc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toFallow: {fileID: 0}
+  toFallow: {fileID: 269444619}
   isInside: 0
   inside: {fileID: 0}
   playerController: {fileID: 0}
@@ -96078,6 +96083,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5431033320494800338, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1409c866b2bd3354088443cc7f3e8e32, type: 2}
     - target: {fileID: 5431033320494800338, guid: 1834a507b898f8f4896fe30ffdd26f27, type: 3}
       propertyPath: m_CullingMode
       value: 0
