@@ -20,15 +20,17 @@ public class CameraFollow : MonoBehaviour
     public GhostController ghostController;
     private GameObject player;
 
+    Coroutine coroutine;
     // Start is called before the first frame update
     void Start()
     {
-        player = playerController.gameObject;
+        coroutine = StartCoroutine(CameraSet());               
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (ghostController != null)
         {
             player = ghostController.gameObject;
@@ -49,5 +51,11 @@ public class CameraFollow : MonoBehaviour
 
             transform.position = toFallow.position;
         }
+    }
+
+    IEnumerator CameraSet()
+    {
+        yield return new WaitForSeconds(0.3f);
+        player = playerController.gameObject;
     }
 }

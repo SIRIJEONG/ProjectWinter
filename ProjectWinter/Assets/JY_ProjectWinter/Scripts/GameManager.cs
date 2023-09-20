@@ -62,12 +62,14 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
         //    UIManager.instance.UpdateScoreText(score);
         //}
     }
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //캐릭터 산장 앞에 생성 (좌표 x : -235 z : 380)
         PhotonNetwork.Instantiate("Player", new Vector3(-235f, 1f, 380f), Quaternion.identity);
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
         //역할 부여하기
         if (PhotonNetwork.IsMasterClient)
         {

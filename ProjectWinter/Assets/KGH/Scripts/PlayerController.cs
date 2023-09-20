@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPun
 {
     private Rigidbody rb;
     private Animator animator;
@@ -64,13 +64,13 @@ public class PlayerController : MonoBehaviour
 
         health = transform.GetComponent<PlayerHealth>();
 
-        //if (photonView.isMine)
+        if (photonView.IsMine)
         {
             CinemachineVirtualCamera followCam = FindObjectOfType<CinemachineVirtualCamera>();
-            followCam.LookAt = transform;
-
+            followCam.LookAt = transform;           
             cameraFollow = followCam.GetComponent<CameraFollow>();
             cameraFollow.playerController = this;
+            cameraFollow.toFallow = transform;
             //followCam.LookAt = transform;
         }
     }

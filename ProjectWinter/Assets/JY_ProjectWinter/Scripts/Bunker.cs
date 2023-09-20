@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Unity.VisualScripting;
+using DG.Tweening;
 
 public class Bunker : MonoBehaviourPun
 {
@@ -26,14 +27,23 @@ public class Bunker : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if(pressEKeyOne.isComplete && pressEKeyTwo.isComplete && !isOpenBunker)
+        if (PhotonNetwork.IsMasterClient)
         {
-            //문 움직이기 (두트윈 사용)
-            isOpenBunker = true;
-            bunkerButton1Ui.SetActive(false);
-            bunkerButton2Ui.SetActive(false);
-
+            if (pressEKeyOne.isComplete && pressEKeyTwo.isComplete && !isOpenBunker)
+            {
+                photonView.RPC("OpenBunker", RpcTarget.All);
+            }
         }
+    }
+
+    [PunRPC]
+    public void OpenBunker()
+    {
+        isOpenBunker = true;
+        bunkerButton1Ui.SetActive(false);
+        bunkerButton2Ui.SetActive(false);
+        leftBunkerDoor.transform.DOLocalMoveX(-3f, 1.5f);
+        rightBunkerDoor.transform.DOLocalMoveX(3f, 1.5f);
     }
 
 }

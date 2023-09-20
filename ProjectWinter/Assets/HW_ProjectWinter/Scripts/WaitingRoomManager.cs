@@ -180,7 +180,7 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
             // 모든 플레이어가 준비 상태일 경우, 씬 전환 또는 게임 시작 로직을 수행합니다.
             // 예를 들어, 씬을 전환하려면 다음과 같이 사용합니다.
             Debug.Log("게임 시작 조건 충족: 모든 플레이어가 준비 상태입니다.");
-            PhotonNetwork.LoadLevel("HW_PlayScene");
+            PhotonNetwork.LoadLevel("MainScene");
         }
         else
         {

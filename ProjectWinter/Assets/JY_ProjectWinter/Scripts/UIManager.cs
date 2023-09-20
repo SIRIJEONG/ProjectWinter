@@ -72,6 +72,10 @@ public class UIManager : MonoBehaviour
             //text_.text = string.Format("수리하기");
             return "수리하기";
         }
+        else if(transform_.CompareTag("Box"))
+        {
+            return "열어보기";
+        }
         return "알림 내용";
     }
 

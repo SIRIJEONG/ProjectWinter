@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class PressEKey : MonoBehaviour
+public class PressEKey : MonoBehaviourPun
 {
     public GameObject completeUi;   // 완료! UI
     public GameObject noticeUi;     // 알림 UI
@@ -68,7 +69,7 @@ public class PressEKey : MonoBehaviour
         {
             currentValue = 100f;
             progressBar.value = currentValue;
-            CallCompleteUi();
+            photonView.RPC("CallCompleteUi",RpcTarget.All);
         }
         else
         {
@@ -78,6 +79,7 @@ public class PressEKey : MonoBehaviour
         }
     }
 
+    [PunRPC]
     private void CallCompleteUi()
     {
         Debug.Log("E 키를 1.5초 동안 눌렀습니다!");
