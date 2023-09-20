@@ -51,6 +51,11 @@ public class PlayerHealth : LivingEntity
         if ( hunger < 0) 
         {  hunger = 0;}
 
+        if(!isDown)
+        {
+            animator.SetBool("Down", isDown);
+        }
+
         if (isDown)
         {
             onDeath();
@@ -95,7 +100,6 @@ public class PlayerHealth : LivingEntity
         {
             maxHP += Time.deltaTime * 5;
         }
-
     }
 
     public override void Die()
@@ -118,11 +122,16 @@ public class PlayerHealth : LivingEntity
         {
             Dead();     // 죽고
 
-            ghost.SetActive(true);      // 플레이어 유령상태 키고
+            GhostOn();
 
             playerController.enabled = false;       // 컨트롤러 비활성화해서 못움직이게
 
         }
+    }
+
+    private void GhostOn()  // 같은 Ghost상태인 플레이어에게만 동기화
+    {
+        ghost.SetActive(true);      // 플레이어 유령상태 키고
     }
 
     private void Dead()
@@ -168,7 +177,6 @@ public class PlayerHealth : LivingEntity
                 isInside = true;
             }
         }
-
     }
 
     private void OnTriggerExit(Collider other)
