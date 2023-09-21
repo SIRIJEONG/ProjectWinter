@@ -8,7 +8,7 @@ public class SG_ItemSlot : MonoBehaviour
 {
 
     public SG_Item item;    // 아이템의 정보가 들어있는 곳
-    public int itemCount;   // 획득한 아이템의 갯수
+    public int itemCount = 0;   // 획득한 아이템의 갯수
     public int slotCount = 0;   //아이템 슬롯의 고유번호 삽입될 변수
 
     public GameObject itemImagePrefab;
@@ -113,8 +113,7 @@ public class SG_ItemSlot : MonoBehaviour
     }
 
     public void MoveItemSet()
-    {
-        // 23.09.19 아이템 이 들어 있을때에만 작업하게 수정 정상이면 주석 삭제예정
+    {        
 
         if(item != null && this.gameObject.transform.childCount > 0)
         {

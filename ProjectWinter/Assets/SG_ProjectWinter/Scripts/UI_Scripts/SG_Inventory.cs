@@ -37,6 +37,8 @@ public class SG_Inventory : MonoBehaviour
     // 아래 변수의 태그로 플레이어인지 창고인지 구별할것임
     GameObject topParentObj;
 
+    private int missionClearCount = 0;
+
     private void Awake()
     {
 
@@ -177,6 +179,14 @@ public class SG_Inventory : MonoBehaviour
                 slots[i].slotCount = i + 100;
             }
         }
+        // 발전기 인벤토리 일때에 발전기의 고유번호 넣어줌   120 ~ 121   (1~2개 랜덤 생성이기에 121 없을수도 있음)
+        else if(topParentObj.CompareTag("PowerStation"))
+        {
+            for (int i =0; i < slots.Length; i++)
+            {
+                slots[i].slotCount = i + 120;
+            }
+        }
 
         // 발전기 고유번호 삽입 해줄 else if
         //else if(topParentObj.CompareTag(""))
@@ -228,5 +238,22 @@ public class SG_Inventory : MonoBehaviour
             else { /*Debug.Log("인벤토리에 빈공간이 없음");*/ }
         }
     }   // } AcquireItem()
+
+
+    public void CheckClearPowerStation()
+    {
+        if(topParentObj.CompareTag("PowerStation"))
+        {
+            missionClearCount++;
+            Debug.Log("슬롯이 만족하고 함수를 불렀는지");
+            Debug.LogFormat("클리어된 슬롯 카운터 -> {0} 총 슬롯 갯수 -> {1}", missionClearCount, slots.Length);
+            if (slots.Length == missionClearCount)
+            {
+                GameManager.instance.RepairPowerStation();
+            }
+            else { /*PASS*/ }
+        }
+        else { /*PASS*/ }
+    }
 
 }   //NAMESPACE

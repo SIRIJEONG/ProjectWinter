@@ -28,6 +28,8 @@ public class SG_ItemSwapManager : MonoBehaviour
     private SG_Inventory giveInvenClass;    // 아이템을 줄 인벤토리 클래스
     private SG_Inventory acceptInvenClass;   // 아이템을 받을 인벤토리 클래스
 
+    private SG_PowerStationItemInIt tempMissionInitClass; // Mission Slot 들은 원하는 count 가 slot속에 있는 Component가 가지고 있기에 변동적으로 사용
+
     //트랜스폼으로 받아야함 GameObject로 받으니 Grid에서 참조불가
     private Transform tempTrans001;
     private Transform tempTrans002;
@@ -42,7 +44,8 @@ public class SG_ItemSwapManager : MonoBehaviour
 
     private bool isPassExamine = true;  // 아이템 검사하고 검사 조건에 들어가면 false 로바꿔줄거임
     private bool isSwap = true;         // 받는 아이템에서 조건에 안맞으면 스왑 못하게 false 로 만들고 함수들을 return시켜줄거임
-    private bool sameSlot = false;
+    private bool sameSlot = false;      // 같은 슬롯에 두었을떄는 스왑을 하지 않도록
+    private bool isMissionInven = false;// Swap 받는 쪽이 미션과 연관되어있는 인벤토리 인지 확인 (발전소,헬리패드)
 
     public void ItemSwap(SG_ItemDragScript _itemDragScript, int _GiveSlotCount, int _AcceptSlotCount,
                          SG_ItemSlot _giveSlots, SG_ItemSlot _accepSlots)
@@ -161,7 +164,7 @@ public class SG_ItemSwapManager : MonoBehaviour
                     }
                     else if (acceptInvenClass.slots[i].item == moveItem)
                     {
-                        acceptInvenClass.slots[i].itemCount = acceptInvenClass.slots[i].itemCount + tempItemCount;                        
+                        acceptInvenClass.slots[i].itemCount = acceptInvenClass.slots[i].itemCount + tempItemCount;
                         accepSlotCount = i;
                         ItemExamine();
                     }
@@ -226,8 +229,54 @@ public class SG_ItemSwapManager : MonoBehaviour
             return; // 찾아서 슬롯에 아이템을 넣어주었다면 return으로 함수 즉시탈출
         }
         else { /*PASS*/ }
+
         #endregion 산장창고가 받는 슬롯일때
 
+        #region 발전소가 받는 슬롯일때
+
+        if (_AcceptSlotCount > 119 && _AcceptSlotCount < 122) // 발전소가 받는 Slot일때에
+        {
+            isMissionInven = true;
+
+            // 아이템 갯수 몇개를 원하는지 알기위해 찾아오는 클래스
+            tempMissionInitClass = _accepSlots.GetComponent<SG_PowerStationItemInIt>();
+
+            // 이번엔 부모의 부모의 부모 3번 찾아야함
+            //1 -> Grid
+            tempTrans001 = _accepSlots.transform.parent.GetComponent<Transform>();
+            //2 -> InventoryImg
+            tempTrans002 = tempTrans001.transform.parent.GetComponent<Transform>();
+            //3 -> Inventory
+            acceptInvenClass = tempTrans002.transform.parent.GetComponent<SG_Inventory>();
+
+            for (byte i = 0; i < acceptInvenClass.slots.Length; i++)    //슬롯들을 싹 뒤지면서 주는 Slot의 고유번호 찾기
+            {
+                if (acceptInvenClass.slots[i].slotCount == _AcceptSlotCount) // 고유번호를 찾았을때 들어갈 조건문
+                {
+                    //아이템이 비어있지 않고 넣는아이템과 들어가 있는 아이템이 같지 않을때
+                    if (acceptInvenClass.slots[i].item != null && acceptInvenClass.slots[i].item != moveItem)
+                    {
+                        isSwap = false;
+                    }
+                    else if (acceptInvenClass.slots[i].item == moveItem)
+                    {
+                        acceptInvenClass.slots[i].itemCount = acceptInvenClass.slots[i].itemCount + tempItemCount;
+                        //Debug.LogFormat("받은얘의 아이템 갯수 -> {0}", acceptInvenClass.slots[i].itemCount);
+                        accepSlotCount = i;
+                        // 이곳에서 다른 함수를 만들어서 체크 해야할거같음
+                        MissionItemExamine();
+                    }
+
+                    //Debug.LogFormat("Accept() Give -> {0} Accept -> {1}", giveSlotCount, accepSlotCount);
+                    break;
+                }
+            }
+            return; // 찾아서 슬롯에 아이템을 넣어주었다면 return으로 함수 즉시탈출
+        }
+        else { /*PASS*/ }
+
+
+        #endregion 발전소가 받는 슬롯일때
     }   //SerchAccepSlots
 
 
@@ -255,6 +304,32 @@ public class SG_ItemSwapManager : MonoBehaviour
 
     }
 
+    // 발전소와 헬리페드는 아이템을 3개이상 요구할수 있기때문에 따로 체크
+    private void MissionItemExamine()
+    {
+        // 슬롯에 있는 count가 WantCount 보다 큰지 체크 해야하고 그뒤에 넘는 만큼 위 함수 처럼 return 해주면 될듯
+        //tempSlotClass
+        if (tempMissionInitClass.wantItemCount < acceptInvenClass.slots[accepSlotCount].itemCount)
+        {
+            //Debug.LogFormat("아이템이 초과하는 식에 들어 왔나?");
+            int tempItemCount001 = acceptInvenClass.slots[accepSlotCount].itemCount;
+            int tempItemCount002 = tempItemCount001 - tempMissionInitClass.wantItemCount;
+
+            acceptInvenClass.slots[accepSlotCount].itemCount = tempMissionInitClass.wantItemCount;
+            //Debug.Log($"카운트 3개로 조정후 갯수 -> {acceptInvenClass.slots[accepSlotCount].itemCount}");
+
+            isPassExamine = false;
+            ItemExanineAfter(tempItemCount002);
+            tempMissionInitClass.ItemTextUpdate();      // 아이템 CountText 업데이트 해주는 함수
+            tempMissionInitClass.CheckSucceseMission(); // 미션 갯수 충족했는지 체크하는함수
+        }
+        else
+        {
+            tempMissionInitClass.ItemTextUpdate();      // 아이템 CountText 업데이트 해주는 함수
+            tempMissionInitClass.CheckSucceseMission(); // 미션 갯수 충족했는지 체크하는함수
+        }
+    }
+
     // 아이템 검사 함수에서 불통하면 들어올 함수
     // Give Item Canvas위치 원래대로해줄거고 아이템에 대한 정보와 출력을 처리해줄거임
     private void ItemExanineAfter(int _itemCount)
@@ -272,20 +347,6 @@ public class SG_ItemSwapManager : MonoBehaviour
         { return; }
         else { /*PASS*/ }
 
-        //Debug.LogFormat("Give -> {0} Accept -> {1}", giveSlotCount, accepSlotCount);
-        #region LEGACY
-        //// 인벤토리 클래스는 아직 인벤토리의 Script를 담고 있기 때문에 그대로 사용해도 됨
-        //for (byte i = 0; i < giveInvenClass.slots.Length; i++)    //슬롯들을 싹 뒤지면서 주는 Slot의 고유번호 찾기
-        //{
-        //    if (giveInvenClass.slots[i].slotCount == _GiveSlotCount) // 고유번호를 찾았을때 들어갈 조건문
-        //    {
-        //        giveInvenClass.slots[i].DisconnectedItem();
-        //        break;
-        //    }
-        //}
-        #endregion  LEGACY
-        //if (giveSlotCount >= 0 && giveSlotCount < giveInvenClass.slots.Length)
-        //{
         if (giveInvenClass.slots[giveSlotCount].item == acceptInvenClass.slots[accepSlotCount].item)
         {
             if (isPassExamine == true)
@@ -308,22 +369,12 @@ public class SG_ItemSwapManager : MonoBehaviour
     // 아이템을받고 후처리해주는 함수 -> 슬롯이 다시 받은아이템을 출력하기
     public void AcceptExchangeAfter()
     {
-        if (isSwap == false)
-        { return; }
+        if (isSwap == false) { return; }    // 같은 인벤이면 다시 출력할 필요 X
         else { /*PASS*/ }
 
-        #region LEGACY
-        // 인벤토리 클래스는 아직 인벤토리의 Script를 담고 있기 때문에 그대로 사용해도 됨       
-        //for (byte i = 0; i < acceptInvenClass.slots.Length; i++)    //슬롯들을 싹 뒤지면서 주는 Slot의 고유번호 찾기
-        //{
-        //    if (acceptInvenClass.slots[i].slotCount == _AcceptSlotCount) // 고유번호를 찾았을때 들어갈 조건문
-        //    {
-        //        acceptInvenClass.slots[i].MoveItemSet();
-        //        break;
-        //    }
-        //}
-        #endregion LEGACY
-        //if (acceptInvenClass.slots[accepSlotCount])
+        if (isMissionInven == true) { return; } // 발전소,헬리패드는 따로 ItemImage를 관리하기 때문에 오류방지 return
+        else { /*PASS*/ }
+
         acceptInvenClass.slots[accepSlotCount].MoveItemSet();
     }
 
@@ -332,6 +383,8 @@ public class SG_ItemSwapManager : MonoBehaviour
     {
         isSwap = true;
         sameSlot = false;
+        isMissionInven = false;
     }
+
 
 }   //NameSpace 
