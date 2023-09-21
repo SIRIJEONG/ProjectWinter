@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -379,9 +379,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747e1e8641a64a941bc5d976cd8b6f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundMusic: {fileID: 8300000, guid: 17c7083576d9b404496e76b4220da97f, type: 3}
   severText: {fileID: 303749333}
   roomInput: {fileID: 229120381}
   nickNameInput: {fileID: 1485159449}
+  buttonClickSoundClip: {fileID: 8300000, guid: 90b9c65338a78124e868cf28e7a5183a, type: 3}
 --- !u!4 &378655593
 Transform:
   m_ObjectHideFlags: 0
@@ -737,7 +739,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBC29 \uC774\uB984"
+  m_Text: "\uB8F8 \uCF54\uB4DC"
 --- !u!222 &509881182
 CanvasRenderer:
   m_ObjectHideFlags: 0

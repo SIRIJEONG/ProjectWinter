@@ -5942,6 +5942,7 @@ MonoBehaviour:
   ghost: {fileID: 8477250349865049094}
   powerGauge: {fileID: 66696242531483191}
   downGauge: {fileID: 3286406373080772998}
+  ui: {fileID: 0}
   isInside: 0
 --- !u!114 &4732410647898894101
 MonoBehaviour:

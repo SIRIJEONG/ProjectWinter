@@ -12,6 +12,9 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
     public AudioClip buttonClickSoundClip; // 버튼 클릭 사운드를 재생할 오디오 클립
 
 
+    public GameObject optionUI; // NeighbourUI 전투시작 할 때 오른쪽 위에 ui
+
+
     public Text nicknameBoxOne;
     public Text nicknameBoxOne2;
     public Text nicknameBoxOne3;
@@ -183,8 +186,9 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         {
             // 모든 플레이어가 준비 상태일 경우, 씬 전환 또는 게임 시작 로직을 수행합니다.
             // 예를 들어, 씬을 전환하려면 다음과 같이 사용합니다.
+            AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);
             Debug.Log("게임 시작 조건 충족: 모든 플레이어가 준비 상태입니다.");
-            PhotonNetwork.LoadLevel("MainScene");
+            PhotonNetwork.LoadLevel("HW_LoadingScene");
         }
         else
         {
@@ -217,13 +221,13 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
                 // 클릭 후 이미지 색상
                 photonView.RPC("SetImageColor", RpcTarget.AllBuffered, playerIndex);
                 readyButton = false;
-                //AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);
+                AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);
             }
             else if (readyButton == false)
             {
                 photonView.RPC("UnSetImageColor", RpcTarget.AllBuffered, playerIndex);
                 readyButton = true;
-                //AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);
+                AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);
             }
         }
 
@@ -290,8 +294,29 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
 
         // 서버와의 연결이 끊어지면 로비에 재접속
         readyButton = true;
+        AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);
         PhotonNetwork.LoadLevel("HW_Lobby");
         PhotonNetwork.JoinLobby();
+    }
+
+
+
+    public void UIScale()
+    {
+        Vector3 uiImageScale = optionUI.transform.localScale;
+
+        Vector3 newScale = new Vector3(0.001f, 0.001f, 0.001f);
+
+        optionUI.transform.localScale = newScale;
+    }
+
+    public void UIScale2()
+    {
+        Vector3 uiImageScale = optionUI.transform.localScale;
+
+        Vector3 newScale = new Vector3(5f, 5f, 5f);
+
+        optionUI.transform.localScale = newScale;
     }
 
 }
