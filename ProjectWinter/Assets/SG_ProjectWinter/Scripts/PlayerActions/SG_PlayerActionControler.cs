@@ -139,6 +139,7 @@ public class SG_PlayerActionControler : MonoBehaviour
         if (Physics.Raycast
         (transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range))
         {
+
             if (hitInfo.transform.CompareTag("Warehouse"))
             {
                 if (Input.GetKeyDown(KeyCode.E))
@@ -150,23 +151,32 @@ public class SG_PlayerActionControler : MonoBehaviour
             }
             else { /*PASS*/ }
 
-            if (hitInfo.transform.CompareTag("PowerStation"))
-            {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    PowerStationInventoryEvent?.Invoke();
-                }
-            }
-            else { /*PASS*/ }
+            //if (GameManager.instance.isRepairPowerStation == false)   // 미션 끝나면 발전소 못열게 할 if 문
+            //{
 
-            if (hitInfo.transform.CompareTag("HeliPad"))
-            {
-                if (Input.GetKeyDown(KeyCode.E))
+                if (hitInfo.transform.CompareTag("PowerStation"))
                 {
-                    HeliPadInventoryEvent?.Invoke();
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        PowerStationInventoryEvent?.Invoke();
+                    }
                 }
-            }
-            else { /*PASS*/ }
+                else { /*PASS*/ }
+            //}   // 미션 끝나면 발전소 못열게 할 if 문
+
+            //if (GameManager.instance.isRepairHeliPad == false)  // 미션 끝나면 헬리패드 못열게 할 if 문
+            //{
+                if (hitInfo.transform.CompareTag("HeliPad"))
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        HeliPadInventoryEvent?.Invoke();
+                    }
+                }
+                else { /*PASS*/ }
+            //}   // 미션 끝나면 헬리패드 못열게 할 if 문
+
+
 
         }   // Ray IF
 
