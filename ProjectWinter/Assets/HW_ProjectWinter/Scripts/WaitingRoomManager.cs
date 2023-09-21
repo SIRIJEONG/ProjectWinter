@@ -8,6 +8,10 @@ using Photon.Realtime;
 
 public class WaitingRoomManager : MonoBehaviourPunCallbacks
 {
+
+    public AudioClip buttonClickSoundClip; // 버튼 클릭 사운드를 재생할 오디오 클립
+
+
     public Text nicknameBoxOne;
     public Text nicknameBoxOne2;
     public Text nicknameBoxOne3;
@@ -213,11 +217,13 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
                 // 클릭 후 이미지 색상
                 photonView.RPC("SetImageColor", RpcTarget.AllBuffered, playerIndex);
                 readyButton = false;
+                //AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);
             }
             else if (readyButton == false)
             {
                 photonView.RPC("UnSetImageColor", RpcTarget.AllBuffered, playerIndex);
                 readyButton = true;
+                //AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);
             }
         }
 
