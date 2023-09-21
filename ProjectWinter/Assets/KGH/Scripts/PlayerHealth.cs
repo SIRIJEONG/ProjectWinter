@@ -153,6 +153,7 @@ public class PlayerHealth : LivingEntity
     {
         if(other.CompareTag("Attack"))
         {
+            Debug.Log("!");
             if (!isDown)
             {/*
                 PlayerController playercontroller = other.transform.parent.GetComponent<PlayerController>();
@@ -163,6 +164,8 @@ public class PlayerHealth : LivingEntity
                 Vector3 hitpoint = other.ClosestPoint(transform.position);
                 Vector3 hitnormal = transform.position - other.transform.position;
                 OnDamage(getdamage, hitpoint, hitnormal);
+                Debug.Log("1");
+
             }
             else
             {

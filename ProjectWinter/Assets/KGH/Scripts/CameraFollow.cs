@@ -35,6 +35,11 @@ public class CameraFollow : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {        
+
+        if (ghostController != null)
+        {
+            player = ghostController.gameObject;
+        }
         if (!isInside)
         {
             toFallow = player.transform;

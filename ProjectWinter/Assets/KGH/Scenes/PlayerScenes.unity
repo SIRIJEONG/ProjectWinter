@@ -74760,7 +74760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5654550766575185473, guid: d496c3b95a9c8b049bc546f612ee10d6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.47
       objectReference: {fileID: 0}
     - target: {fileID: 5654550766575185473, guid: d496c3b95a9c8b049bc546f612ee10d6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -92071,7 +92071,7 @@ GameObject:
   - component: {fileID: 2079093452}
   - component: {fileID: 2079093451}
   m_Layer: 0
-  m_Name: Temporary Building
+  m_Name: MountainVilla
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
