@@ -48,6 +48,10 @@ MonoBehaviour:
   - CallCompleteUi
   - OpenBunker
   - BlockUse
+  - OffCompleteUi
+  - OnCampRadios
+  - RestoreHealth
+  - CompleteFixPS
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
