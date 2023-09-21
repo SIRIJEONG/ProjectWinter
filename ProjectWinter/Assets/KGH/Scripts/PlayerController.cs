@@ -137,10 +137,7 @@ public class PlayerController : MonoBehaviourPun
                 }
                 // 플레이어의 앞에 있는 물체를 판별
                 else
-                {
-
-                }
-
+                {   }
             }
 
         }
@@ -155,6 +152,7 @@ public class PlayerController : MonoBehaviourPun
             doingTime = 0;
             doSomething = false;
             animator.SetBool("DoSomething", doSomething);
+            animator.SetBool("Looting", false);
             uiFollowPlayer.currentValue = 0;
             uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
         }
@@ -185,6 +183,8 @@ public class PlayerController : MonoBehaviourPun
             {
                 //아이템
                 PickUp();
+                Debug.Log("1");
+                animator.SetBool("Looting", false);
 
                 doingCase = 0;
             }
@@ -225,8 +225,8 @@ public class PlayerController : MonoBehaviourPun
 
         Collider collider = hitInfo.collider;
         Rigidbody itemRb = itemInHand.transform.GetComponent<Rigidbody>();
-        collider.enabled = false;
-        Destroy(itemRb);
+        collider.enabled = false;               // 콜라이더 컴포넌트 끄고
+        Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
         itemInHand.transform.localPosition = Vector3.zero;
         itemInHand.transform.localRotation = Quaternion.identity;
         itemInHand.transform.localScale = Vector3.one;
@@ -236,10 +236,10 @@ public class PlayerController : MonoBehaviourPun
     {
         //Collider collider = hitInfo.collider;
         itemInHand.GetComponent<Collider>().enabled = true;
-                 
-        Rigidbody newRigidbody = itemInHand.transform.AddComponent<Rigidbody>();
+
+        Rigidbody newRigidbody = itemInHand.transform.AddComponent<Rigidbody>();        // 리지드바디 새로 달기
        
-        itemInHand.SetParent(null);
+        itemInHand.SetParent(null);         //손 오브잭트와 분리
         itemInHand = null; 
     }
 
@@ -312,14 +312,15 @@ public class PlayerController : MonoBehaviourPun
     {
         if(!hand)
         {       //������ �ȵ������
-            animator.Play("Punch_R", -1, 0.2f);
+            animator.SetBool("Weapon", false);
+            animator.SetBool("Charge", true);
 
             attackPower += Time.deltaTime;
         }
         else
         {       //������ �������
-
-            animator.Play("AttackAnimation", -1, 0.35f);
+            animator.SetBool("Weapon", true);
+            animator.SetBool("Charge", true);
 
             attackPower += Time.deltaTime;
         }
@@ -335,10 +336,12 @@ public class PlayerController : MonoBehaviourPun
             else
             { damage = 1; }
 
+            animator.SetBool("Charge", false);
+
             animator.SetBool("attack", isAttack);
             yield return new WaitForSeconds(0.2f);
             fist.SetActive(true);
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.3f);
             fist.SetActive(false);
 
             isAttack = false;
@@ -350,6 +353,8 @@ public class PlayerController : MonoBehaviourPun
             { damage = 2; }
             else
             { damage = 1; }
+
+            animator.SetBool("Charge", false);
 
             animator.SetBool("attack", isAttack);
             yield return new WaitForSeconds(0.1f);
@@ -369,7 +374,7 @@ public class PlayerController : MonoBehaviourPun
 
         shouldStartTiming = true;
         startTime = Time.time;
-        animator.Play("Eat");
+        animator.SetBool("Eat", true);
         yield return new WaitForSeconds(1.2f);
 
     }
@@ -385,7 +390,7 @@ public class PlayerController : MonoBehaviourPun
         {
             doSomething = true;
             animator.SetBool("DoSomething", doSomething);
-            animator.Play("Looting");
+            animator.SetBool("Looting", true);
             yield return new WaitForSeconds(1.2f);
 
             doingCase = 1;
@@ -395,7 +400,6 @@ public class PlayerController : MonoBehaviourPun
             animator.SetFloat("Speed", 0);
             doSomething = true;
             animator.SetBool("DoSomething", doSomething);
-            animator.Play("DoSomething");
             yield return new WaitForSeconds(1.2f);
 
             doingCase = 2;
@@ -405,7 +409,6 @@ public class PlayerController : MonoBehaviourPun
             animator.SetFloat("Speed", 0);
             doSomething = true;
             animator.SetBool("DoSomething", doSomething);
-            animator.Play("DoSomething");
             yield return new WaitForSeconds(1.2f);
 
             doingCase = 3;
@@ -427,9 +430,7 @@ public class PlayerController : MonoBehaviourPun
             //cameraObject = GameObject.Find("CM vcam1");
             //CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // 카메라를 둘 오브잭트를 찾아 카메라를 둠
             cameraFollow.inside = other.gameObject;
-            cameraFollow.isInside = true;
-
-           
+            cameraFollow.isInside = true;           
         }
     }
     private void OnTriggerExit(Collider other)

@@ -14,6 +14,7 @@ public class GhostController : MonoBehaviour
     private Animator animator;
 
     private CameraFollow cameraFollow;
+    public GameObject player;
 
 
     // Start is called before the first frame update
@@ -26,7 +27,7 @@ public class GhostController : MonoBehaviour
             CinemachineVirtualCamera followCam = FindObjectOfType<CinemachineVirtualCamera>();
             followCam.LookAt = transform;
 
-            cameraFollow = followCam.GetComponent<CameraFollow>();
+            cameraFollow = player.GetComponent<CameraFollow>();
             cameraFollow.ghostController = this;
             //followCam.LookAt = transform;
         }
