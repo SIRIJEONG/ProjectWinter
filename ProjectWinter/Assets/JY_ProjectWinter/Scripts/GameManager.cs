@@ -64,18 +64,18 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     }
     void Awake()
     {
-        //캐릭터 산장 앞에 생성 (좌표 x : -235 z : 380)
-        PhotonNetwork.Instantiate("Player", new Vector3(-235f, 1f, 380f), Quaternion.identity);
+        //캐릭터 산장 앞에 생성 (좌표 x : -200f z : 287f)
+        PhotonNetwork.Instantiate("Player", new Vector3(-200f, 1f, 287f), Quaternion.identity);
     }
     // Start is called before the first frame update
     void Start()
-    {
+    {       
         //역할 부여하기
         if (PhotonNetwork.IsMasterClient)
         {
             traitorNum = Random.Range(1, PhotonNetwork.PlayerList.Length + 1);
             photonView.RPC("CastTraitor", RpcTarget.AllBuffered, traitorNum);
-        }
+        }      
         //타이머 시작
         currentTime = limitTime;
         StartCoroutine(UpdateTimer());
@@ -91,17 +91,14 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void CastTraitor(int traitorNum_)
     {
-        if (photonView.IsMine)
+        traitorNum = traitorNum_;
+        if (PhotonNetwork.LocalPlayer.ActorNumber == traitorNum_)
         {
-            traitorNum = traitorNum_;
-            if(photonView.Owner.ActorNumber == traitorNum_)
-            {
-                traitorRolePanel.SetActive(true);
-            }
-            else
-            {
-                survivorRolePanel.SetActive(true);
-            }
+            traitorRolePanel.SetActive(true);
+        }
+        else
+        {
+            survivorRolePanel.SetActive(true);
         }
     }
 
@@ -125,7 +122,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void RepairPowerStation()
     {
-        isRepairPowerStation = true;
+        isRepairPowerStation = true;  
         UIManager.instance.UpdatePowerStaionText();
     }
 

@@ -19,9 +19,12 @@ public class PressEKey : MonoBehaviourPun
     private Coroutine fillingCoroutine;  
     
 
-    private void Start()
+    void Start()
     {
-        noticeText.text = string.Format("{0}",UIManager.instance.FormatNoticeText(transform.parent));
+        if (!transform.parent.CompareTag("Untagged"))
+        {
+            noticeText.text = string.Format("{0}", UIManager.instance.FormatNoticeText(transform.parent));
+        }
         completeUi.SetActive(false);
         progressBar.value = 0;
         isComplete = false;
@@ -69,7 +72,7 @@ public class PressEKey : MonoBehaviourPun
         {
             currentValue = 100f;
             progressBar.value = currentValue;
-            photonView.RPC("CallCompleteUi",RpcTarget.All);
+            Desc001();
         }
         else
         {
@@ -79,8 +82,13 @@ public class PressEKey : MonoBehaviourPun
         }
     }
 
+    public void Desc001()
+    {
+        photonView.RPC("CallCompleteUi", RpcTarget.AllBuffered);
+    }
+
     [PunRPC]
-    private void CallCompleteUi()
+    public void CallCompleteUi()
     {
         Debug.Log("E 키를 1.5초 동안 눌렀습니다!");
         isComplete = true;
@@ -89,7 +97,8 @@ public class PressEKey : MonoBehaviourPun
         Invoke("OffCompleteUi", 2.0f);
     }
 
-    private void OffCompleteUi()
+    [PunRPC]
+    public void OffCompleteUi()
     {
         noticeUi.SetActive(true);
         progressBar.value = 0f;

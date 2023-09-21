@@ -13,7 +13,7 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
 
 
     // 호스트->모든 클라이언트 방향으로 체력과 사망 상태를 동기화 하는 메서드
-    //[PunRPC]
+    [PunRPC]
     public void ApplyUpdatedHealth(float newHealth, bool newDead)
     {
         health = newHealth;
@@ -31,20 +31,20 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
 
     // 데미지 처리
     // 호스트에서 먼저 단독 실행되고, 호스트를 통해 다른 클라이언트들에서 일괄 실행됨
-    //[PunRPC]
+    [PunRPC]
     public virtual void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        //if (PhotonNetwork.IsMasterClient)
-        //{
+        if (PhotonNetwork.IsMasterClient)
+        {
             // 데미지만큼 체력 감소
             health -= damage;
 
             // 호스트에서 클라이언트로 동기화
-            //photonView.RPC("ApplyUpdatedHealth", RpcTarget.Others, health, isDead);
+            photonView.RPC("ApplyUpdatedHealth", RpcTarget.Others, health, isDead);
 
             // 다른 클라이언트들도 OnDamage를 실행하도록 함
-            //photonView.RPC("OnDamage", RpcTarget.Others, damage, hitPoint, hitNormal);
-        //}
+            photonView.RPC("OnDamage", RpcTarget.Others, damage, hitPoint, hitNormal);
+        }
 
         // 체력이 0 이하 && 아직 죽지 않았다면 사망 처리 실행
         if (health <= 0 && !isDead)
@@ -55,7 +55,7 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
 
 
     // 체력을 회복하는 기능
-    //[PunRPC]
+    [PunRPC]
     public virtual void RestoreHealth(float newHealth)
     {
         if (isDead)
@@ -65,17 +65,17 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
         }
 
         // 호스트만 체력을 직접 갱신 가능
-        //if (PhotonNetwork.IsMasterClient)
-        //{
+        if (PhotonNetwork.IsMasterClient)
+        {
             // 체력 추가
             health += newHealth;
 
             // 서버에서 클라이언트로 동기화
-            //photonView.RPC("ApplyUpdatedHealth", RpcTarget.Others, health, isDead);
+            photonView.RPC("ApplyUpdatedHealth", RpcTarget.Others, health, isDead);
 
             // 다른 클라이언트들도 RestoreHealth를 실행하도록 함
-            //photonView.RPC("RestoreHealth", RpcTarget.Others, newHealth);
-        //}
+            photonView.RPC("RestoreHealth", RpcTarget.Others, newHealth);
+        }
     }
 
     public virtual void Die()
