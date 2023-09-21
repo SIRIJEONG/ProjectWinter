@@ -113,8 +113,7 @@ public class SG_ItemSlot : MonoBehaviour
     }
 
     public void MoveItemSet()
-    {
-        // 23.09.19 아이템 이 들어 있을때에만 작업하게 수정 정상이면 주석 삭제예정
+    {        
 
         if(item != null && this.gameObject.transform.childCount > 0)
         {

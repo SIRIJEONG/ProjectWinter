@@ -19,16 +19,19 @@ public class SG_PowerStationItemInIt : MonoBehaviour
     public GameObject itemImageObj;
     private GameObject itemImageObjClone;
 
+    private SG_Inventory inventoryClass;
+
     [SerializeField]
     private TextMeshProUGUI wantItemCountText;  // 아이템의 카운트를 체크해줄 텍스트 Ex) 1 / 0
     private SG_ItemSlot itemSlotClass;  //  슬롯이 가지고 있는 아이템 클래스 sprite,item 넣어줄거임
 
     private Image itemImage;    // 아이템 Image를 Instace한뒤에 이 변수에 사용할수 있도록 넣어줄거임
 
-    private int wantItemCount;      // 랜덤이 선택한 원하는 아이템의 Count
+    public int wantItemCount;      // 랜덤이 선택한 원하는 아이템의 Count
     private int tempItemListCount;  // 랜덤이 선택한 배열의 Index 변수
 
-    private bool isFirstOpen = false;
+    private bool isFirstOpen = false;   // 처음 열때에만 Instace되고 아이템 Count or Item Pcik 해주도록 해줄 변수
+    private bool missionClear = false;  // 미션이 클리어 된다면 아이템 갯수 충족한지 부족한지 체크해줄 함수 넘기기위한 변수
 
 
     void Awake()
@@ -64,7 +67,7 @@ public class SG_PowerStationItemInIt : MonoBehaviour
     }
 
     private void RamdomItemInIt() // 넣어야할 아이템을 랜덤으로 정해주는 함수
-    {    
+    {
         tempItemListCount = Random.Range(0, itemLists.Length);
 
         itemSlotClass.item = itemLists[tempItemListCount];
@@ -88,11 +91,11 @@ public class SG_PowerStationItemInIt : MonoBehaviour
         itemImage = itemImageObjClone.GetComponent<Image>();
 
         itemImage.sprite = itemSlotClass.item.itemImage;
- 
+
 
     }   // ItemImageInIt()
 
-    private void ItemTextUpdate()   // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수
+    public void ItemTextUpdate()   // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수
     {
         #region Debug
         //Debug.LogFormat("wantItemCountText == null? -> {0}", wantItemCountText == null);
@@ -104,5 +107,27 @@ public class SG_PowerStationItemInIt : MonoBehaviour
 
     }   // ItemTextUpdate()
 
+    // SwapManager에서 Swap이 되었을때에 호출해줄 함수
+    public void CheckSucceseMission() // 아이템 갯수가 요구하는 만큼 충족하다면 true로 될것임
+    {
+        if(inventoryClass == null || inventoryClass == default)
+        {
+            inventoryClass = transform.parent.parent.parent.GetComponent<SG_Inventory>();
+        }
+
+        if (missionClear == false)  // 미션이 클리어 된적이 없을떄에만 함수 조건 체크
+        {
+            if (itemSlotClass.itemCount == wantItemCount)
+            {
+                inventoryClass.CheckClearPowerStation();
+            }
+            else if (itemSlotClass.itemCount < wantItemCount)
+            {
+                
+            }
+            else { /*PASS*/ }
+        }
+        else { /*PASS*/ }
+    }
 
 }   // NameSpace

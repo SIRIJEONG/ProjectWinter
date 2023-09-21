@@ -21,18 +21,6 @@ public class SG_PowerStationGridScript : MonoBehaviour
         //Debug.Log(makeSlotCount);
     }
 
-    void Start()
-    {
-
-        
-    }
-    
-    void Update()
-    {
-        
-    }
-
-
     private void MakeSlot() // 슬롯을 랜덤하게 만들어서 자식오브젝트로 넣는 함수
     {
         
