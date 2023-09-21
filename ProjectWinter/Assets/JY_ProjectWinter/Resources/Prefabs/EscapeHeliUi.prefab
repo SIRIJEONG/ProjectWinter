@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 8389668248708571480}
   - component: {fileID: 8407150564245740464}
   m_Layer: 5
-  m_Name: Button_v2 (2)
+  m_Name: CancleButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,7 +248,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4341725518796737834}
+        m_TargetAssemblyTypeName: EscapeHeliUi, Assembly-CSharp
+        m_MethodName: CancleButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &8407150564245740464
 Animator:
   serializedVersion: 5
@@ -520,7 +532,7 @@ GameObject:
   - component: {fileID: 8389525762223718624}
   - component: {fileID: 8406739086291068726}
   m_Layer: 5
-  m_Name: Button_v2 (1)
+  m_Name: EscapeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -599,7 +611,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4341725518796737834}
+        m_TargetAssemblyTypeName: EscapeHeliUi, Assembly-CSharp
+        m_MethodName: EscapeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &8406739086291068726
 Animator:
   serializedVersion: 5
