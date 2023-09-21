@@ -70,6 +70,10 @@ public class SG_InventoryClickScript : MonoBehaviour,IPointerEnterHandler,IDropH
         {
             image.color = Color.black;
         }
+        else if(itemSlotClass.slotTopParentObj.gameObject.CompareTag("HeliPad"))
+        {
+            image.color = Color.black;
+        }
         //image.color = Color.black;
     }
 

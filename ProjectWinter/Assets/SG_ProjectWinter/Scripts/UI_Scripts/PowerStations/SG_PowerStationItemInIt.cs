@@ -27,6 +27,8 @@ public class SG_PowerStationItemInIt : MonoBehaviour
 
     private Image itemImage;    // 아이템 Image를 Instace한뒤에 이 변수에 사용할수 있도록 넣어줄거임
 
+    private Transform topParentTrans;   //최상위 부모를 알려줄 Trans
+
     public int wantItemCount;      // 랜덤이 선택한 원하는 아이템의 Count
     private int tempItemListCount;  // 랜덤이 선택한 배열의 Index 변수
 
@@ -51,6 +53,7 @@ public class SG_PowerStationItemInIt : MonoBehaviour
     {
         if (isFirstOpen == false)
         {
+            SerchTopParentTrans();  //최상위 부모오브젝트찾는 로직
             RamdomItemInIt();       // 넣어야할 아이템을 랜덤으로 정해주는 함수
             RandomItemCountInIt();  // 넣어야하는 아이템 목표치 3 ~ 5로 정해주는 함수
             ItemImageInIt();        // 넣어야하는 아이템의 정보가가지고 있는 스프라이트를 넣어주는 함수
@@ -59,6 +62,7 @@ public class SG_PowerStationItemInIt : MonoBehaviour
         }
     }   // FirstOpen()
 
+
     private void FirstInitialize()
     {
         wantItemCountText = transform.Find("WantCountText").GetComponent<TextMeshProUGUI>();    // 자식오브젝트에서 이름으로 찾아옴
@@ -66,16 +70,41 @@ public class SG_PowerStationItemInIt : MonoBehaviour
         itemSlotClass = GetComponent<SG_ItemSlot>();
     }
 
+    private void SerchTopParentTrans() //최상위 부모오브젝트찾는 로직
+    {
+        topParentTrans = transform;
+
+        while (topParentTrans.parent != null)
+        {
+            topParentTrans = topParentTrans.parent;
+        }
+
+    }
+
     private void RamdomItemInIt() // 넣어야할 아이템을 랜덤으로 정해주는 함수
     {
-        tempItemListCount = Random.Range(0, itemLists.Length);
-
-        itemSlotClass.item = itemLists[tempItemListCount];
+        if (topParentTrans.CompareTag("PowerStation"))
+        {
+            tempItemListCount = Random.Range(0, itemLists.Length);
+            itemSlotClass.item = itemLists[tempItemListCount];
+        }
+        else if (topParentTrans.CompareTag("HeliPad"))
+        {
+            tempItemListCount = 2;  // 헬리페드는 가스통으로 고정
+            itemSlotClass.item = itemLists[tempItemListCount];
+        }
     }   // RamdomItemInIt()
 
     private void RandomItemCountInIt()  // 넣어야하는 아이템 목표치 3 ~ 5로 정해주는 함수
     {
-        wantItemCount = Random.Range(3, 6);
+        if (topParentTrans.CompareTag("PowerStation"))
+        {
+            wantItemCount = Random.Range(3, 6);
+        }
+        else if (topParentTrans.CompareTag("HeliPad"))
+        {
+            wantItemCount = Random.Range(5, 8);
+        }
 
     }   // RandomItemCountInIt()
 
@@ -110,22 +139,30 @@ public class SG_PowerStationItemInIt : MonoBehaviour
     // SwapManager에서 Swap이 되었을때에 호출해줄 함수
     public void CheckSucceseMission() // 아이템 갯수가 요구하는 만큼 충족하다면 true로 될것임
     {
-        if(inventoryClass == null || inventoryClass == default)
+        if (inventoryClass == null || inventoryClass == default)
         {
             inventoryClass = transform.parent.parent.parent.GetComponent<SG_Inventory>();
         }
+        else { /*PASS*/ }
 
         if (missionClear == false)  // 미션이 클리어 된적이 없을떄에만 함수 조건 체크
         {
-            if (itemSlotClass.itemCount == wantItemCount)
+            if (topParentTrans.CompareTag("PowerStation"))
             {
-                inventoryClass.CheckClearPowerStation();
+                if (itemSlotClass.itemCount == wantItemCount)
+                {
+                    inventoryClass.CheckClearPowerStation();
+                }
+                else { /*PASS*/ }
             }
-            else if (itemSlotClass.itemCount < wantItemCount)
+
+            else if(topParentTrans.CompareTag("HeliPad"))
             {
-                
+                if(itemSlotClass.itemCount == wantItemCount)
+                {
+                    inventoryClass.CheckClearHeliPad();
+                }
             }
-            else { /*PASS*/ }
         }
         else { /*PASS*/ }
     }

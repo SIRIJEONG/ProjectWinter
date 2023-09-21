@@ -179,15 +179,23 @@ public class SG_Inventory : MonoBehaviour
                 slots[i].slotCount = i + 100;
             }
         }
-        // 발전기 인벤토리 일때에 발전기의 고유번호 넣어줌   120 ~ 121   (1~2개 랜덤 생성이기에 121 없을수도 있음)
-        else if(topParentObj.CompareTag("PowerStation"))
+        // 발전기 인벤토리 일때에 발전기의 고유번호 넣어줌   120 ~ 125   (1~2개 랜덤 생성이기에 121 없을수도 있음)
+        else if (topParentObj.CompareTag("PowerStation"))
         {
-            for (int i =0; i < slots.Length; i++)
+            for (int i = 0; i < slots.Length; i++)
             {
                 slots[i].slotCount = i + 120;
             }
         }
-
+        // 헬리패드 인벤토리 일떄에 헬리패드의 고유번호 넣어줌 130 ~ 135 -> 헬리패드는 하나만 존재
+        else if (topParentObj.CompareTag("HeliPad"))
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].slotCount = i + 130;
+            }
+        }
+        else { /*PASS*/ }
         // 발전기 고유번호 삽입 해줄 else if
         //else if(topParentObj.CompareTag(""))
         //{
@@ -250,6 +258,20 @@ public class SG_Inventory : MonoBehaviour
             if (slots.Length == missionClearCount)
             {
                 GameManager.instance.RepairPowerStation();
+            }
+            else { /*PASS*/ }
+        }
+        else { /*PASS*/ }
+    }
+
+    public void CheckClearHeliPad()
+    {
+        if (topParentObj.CompareTag("HeliPad"))
+        {
+            missionClearCount++;
+            if (slots.Length == missionClearCount)
+            {
+                GameManager.instance.RepairHelipad();
             }
             else { /*PASS*/ }
         }
