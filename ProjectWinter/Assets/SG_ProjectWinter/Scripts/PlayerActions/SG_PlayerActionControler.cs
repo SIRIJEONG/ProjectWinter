@@ -40,6 +40,10 @@ public class SG_PlayerActionControler : MonoBehaviour
     // event를 델리게이트를 지정해서 델리게이트가 가지고 있는 void 의 리턴값과 매개변수가 없어야한다는 조건을넣어준샘이됨
     public event PowerStationInventoryDelegate PowerStationInventoryEvent;
 
+    // 헬리페드
+    public delegate void HeliPadInventoryDelegate();
+    public event PowerStationInventoryDelegate HeliPadInventoryEvent;
+
 
     //public SG_Inventory inventoryClass;
 
@@ -151,6 +155,15 @@ public class SG_PlayerActionControler : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     PowerStationInventoryEvent?.Invoke();
+                }
+            }
+            else { /*PASS*/ }
+
+            if (hitInfo.transform.CompareTag("HeliPad"))
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    HeliPadInventoryEvent?.Invoke();
                 }
             }
             else { /*PASS*/ }

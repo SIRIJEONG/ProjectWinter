@@ -234,7 +234,7 @@ public class SG_ItemSwapManager : MonoBehaviour
 
         #region 발전소가 받는 슬롯일때
 
-        if (_AcceptSlotCount > 119 && _AcceptSlotCount < 122) // 발전소가 받는 Slot일때에
+        if (_AcceptSlotCount > 119 && _AcceptSlotCount < 125) // 발전소가 받는 Slot일때에
         {
             isMissionInven = true;
 
@@ -275,8 +275,52 @@ public class SG_ItemSwapManager : MonoBehaviour
         }
         else { /*PASS*/ }
 
-
         #endregion 발전소가 받는 슬롯일때
+
+        #region 헬리패드가 받는 슬롯일때
+
+        if (_AcceptSlotCount > 129 && _AcceptSlotCount < 136) // 핼리패드가 받는 Slot일때에
+        {
+            isMissionInven = true;
+
+            // 아이템 갯수 몇개를 원하는지 알기위해 찾아오는 클래스
+            tempMissionInitClass = _accepSlots.GetComponent<SG_PowerStationItemInIt>();
+
+            // 이번엔 부모의 부모의 부모 3번 찾아야함
+            //1 -> Grid
+            tempTrans001 = _accepSlots.transform.parent.GetComponent<Transform>();
+            //2 -> InventoryImg
+            tempTrans002 = tempTrans001.transform.parent.GetComponent<Transform>();
+            //3 -> Inventory
+            acceptInvenClass = tempTrans002.transform.parent.GetComponent<SG_Inventory>();
+
+            for (byte i = 0; i < acceptInvenClass.slots.Length; i++)    //슬롯들을 싹 뒤지면서 주는 Slot의 고유번호 찾기
+            {
+                if (acceptInvenClass.slots[i].slotCount == _AcceptSlotCount) // 고유번호를 찾았을때 들어갈 조건문
+                {
+                    //아이템이 비어있지 않고 넣는아이템과 들어가 있는 아이템이 같지 않을때
+                    if (acceptInvenClass.slots[i].item != null && acceptInvenClass.slots[i].item != moveItem)
+                    {
+                        isSwap = false;
+                    }
+                    else if (acceptInvenClass.slots[i].item == moveItem)
+                    {
+                        acceptInvenClass.slots[i].itemCount = acceptInvenClass.slots[i].itemCount + tempItemCount;
+                        //Debug.LogFormat("받은얘의 아이템 갯수 -> {0}", acceptInvenClass.slots[i].itemCount);
+                        accepSlotCount = i;
+                        // 이곳에서 다른 함수를 만들어서 체크 해야할거같음
+                        MissionItemExamine();
+                    }
+
+                    //Debug.LogFormat("Accept() Give -> {0} Accept -> {1}", giveSlotCount, accepSlotCount);
+                    break;
+                }
+            }
+            return; // 찾아서 슬롯에 아이템을 넣어주었다면 return으로 함수 즉시탈출
+        }
+        else { /*PASS*/ }
+
+        #endregion 헬리패드가 받는 슬롯일떄
     }   //SerchAccepSlots
 
 
@@ -351,7 +395,6 @@ public class SG_ItemSwapManager : MonoBehaviour
         {
             if (isPassExamine == true)
             {
-
                 giveInvenClass.slots[giveSlotCount].DisconnectedItem();
                 //isPassExamine = false;
             }

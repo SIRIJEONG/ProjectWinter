@@ -45,6 +45,8 @@ public class SG_ItemDragScript : MonoBehaviour,
 
     private Transform topParentTrans;
 
+    // 헬리패드나 발전기를 드래그 시도했을때에 이것이 true가 되어서 end Drag에서 함수호출 넘겨줄거임
+    private bool isPassTargetControll = false; 
 
     // Test
     public static List<SG_ItemDragScript> allItemDragScrip = default;
@@ -69,8 +71,10 @@ public class SG_ItemDragScript : MonoBehaviour,
     /// </summary>    
     public void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.LogFormat("드래그한 top 부모 -> {0}", topParentTrans.tag);
         if (topParentTrans.CompareTag("PowerStation") || topParentTrans.CompareTag("HeliPad"))
         {
+            isPassTargetControll = true;
             return;
         }
 
@@ -81,9 +85,9 @@ public class SG_ItemDragScript : MonoBehaviour,
         this.transform.SetParent(canvasTrans);  // 부모 오브젝트를 Canvas로 설정
         transform.SetAsLastSibling();           // 가장 앞에 보이도록 마지막 자식으로 설정        
 
+        RayTargerEvent?.Invoke();
         // 클릭한 슬롯의 고유번호 추출을 위한 함수
         ClickDown();
-        RayTargerEvent?.Invoke();
         //itemImage.raycastTarget = false;    //드래그할때에 레이가 끌고있는것에 맞지않도록 Target flase
 
     }
@@ -100,6 +104,7 @@ public class SG_ItemDragScript : MonoBehaviour,
         // 현재 스크린상의 마우스 위치를 UI 위치로 설정 (UI가 마우스를 쫒아다니는 상태)
         if (topParentTrans.CompareTag("PowerStation") || topParentTrans.CompareTag("HeliPad"))
         {
+
             return;
         }
         rectTrans.position = eventData.position;
@@ -125,9 +130,19 @@ public class SG_ItemDragScript : MonoBehaviour,
         }
         //canvasGroup.blocksRaycasts = true;
 
+        if (isPassTargetControll == true)
+        {
+            Debug.Log("헬리패드 혹은 발전기의 아이템을 건드려 PASS 합니다.");
+            isPassTargetControll = false;
+            return;
+        }
+
         // 자신의 상위 오브젝트의 태그 = Slot 의 태그에 따라서 주는인벤토리가 어느곳인지 판단할함수        
         // 받는곳의 Slot이 어떤건지 UI로 체크 해주는 함수        
         ClickUp();
+
+       
+
         RayTargerEvent?.Invoke();
 
         //itemImage.raycastTarget = true;
@@ -155,7 +170,7 @@ public class SG_ItemDragScript : MonoBehaviour,
             GameObject clickedUIElement = resultsUp[0].gameObject;
 
             // 여기에 감지된 clikedUIElement 변수에서 누른 슬롯을 추출해내면 될거같음
-            //Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
+            Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
 
             //여기서 고유번호 추출
             if (clickedUIElement.CompareTag("ItemSlot")) // 아이템 슬롯을 눌렀을경우
@@ -164,12 +179,11 @@ public class SG_ItemDragScript : MonoBehaviour,
                 //누른 아이템슬롯의 고유번호 추출
                 acceptSlotCount = acceptItemSlotClass.slotCount;
                 //Debug.LogFormat("클릭을 땔때주는 스롯의 고유번호 -> {0}", acceptSlotCount);
-                //Debug.LogFormat("받는 스롯의 고유번호 -> {0}",acceptSlotCount);
 
                 // 클릭한 UI 요소에 대한 작업을 수행할 수 있습니다.
                 //Debug.LogFormat("받는얘 번호 -> {0}", acceptSlotCount);
                 // 아래함수 테스트후 아래함수는 giveSlotCount != null && acceptSlotCount != null 로 조건넣으면 될듯
-                //Debug.LogFormat("giveSlotCount -> {0} acceptSlotCount -> {1}", giveSlotCount, acceptSlotCount);
+                Debug.LogFormat("giveSlotCount -> {0} acceptSlotCount -> {1}", giveSlotCount, acceptSlotCount);
                 //Debug.LogFormat("giveItemSlotClass = null? -> {0}  acceptItemSlotClass = null? -> {1}", giveItemSlotClass == null, acceptItemSlotClass == null);
                 //Debug.LogFormat("giveItemSlotClass -> {0}  acceptItemSlotClass -> {1}", giveItemSlotClass, acceptItemSlotClass);
                 //Debug.Log(giveItemSlotClass.transform.parent.parent == gameObject);
@@ -209,7 +223,7 @@ public class SG_ItemDragScript : MonoBehaviour,
             // 여기에 감지된 clikedUIElement 변수에서 누른 슬롯을 추출해내면 될거같음
             //Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
 
-            Debug.Log(clickedUIElement.tag);
+            Debug.LogFormat("ClickDown Tag -> {0}   Name -> {1}",clickedUIElement.tag, clickedUIElement.name);
             if (clickedUIElement.CompareTag("ItemSlot")) // 아이템 슬롯을 눌렀을경우
             {
                 //Debug.Log("ClickDown속 Tag 조건에 들어오나?");
@@ -231,8 +245,7 @@ public class SG_ItemDragScript : MonoBehaviour,
 
 
     protected void RayTargetControler()
-    {
-        //Debug.Log("이벤트 호출");
+    {                
         if (itemImage.raycastTarget == true)
         {
             itemImage.raycastTarget = false;
