@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class UiFallowPlayer : MonoBehaviour
+public class UiFollowPlayer : MonoBehaviour
 {
     public Transform player;
 

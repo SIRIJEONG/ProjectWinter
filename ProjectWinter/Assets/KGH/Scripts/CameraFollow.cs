@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class CameraFollow : MonoBehaviourPun
 {
     public Transform toFallow;
 
@@ -19,29 +19,28 @@ public class CameraFollow : MonoBehaviour
     public PlayerController playerController;
     public GhostController ghostController;
     private GameObject player;
+    private CinemachineVirtualCamera followCam;
 
-    Coroutine coroutine;
     // Start is called before the first frame update
     void Start()
     {
-        coroutine = StartCoroutine(CameraSet());               
+        if (photonView.IsMine)
+        {
+            followCam = FindObjectOfType<CinemachineVirtualCamera>();
+            followCam.LookAt = transform;
+        }
+        player = transform.gameObject;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        
-        if (ghostController != null)
-        {
-            player = ghostController.gameObject;
-
-        }
+    {        
         if (!isInside)
         {
             toFallow = player.transform;
             Vector3 targetPosition = toFallow.position + offset;
 
-            transform.position = targetPosition;
+            followCam.transform.position = targetPosition;
         }
         else
         {
@@ -49,13 +48,28 @@ public class CameraFollow : MonoBehaviour
             GameObject moveCameraHere = cameraObject.gameObject;
             toFallow = moveCameraHere.transform;
 
-            transform.position = toFallow.position;
+            followCam.transform.position = toFallow.position;
         }
     }
 
-    IEnumerator CameraSet()
+
+    private void OnTriggerEnter(Collider other)
     {
-        yield return new WaitForSeconds(0.3f);
-        player = playerController.gameObject;
+        if (!photonView.IsMine)
+        { return; }
+        if (other.CompareTag("Building"))           // 플레이어가 건물 안으로 들어갔으면
+        {
+            inside = other.gameObject;
+            isInside = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (!photonView.IsMine)
+        { return; }
+        if (other.CompareTag("Building"))
+        {            
+            isInside = false;
+        }
     }
 }

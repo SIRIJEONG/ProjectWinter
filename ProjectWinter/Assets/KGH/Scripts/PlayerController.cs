@@ -18,17 +18,17 @@ public class PlayerController : MonoBehaviourPun
 
     private bool doSomething = false;
 
-    // ÇÃ·¹ÀÌ¾îÀÇ Á÷¾÷
+    // í”Œë ˆì´ì–´ì˜ ì§ì—…
     public static bool isSurvivor;
     public static bool isTrator;
-    // ÇÃ·¹ÀÌ¾îÀÇ Á÷¾÷
+    // í”Œë ˆì´ì–´ì˜ ì§ì—…
 
-    public GameObject weapon;       // ¹«±â µé¾úÀ»¶§ °ø°İ¹üÀ§
-    public GameObject fist;         // ÁÖ¸ÔÀÏ¶§ °ø°İ¹üÀ§
-    public GameObject ui;           // ÆÄ¿ö °ÔÀÌÁö ui
+    public GameObject weapon;       // ë¬´ê¸° ë“¤ì—ˆì„ë•Œ ê³µê²©ë²”ìœ„
+    public GameObject fist;         // ì£¼ë¨¹ì¼ë•Œ ê³µê²©ë²”ìœ„
+    public GameObject ui;           // íŒŒì›Œ ê²Œì´ì§€ ui
     //public GameObject cameraObject;
 
-    private bool hand = false;      // ÀÓ½Ã : ¼Õ¿¡ ¹«±â µé¾ú´ÂÁö
+    private bool hand = false;      // ì„ì‹œ : ì†ì— ë¬´ê¸° ë“¤ì—ˆëŠ”ì§€
     public Transform itemInHand;
     public Transform handle;
     private bool itemSet = false;
@@ -37,25 +37,25 @@ public class PlayerController : MonoBehaviourPun
     private RaycastHit hitInfo;
     private Vector3 moveVec;
 
-    private float doingTime;    // Çàµ¿À» ÇÑ ½Ã°£ Ã¼Å©
+    private float doingTime;    // í–‰ë™ì„ í•œ ì‹œê°„ ì²´í¬
     private float startTime;
     private bool shouldStartTiming = false;
-    private int doingCase;      // ¹» ÇÏ´Â µµÁßÀÎÁö
+    private int doingCase;      // ë­˜ í•˜ëŠ” ë„ì¤‘ì¸ì§€
 
-    private UiFallowPlayer uiFallowPlayer;
+    private UiFollowPlayer uiFollowPlayer;
 
-    private PlayerHealth health;    // º»ÀÎÀÇ PlayerHealth
+    private PlayerHealth health;    // ë³¸ì¸ì˜ PlayerHealth
 
-    // °ø°İ°ü·Ã
-    private float attackPower;  // ¸¶¿ì½º·Î °ø°İ Â÷Áö
+    // ê³µê²©ê´€ë ¨
+    private float attackPower;  // ë§ˆìš°ìŠ¤ë¡œ ê³µê²© ì°¨ì§€
     private bool isAttack;
-    public int damage;         // ÁÙ µ¥¹ÌÁö
-    private bool eat = false;       // ÀÓ½Ã·Î ³ÖÀº°Í, ³ªÁß¿¡ À½½ÄÀ» ¸ÔÀ¸¸é on, È¸º¹ ÈÄ off·Î ÀçÈ°¿ë
-    // °ø°İ°ü·Ã
+    public int damage;         // ì¤„ ë°ë¯¸ì§€
+    private bool eat = false;       // ì„ì‹œë¡œ ë„£ì€ê²ƒ, ë‚˜ì¤‘ì— ìŒì‹ì„ ë¨¹ìœ¼ë©´ on, íšŒë³µ í›„ offë¡œ ì¬í™œìš©
+    // ê³µê²©ê´€ë ¨
 
     private CameraFollow cameraFollow;
 
-    public PlayerHealth playerHealth;   // ³²ÀÇ PlayerHealth
+    public PlayerHealth playerHealth;   // ë‚¨ì˜ PlayerHealth
 
     private void Start()
     {
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviourPun
 
         doingTime = 0;
 
-        uiFallowPlayer = ui.GetComponent<UiFallowPlayer>();
+        uiFollowPlayer = ui.GetComponent<UiFollowPlayer>();
 
         health = transform.GetComponent<PlayerHealth>();
 
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviourPun
         {
             CinemachineVirtualCamera followCam = FindObjectOfType<CinemachineVirtualCamera>();
             followCam.LookAt = transform;           
-            cameraFollow = followCam.GetComponent<CameraFollow>();
+            cameraFollow = transform.GetComponent<CameraFollow>();
             cameraFollow.playerController = this;
             cameraFollow.toFallow = transform;
             //followCam.LookAt = transform;
@@ -81,7 +81,8 @@ public class PlayerController : MonoBehaviourPun
 
     private void Update()
     {
-
+        if (!photonView.IsMine)
+        { return; }
         animator.SetBool("attack", isAttack);
         if (!doSomething && !health.isDead)
         {
@@ -89,6 +90,14 @@ public class PlayerController : MonoBehaviourPun
             if (!health.isDown)
             {
                 PLayerIsClick();
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            if(itemInHand != null)
+            { 
+                Drop();
             }
         }
 
@@ -103,7 +112,7 @@ public class PlayerController : MonoBehaviourPun
         {
             if (!doSomething && !Input.GetMouseButton(0))
             {
-                // ÇÃ·¹ÀÌ¾îÀÇ ¾Õ¿¡ ÀÖ´Â ¹°Ã¼¸¦ ÆÇº°
+                // í”Œë ˆì´ì–´ì˜ ì•ì— ìˆëŠ” ë¬¼ì²´ë¥¼ íŒë³„
                 if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f))
                 {
 
@@ -117,7 +126,7 @@ public class PlayerController : MonoBehaviourPun
                             StartCoroutine(PressE());
                         }
                     }
-                    if (hitInfo.collider.gameObject.tag == "Warehouse")     // ¾Æ·¡ else¿Í ÇÕÃÄµµ µÉµí?
+                    if (hitInfo.collider.gameObject.tag == "Warehouse")     // ì•„ë˜ elseì™€ í•©ì³ë„ ë ë“¯?
                     {
                         StartCoroutine(PressE());
                     }
@@ -126,7 +135,7 @@ public class PlayerController : MonoBehaviourPun
                         StartCoroutine(PressE());
                     }
                 }
-                // ÇÃ·¹ÀÌ¾îÀÇ ¾Õ¿¡ ÀÖ´Â ¹°Ã¼¸¦ ÆÇº°
+                // í”Œë ˆì´ì–´ì˜ ì•ì— ìˆëŠ” ë¬¼ì²´ë¥¼ íŒë³„
                 else
                 {
 
@@ -137,17 +146,17 @@ public class PlayerController : MonoBehaviourPun
         }
         else if (Input.GetKey(KeyCode.E) && doSomething && !health.isDead && !health.isDown)
         {
-            uiFallowPlayer.Gauge(60);
+            uiFollowPlayer.Gauge(60);
 
         }
-        else if (Input.GetKeyUp(KeyCode.E) && doSomething && !health.isDead && !health.isDown)  // EÅ°¸¦ ¶¼¸é ÀÛ¾÷À» ¸ØÃß±â
+        else if (Input.GetKeyUp(KeyCode.E) && doSomething && !health.isDead && !health.isDown)  // Eí‚¤ë¥¼ ë–¼ë©´ ì‘ì—…ì„ ë©ˆì¶”ê¸°
         {
             shouldStartTiming = false;
             doingTime = 0;
             doSomething = false;
             animator.SetBool("DoSomething", doSomething);
-            uiFallowPlayer.currentValue = 0;
-            uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
+            uiFollowPlayer.currentValue = 0;
+            uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
         }
 
         if (isAttack && health.health <= 0)
@@ -156,32 +165,32 @@ public class PlayerController : MonoBehaviourPun
             animator.SetBool("attack", isAttack);
         }
 
-        if (doingTime > 2 && doSomething)       // ÀÛ¾÷ÀÌ ³¡³µÀ» ¶§ Çàµ¿À» ¸ØÃß±â
+        if (doingTime > 2 && doSomething)       // ì‘ì—…ì´ ëë‚¬ì„ ë•Œ í–‰ë™ì„ ë©ˆì¶”ê¸°
         {
             shouldStartTiming = false;
 
             doingTime = 0;
-            uiFallowPlayer.currentValue = 0;
-            uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
+            uiFollowPlayer.currentValue = 0;
+            uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
             doSomething = false;
             animator.SetBool("DoSomething", doSomething);
 
             if (eat)
             {
-                // ¸ÔÀº À½½Ä¿¡ µû¸¥ È¸º¹
+                // ë¨¹ì€ ìŒì‹ì— ë”°ë¥¸ íšŒë³µ
             }
 
-            // ¿©±â¿¡ ¿Ï·áµÆÀ»¶§ »óÈ£ÀÛ¿ëÀ» ½ÇÇàÇÒ ÄÚµå¸¦ Ãß°¡ÇØ¾ßµÊ
+            // ì—¬ê¸°ì— ì™„ë£Œëì„ë•Œ ìƒí˜¸ì‘ìš©ì„ ì‹¤í–‰í•  ì½”ë“œë¥¼ ì¶”ê°€í•´ì•¼ë¨
             if (doingCase == 1)
             {
-                //¾ÆÀÌÅÛ
+                //ì•„ì´í…œ
                 PickUp();
 
                 doingCase = 0;
             }
-            else if (doingCase == 2)    // ´Ù¿îµÈ ÇÃ·¹ÀÌ¾îÀÏ¶§ »ì¸²
+            else if (doingCase == 2)    // ë‹¤ìš´ëœ í”Œë ˆì´ì–´ì¼ë•Œ ì‚´ë¦¼
             {
-                //ÇÃ·¹ÀÌ¾î
+                //í”Œë ˆì´ì–´
                 Collider hitCollider = hitInfo.collider;
 
                 GameObject toRevive = hitCollider.gameObject;
@@ -194,7 +203,7 @@ public class PlayerController : MonoBehaviourPun
             }
             else if (doingCase == 3)
             {
-                //»óÀÚ
+                //ìƒì
 
                 doingCase = 0;
             }
@@ -212,20 +221,33 @@ public class PlayerController : MonoBehaviourPun
     {
         itemInHand = hitInfo.transform;
 
-        hitInfo.transform.SetParent(handle);
+        itemInHand.transform.SetParent(handle);
 
-        //hitInfo.transform.position = new Vector3(0, 0, 0);
-        hitInfo.transform.rotation = Quaternion.Euler(0, 0, 0);
-        hitInfo.transform.localScale = new Vector3(1, 1, 1);
-        //    itemSet = true;
-
+        Collider collider = hitInfo.collider;
+        Rigidbody itemRb = itemInHand.transform.GetComponent<Rigidbody>();
+        collider.enabled = false;
+        Destroy(itemRb);
+        itemInHand.transform.localPosition = Vector3.zero;
+        itemInHand.transform.localRotation = Quaternion.identity;
+        itemInHand.transform.localScale = Vector3.one;
     }
 
-    // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ
+    private void Drop()
+    {
+        //Collider collider = hitInfo.collider;
+        itemInHand.GetComponent<Collider>().enabled = true;
+                 
+        Rigidbody newRigidbody = itemInHand.transform.AddComponent<Rigidbody>();
+       
+        itemInHand.SetParent(null);
+        itemInHand = null; 
+    }
+
+    // í”Œë ˆì´ì–´ ì›€ì§ì„
     #region
     private void PlayerMove()          
     {
-        // ÁÂÇ¥ÀÌµ¿
+        // ï¿½ï¿½Ç¥ï¿½Ìµï¿½
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
@@ -234,9 +256,9 @@ public class PlayerController : MonoBehaviourPun
         transform.position += moveVec * speed * Time.deltaTime;
 
         transform.LookAt(transform.position + moveVec);
-        // ÁÂÇ¥ÀÌµ¿
+        // ï¿½ï¿½Ç¥ï¿½Ìµï¿½
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç
+        // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
         if (Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0)
         {
             aniSpeed = Mathf.MoveTowards(aniSpeed, 1, Time.deltaTime * 3);
@@ -246,34 +268,34 @@ public class PlayerController : MonoBehaviourPun
             aniSpeed = Mathf.MoveTowards(aniSpeed, 0, Time.deltaTime * 3);
         }
         animator.SetFloat("Speed", aniSpeed);
-        // ¾Ö´Ï¸ŞÀÌ¼Ç
+        // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
     }
     #endregion
-    // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ
+    // í”Œë ˆì´ì–´ ì›€ì§ì„
 
-    // °ø°İ
+    // ê³µê²©
     #region
     private void PLayerIsClick()
     {
-        if (Input.GetMouseButton(0) && !isAttack && !health.isInside && !health.isInside)   // Ãß°¡Á¶°Ç : ¼Õ¿¡ À½½ÄÀÌ ¾øÀ»¶§
+        if (Input.GetMouseButton(0) && !isAttack && !health.isInside && !health.isInside)   // ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             Attack();
-            uiFallowPlayer.Gauge(120);
+            uiFollowPlayer.Gauge(120);
         }
-        //else if(true)//(À½½ÄÀÌ ¼Õ¿¡ ÀÖÀ»¶§)
+        //else if(true)//(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
         //{
            
 
-        //    uiFallowPlayer.Gauge(120);
+        //    uiFollowPlayer.Gauge(120);
         //    StartCoroutine(Eat());
         //}
-        else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside && !health.isInside)    // Ãß°¡Á¶°Ç : ¼Õ¿¡ À½½ÄÀÌ ¾øÀ»¶§
+        else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside && !health.isInside)    // ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             if (!eat)
             {
                 isAttack = true;
-                uiFallowPlayer.currentValue = 0;
-                uiFallowPlayer.LoadingBar.fillAmount = uiFallowPlayer.currentValue / 100;
+                uiFollowPlayer.currentValue = 0;
+                uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
                 StartCoroutine(EndAttack());
             }
             else
@@ -289,13 +311,13 @@ public class PlayerController : MonoBehaviourPun
     private void Attack()
     {
         if(!hand)
-        {       //¾ÆÀÌÅÛ ¾Èµé¾úÀ»¶§
+        {       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             animator.Play("Punch_R", -1, 0.2f);
 
             attackPower += Time.deltaTime;
         }
         else
-        {       //¾ÆÀÌÅÛ µé¾úÀ»¶§
+        {       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
             animator.Play("AttackAnimation", -1, 0.35f);
 
@@ -307,12 +329,11 @@ public class PlayerController : MonoBehaviourPun
     {
         
         if (!hand)
-        {       //¾ÆÀÌÅÛ ¾Èµé¾úÀ»¶§
-            if (attackPower >= 0.9f)           // µ¥¹ÌÁö ¼öÄ¡ ¼öÁ¤ ÇÊ¿ä
+        {       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            if (attackPower >= 0.9f)           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
             { damage = 2; }
             else
             { damage = 1; }
-            Debug.Log(damage);
 
             animator.SetBool("attack", isAttack);
             yield return new WaitForSeconds(0.2f);
@@ -324,8 +345,8 @@ public class PlayerController : MonoBehaviourPun
             attackPower = 0;
         }
         else
-        {       //¾ÆÀÌÅÛ µé¾úÀ»¶§
-            if (attackPower >= 0.9f)           // µ¥¹ÌÁö ¼öÄ¡ ¼öÁ¤ ÇÊ¿ä
+        {       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            if (attackPower >= 0.9f)           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
             { damage = 2; }
             else
             { damage = 1; }
@@ -354,13 +375,13 @@ public class PlayerController : MonoBehaviourPun
     }
 
     #endregion
-    // °ø°İ   
+    // ê³µê²©
 
     private IEnumerator PressE()
     {
         shouldStartTiming = true;
         startTime = Time.time;
-        if (hitInfo.collider.gameObject.tag == "Item") // ·çÆÃ¸ğ¼Ç
+        if (hitInfo.collider.gameObject.tag == "Item") // ë£¨íŒ…ëª¨ì…˜
         {
             doSomething = true;
             animator.SetBool("DoSomething", doSomething);
@@ -379,7 +400,7 @@ public class PlayerController : MonoBehaviourPun
 
             doingCase = 2;
         }
-        else if (hitInfo.collider.gameObject.tag == "Warehouse") // ÀÛ¾÷¸ğ¼Ç
+        else if (hitInfo.collider.gameObject.tag == "Warehouse") // ì‘ì—…ëª¨ì…˜
         {
             animator.SetFloat("Speed", 0);
             doSomething = true;
@@ -391,18 +412,20 @@ public class PlayerController : MonoBehaviourPun
         }
     }
 
-    // ½Ç³» ¿©ºÎ
+    // ì‹¤ë‚´ ì—¬ë¶€
     #region
     // ###########################
-    // isMineÀÏ¶§¸¸ ½ÇÇà
+    // isMineì¼ë•Œë§Œ ì‹¤í–‰
     // ###########################
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Building"))           // ÇÃ·¹ÀÌ¾î°¡ °Ç¹° ¾ÈÀ¸·Î µé¾î°¬À¸¸é
+        if (!photonView.IsMine)
+        { return; }
+        if (other.CompareTag("Building"))           // í”Œë ˆì´ì–´ê°€ ê±´ë¬¼ ì•ˆìœ¼ë¡œ ë“¤ì–´ê°”ìœ¼ë©´
         {
             //cameraObject = GameObject.Find("CM vcam1");
-            //CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // Ä«¸Ş¶ó¸¦ µÑ ¿ÀºêÀèÆ®¸¦ Ã£¾Æ Ä«¸Ş¶ó¸¦ µÒ
+            //CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // ì¹´ë©”ë¼ë¥¼ ë‘˜ ì˜¤ë¸Œì­íŠ¸ë¥¼ ì°¾ì•„ ì¹´ë©”ë¼ë¥¼ ë‘ 
             cameraFollow.inside = other.gameObject;
             cameraFollow.isInside = true;
 
@@ -411,10 +434,12 @@ public class PlayerController : MonoBehaviourPun
     }
     private void OnTriggerExit(Collider other)
     {
+        if (!photonView.IsMine)
+        { return; }
         if (other.CompareTag("Building"))
         {
             //cameraObject = GameObject.Find("CM vcam1");
-            //CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // Ä«¸Ş¶ó¸¦ µÑ ¿ÀºêÀèÆ®¸¦ Ã£¾Æ Ä«¸Ş¶ó¸¦ µÒ
+            //CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // ì¹´ë©”ë¼ë¥¼ ë‘˜ ì˜¤ë¸Œì­íŠ¸ë¥¼ ì°¾ì•„ ì¹´ë©”ë¼ë¥¼ ë‘ 
             //bool isInside = cameraFollow.isInside;
             cameraFollow.isInside =  false;
             
@@ -426,7 +451,7 @@ public class PlayerController : MonoBehaviourPun
         }
     }
     #endregion
-    // ½Ç³» ¿©ºÎ
+    // ì‹¤ë‚´ ì—¬ë¶€
 
 }
-//animator.SetLayerWeight(1, 0.0f);       // µÎ¹øÂ°(1) ·¹ÀÌ¾îÀÇ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ¸ØÃã
+//animator.SetLayerWeight(1, 0.0f);       // ë‘ë²ˆì§¸(1) ë ˆì´ì–´ì˜ ì• ë‹ˆë©”ì´ì…˜ì„ ë©ˆì¶¤
