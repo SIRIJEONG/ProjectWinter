@@ -30,12 +30,15 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject playerPrefab; // 생성할 플레이어 캐릭터 프리팹
     public GameObject survivorRolePanel;    // 생존자 역할일 경우 킬 UI
     public GameObject traitorRolePanel;     // 배신자 역할일 경우 킬 UI
+    public ProgressManager progressManager; // 진행도에 따른 스크립트 온오프 관리 스크립트
 
     public TMP_Text timerText;      // 눈보라 제한시간 텍스트
     public float limitTime = 900.0f; // 15분은 900초
     private float currentTime;
 
     public int traitorNum;      // 배신자 역할의 ActorNumber
+    public GameObject[] playerObjects;  // 플레이어 오브젝트들 모음
+    public List<int> escapePlayerList;  // 탈출하는 사람들의 액터넘버 리스트
 
     public bool isLimitOver = false;
     public bool isRepairPowerStation = false;
@@ -124,17 +127,21 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         isRepairPowerStation = true;  
         UIManager.instance.UpdatePowerStaionText();
+        progressManager.OpenRepairHeliPad();
     }
 
     public void RepairHelipad()
     {
         isRepairHeliPad = true;
         UIManager.instance.UpdateHeliPadText();
+        progressManager.OpenCallHeliRadio();
     }
 
     public void CallHeli()
     {
         isCallHeli = true;
         UIManager.instance.UpdateEscapeText();
+        progressManager.OpenHelicopter();
+        playerObjects = GameObject.FindGameObjectsWithTag("Player");
     }
 }

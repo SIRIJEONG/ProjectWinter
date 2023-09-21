@@ -7,10 +7,7 @@ using Unity.VisualScripting;
 
 public class HeliPad : MonoBehaviourPun
 {
-    public bool isFullGas = false;
-    public AwakeNoticeCanvas awakeNoticeCanvas;
-    public Player[] escapePlayers = new Player[6];
-
+    public GameObject escapePlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -24,29 +21,33 @@ public class HeliPad : MonoBehaviourPun
         
     }
 
-    public void ReadyHeli()
+    public void TakeHeli()
     {
-        isFullGas = true;
-        awakeNoticeCanvas.enabled = true;
-    }
+        int playerActorNum = PhotonNetwork.LocalPlayer.ActorNumber;
 
-    public void TakeHeli(Player player)
-    {
-        if (escapePlayers[0] == null)
+        foreach (GameObject playerObject in GameManager.instance.playerObjects)
         {
-            escapePlayers[0] = player;
-        }
-        else
-        {
-            for(int i = 0; i < escapePlayers.Length; i++)
+            // 플레이어 오브젝트의 PhotonView 컴포넌트를 가져옴
+            PhotonView photonView = playerObject.GetComponent<PhotonView>();
+
+            if (photonView != null)
             {
-                if (escapePlayers[i] == null)
+                // PhotonView가 로컬 플레이어의 것인지 확인
+                if (photonView.IsMine)
                 {
-                    escapePlayers[i] = player;
-                    break;
+                    escapePlayer = playerObject;
                 }
             }
-        }       
+        }
+        photonView.RPC("AddEscapePalyerList", RpcTarget.All, playerActorNum, escapePlayer);
+
+    }
+
+    [PunRPC]
+    public void AddEscapePalyerList(int playerActorNum_ , GameObject escapePlayer_)
+    {
+        GameManager.instance.escapePlayerList.Add(playerActorNum_);
+        escapePlayer_.SetActive(false);
     }
 
 
