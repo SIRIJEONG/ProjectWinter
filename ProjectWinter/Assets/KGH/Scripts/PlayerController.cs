@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using static SG_Item;
 
 public class PlayerController : MonoBehaviourPun
 {
@@ -26,11 +27,13 @@ public class PlayerController : MonoBehaviourPun
     public GameObject weapon;       // 무기 들었을때 공격범위
     public GameObject fist;         // 주먹일때 공격범위
     public GameObject ui;           // 파워 게이지 ui
+    public PlayerInventory playerInventory;
+    public SG_PlayerActionControler playerActionControler;
     //public GameObject cameraObject;
 
     private bool hand = false;      // 임시 : 손에 무기 들었는지
     public Transform itemInHand;
-    public Transform handle;
+    public Transform inven;
     private bool itemSet = false;
 
 
@@ -63,6 +66,10 @@ public class PlayerController : MonoBehaviourPun
         animator = GetComponent<Animator>();
 
         doingTime = 0;
+
+        //playerActionControler = transform.GetComponent<SG_PlayerActionControler>();
+
+        //playerInventory = transform.GetComponent<PlayerInventory>();
 
         uiFollowPlayer = ui.GetComponent<UiFollowPlayer>();
 
@@ -176,6 +183,10 @@ public class PlayerController : MonoBehaviourPun
             if (eat)
             {
                 // 먹은 음식에 따른 회복
+                ////playerInventory.playerinventory.slots[(int)inven].item 
+                //playerHealth.health += playerInventory.hp;
+                //playerHealth.cold += playerInventory.cold;
+                //playerHealth.hunger += playerInventory.hunger;
             }
 
             // 여기에 완료됐을때 상호작용을 실행할 코드를 추가해야됨
@@ -210,6 +221,7 @@ public class PlayerController : MonoBehaviourPun
         }
     }
 
+
     private void Revive(PlayerHealth playerHealth)
     {
         playerHealth.health = 20;
@@ -220,8 +232,7 @@ public class PlayerController : MonoBehaviourPun
     private void PickUp()
     {
         itemInHand = hitInfo.transform;
-
-        itemInHand.transform.SetParent(handle);
+        itemInHand.transform.SetParent(inven);
 
         Collider collider = hitInfo.collider;
         Rigidbody itemRb = itemInHand.transform.GetComponent<Rigidbody>();
@@ -282,10 +293,8 @@ public class PlayerController : MonoBehaviourPun
             Attack();
             uiFollowPlayer.Gauge(120);
         }
-        //else if(true)//(������ �տ� ������)
+        //else if(playerInventory.foodInHand)//(������ �տ� ������)
         //{
-           
-
         //    uiFollowPlayer.Gauge(120);
         //    StartCoroutine(Eat());
         //}
