@@ -33,7 +33,7 @@ public class LoadingBarController : MonoBehaviour
             yield return null;
         }
 
-        PhotonNetwork.LoadLevel("MainScene");
+        PhotonNetwork.LoadLevel("HW_PlayScene");
 
         // 로딩이 완료되면 다음 작업을 수행하거나 다음 씬으로 이동할 수 있습니다.
     }

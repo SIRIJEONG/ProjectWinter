@@ -9,6 +9,9 @@ using Photon.Realtime;
 public class WaitingRoomManager : MonoBehaviourPunCallbacks
 {
 
+    public Slider masterVolumeSlider; // 마스터 볼륨을 조절하는 슬라이더
+    private float initialMasterVolume; // 초기 마스터 볼륨 설정
+
     public AudioClip buttonClickSoundClip; // 버튼 클릭 사운드를 재생할 오디오 클립
 
 
@@ -41,6 +44,16 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
     void Start()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
+
+
+        // 초기 마스터 볼륨을 저장
+        initialMasterVolume = AudioListener.volume;
+
+        // 슬라이더의 값을 초기 마스터 볼륨으로 설정
+        masterVolumeSlider.value = initialMasterVolume;
+
+        // 슬라이더의 값이 변경될 때마다 이벤트 핸들러 호출
+        masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeSliderChanged);
 
 
         // 텍스트 UI를 리스트에 추가
@@ -303,6 +316,8 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
 
     public void UIScale()
     {
+        AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);
+
         Vector3 uiImageScale = optionUI.transform.localScale;
 
         Vector3 newScale = new Vector3(0.001f, 0.001f, 0.001f);
@@ -312,11 +327,21 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
 
     public void UIScale2()
     {
+        AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);
+
         Vector3 uiImageScale = optionUI.transform.localScale;
 
         Vector3 newScale = new Vector3(5f, 5f, 5f);
 
         optionUI.transform.localScale = newScale;
+    }
+
+
+    // 슬라이더 값이 변경될 때 호출되는 메서드
+    void OnMasterVolumeSliderChanged(float value)
+    {
+        // 슬라이더 값을 AudioListener.volume에 설정하여 마스터 볼륨 조절
+        AudioListener.volume = value;
     }
 
 }
