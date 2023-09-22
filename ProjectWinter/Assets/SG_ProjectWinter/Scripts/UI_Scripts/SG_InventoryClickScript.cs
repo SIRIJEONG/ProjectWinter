@@ -15,13 +15,24 @@ public class SG_InventoryClickScript : MonoBehaviour,IPointerEnterHandler,IDropH
 
     private SG_ItemSlot itemSlotClass;
 
+    private bool isInIt = false;
+
     private void Awake()
     {
-       image = GetComponent<Image>();
-        rect = GetComponent<RectTransform>();       
-        defaultColor32 = new Color32(180, 180, 180, 255);
-        itemSlotClass = this.transform.GetComponent<SG_ItemSlot>();
+        FirstInIt();
+    }
 
+    private void FirstInIt()
+    {
+        if (isInIt == false)
+        {
+            isInIt = true;
+            image = GetComponent<Image>();
+            rect = GetComponent<RectTransform>();
+            defaultColor32 = new Color32(180, 180, 180, 255);
+            itemSlotClass = this.transform.GetComponent<SG_ItemSlot>();
+        }
+        else { /*PASS*/ }
     }
 
     /// <summary>
@@ -78,35 +89,4 @@ public class SG_InventoryClickScript : MonoBehaviour,IPointerEnterHandler,IDropH
     }
 
 
-
-
-
-    //public void OnBeginDrag(PointerEventData eventData)
-    //{
-    //    // 클릭을 했을때에 불릴 함수 Canvas속 UI에게만 불리는 인터페이스 사용
-    //    Debug.Log("클릭했을떄에 불리나?");
-    //   Debug.LogFormat("pointerDrag는 무엇인가? -> {0}", eventData.pointerDrag);
-    //}
-
-    //public void OnDrag(PointerEventData eventData)
-    //{
-    //    // 드래그중에 불릴 함수
-    //    Debug.Log("드래그중에 계속 불리나?");
-
-    //    // 아이템 이미지가 드래그중에 계속 마우스를 따라가도록 포지션 조정
-    //    transform.position = eventData.position;
-    //}
-
-    //public void OnDrop(PointerEventData eventData)
-    //{
-    //    // 마우스클릭을 UI 위에다 땟을때에 나오는 함수
-    //    Debug.LogFormat("pointerDrag는 무엇인가? -> {0}", eventData.pointerDrag);
-    //    //if(Physics.Raycast())
-    //}
-
-    //public void OnEndDrag(PointerEventData eventData)
-    //{
-    //    // 드래그를 후 마우스클릭을 끝낼때에 무조건 부르는 함수
-    //    //Debug.Log("드래그 마치고 마우스클릭을 때면 불리나?");
-    //}
 }

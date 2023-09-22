@@ -66,10 +66,14 @@ public class SG_PowerStationControler : MonoBehaviour
     {
         isOpen = true;
         poweStationObjs.SetActive(true);
+     
     }
     private void ClosePoweStation()
     {
         isOpen = false;
         poweStationObjs.SetActive(false);
     }
+
+
+
 }
