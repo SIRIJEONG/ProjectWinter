@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1455,6 +1455,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1160839413}
     m_Modifications:
+    - target: {fileID: -1417728894983634216, guid: 78f93aafc4f94df4c9b46f98ba2fddfa, type: 3}
+      propertyPath: sceneViewId
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7174952317001983043, guid: 78f93aafc4f94df4c9b46f98ba2fddfa, type: 3}
       propertyPath: m_RootOrder
       value: 24
@@ -5357,6 +5361,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1160839413}
     m_Modifications:
+    - target: {fileID: -1417728894983634216, guid: 78f93aafc4f94df4c9b46f98ba2fddfa, type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7174952317001983043, guid: 78f93aafc4f94df4c9b46f98ba2fddfa, type: 3}
       propertyPath: m_RootOrder
       value: 31
@@ -5794,6 +5802,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1160839413}
     m_Modifications:
+    - target: {fileID: -1417728894983634216, guid: 78f93aafc4f94df4c9b46f98ba2fddfa, type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7174952317001983043, guid: 78f93aafc4f94df4c9b46f98ba2fddfa, type: 3}
       propertyPath: m_RootOrder
       value: 32
@@ -7020,6 +7032,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1160839413}
     m_Modifications:
+    - target: {fileID: -1417728894983634216, guid: 78f93aafc4f94df4c9b46f98ba2fddfa, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7174952317001983043, guid: 78f93aafc4f94df4c9b46f98ba2fddfa, type: 3}
       propertyPath: m_RootOrder
       value: 33
@@ -9280,6 +9296,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1160839413}
     m_Modifications:
+    - target: {fileID: -1417728894983634216, guid: 78f93aafc4f94df4c9b46f98ba2fddfa, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7174952317001983043, guid: 78f93aafc4f94df4c9b46f98ba2fddfa, type: 3}
       propertyPath: m_RootOrder
       value: 30
