@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9132688527169308987}
   - component: {fileID: 7311029924736003771}
   - component: {fileID: 7227626057612101378}
+  - component: {fileID: -1417728894983634216}
   m_Layer: 7
   m_Name: RawMeat
   m_TagString: Item
@@ -128,3 +129,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.32830483, y: 0.3283048, z: 0.53091395}
   m_Center: {x: 0.004931973, y: 0.1641524, z: -0.09552481}
+--- !u!114 &-1417728894983634216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7773602194585776036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

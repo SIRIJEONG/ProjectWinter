@@ -53,6 +53,10 @@ MonoBehaviour:
   - RestoreHealth
   - CompleteFixPS
   - AddEscapePalyerList
+  - TreeDestroy
+  - DisableAllChildren
+  - DestroyObjectAndInstantiatePrefab
+  - ApplyUpdateDownGauge
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

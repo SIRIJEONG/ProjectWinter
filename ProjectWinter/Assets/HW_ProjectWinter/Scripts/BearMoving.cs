@@ -216,8 +216,20 @@ public class BearMoving : LivingEntity
         // 사망 애니메이션 재생
         animalAnimator.SetTrigger("Die");
 
+        StartCoroutine(DeathMotion());
         // 사망 효과음 재생
         //zombieAudioPlayer.PlayOneShot(deathSound);
+    }
+
+    IEnumerator DeathMotion()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        PhotonNetwork.Instantiate("RawMeat", transform.position, Quaternion.identity);
+        PhotonNetwork.Instantiate("RawMeat", transform.position + Vector3.forward, Quaternion.identity);
+        PhotonNetwork.Instantiate("RawMeat", transform.position + Vector3.left, Quaternion.identity);
+
+        PhotonNetwork.Destroy(gameObject);
     }
 
     private void OnTriggerStay(Collider other)
@@ -245,9 +257,9 @@ public class BearMoving : LivingEntity
                     Vector3 hitPoint = other.ClosestPoint(transform.position);
                     Vector3 hitNormal = transform.position - other.transform.position;
 
-                    if(animalAnimator.GetBool("BearAttack"))
+                    if (animalAnimator.GetBool("BearAttack"))
                     {
-                    attackTarget.OnDamage(damage, hitPoint, hitNormal);
+                        attackTarget.OnDamage(damage, hitPoint, hitNormal);
                     }
                     // 공격 실행
                 }
@@ -260,6 +272,4 @@ public class BearMoving : LivingEntity
             animalAnimator.SetBool("BearAttack", false);
         }
     }
-
-
 }

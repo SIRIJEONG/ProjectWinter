@@ -14,7 +14,7 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
 
     // 호스트->모든 클라이언트 방향으로 체력과 사망 상태를 동기화 하는 메서드
     [PunRPC]
-    public void ApplyUpdatedHealth(float newHealth, bool newDead)
+    public virtual void ApplyUpdatedHealth(float newHealth, bool newDead)
     {
         health = newHealth;
         isDead = newDead;
@@ -88,5 +88,20 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
 
         // 사망 상태를 참으로 변경
         isDead = true;
+    }
+
+    public virtual void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Attack"))
+        {
+            Debug.Log("!");
+            PlayerController playercontroller = other.transform.parent.GetComponent<PlayerController>();
+            //PlayerHealth playerHealth = transform.parent.GetComponent<PlayerHealth>();
+            float getdamage = playercontroller.damage;
+            Vector3 hitpoint = other.ClosestPoint(transform.position);
+            Vector3 hitnormal = transform.position - other.transform.position;
+            photonView.RPC("OnDamage",RpcTarget.MasterClient, getdamage, hitpoint, hitnormal);
+            Debug.Log("1"); 
+        }
     }
 }

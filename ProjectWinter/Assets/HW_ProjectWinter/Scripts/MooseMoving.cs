@@ -187,18 +187,6 @@ public class MooseMoving : LivingEntity
     [PunRPC]
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        //// 아직 사망하지 않은 경우에만 피격 효과 재생
-        //if (!dead)
-        //{
-        //    // 공격 받은 지점과 방향으로 파티클 효과를 재생
-        //    hitEffect.transform.position = hitPoint;
-        //    hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal);
-        //    hitEffect.Play();
-
-        //    // 피격 효과음 재생
-        //    //zombieAudioPlayer.PlayOneShot(hitSound);
-        //}
-
         // LivingEntity의 OnDamage()를 실행하여 데미지 적용
         base.OnDamage(damage, hitPoint, hitNormal);
     }
@@ -260,7 +248,6 @@ public class MooseMoving : LivingEntity
                     {
                         // 공격 실행
                         attackTarget.OnDamage(damage, hitPoint, hitNormal);
-
                     }
                 }
             }
@@ -279,7 +266,7 @@ public class MooseMoving : LivingEntity
         transform.LookAt(currentWaypoint);
 
         // 경로 포인트에 도달한 경우 다음 포인트로 이동
-        if (Vector3.Distance(transform.position, currentWaypoint.position) < 0.1f)
+        if (Vector3.Distance(transform.position, currentWaypoint.position) < 0.5f)
         {
             // 다음 경로 포인트로 이동
             currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerHealth : LivingEntity
 {
@@ -39,20 +40,20 @@ public class PlayerHealth : LivingEntity
     void Update()
     {
         if (health > maxHP)     //최대치를 넘길시 최대치로 초기화
-        { health = maxHP;}
-        if ( hunger > 100)
-        { hunger = 100;}
-        if ( cold > 100)
-        { cold = 100;}
+        { health = maxHP; }
+        if (hunger > 100)
+        { hunger = 100; }
+        if (cold > 100)
+        { cold = 100; }
 
-        if ( health < 0) //최소치를 넘길시 최소치로 초기화
-        { health = 0;}
-        if ( cold < 0) 
-        {  cold = 0;}
-        if ( hunger < 0) 
-        {  hunger = 0;}
+        if (health < 0) //최소치를 넘길시 최소치로 초기화
+        { health = 0; }
+        if (cold < 0)
+        { cold = 0; }
+        if (hunger < 0)
+        { hunger = 0; }
 
-        if(!isDown)
+        if (!isDown)
         {
             animator.SetBool("Down", isDown);
         }
@@ -66,7 +67,7 @@ public class PlayerHealth : LivingEntity
         }
         else
         {
-            powerGauge.SetActive(true); 
+            powerGauge.SetActive(true);
             downGauge.SetActive(false);
         }
 
@@ -79,15 +80,15 @@ public class PlayerHealth : LivingEntity
         {
             cold -= Time.deltaTime / 2.5f;
         }
-        else if(isInside && cold <= 100)
+        else if (isInside && cold <= 100)
         {
             cold += Time.deltaTime * 5;
         }
 
-        if(hunger < 25)                     // 허기가 일정수치 미만일때 체력 감소
+        if (hunger < 25)                     // 허기가 일정수치 미만일때 체력 감소
         {
             health -= Time.deltaTime;
-            if ( health <= 0 )
+            if (health <= 0)
             {
                 Die();
             }
@@ -141,7 +142,7 @@ public class PlayerHealth : LivingEntity
     {
         playerEnd = true;
         isDead = true;
-        
+
         if (playOne)
         {
             animator.Play("Death");
@@ -149,32 +150,16 @@ public class PlayerHealth : LivingEntity
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public override void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Attack"))
+        if (other.CompareTag("Attack"))
         {
+            PlayerController playercontroller = other.transform.parent.GetComponent<PlayerController>();
+            float getdamage = playercontroller.damage;
             Debug.Log("!");
-            if (!isDown)
-            {/*
-                PlayerController playercontroller = other.transform.parent.GetComponent<PlayerController>();
-                //PlayerHealth playerHealth = transform.parent.GetComponent<PlayerHealth>();
-                int getdamage = playercontroller.damage;
-                */      // 멀티 적용시 주석 풀고 아래 정수형 지워야됨
-                int getdamage = 10;
-                Vector3 hitpoint = other.ClosestPoint(transform.position);
-                Vector3 hitnormal = transform.position - other.transform.position;
-                OnDamage(getdamage, hitpoint, hitnormal);
-                Debug.Log("1");
-
-            }
-            else
-            {
-                PlayerController playercontroller = other.transform.parent.GetComponent<PlayerController>();
-                //PlayerHealth playerHealth = transform.parent.GetComponent<PlayerHealth>();
-                int getdamage = playercontroller.damage;
-
-                playerDown -= getdamage;
-            }
+            Vector3 hitpoint = other.ClosestPoint(transform.position);
+            Vector3 hitnormal = transform.position - other.transform.position;
+            photonView.RPC("OnDamage", RpcTarget.MasterClient, getdamage, hitpoint, hitnormal);
         }
         if (other.CompareTag("Building"))
         {
@@ -185,13 +170,55 @@ public class PlayerHealth : LivingEntity
         }
     }
 
+    // 데미지 처리
+    // 호스트에서 먼저 단독 실행되고, 호스트를 통해 다른 클라이언트들에서 일괄 실행됨
+    [PunRPC]
+    public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (!isDown)
+            {
+                // 데미지만큼 체력 감소
+                health -= damage;
+
+                // 호스트에서 클라이언트로 동기화
+                photonView.RPC("ApplyUpdatedHealth", RpcTarget.Others, health, isDown);
+            }
+            else
+            {
+                // 데미지만큼 다운 게이지 감소
+                playerDown -= damage;
+                // 호스트에서 클라이언트로 동기화
+                photonView.RPC("ApplyUpdateDownGauge", RpcTarget.Others, playerDown, isDead);
+            }
+
+            // 다른 클라이언트들도 OnDamage를 실행하도록 함
+            photonView.RPC("OnDamage", RpcTarget.Others, damage, hitPoint, hitNormal);
+        }
+
+        // 체력이 0 이하 && 아직 눕지 않았다면 기절 처리 실행
+        if (health <= 0 && !isDown)
+        {
+            Die();
+        }
+    }
+
+    // 호스트->모든 클라이언트 방향으로 다운 게이지와 사망 상태를 동기화 하는 메서드
+    [PunRPC]
+    public void ApplyUpdateDownGauge(float playerDown_, bool isDead_)
+    {
+        playerDown = playerDown_;
+        isDead = isDead_;
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Building"))
         {
             if (other.name == "MountainVilla")
             {
-                 isInside = false;                
+                isInside = false;
             }
         }
     }
