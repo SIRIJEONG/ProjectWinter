@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Tree : LivingEntity
 {
-    public string targetChildName; // 비활성화할 특정 자식 오브젝트의 이름
-    public GameObject changePrefab; // 파괴된 자리에 인스턴스화할 프리팹
+    public string targetChildName; // 비활성화할 특정 자식 오브젝트의 이름    
 
     void Start()
     {
@@ -14,22 +14,18 @@ public class Tree : LivingEntity
 
     void Update()
     {
-        if (health == 0 && isDead == false)
-        {
-            isDead = true;
-            Die();
-        }
+
     }
 
     public override void Die()
     {
-
+        isDead = true;
         Debug.Log("죽었나?");
-        TreeDestroy();
+        photonView.RPC("TreeDestroy", RpcTarget.All);
     }
 
-
-    void TreeDestroy()
+    [PunRPC]
+    public void TreeDestroy()
     {
 
         // 특정 자식 오브젝트를 찾아서 비활성화합니다.
@@ -44,20 +40,17 @@ public class Tree : LivingEntity
             Debug.LogWarning("찾으려는 자식 오브젝트를 찾지 못했습니다: " + targetChildName);
         }
 
-
         Vector3 treePosition = new Vector3(targetChild.position.x + 3, targetChild.position.y + 3, targetChild.position.z - 2);
         Quaternion treeRotation = targetChild.rotation;
 
 
         // 파괴된 위치에 프리팹을 인스턴스화합니다.
-        if (changePrefab != null)
+        if (PhotonNetwork.IsMasterClient)
         {
-            GameObject changeTrees = Instantiate(changePrefab, treePosition, treeRotation);
-
+            GameObject changeTrees = PhotonNetwork.Instantiate("WoodPiece", treePosition, treeRotation);
             // 스프라이트의 크기를 조절합니다.
             Vector3 newScale = new Vector3(0.5f, 0.5f, 0.5f); // X, Y, Z 축의 크기를 조절합니다.
             changeTrees.transform.localScale = newScale;
-
-        }
+        }      
     }
 }

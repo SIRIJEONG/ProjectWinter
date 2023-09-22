@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3595628390665386557}
   - component: {fileID: 3595628390665386546}
+  - component: {fileID: 1811431230927539570}
+  - component: {fileID: 189865378329262858}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -46,11 +48,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ef72452ee3c2c46b19f0b146718d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 0
+  startingHealth: 20
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
+--- !u!114 &1811431230927539570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3595628390665386556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!136 &189865378329262858
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3595628390665386556}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.2
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: -0.1, y: 2, z: 0}
 --- !u!1001 &3595628390850499758
 PrefabInstance:
   m_ObjectHideFlags: 0

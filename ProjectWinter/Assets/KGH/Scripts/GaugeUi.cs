@@ -2,41 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class GaugeUi : MonoBehaviour
+public class GaugeUi : MonoBehaviourPun
 {
     private GameObject player;
     private PlayerHealth playerHealth;
+    public Image health_full;
+    public Image cold_full;
+    public Image hunger_full;
 
-    private Image GaugeBar;
     public float currentValue;
     private void Start()
     {
-        GameObject currentObject = this.gameObject;
-
-        GaugeBar = GetComponent<Image>();
-
-        while (currentObject.transform.parent != null)
+        player = transform.parent.gameObject;
+        if(!player.GetComponent<PhotonView>().IsMine)
         {
-            currentObject = currentObject.transform.parent.gameObject;
-        } // 최상위 부모 오브젝트를 currentObject에 찾아서 저장.
-
-        player = currentObject;
+            gameObject.SetActive(false);
+        }
         playerHealth = player.GetComponent<PlayerHealth>();
     }
     private void Update()
     {
-        if(transform.name == "health_full")
-        {
-            GaugeBar.fillAmount = playerHealth.health / 100;
-        }
-        else if (transform.name == "cold_full")
-        {
-            GaugeBar.fillAmount = playerHealth.cold / 100;
-        }
-        else if (transform.name == "hunger_full")
-        {
-            GaugeBar.fillAmount = playerHealth.hunger / 100;
-        }
+        health_full.fillAmount = playerHealth.health / 100;
+        cold_full.fillAmount = playerHealth.cold / 100;
+        hunger_full.fillAmount = playerHealth.hunger / 100;
     }
 }

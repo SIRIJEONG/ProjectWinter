@@ -17,7 +17,7 @@ TagManager:
   - Attack
   - PowerStation
   - HeliPad
-  - WorkStation
+  - Workstation
   layers:
   - Default
   - TransparentFX

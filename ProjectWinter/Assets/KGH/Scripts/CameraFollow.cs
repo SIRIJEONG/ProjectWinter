@@ -28,15 +28,18 @@ public class CameraFollow : MonoBehaviourPun
         {
             followCam = FindObjectOfType<CinemachineVirtualCamera>();
             followCam.LookAt = transform;
+            player = transform.gameObject;
         }
-        player = transform.gameObject;
     }
 
     // Update is called once per frame
     void Update()
-    {        
-
-        if (ghostController != null)
+    {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+            if (ghostController != null)
         {
             player = ghostController.gameObject;
         }
@@ -44,14 +47,13 @@ public class CameraFollow : MonoBehaviourPun
         {
             toFallow = player.transform;
             Vector3 targetPosition = toFallow.position + offset;
-
             followCam.transform.position = targetPosition;
         }
         else
         {
             Transform cameraObject = inside.transform.Find("Inside Camera");    // Inside Camera = 건물 안에 들어갔을떄 고정시킬 카메라 위치에 둘 오브잭트의 이름
-            GameObject moveCameraHere = cameraObject.gameObject;
-            toFallow = moveCameraHere.transform;
+            //GameObject moveCameraHere = cameraObject.gameObject;  // Legacy
+            toFallow = cameraObject;
 
             followCam.transform.position = toFallow.position;
         }
