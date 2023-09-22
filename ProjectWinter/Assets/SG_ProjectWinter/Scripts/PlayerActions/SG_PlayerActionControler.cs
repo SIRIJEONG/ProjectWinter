@@ -44,6 +44,11 @@ public class SG_PlayerActionControler : MonoBehaviour
     public delegate void HeliPadInventoryDelegate();
     public event PowerStationInventoryDelegate HeliPadInventoryEvent;
 
+    // 제작대
+    public delegate void WorkStationOpenDelegate();
+    public event WorkStationOpenDelegate WorkStationOpenEvent;
+
+    public event System.Action<SG_Inventory> tossInventoryEvent;
 
     //public SG_Inventory inventoryClass;
 
@@ -154,27 +159,38 @@ public class SG_PlayerActionControler : MonoBehaviour
             //if (GameManager.instance.isRepairPowerStation == false)   // 미션 끝나면 발전소 못열게 할 if 문
             //{
 
-                if (hitInfo.transform.CompareTag("PowerStation"))
+            if (hitInfo.transform.CompareTag("PowerStation"))
+            {
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        PowerStationInventoryEvent?.Invoke();
-                    }
+                    PowerStationInventoryEvent?.Invoke();
                 }
-                else { /*PASS*/ }
+            }
+            else { /*PASS*/ }
             //}   // 미션 끝나면 발전소 못열게 할 if 문
 
             //if (GameManager.instance.isRepairHeliPad == false)  // 미션 끝나면 헬리패드 못열게 할 if 문
             //{
-                if (hitInfo.transform.CompareTag("HeliPad"))
+            if (hitInfo.transform.CompareTag("HeliPad"))
+            {
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        HeliPadInventoryEvent?.Invoke();
-                    }
+                    HeliPadInventoryEvent?.Invoke();
                 }
-                else { /*PASS*/ }
+            }
+            else { /*PASS*/ }
             //}   // 미션 끝나면 헬리패드 못열게 할 if 문
+
+            if (hitInfo.transform.CompareTag("Workstation"))
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    WorkStationOpenEvent?.Invoke();
+                    //Invoke한뒤에 action event로 불러오면 될듯
+                    tossInventoryEvent?.Invoke(theInventory);
+                }
+            }
+            else { /*PASS*/ }
 
 
 
