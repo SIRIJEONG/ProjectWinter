@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SG_ItemSlot : MonoBehaviour
 {
-
+    private SG_ItemDragScript dragScript;
     public SG_Item item;    // 아이템의 정보가 들어있는 곳
     public int itemCount = 0;   // 획득한 아이템의 갯수
     public int slotCount = 0;   //아이템 슬롯의 고유번호 삽입될 변수
@@ -27,6 +27,8 @@ public class SG_ItemSlot : MonoBehaviour
     public GameObject slotTopParentObj;
 
     private Color weaponColorSet;   // 무기일때에 A값 투명하게 해줄 컬러 설정
+
+    private Coroutine TextSpriteUpdateCoroutine;    // SetItemSprite_Count() 에 사용할 StartCoroutine박싱
 
     private void Start()
     {
@@ -138,10 +140,11 @@ public class SG_ItemSlot : MonoBehaviour
     }
 
     public void MoveItemSet()
-    {        
+    {
 
-        if(item != null && this.gameObject.transform.childCount > 0)
+        if (item != null && this.gameObject.transform.childCount > 0)
         {
+            Debug.LogFormat("아이템 제작시 여기까지 들어오나?");
             GameObject tempObj;
             tempObj = this.gameObject.transform.GetChild(0).gameObject;
             itemImage = tempObj.GetComponent<Image>();
@@ -155,11 +158,18 @@ public class SG_ItemSlot : MonoBehaviour
             tempObj = tempObj002.gameObject.transform.GetChild(0).gameObject;
             text_Count = tempObj.GetComponent<TextMeshProUGUI>();
 
-            // 스프라이트와 텍스트 출력
-            text_Count.text = itemCount.ToString();
-            itemImage.sprite = item.itemImage;
+
+            TextSpriteUpdateCoroutine = StartCoroutine(SetItemSprite_Count());
+
+            //// 스프라이트와 텍스트 출력
+            //text_Count.text = itemCount.ToString();
+            //itemImage.sprite = item.itemImage;
+
+            //// Canvas재설정
+            //ItemImageGetScript();  //스크립트 가져오기 시도
+
         }
-       
+        else { /*PASS*/ }
     }
 
     // 찾아넣은 아이템과의 연결 끊어주는 함수 -> 이미지,카운트텍스트,카운트이미지
@@ -202,6 +212,37 @@ public class SG_ItemSlot : MonoBehaviour
         {          
             slotTopParentObj = slotTopParentObj.transform.parent.gameObject;
         }
+    }
+
+    private void ItemImageGetScript()
+    {
+        dragScript = itemImage.GetComponent<SG_ItemDragScript>();
+        UpdateCanvas(); // 아이템 이미지의 캔버스 업데이트 해주는 함수
+    }
+
+    private void UpdateCanvas()
+    {
+        dragScript.CanvasUpdate();
+    }
+
+    private IEnumerator SetItemSprite_Count()
+    {
+        yield return null;
+
+        // 스프라이트와 텍스트 출력
+
+        //Debug.LogFormat("코루틴 들어왔을때에 ItemCount -> {0}", itemCount);
+        text_Count.text = itemCount.ToString();
+        itemImage.sprite = item.itemImage;
+
+        // Canvas재설정
+        ItemImageGetScript();  //스크립트 가져오기 시도
+
+    }
+
+    public void TextUpdate()    // 아이템 카운트 텍스트만 업데이트 해주는 함수
+    {
+        text_Count.text = itemCount.ToString();
     }
 
 }   // NameSpace

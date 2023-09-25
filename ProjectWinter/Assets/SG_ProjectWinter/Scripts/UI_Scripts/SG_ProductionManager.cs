@@ -117,7 +117,27 @@ public class SG_ProductionManager : MonoBehaviour
         _PlayerInven.slots[tempItem001SlotCount].itemCount -= 1;    // 첫번째 아이템 재료 차감
 
         _PlayerInven.slots[tempItem002SlotCount].itemCount -= 1;    // 두번째 아이템 재료 차감
+
+        // 여기서 재료의 카운트 업데이트
+        if (_PlayerInven.slots[tempItem001SlotCount].itemCount > 0)
+        {
+            _PlayerInven.slots[tempItem001SlotCount].TextUpdate();
+        }
+        else { /*PASS*/ }
+
+        if (_PlayerInven.slots[tempItem002SlotCount].itemCount > 0)
+        {
+            _PlayerInven.slots[tempItem002SlotCount].TextUpdate();
+        }
+        else { /*PASS*/ }
+
     }   // DeductPlayerItemCount()
+
+    private void tempItemSlotCountUpdate()  // 재료아이템 카운트 업데이트
+    {
+
+    }
+
 
     private void CleanUpPlayerSlot(SG_Inventory _PlayerInven)   // 아이템 소모로 플레이어 아이템의 갯수가 0개라면 슬롯 비워주는 함수
     {
@@ -153,13 +173,15 @@ public class SG_ProductionManager : MonoBehaviour
             {
                 _PlayerInven.slots[i].item = _ProductionRecipe.itemRecipe.madeItem; // 완성 아이템 넣어주기
                 _PlayerInven.slots[i].itemCount = _ProductionRecipe.itemRecipe.madeItemCount;   // 완성된 아이템 갯수 기입
+
                 inItCount = i;
+
                 _PlayerInven.slots[i].ImageObjInstance();   // 자식오브젝트로 Item Image Instace후 자동으로 필요한 Component 넣어주는 함수 Call                
-                itemSetUpdatecoroutine = StartCoroutine(PlayerItemSetUpdate(_PlayerInven));
-                Debug.LogFormat("만든게 무기인가? -> {0}", _ProductionRecipe.itemRecipe.madeItem.itemType == SG_Item.ItemType.Weapon);
+                itemSetUpdatecoroutine = StartCoroutine(PlayerItemSetUpdate(_PlayerInven)); // 플레이어 아이템표시 업데이트를 1프레임 뒤에 해줄 코루틴                
+                
+
                 if (_ProductionRecipe.itemRecipe.madeItem.itemType == SG_Item.ItemType.Weapon)  // 만든 아이템이 무기일경우 들어갈함수
-                {
-                    //_PlayerInven.slots[i].WeaponColorSet(); // 아이템 CountText,CountImage 투명도 조절해주는 함수
+                {                    
                     weaponColorCoroutine = StartCoroutine(WeaponColorUpdate(_PlayerInven));
                 }
                 else { /*PASS*/ }
@@ -192,16 +214,20 @@ public class SG_ProductionManager : MonoBehaviour
         checkMaterial002MethodClear = true;
         checkItemEnoughCount = true;
     }
-   
+
+
+
     IEnumerator PlayerItemSetUpdate(SG_Inventory _PlayerInven)  // 플레이어 아이템표시 업데이트를 1프레임 뒤에 해줄 코루틴
     {
         yield return null;
-        _PlayerInven.slots[inItCount].MoveItemSet();
+        _PlayerInven.slots[inItCount].MoveItemSet();        
     }
     IEnumerator WeaponColorUpdate(SG_Inventory _PlayerInven)
     {
         yield return null;
         _PlayerInven.slots[inItCount].WeaponColorSet();
     }
+
+
 
 }
