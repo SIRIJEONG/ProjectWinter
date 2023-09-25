@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SG_ItemSlot : MonoBehaviour
 {
-
+    private SG_ItemDragScript dragScript;
     public SG_Item item;    // 아이템의 정보가 들어있는 곳
     public int itemCount = 0;   // 획득한 아이템의 갯수
     public int slotCount = 0;   //아이템 슬롯의 고유번호 삽입될 변수
@@ -22,14 +22,26 @@ public class SG_ItemSlot : MonoBehaviour
     // 필요한 컴포넌트     
     public TextMeshProUGUI text_Count;
     public GameObject itemCountImg;
+    public Image itemCountImage;
 
     public GameObject slotTopParentObj;
 
+    private Color weaponColorSet;   // 무기일때에 A값 투명하게 해줄 컬러 설정
+
+    private Coroutine TextSpriteUpdateCoroutine;    // SetItemSprite_Count() 에 사용할 StartCoroutine박싱
+
     private void Start()
+    {
+        StartInIt();
+    }
+
+   private void StartInIt()
     {
         slotTopParentObj = this.transform.parent.gameObject;
         // slot의 최상위 오브젝트 태그로 누군지 구별하기위해 최상위 오브젝트 삽입해주는 함수
-        GetThisTopParentObj();  
+        GetThisTopParentObj();
+
+        weaponColorSet = new Color(1f, 1f, 1f, 0f);
     }
 
 
@@ -59,17 +71,31 @@ public class SG_ItemSlot : MonoBehaviour
                 ImageObjInstance();
             }
 
-            //itemCountImg.SetActive(true);
             text_Count.text = itemCount.ToString();
             itemImage.sprite = item.itemImage;
         }
         else
         {
-            text_Count.text = "0";
-            //itemCountImg.SetActive(false);
+            if (itemImage == null)
+            {
+                ImageObjInstance();
+            }
+
+            text_Count.text = itemCount.ToString();
+            itemImage.sprite = item.itemImage;
+            WeaponColorSet();
+
         }
 
         SetColor(1);
+    }
+
+    // 먹은 아이템이 무기 일때에 아이템 Text와 CountImage 색 조절
+    public void WeaponColorSet()
+    {
+        text_Count.color = weaponColorSet;
+        itemCountImage.color = weaponColorSet;
+
     }
 
     // 아이템 개수 조정
@@ -86,7 +112,7 @@ public class SG_ItemSlot : MonoBehaviour
     }
 
     // ItemImageObj를 인스턴스후 슬롯의 자식오브젝트로 넣어주는 함수
-    private void ImageObjInstance()
+    public void ImageObjInstance()
     {
         itemImageClone = Instantiate(itemImagePrefab, this.transform.position, Quaternion.identity);
         itemImageClone.transform.SetParent(this.transform);
@@ -105,6 +131,7 @@ public class SG_ItemSlot : MonoBehaviour
 
         GameObject tempObj002;
         tempObj002 = tempObj.gameObject.transform.GetChild(0).gameObject;
+        itemCountImage = tempObj002.GetComponent<Image>();
         itemCountImg = tempObj002.gameObject;
 
         // 맨위에 tempObj 재활용
@@ -113,27 +140,36 @@ public class SG_ItemSlot : MonoBehaviour
     }
 
     public void MoveItemSet()
-    {        
+    {
 
-        if(item != null && this.gameObject.transform.childCount > 0)
+        if (item != null && this.gameObject.transform.childCount > 0)
         {
+            Debug.LogFormat("아이템 제작시 여기까지 들어오나?");
             GameObject tempObj;
             tempObj = this.gameObject.transform.GetChild(0).gameObject;
             itemImage = tempObj.GetComponent<Image>();
 
             GameObject tempObj002;
             tempObj002 = tempObj.gameObject.transform.GetChild(0).gameObject;
+            itemCountImage = tempObj002.GetComponent<Image>();
             itemCountImg = tempObj002.gameObject;
 
             // 맨위에 tempObj 재활용
             tempObj = tempObj002.gameObject.transform.GetChild(0).gameObject;
             text_Count = tempObj.GetComponent<TextMeshProUGUI>();
 
-            // 스프라이트와 텍스트 출력
-            text_Count.text = itemCount.ToString();
-            itemImage.sprite = item.itemImage;
+
+            TextSpriteUpdateCoroutine = StartCoroutine(SetItemSprite_Count());
+
+            //// 스프라이트와 텍스트 출력
+            //text_Count.text = itemCount.ToString();
+            //itemImage.sprite = item.itemImage;
+
+            //// Canvas재설정
+            //ItemImageGetScript();  //스크립트 가져오기 시도
+
         }
-       
+        else { /*PASS*/ }
     }
 
     // 찾아넣은 아이템과의 연결 끊어주는 함수 -> 이미지,카운트텍스트,카운트이미지
@@ -168,6 +204,7 @@ public class SG_ItemSlot : MonoBehaviour
     }
 
 
+    //최상위 부모 오브젝트 태그를 가져오기 위해 찾는 로직
     private void GetThisTopParentObj()
     {        
         //최상위 부모 오브젝트 태그를 가져오기 위해 찾는 로직
@@ -175,6 +212,37 @@ public class SG_ItemSlot : MonoBehaviour
         {          
             slotTopParentObj = slotTopParentObj.transform.parent.gameObject;
         }
+    }
+
+    private void ItemImageGetScript()
+    {
+        dragScript = itemImage.GetComponent<SG_ItemDragScript>();
+        UpdateCanvas(); // 아이템 이미지의 캔버스 업데이트 해주는 함수
+    }
+
+    private void UpdateCanvas()
+    {
+        dragScript.CanvasUpdate();
+    }
+
+    private IEnumerator SetItemSprite_Count()
+    {
+        yield return null;
+
+        // 스프라이트와 텍스트 출력
+
+        //Debug.LogFormat("코루틴 들어왔을때에 ItemCount -> {0}", itemCount);
+        text_Count.text = itemCount.ToString();
+        itemImage.sprite = item.itemImage;
+
+        // Canvas재설정
+        ItemImageGetScript();  //스크립트 가져오기 시도
+
+    }
+
+    public void TextUpdate()    // 아이템 카운트 텍스트만 업데이트 해주는 함수
+    {
+        text_Count.text = itemCount.ToString();
     }
 
 }   // NameSpace

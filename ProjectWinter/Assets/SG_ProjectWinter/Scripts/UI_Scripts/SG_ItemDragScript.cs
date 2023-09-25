@@ -13,9 +13,8 @@ public class SG_ItemDragScript : MonoBehaviour,
     private Transform canvasTrans;      // UI가 소속되어있는 최상단의 Canvas Transform
     private Transform previousParent;   // 해당 오브젝트가 직전에 소속되어 있던 부모의 Transform
     private RectTransform rectTrans;    // UI 위치 제어를 위한 RectTransform
-    //private CanvasGroup canvasGroup;    // UI의 A 값과 상호 작용 제어를 위한 CanvasGroup
+                                        //private CanvasGroup canvasGroup;    // UI의 A 값과 상호 작용 제어를 위한 CanvasGroup
 
-    // 23.09.12 10 : 48 위 선언문 수정하고 아래 동작 수정해야함
     private Image itemImage;
 
     private SG_ItemSlot thisParentSlotClass;
@@ -46,7 +45,7 @@ public class SG_ItemDragScript : MonoBehaviour,
     private Transform topParentTrans;
 
     // 헬리패드나 발전기를 드래그 시도했을때에 이것이 true가 되어서 end Drag에서 함수호출 넘겨줄거임
-    private bool isPassTargetControll = false; 
+    private bool isPassTargetControll = false;
 
     // Test
     public static List<SG_ItemDragScript> allItemDragScrip = default;
@@ -54,16 +53,11 @@ public class SG_ItemDragScript : MonoBehaviour,
     private void Awake()
     {
         FirstInIt();            // 처음 변수에 GetComponent해줄 함수
-
     }
 
     public void Start()
     {
-        RayTargerEvent += RayTargetControler_All;
-
-        thisClass = this.GetComponent<SG_ItemDragScript>();
-
-        SerchTopParentObj();    // 최상위 부모오브젝트의 태그를 가져오기위한 로직
+        StartInIt();            // 처음 변수에 GetComponent해줄 함수 
     }
 
     /// <summary>
@@ -71,24 +65,24 @@ public class SG_ItemDragScript : MonoBehaviour,
     /// </summary>    
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.LogFormat("드래그한 top 부모 -> {0}", topParentTrans.tag);
+        //Debug.LogFormat("드래그한 top 부모 -> {0}", topParentTrans.tag);
         if (topParentTrans.CompareTag("PowerStation") || topParentTrans.CompareTag("HeliPad"))
         {
             isPassTargetControll = true;
             return;
         }
-
         // 드래그 직전에 소속되어 있던 부모 Transform 정보 저장
         previousParent = this.transform.parent;
-
+        //Debug.LogFormat("PrebiousParentName -> {0}     PrebiousParentTag -> {1}", previousParent.name, previousParent.tag);
         // 현재 드래그중인 UI가 화면의 최상단에 출력되도록 하기 위해
+        Debug.LogFormat("canvasTransName == null? -> {0}", canvasTrans == null);
         this.transform.SetParent(canvasTrans);  // 부모 오브젝트를 Canvas로 설정
-        transform.SetAsLastSibling();           // 가장 앞에 보이도록 마지막 자식으로 설정        
+        transform.SetAsFirstSibling();
+        //transform.SetAsLastSibling();           // 가장 앞에 보이도록 마지막 자식으로 설정
 
         RayTargerEvent?.Invoke();
         // 클릭한 슬롯의 고유번호 추출을 위한 함수
         ClickDown();
-        //itemImage.raycastTarget = false;    //드래그할때에 레이가 끌고있는것에 맞지않도록 Target flase
 
     }
 
@@ -117,8 +111,6 @@ public class SG_ItemDragScript : MonoBehaviour,
     public void OnEndDrag(PointerEventData eventData)
     {
 
-
-
         // 드래그를 시작하면 부모가 Canvas로 설정되기 떄문에
         // 드래그를 종료할 때 부모가 Canvas이면 아이템 슬롯이 아닌 엉뚱한 곳에
         // 드롭을 했다는 뜻이기 때문에 드래그 직전에 소속되어 있던 아이템 슬롯으로 아이템 이동
@@ -141,7 +133,7 @@ public class SG_ItemDragScript : MonoBehaviour,
         // 받는곳의 Slot이 어떤건지 UI로 체크 해주는 함수        
         ClickUp();
 
-       
+
 
         RayTargerEvent?.Invoke();
 
@@ -170,7 +162,7 @@ public class SG_ItemDragScript : MonoBehaviour,
             GameObject clickedUIElement = resultsUp[0].gameObject;
 
             // 여기에 감지된 clikedUIElement 변수에서 누른 슬롯을 추출해내면 될거같음
-            Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
+            //Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
 
             //여기서 고유번호 추출
             if (clickedUIElement.CompareTag("ItemSlot")) // 아이템 슬롯을 눌렀을경우
@@ -183,7 +175,7 @@ public class SG_ItemDragScript : MonoBehaviour,
                 // 클릭한 UI 요소에 대한 작업을 수행할 수 있습니다.
                 //Debug.LogFormat("받는얘 번호 -> {0}", acceptSlotCount);
                 // 아래함수 테스트후 아래함수는 giveSlotCount != null && acceptSlotCount != null 로 조건넣으면 될듯
-                Debug.LogFormat("giveSlotCount -> {0} acceptSlotCount -> {1}", giveSlotCount, acceptSlotCount);
+                //Debug.LogFormat("giveSlotCount -> {0} acceptSlotCount -> {1}", giveSlotCount, acceptSlotCount);
                 //Debug.LogFormat("giveItemSlotClass = null? -> {0}  acceptItemSlotClass = null? -> {1}", giveItemSlotClass == null, acceptItemSlotClass == null);
                 //Debug.LogFormat("giveItemSlotClass -> {0}  acceptItemSlotClass -> {1}", giveItemSlotClass, acceptItemSlotClass);
                 //Debug.Log(giveItemSlotClass.transform.parent.parent == gameObject);
@@ -223,7 +215,7 @@ public class SG_ItemDragScript : MonoBehaviour,
             // 여기에 감지된 clikedUIElement 변수에서 누른 슬롯을 추출해내면 될거같음
             //Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
 
-            Debug.LogFormat("ClickDown Tag -> {0}   Name -> {1}",clickedUIElement.tag, clickedUIElement.name);
+            //Debug.LogFormat("ClickDown Tag -> {0}   Name -> {1}", clickedUIElement.tag, clickedUIElement.name);
             if (clickedUIElement.CompareTag("ItemSlot")) // 아이템 슬롯을 눌렀을경우
             {
                 //Debug.Log("ClickDown속 Tag 조건에 들어오나?");
@@ -245,7 +237,7 @@ public class SG_ItemDragScript : MonoBehaviour,
 
 
     protected void RayTargetControler()
-    {                
+    {
         if (itemImage.raycastTarget == true)
         {
             itemImage.raycastTarget = false;
@@ -282,7 +274,7 @@ public class SG_ItemDragScript : MonoBehaviour,
 
     private void FirstInIt()    // Awake부분에서 변수에 삽입될 것들
     {
-        canvasTrans = FindAnyObjectByType<Canvas>().transform;
+
         swapManagerClass = FindAnyObjectByType<SG_ItemSwapManager>();
 
         rectTrans = GetComponent<RectTransform>();
@@ -302,10 +294,57 @@ public class SG_ItemDragScript : MonoBehaviour,
         allItemDragScrip.Add(this);
     }
 
+    private void StartInIt()    //Start 단계에서 변수에 삽입될것들
+    {
+        RayTargerEvent += RayTargetControler_All;
+
+        thisClass = this.GetComponent<SG_ItemDragScript>();
+
+        SerchTopParentObj();
+        FindCanvasTransform(topParentTrans);
+
+    }
+
+    public void CanvasUpdate()  // 아이템 이동시 지정되었던 Canvas를 최신화 해줌
+    {
+        //Debug.LogFormat("스왑후 여기까지 잘불러오나? ");
+        SerchTopParentObj();
+        FindCanvasTransform(topParentTrans);
+    }
+
+
+
+    // topParentTrans 오브젝트의 자식 중에서 Canvas의 transform을 찾습니다
+    private void FindCanvasTransform(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            // Canvas 컴포넌트를 찾았을 경우 해당 transform을 반환합니다
+            Canvas canvas = child.GetComponent<Canvas>();
+            if (canvas != null)
+            {
+                canvasTrans = canvas.transform;
+                //Debug.LogFormat("What is this? -> {0}", canvasTrans);
+                return;
+            }
+
+            //// 재귀적으로 자식들을 탐색합니다
+            //Transform result = FindCanvasTransform(child);
+            //if (result != null)
+            //{
+            //    Debug.Log("재귀적 들어옴");
+            //    previousParent = result;
+            //    return; 
+            //}
+        }
+
+        // Canvas를 찾지 못한 경우 null을 반환합니다
+        Debug.Log("canvasTrans == null");
+        return;
+    }
+
     private void SerchTopParentObj()
     {
-        //topParentTrans = GetTopLevelParent(transform);
-
         topParentTrans = this.transform.parent;
 
         ////최상위 부모 오브젝트 태그를 가져오기 위해 찾는 로직
@@ -313,18 +352,7 @@ public class SG_ItemDragScript : MonoBehaviour,
         {
             topParentTrans = topParentTrans.transform.parent;
         }
-        //Debug.LogFormat("topParentTrans.name -> {0}", topParentTrans.name);
+
     }
-
-    //Transform GetTopLevelParent(Transform currentTransform)
-    //{
-    //    // 최상위 부모 오브젝트를 찾을 때까지 계속 부모를 올라갑니다.
-    //    while (currentTransform.parent != null)
-    //    {
-    //        currentTransform = currentTransform.parent;
-    //    }
-
-    //    return currentTransform;
-    //}
 
 }   // NAMESPACE

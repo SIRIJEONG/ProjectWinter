@@ -328,7 +328,7 @@ public class SG_ItemSwapManager : MonoBehaviour
     private void ItemExamine()
     {
         //Debug.Log("아이템 갯수 체크하는 함수가 잘 들어와지는가?");
-        Debug.LogFormat("accepSlotCount -> {0}", accepSlotCount);
+        //Debug.LogFormat("accepSlotCount -> {0}", accepSlotCount);
         //Debug.LogFormat("AccepSlot ItemCount -> {0}", acceptInvenClass.slots[accepSlotCount].itemCount);
         //Debug.LogFormat("AccInvenClassNotNull? -> {0}",acceptInvenClass != null);
         if (acceptInvenClass.slots[accepSlotCount].itemCount > 3)    // 받는쪽의 아이템이 3개가 넘는지 체크
