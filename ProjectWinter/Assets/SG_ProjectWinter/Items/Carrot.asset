@@ -15,5 +15,10 @@ MonoBehaviour:
   itemName: Carrot
   itemImage: {fileID: 21300000, guid: 5a2433bad27bc7f4fa088df32d74cc65, type: 3}
   itemPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  handPrefab: {fileID: 67538692737677639, guid: 1d0d42dbfa0a43f4d8dd078c8fa2e792, type: 3}
   weaponType: 
+  itemDamage: 0
+  itemHealth: 0
+  itemWarmth: 0
+  itemSatiety: 0
   itemType: 1

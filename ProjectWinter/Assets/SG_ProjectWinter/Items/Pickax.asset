@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Pickax
   m_EditorClassIdentifier: 
   itemName: Pickax
-  itemImage: {fileID: 0}
-  itemPrefab: {fileID: 0}
+  itemImage: {fileID: 21300000, guid: 3cc8a7cb9a7770b4191d128314dca9d0, type: 3}
+  itemPrefab: {fileID: 1009508586152568811, guid: 65199e87be6f0ac4b9cdd42bb5cc4450, type: 3}
+  handPrefab: {fileID: 1009508586152568811, guid: f2d336a4abaaa16459f018d8d85eb66f, type: 3}
   weaponType: 
   itemDamage: 0
   itemHealth: 0

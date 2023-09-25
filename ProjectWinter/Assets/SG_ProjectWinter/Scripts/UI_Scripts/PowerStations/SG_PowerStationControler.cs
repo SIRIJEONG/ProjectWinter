@@ -41,34 +41,34 @@ public class SG_PowerStationControler : MonoBehaviour
     {
         if(topParentTrans.CompareTag("PowerStation"))
         {
-            playerActionClass.PowerStationInventoryEvent += PoweStationInvenController;
+            playerActionClass.PowerStationInventoryEvent += PowerStationInvenController;
         }
         else if(topParentTrans.CompareTag("HeliPad"))
         {
-            playerActionClass.HeliPadInventoryEvent += PoweStationInvenController;
+            playerActionClass.HeliPadInventoryEvent += PowerStationInvenController;
         }
     }
 
-    public void PoweStationInvenController()
+    public void PowerStationInvenController()
     {
         //Debug.Log("이벤트로 발전기 여는 함수 조건이 잘들어와지나");
         if (isOpen == false)
         {
-            OpenPoweStation();
+            OpenPowerStation();
         }
         else if (isOpen == true)
         {
-            ClosePoweStation();
+            ClosePowerStation();
         }
     }
 
-    private void OpenPoweStation()
+    private void OpenPowerStation()
     {
         isOpen = true;
         poweStationObjs.SetActive(true);
      
     }
-    private void ClosePoweStation()
+    private void ClosePowerStation()
     {
         isOpen = false;
         poweStationObjs.SetActive(false);
