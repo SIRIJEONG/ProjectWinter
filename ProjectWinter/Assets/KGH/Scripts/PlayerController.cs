@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviourPun
     private float vertical;
     public int speed = 5;
 
-    private bool doSomething = false;
+    public bool doSomething = false;
 
     // 플레이어의 직업
     public static bool isSurvivor;
