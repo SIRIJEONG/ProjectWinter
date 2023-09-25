@@ -297,6 +297,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 169
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &4810891 stripped
@@ -552,7 +556,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1 &11900138
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,6 +999,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 168
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &26590745 stripped
@@ -1304,6 +1311,10 @@ PrefabInstance:
     - target: {fileID: 400038, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 167
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
@@ -2120,6 +2131,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.06298399
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 166
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &55064919 stripped
@@ -2563,6 +2578,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 165
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &61110636 stripped
@@ -2927,6 +2946,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 164
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &63776588 stripped
@@ -2989,6 +3012,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.10520201
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 163
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1 &65828397
@@ -3041,7 +3068,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &66115040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3178,6 +3204,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 162
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &66636715 stripped
@@ -3309,6 +3339,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 161
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &68347101
@@ -3365,6 +3399,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.10520201
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 160
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -3776,6 +3814,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 159
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &81716567 stripped
@@ -4134,6 +4176,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 158
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &89589717 stripped
@@ -4212,6 +4258,10 @@ PrefabInstance:
     - target: {fileID: 400038, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 157
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
@@ -4613,6 +4663,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 156
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &96335413 stripped
@@ -4855,6 +4909,10 @@ PrefabInstance:
     - target: {fileID: 400038, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 155
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
@@ -5300,6 +5358,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.10520201
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 154
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &114349784
@@ -5700,7 +5762,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &128296114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5878,7 +5940,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &133149586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6721,6 +6782,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 153
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &158522193
@@ -7123,6 +7188,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 152
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &175037510 stripped
@@ -7145,7 +7214,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &175037514
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7827,6 +7896,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 151
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &193375792 stripped
@@ -8076,7 +8149,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &200632494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8639,7 +8711,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &212077187
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8915,6 +8986,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 150
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &216173321
@@ -9081,7 +9156,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &217321508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9240,7 +9314,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &220336251
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10977,7 +11051,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &262488554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11370,7 +11443,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1 &272109281
 GameObject:
   m_ObjectHideFlags: 0
@@ -11421,7 +11493,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &272852607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11881,6 +11952,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 149
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -12705,6 +12780,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.058210116
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 148
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &294076593
@@ -13519,6 +13598,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 147
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &318259457 stripped
@@ -14042,6 +14125,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.06298399
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 146
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &330860734 stripped
@@ -14388,7 +14475,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &344604930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14923,7 +15009,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &362946086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15446,6 +15531,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 145
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -16139,6 +16228,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 144
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &386762698 stripped
@@ -16161,7 +16254,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1 &388048723
 GameObject:
   m_ObjectHideFlags: 0
@@ -16212,7 +16305,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &388212211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17137,7 +17229,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &412291446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17711,7 +17802,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &423887956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17767,6 +17857,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 143
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1 &424317595
@@ -17819,7 +17913,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &426576412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17895,6 +17988,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 142
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &426576413 stripped
@@ -17917,7 +18014,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &426576417
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18158,7 +18255,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &435217236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18704,6 +18800,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.06298399
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 141
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &451998925 stripped
@@ -19226,6 +19326,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.058210116
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 140
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1 &470441677
@@ -19278,7 +19382,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!4 &470669384 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 433132, guid: 436e5ddef84d20144915c0f77882095b, type: 3}
@@ -20124,6 +20227,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.06298399
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 139
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -21443,6 +21550,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 138
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &522076954 stripped
@@ -21593,6 +21704,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 137
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -21799,7 +21914,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &527289990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21874,6 +21988,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 136
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -21991,6 +22109,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.10520201
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 135
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -22560,6 +22682,10 @@ PrefabInstance:
     - target: {fileID: 400038, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 134
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
@@ -23254,6 +23380,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 133
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &558574644 stripped
@@ -23315,6 +23445,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.10520201
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 132
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -24339,8 +24473,10 @@ MonoBehaviour:
   weapon: {fileID: 0}
   fist: {fileID: 0}
   ui: {fileID: 0}
+  playerInventory: {fileID: 0}
+  playerActionControler: {fileID: 0}
   itemInHand: {fileID: 0}
-  handle: {fileID: 0}
+  inven: {fileID: 0}
   damage: 0
   playerHealth: {fileID: 0}
 --- !u!23 &573496381
@@ -24627,6 +24763,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 131
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &576513695 stripped
@@ -24844,7 +24984,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &588896534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24912,6 +25051,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 130
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &588896535 stripped
@@ -24939,7 +25082,6 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  destroyPrefab: {fileID: 8127748782469089671, guid: 539edebc58751db4da478e8ef0ca1ddb, type: 3}
 --- !u!54 &589443681
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -25693,6 +25835,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 129
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &604057760 stripped
@@ -25986,6 +26132,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.06298399
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 128
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -26800,6 +26950,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 127
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &625014356 stripped
@@ -26822,7 +26976,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &627998704
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27606,6 +27760,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 126
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &640548693 stripped
@@ -27717,6 +27875,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -27894,6 +28056,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 124
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -28101,7 +28267,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &651040529
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28924,6 +29089,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 123
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &674873383
@@ -29000,6 +29169,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 122
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -29411,6 +29584,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 121
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &684381260 stripped
@@ -29543,6 +29720,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 120
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &686626871 stripped
@@ -29565,7 +29746,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &686626875
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30470,6 +30651,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.10520201
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 119
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &716558361
@@ -30854,6 +31039,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 118
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &720456054 stripped
@@ -30876,7 +31065,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &720456058
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31518,6 +31707,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 117
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &733197685 stripped
@@ -31751,6 +31944,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 116
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &743138735 stripped
@@ -31907,6 +32104,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 115
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &745880085 stripped
@@ -31929,7 +32130,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &745880089
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -33313,6 +33514,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 114
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &770518812 stripped
@@ -33386,6 +33591,10 @@ PrefabInstance:
     - target: {fileID: 400038, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 113
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
@@ -33606,6 +33815,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -34006,6 +34219,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.06298399
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 111
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &777438046 stripped
@@ -34293,6 +34510,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 110
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &778950205 stripped
@@ -34443,7 +34664,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &781820928
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34776,6 +34997,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 109
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -35118,7 +35343,6 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  destroyPrefab: {fileID: 8127748782469089671, guid: 539edebc58751db4da478e8ef0ca1ddb, type: 3}
 --- !u!54 &796307102
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -35328,7 +35552,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &806993428
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35925,6 +36148,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 108
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &821778685
@@ -36331,6 +36558,10 @@ PrefabInstance:
     - target: {fileID: 400038, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 107
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
@@ -36863,6 +37094,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 106
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -37775,6 +38010,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.058210116
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 105
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &858648306
@@ -37928,7 +38167,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &860134381
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38262,6 +38501,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.058210116
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 104
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &870036291
@@ -38410,6 +38653,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.10520201
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 103
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &873981116
@@ -38537,6 +38784,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 102
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &874310655 stripped
@@ -38559,7 +38810,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &874310659
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39381,7 +39632,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1 &894119521
 GameObject:
   m_ObjectHideFlags: 0
@@ -39558,6 +39808,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.06298399
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 101
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -40143,6 +40397,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &908044545 stripped
@@ -40545,7 +40803,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &919968268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41301,7 +41558,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &944017876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41396,7 +41652,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &944276252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42129,6 +42385,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 99
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &959866737 stripped
@@ -42318,6 +42578,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 98
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &961253820 stripped
@@ -42458,6 +42722,10 @@ PrefabInstance:
     - target: {fileID: 400038, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 97
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
@@ -42641,6 +42909,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 96
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &966956746 stripped
@@ -42715,6 +42987,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 95
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &967726416 stripped
@@ -42737,7 +43013,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!4 &969486531 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 433132, guid: 436e5ddef84d20144915c0f77882095b, type: 3}
@@ -42763,7 +43039,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &972362322
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42802,6 +43078,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 94
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -43092,6 +43372,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 93
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &982804230 stripped
@@ -43193,7 +43477,6 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  destroyPrefab: {fileID: 8127748782469089671, guid: 539edebc58751db4da478e8ef0ca1ddb, type: 3}
 --- !u!54 &983919110
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -43299,7 +43582,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &985627300
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43407,7 +43690,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &988376999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43612,7 +43895,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1 &992076977
 GameObject:
   m_ObjectHideFlags: 0
@@ -43663,7 +43946,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &992315661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43891,6 +44173,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 92
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -44315,6 +44601,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 91
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1002034839 stripped
@@ -44437,6 +44727,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.10520201
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -44563,6 +44857,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 89
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -44770,6 +45068,10 @@ PrefabInstance:
     - target: {fileID: 400038, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 88
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
@@ -45088,6 +45390,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 87
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1016813894 stripped
@@ -45110,7 +45416,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1017270897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45373,6 +45679,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 86
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1022134217 stripped
@@ -45473,6 +45783,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 85
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1024095938 stripped
@@ -45530,7 +45844,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1025107679
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45573,6 +45886,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 84
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -45694,6 +46011,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.06298399
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 83
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1026457652 stripped
@@ -45790,7 +46111,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1028593840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45977,6 +46298,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.058210116
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 82
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1 &1030720472 stripped
@@ -45999,7 +46324,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1031765515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46186,6 +46511,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 81
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1036799833 stripped
@@ -46208,7 +46537,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1 &1038103301 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 192656, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -47010,7 +47339,6 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  destroyPrefab: {fileID: 8127748782469089671, guid: 539edebc58751db4da478e8ef0ca1ddb, type: 3}
 --- !u!54 &1059447331
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -47800,6 +48128,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1074912653 stripped
@@ -48314,6 +48646,10 @@ PrefabInstance:
     - target: {fileID: 400038, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 79
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
@@ -49056,7 +49392,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1092278222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49111,6 +49447,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.06298399
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 78
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -49416,6 +49756,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 77
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1098229982 stripped
@@ -49548,6 +49892,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 76
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1100386753 stripped
@@ -49570,7 +49918,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1100386757
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -49673,7 +50021,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1101961135
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -49827,7 +50175,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1 &1110192600
 GameObject:
   m_ObjectHideFlags: 0
@@ -49878,7 +50226,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1110469577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50577,7 +50924,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1122523177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51074,7 +51420,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1142239069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51395,6 +51741,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -51949,7 +52299,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1160214200
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -52309,6 +52659,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.24404585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 74
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -52819,7 +53173,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1181487379
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53001,6 +53354,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.24404585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 73
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -53306,6 +53663,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 72
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1193337981 stripped
@@ -53573,7 +53934,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!4 &1198038960 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 433132, guid: 436e5ddef84d20144915c0f77882095b, type: 3}
@@ -53851,7 +54212,6 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  destroyPrefab: {fileID: 8127748782469089671, guid: 539edebc58751db4da478e8ef0ca1ddb, type: 3}
 --- !u!54 &1200758845
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -55635,7 +55995,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1238488068
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56167,6 +56526,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.058210116
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 71
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1 &1248159525 stripped
@@ -56189,7 +56552,6 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  destroyPrefab: {fileID: 8127748782469089671, guid: 539edebc58751db4da478e8ef0ca1ddb, type: 3}
 --- !u!54 &1248159530
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -56806,7 +57168,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1260590327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58386,6 +58747,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 70
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1285517749 stripped
@@ -58597,7 +58962,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1291052404
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -59070,7 +59435,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1303937573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59409,6 +59774,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.06298399
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 69
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1307734943 stripped
@@ -59505,7 +59874,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1315657255
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -60004,6 +60373,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.058210116
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 68
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1 &1330543003
@@ -60056,7 +60429,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1334128888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61506,6 +61878,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 67
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1373726975 stripped
@@ -61528,7 +61904,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1374365875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61903,6 +62279,10 @@ PrefabInstance:
     - target: {fileID: 400038, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 66
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
@@ -62429,6 +62809,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.058210116
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 65
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &1398722449
@@ -62660,6 +63044,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1405458083 stripped
@@ -62682,7 +63070,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1407258616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63231,7 +63619,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1413337276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63571,6 +63959,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.058210116
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 63
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -64808,6 +65200,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 62
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1454093318 stripped
@@ -65157,6 +65553,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 61
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -66043,6 +66443,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1488412245 stripped
@@ -66065,7 +66469,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1488633268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66345,6 +66749,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 59
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1493712221 stripped
@@ -66367,7 +66775,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1495609772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67370,7 +67778,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1512649491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67896,7 +68303,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1532236125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68415,6 +68821,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.058210116
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 58
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1 &1544825500
@@ -68467,7 +68877,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1545307450
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68522,6 +68931,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.06298399
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 57
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -68604,7 +69017,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1547540907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68948,6 +69361,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 56
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1553285497 stripped
@@ -69106,7 +69523,6 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  destroyPrefab: {fileID: 8127748782469089671, guid: 539edebc58751db4da478e8ef0ca1ddb, type: 3}
 --- !u!54 &1555062538
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -69173,7 +69589,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1555724343
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69406,7 +69821,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1560740199
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69639,7 +70054,6 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  destroyPrefab: {fileID: 8127748782469089671, guid: 539edebc58751db4da478e8ef0ca1ddb, type: 3}
 --- !u!54 &1570911041
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -69676,7 +70090,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1570966445
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70042,7 +70456,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1579085923
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70289,7 +70703,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1591788819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70586,7 +70999,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1605497792
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70676,7 +71088,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1 &1607221496
 GameObject:
   m_ObjectHideFlags: 0
@@ -70727,7 +71139,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1609802786
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71163,7 +71574,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1 &1619956510 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 192656, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -71184,7 +71594,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1619956514
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72336,6 +72746,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 55
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1649479796 stripped
@@ -72358,7 +72772,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1649479800
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72570,6 +72984,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.24404585
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 54
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1655091726 stripped
@@ -72652,6 +73070,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 53
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1656515602 stripped
@@ -72674,7 +73096,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1656515606
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73200,6 +73622,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 52
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1664880278 stripped
@@ -73222,7 +73648,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1665864812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74063,7 +74489,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1677387141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74131,6 +74556,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 51
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1677387142 stripped
@@ -74153,7 +74582,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1678553965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74365,7 +74794,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1 &1681777734
 GameObject:
   m_ObjectHideFlags: 0
@@ -74621,6 +75049,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1686051108 stripped
@@ -74643,7 +75075,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1686444351
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74783,7 +75215,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1688970554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75017,7 +75449,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1691858940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75141,6 +75572,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.10520201
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -75926,6 +76361,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 48
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1707420622 stripped
@@ -75948,7 +76387,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1707420626
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76016,6 +76455,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 47
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -76142,6 +76585,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 46
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -77341,7 +77788,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1741860682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77523,7 +77969,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1747227278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77946,6 +78391,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1751134998 stripped
@@ -77968,7 +78417,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1751721049
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78179,7 +78628,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1758787078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78299,7 +78747,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1759585619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78444,7 +78891,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1767122165
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78994,7 +79441,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1775953354
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -79552,6 +79999,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 44
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1790713549 stripped
@@ -79574,7 +80025,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1794665603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79642,6 +80093,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 43
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1794665604 stripped
@@ -79664,7 +80119,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1795214035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79835,7 +80290,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1799321320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80287,7 +80741,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1809317650
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80629,7 +81082,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1 &1813954700 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 175030, guid: 1f9ce3a84faaa624492243994a459aba, type: 3}
@@ -80650,7 +81103,6 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  destroyPrefab: {fileID: 8127748782469089671, guid: 539edebc58751db4da478e8ef0ca1ddb, type: 3}
 --- !u!54 &1813954705
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -80860,7 +81312,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1822992349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80961,7 +81412,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1 &1825772265
 GameObject:
   m_ObjectHideFlags: 0
@@ -81073,7 +81523,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1829022314
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -82656,7 +83106,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1854925938
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -83149,6 +83599,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 42
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1868606888 stripped
@@ -83171,7 +83625,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1868606892
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -83673,7 +84127,6 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  destroyPrefab: {fileID: 8127748782469089671, guid: 539edebc58751db4da478e8ef0ca1ddb, type: 3}
 --- !u!54 &1881575542
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -84003,7 +84456,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1 &1886382495 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 192656, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -84024,7 +84476,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1886382499
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -84076,6 +84528,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 41
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -84266,6 +84722,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &1895974857
@@ -84323,6 +84783,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.058210116
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 39
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &1896780101
@@ -84367,6 +84831,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 38
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -84511,6 +84979,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 37
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1899259866 stripped
@@ -84533,7 +85005,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1899420316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85037,6 +85509,10 @@ PrefabInstance:
     - target: {fileID: 400038, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 36
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
@@ -85557,6 +86033,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1907230303 stripped
@@ -85579,7 +86059,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1907407566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -86056,6 +86536,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 34
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1916019845 stripped
@@ -86414,6 +86898,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.10520201
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 33
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &1923787277
@@ -86550,7 +87038,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1926407804
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -86791,7 +87279,6 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  destroyPrefab: {fileID: 8127748782469089671, guid: 539edebc58751db4da478e8ef0ca1ddb, type: 3}
 --- !u!54 &1931191214
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -86928,6 +87415,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 32
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1937029148 stripped
@@ -86950,7 +87441,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1937029152
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -87046,7 +87537,6 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  destroyPrefab: {fileID: 8127748782469089671, guid: 539edebc58751db4da478e8ef0ca1ddb, type: 3}
 --- !u!54 &1939543966
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -87168,6 +87658,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.10520201
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 31
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1947820573 stripped
@@ -87242,6 +87736,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &1949666260 stripped
@@ -87264,7 +87762,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1954933135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87612,6 +88110,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 29
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1960108296 stripped
@@ -87634,7 +88136,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1960108300
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -87698,7 +88200,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1963196496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87788,7 +88289,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1964364576
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -88413,6 +88914,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 28
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &1976511081
@@ -88490,6 +88995,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 27
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1976511082 stripped
@@ -88512,7 +89021,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &1976511086
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -88546,7 +89055,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &1979098725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88671,6 +89180,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.06298399
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 26
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &1981163257 stripped
@@ -88732,6 +89245,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.10520201
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -89435,7 +89952,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &1998114041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -89490,6 +90006,10 @@ PrefabInstance:
     - target: {fileID: 420014, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.24404585
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
@@ -90022,6 +90542,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.058210116
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 23
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &2007827975
@@ -90271,7 +90795,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1 &2012243581
 GameObject:
   m_ObjectHideFlags: 0
@@ -90322,7 +90846,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1 &2014913485
 GameObject:
   m_ObjectHideFlags: 0
@@ -91171,6 +91694,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 22
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &2035378619
@@ -91825,6 +92352,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 21
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &2045490128 stripped
@@ -91941,7 +92472,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &2052781536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92698,6 +93228,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!1001 &2075083009
@@ -92964,6 +93498,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2785228795908796846, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
+      propertyPath: sceneViewId
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f228787b4cf5458cc0eccc5a8933c, type: 3}
 --- !u!4 &2080564360 stripped
@@ -92986,7 +93524,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &2080564364
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -93316,7 +93854,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!4 &2092375680 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 433132, guid: 436e5ddef84d20144915c0f77882095b, type: 3}
@@ -93661,7 +94198,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &2095039863
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94021,7 +94558,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &2101138017
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94225,7 +94762,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 1716362865950279632, guid: 54fd0c6abbd6fbc4ebe2c8370913cbac, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!65 &2101818722
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94924,6 +95461,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &2120684156 stripped
@@ -94946,7 +95487,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &2120853057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95014,6 +95555,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &2120853058 stripped
@@ -95036,7 +95581,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &2121981627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95350,6 +95895,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7293854240145597752, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
+      propertyPath: sceneViewId
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d49634e20277dae4bb3439bfd5262bb7, type: 3}
 --- !u!4 &2124694990 stripped
@@ -95372,7 +95921,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &2126446001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95703,7 +96252,7 @@ MonoBehaviour:
   startingHealth: 0
   health: 0
   isDead: 0
-  redFruitPrefab: {fileID: 67538692737677639, guid: 84d635611755b1745a633006d526f830, type: 3}
+  dropFruit: {fileID: 0}
 --- !u!1001 &2134661463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95812,7 +96361,6 @@ MonoBehaviour:
   health: 0
   isDead: 0
   targetChildName: SM_Env_Tree_Pine_01_Snow
-  changePrefab: {fileID: 2620246016303122453, guid: c1a9cf17697979c49a4fba480e7f1de7, type: 3}
 --- !u!1001 &2135215279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96098,6 +96646,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7612969685483481812, guid: ddbdc01097d4e644ca4d541f68a68de9, type: 3}
+      propertyPath: sceneViewId
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 76955297331672222, guid: ddbdc01097d4e644ca4d541f68a68de9, type: 3}
       propertyPath: m_Name
       value: Moose
@@ -100240,6 +100792,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5861983048374346961, guid: 98cb6437dba9c9a44a1b0eab35b5a837, type: 3}
+      propertyPath: sceneViewId
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98cb6437dba9c9a44a1b0eab35b5a837, type: 3}
 --- !u!1001 &3595628390712000026
@@ -100249,6 +100805,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2014913486}
     m_Modifications:
+    - target: {fileID: 1811431230927539570, guid: 4626c9ebe45dd3b4db66ef7a5ec966e8, type: 3}
+      propertyPath: sceneViewId
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3595628390665386556, guid: 4626c9ebe45dd3b4db66ef7a5ec966e8, type: 3}
       propertyPath: m_Name
       value: Tree
@@ -100306,6 +100866,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 701866984}
     m_Modifications:
+    - target: {fileID: -1674521835997309722, guid: 51e4f7d4e7e8e5b46b63073b1e66cf8a, type: 3}
+      propertyPath: sceneViewId
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4369139086609905581, guid: 51e4f7d4e7e8e5b46b63073b1e66cf8a, type: 3}
       propertyPath: m_Name
       value: SM_Env_Stone_01_Snow (1)
@@ -100363,6 +100927,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6769179449532590859, guid: bf08306503f2f3c42b39f10619839dda, type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5794259846965995346, guid: bf08306503f2f3c42b39f10619839dda, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -100420,6 +100988,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1834407473}
     m_Modifications:
+    - target: {fileID: 5782659092126035409, guid: 53fe7e8114399514994d4d3dd9dc6940, type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6676940253039943875, guid: 53fe7e8114399514994d4d3dd9dc6940, type: 3}
       propertyPath: m_Name
       value: Grass
@@ -100477,6 +101049,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6671385595053186375, guid: 0a3eddcfba8dfbf4eb38acde2d5b13ca, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4291980840815472244, guid: 0a3eddcfba8dfbf4eb38acde2d5b13ca, type: 3}
       propertyPath: m_Name
       value: Bear
@@ -100534,6 +101110,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 701866984}
     m_Modifications:
+    - target: {fileID: -1420752999381432269, guid: f6feabb0b85d28d43b74af8f82d3761b, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8749821640309401771, guid: f6feabb0b85d28d43b74af8f82d3761b, type: 3}
       propertyPath: m_Name
       value: SM_Env_Rock_01_Snow
