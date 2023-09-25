@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5742013609688711916}
   - component: {fileID: 2830040753677263105}
   - component: {fileID: 902272668665398376}
+  - component: {fileID: 674085618839935823}
   m_Layer: 6
   m_Name: BarUI
   m_TagString: Untagged
@@ -101,6 +102,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &674085618839935823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2270207863478676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35fe28cba1b5cf648b508896d9e82864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health_full: {fileID: 7430613213540072288}
+  cold_full: {fileID: 4251582313172453255}
+  hunger_full: {fileID: 33983290080049456}
+  currentValue: 0
 --- !u!1 &494510059149302207
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +252,6 @@ GameObject:
   - component: {fileID: 796856824759624338}
   - component: {fileID: 3160073553476111240}
   - component: {fileID: 33983290080049456}
-  - component: {fileID: 2994216498188355511}
   m_Layer: 6
   m_Name: hunger_full
   m_TagString: Untagged
@@ -301,19 +317,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2994216498188355511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178373986480588354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35fe28cba1b5cf648b508896d9e82864, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentValue: 0
 --- !u!1 &1396256002679652920
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,7 +948,6 @@ GameObject:
   - component: {fileID: 2965524994976626930}
   - component: {fileID: 8364796503531136497}
   - component: {fileID: 7430613213540072288}
-  - component: {fileID: 1872798189203972708}
   m_Layer: 6
   m_Name: health_full
   m_TagString: Untagged
@@ -1011,19 +1013,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1872798189203972708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5371814714471941278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35fe28cba1b5cf648b508896d9e82864, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentValue: 0
 --- !u!1 &5413540197324767743
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,7 +1328,6 @@ GameObject:
   - component: {fileID: 5880254720561001426}
   - component: {fileID: 3831358685175155278}
   - component: {fileID: 4251582313172453255}
-  - component: {fileID: 7559665857188543697}
   m_Layer: 6
   m_Name: cold_full
   m_TagString: Untagged
@@ -1405,19 +1393,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7559665857188543697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9026601134586118136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35fe28cba1b5cf648b508896d9e82864, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentValue: 0
 --- !u!1 &9175855720602277185
 GameObject:
   m_ObjectHideFlags: 0
