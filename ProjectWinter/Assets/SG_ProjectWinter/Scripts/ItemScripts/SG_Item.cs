@@ -16,6 +16,8 @@ public class SG_Item : ScriptableObject
 
     public GameObject itemPrefab; // 아이템의 프리팹    
 
+    public GameObject handPrefab; // 플레이어손에 쥐어줄 프리팹
+
     public string weaponType; //무기 유형
 
     public int itemDamage;  // 아이템의 데미지

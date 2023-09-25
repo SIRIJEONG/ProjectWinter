@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using static SG_Item;
+using static UnityEditor.Progress;
 
 public class PlayerController : MonoBehaviourPun
 {
@@ -27,7 +28,8 @@ public class PlayerController : MonoBehaviourPun
     public GameObject weapon;       // 무기 들었을때 공격범위
     public GameObject fist;         // 주먹일때 공격범위
     public GameObject ui;           // 파워 게이지 ui
-    public PlayerInventory playerInventory;
+    private PlayerInventory playerInventory;
+    public GameObject _playerInventory;
     public SG_PlayerActionControler playerActionControler;
     public SG_Item playerItem;
     //public GameObject cameraObject;
@@ -48,7 +50,8 @@ public class PlayerController : MonoBehaviourPun
 
     private UiFollowPlayer uiFollowPlayer;
 
-    private PlayerHealth health;    // 본인의 PlayerHealth
+    public PlayerHealth health;    // 본인의 PlayerHealth
+    public PlayerHealth playerHealth;   // 남의 PlayerHealth
 
     // 공격관련
     private float attackPower;  // 마우스로 공격 차지
@@ -59,7 +62,8 @@ public class PlayerController : MonoBehaviourPun
 
     private CameraFollow cameraFollow;
 
-    public PlayerHealth playerHealth;   // 남의 PlayerHealth
+    public SG_Inventory inventoryClass;
+
 
     private void Start()
     {
@@ -70,11 +74,13 @@ public class PlayerController : MonoBehaviourPun
 
         playerActionControler = transform.GetComponent<SG_PlayerActionControler>();
 
-        playerInventory = transform.GetComponent<PlayerInventory>();
+        playerInventory = _playerInventory.GetComponent<PlayerInventory>();
 
         uiFollowPlayer = ui.GetComponent<UiFollowPlayer>();
 
         health = transform.GetComponent<PlayerHealth>();
+
+        //playerItem = GetComponent<SG_Item>();
 
         if (photonView.IsMine)
         {
@@ -103,9 +109,11 @@ public class PlayerController : MonoBehaviourPun
 
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            if(itemInHand != null)
-            { 
-                Drop();
+            if(playerInventory.handItemClone != null)
+            {
+                //Drop();
+                playerInventory.MissItem();
+                playerInventory.Drop();
             }
         }
 
@@ -193,16 +201,20 @@ public class PlayerController : MonoBehaviourPun
         {
             // 먹은 음식에 따른 회복
             //playerInventory.playerinventory.slots[(int)inven].item
-            playerHealth.health += playerInventory.hp;
-            playerHealth.cold += playerInventory.cold;
-            playerHealth.hunger += playerInventory.hunger;
+            //playerHealth.health += playerInventory.hp;
+            //playerHealth.cold += playerInventory.cold;
+            //playerHealth.hunger += playerInventory.hunger;
+
+            playerInventory.Eat();
+   
         }
 
         // 여기에 완료됐을때 상호작용을 실행할 코드를 추가해야됨
         if (doingCase == 1)
         {
             //아이템
-            PickUp();
+            //PickUp();
+            playerActionControler.TryAction();
             animator.SetBool("Looting", false);
 
             doingCase = 0;
@@ -235,11 +247,60 @@ public class PlayerController : MonoBehaviourPun
         playerHealth.playerDown = 100;
         playerHealth.isDown = false;
     }
+    //private void duplicationChek()
+    //{
+    //    for (int i = 0; playerInventory.inventory.Count > i; i++)
+    //    {
+    //        SG_Item item = playerInventory.inventory[i].transform.GetChild(0).GetComponent<SG_Item>();
+    //        SG_Item.ItemType itemType = item.itemType;
 
-    private void PickUp()
+    //        if ( itemType == SG_Item.ItemType.Used ) // 소비탬일떄
+    //        {
+    //            if (playerInventory.inventory[i].transform.GetChild(0).name == hitInfo.transform.name) // 아이탬이 같을때
+    //            {
+    //                if (playerInventory.inventory[i].transform.childCount < 3) // 3개 미만일떄
+    //                {
+    //                    AddItem(playerInventory.inventory[i].transform);
+    //                }
+    //                else if(playerInventory.inventory[i].transform.childCount >= 3/*탬창이 비었을때*/)
+    //                {
+
+    //                }
+    //            }
+    //            else if(playerInventory.inventory[i].transform.GetChild(0).name != hitInfo.transform.name/*아이탬이 다를때*/)
+    //            {
+    //                for(int j = 0; j < playerInventory.inventory.Count; j++)
+    //                {
+
+    //                }
+    //            }
+    //        }
+    //        else
+    //        {
+
+    //        }
+
+    //        // 인벤이 꽉 차 있을때
+
+    //    }
+    //}
+    private void PickUp()//Transform _inven)
     {
         itemInHand = hitInfo.transform;
-        itemInHand.transform.SetParent(inven);
+        itemInHand.transform.SetParent(inven); //(_inven);
+
+        Collider collider = hitInfo.collider;
+        Rigidbody itemRb = itemInHand.transform.GetComponent<Rigidbody>();
+        collider.enabled = false;               // 콜라이더 컴포넌트 끄고
+        Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
+        itemInHand.transform.localPosition = Vector3.zero;
+        itemInHand.transform.localRotation = Quaternion.identity;
+        itemInHand.transform.localScale = Vector3.one;
+    }
+    private void AddItem(Transform _inven)
+    {
+        itemInHand = hitInfo.transform;
+        itemInHand.transform.SetParent(_inven);
 
         Collider collider = hitInfo.collider;
         Rigidbody itemRb = itemInHand.transform.GetComponent<Rigidbody>();
@@ -416,7 +477,7 @@ public class PlayerController : MonoBehaviourPun
             animator.SetFloat("Speed", 0);
             doSomething = true;
             animator.SetBool("DoSomething", doSomething);
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(1.5f);
 
             doingCase = 2;
         }
@@ -425,12 +486,12 @@ public class PlayerController : MonoBehaviourPun
             animator.SetFloat("Speed", 0);
             doSomething = true;
             animator.SetBool("DoSomething", doSomething);
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(1.5f);
 
             doingCase = 3;
         }
     }
-
+       
     // 실내 여부
     #region
     // ###########################
