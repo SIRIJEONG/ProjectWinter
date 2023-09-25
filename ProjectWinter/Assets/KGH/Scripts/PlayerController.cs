@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviourPun
     public GameObject ui;           // 파워 게이지 ui
     public PlayerInventory playerInventory;
     public SG_PlayerActionControler playerActionControler;
+    public SG_Item playerItem;
     //public GameObject cameraObject;
 
     private bool hand = false;      // 임시 : 손에 무기 들었는지
@@ -67,9 +68,9 @@ public class PlayerController : MonoBehaviourPun
 
         doingTime = 0;
 
-        //playerActionControler = transform.GetComponent<SG_PlayerActionControler>();
+        playerActionControler = transform.GetComponent<SG_PlayerActionControler>();
 
-        //playerInventory = transform.GetComponent<PlayerInventory>();
+        playerInventory = transform.GetComponent<PlayerInventory>();
 
         uiFollowPlayer = ui.GetComponent<UiFollowPlayer>();
 
@@ -112,6 +113,8 @@ public class PlayerController : MonoBehaviourPun
         {
             doingTime = Time.time - startTime;
         }
+
+       // itemInHand.Item = playerItem.itemType
 
         Debug.DrawRay(transform.position, transform.forward * 1.0f, Color.magenta);
 
@@ -180,44 +183,48 @@ public class PlayerController : MonoBehaviourPun
             doSomething = false;
             animator.SetBool("DoSomething", doSomething);
 
-            if (eat)
-            {
-                // 먹은 음식에 따른 회복
-                ////playerInventory.playerinventory.slots[(int)inven].item 
-                //playerHealth.health += playerInventory.hp;
-                //playerHealth.cold += playerInventory.cold;
-                //playerHealth.hunger += playerInventory.hunger;
-            }
+            DoSomething();
+        }
+    }
 
-            // 여기에 완료됐을때 상호작용을 실행할 코드를 추가해야됨
-            if (doingCase == 1)
-            {
-                //아이템
-                PickUp();
-                Debug.Log("1");
-                animator.SetBool("Looting", false);
+    private void DoSomething()
+    {
+        if (eat)
+        {
+            // 먹은 음식에 따른 회복
+            //playerInventory.playerinventory.slots[(int)inven].item
+            playerHealth.health += playerInventory.hp;
+            playerHealth.cold += playerInventory.cold;
+            playerHealth.hunger += playerInventory.hunger;
+        }
 
-                doingCase = 0;
-            }
-            else if (doingCase == 2)    // 다운된 플레이어일때 살림
-            {
-                //플레이어
-                Collider hitCollider = hitInfo.collider;
+        // 여기에 완료됐을때 상호작용을 실행할 코드를 추가해야됨
+        if (doingCase == 1)
+        {
+            //아이템
+            PickUp();
+            animator.SetBool("Looting", false);
 
-                GameObject toRevive = hitCollider.gameObject;
+            doingCase = 0;
+        }
+        else if (doingCase == 2)    // 다운된 플레이어일때 살림
+        {
+            //플레이어
+            Collider hitCollider = hitInfo.collider;
 
-                playerHealth = toRevive.GetComponent<PlayerHealth>();
+            GameObject toRevive = hitCollider.gameObject;
 
-                Revive(playerHealth);
+            playerHealth = toRevive.GetComponent<PlayerHealth>();
 
-                doingCase = 0;
-            }
-            else if (doingCase == 3)
-            {
-                //상자
+            Revive(playerHealth);
 
-                doingCase = 0;
-            }
+            doingCase = 0;
+        }
+        else if (doingCase == 3)
+        {
+            //상자
+
+            doingCase = 0;
         }
     }
 
@@ -288,17 +295,12 @@ public class PlayerController : MonoBehaviourPun
     #region
     private void PLayerIsClick()
     {
-        if (Input.GetMouseButton(0) && !isAttack && !health.isInside && !health.isInside)   // �߰����� : �տ� ������ ������
+        if (Input.GetMouseButton(0) && !isAttack && !health.isInside && !health.isInside && !playerInventory.foodInHand)   // �߰����� : �տ� ������ ������
         {
             Attack();
             uiFollowPlayer.Gauge(120);
-        }
-        //else if(playerInventory.foodInHand)//(������ �տ� ������)
-        //{
-        //    uiFollowPlayer.Gauge(120);
-        //    StartCoroutine(Eat());
-        //}
-        else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside && !health.isInside)    // �߰����� : �տ� ������ ������
+        }       
+        else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside && !health.isInside && !playerInventory.foodInHand)    // �߰����� : �տ� ������ ������
         {
             if (!eat)
             {
@@ -314,6 +316,11 @@ public class PlayerController : MonoBehaviourPun
                 shouldStartTiming = false;
 
             }
+        }
+        else if (playerInventory.foodInHand)//(������ �տ� ������)
+        {
+            uiFollowPlayer.Gauge(120);
+            StartCoroutine(Eat());
         }
     }
 

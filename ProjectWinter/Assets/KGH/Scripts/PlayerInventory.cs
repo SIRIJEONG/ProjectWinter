@@ -9,7 +9,7 @@ public class PlayerInventory : MonoBehaviour
     // 폐기예정
     public List<GameObject> inventory;
 
-    private PlayerController controller;
+    private PlayerController playercontroller;
 
     public SG_Item item;
 
@@ -33,7 +33,7 @@ public class PlayerInventory : MonoBehaviour
     {
         mouseScroll = transform.GetComponent<MouseScroll>();
 
-        controller = transform.GetComponent<PlayerController>();
+        playercontroller = transform.GetComponent<PlayerController>();
 
         playerinventory = gameObject.GetComponent<SG_Inventory>();
 
@@ -49,23 +49,33 @@ public class PlayerInventory : MonoBehaviour
             if((int)inven - 1 == i)
             {
                 inventory[i].SetActive(true);
-                controller.inven = inventory[i].transform;
+                playercontroller.inven = inventory[i].transform;
                 invenNumber = i;
 
                 if(inventory[i].transform.GetChild(0) != null)
                 {
-                    controller.itemInHand = inventory[i].transform.GetChild(0);
+                    playercontroller.itemInHand = inventory[i].transform.GetChild(0);
                 }
-                //else
-                //{
-                //    controller.itemInHand = null;
-                //}
+                
             }
             else
             {
+                //Debug.Log(i + 1);
+                //Debug.LogFormat("인벤 {0}", inven);
+
                 inventory[i].SetActive(false);
             }            
-        }       
+        }
+
+        //if ((int)inven - 1 != hand)
+        //{
+        //    playercontroller.itemInHand = inventory[hand - 1].transform.GetChild(0); ;
+        //    Debug.LogFormat("인벤 {0}", inven);
+        //}
+        //else
+        //{
+        //    playercontroller.itemInHand = null;
+        //}
 
         if (playerinventory.slots[(int)inven].item != null)
         {
