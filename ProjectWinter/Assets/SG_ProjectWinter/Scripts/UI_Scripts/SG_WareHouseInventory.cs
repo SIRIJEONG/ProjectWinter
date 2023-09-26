@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class SG_WareHouseInventory : MonoBehaviour
 {
+
+    // LEGACY  : Inventory 한스크립트로 통합    23.09.26
+
     // 23.09.10 아래 스크립트는 플레이어의 인벤토리에 들어있는 스크립트를 Clone 딴것
     // 산장 창고에 맞게 수정해서 사용해야함
 
@@ -47,13 +50,6 @@ public class SG_WareHouseInventory : MonoBehaviour
     private Transform topParentObj;
 
 
-
-
-    private void Awake()
-    {
-
-    }
-
     void Start()
     {
 
@@ -70,27 +66,6 @@ public class SG_WareHouseInventory : MonoBehaviour
         //TryOpenInventory();
     }
 
-    // { ProjectWiter 게임에는 필요하지 않는 기능
-    // I버튼은 눌렀을때에 인벤토리 열리는 기능
-    // ProjectWinter에 이 기능은 필요없을수도 있음
-
-    // 23.09.10 산장의 창고는 E키를 눌러서 열어야하기에 아래의 함수를 조건을 추가해서 잘 사용하면 용의할것으로 예상
-    private void TryOpenInventory()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            inventoryActicated = !inventoryActicated;
-
-            if (inventoryActicated)
-            {
-                OpenInventory();
-            }
-            else
-            {
-                CloseInventory();
-            }
-        }
-    }
 
     private void OpenInventory()
     {
@@ -120,8 +95,7 @@ public class SG_WareHouseInventory : MonoBehaviour
                     if (slots[i].item.itemName == _item.itemName)
                     {
                         if (slots[i].itemCount == 3)
-                        {
-                            Debug.Log("3개 이상은 주울수 없음");
+                        {                      
                             continue;
                         }
                         slots[i].SetSlotCount(_count);
@@ -150,6 +124,8 @@ public class SG_WareHouseInventory : MonoBehaviour
     }   // } AcquireItem()
 
     // 창고에서의 Destroy는 떨어져있는것이아닌 플레이어의 창고에서 옮기는것이기에 아랫 부분 수정이 필요할것으로 예상
+
+
     public void ItemDestroyEventShot()
     {
         // 이 함수를 부르면 ItemDistroyEvent를 구독하고 있는 모든 함수를 호출함

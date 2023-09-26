@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-//using static UnityEditor.Progress;
+using Photon.Pun;
+using UnityEditor.Experimental.GraphView;
 
-public class SG_Inventory : MonoBehaviour
+public class SG_Inventory : MonoBehaviourPun
 {
     // 인벤토리가 켜져있을때에 다른 기능을 막기위해 사용되는 bool 변수
     // 플레이어와 많은 친구들이 사용해야하기에 static으로 선언
@@ -39,12 +40,18 @@ public class SG_Inventory : MonoBehaviour
 
     private int missionClearCount = 0;
 
-    private void Awake()
-    {
-
-    }
+    public static int boxSlotCount = 200;
 
     void Start()
+    {
+        StartInIt();
+    }
+    void Update()
+    {
+        //TryOpenInventory();
+    }
+
+    private void StartInIt()    // Start시점에서 넣어줄 변수
     {
         slots = slotsParent.GetComponentsInChildren<SG_ItemSlot>();
         topParentObj = this.transform.parent.gameObject;
@@ -52,55 +59,13 @@ public class SG_Inventory : MonoBehaviour
         GetThisTopParentObj();
         // 슬롯의 고유번호 넣어주는 함수
         InItSlotCount();
-
     }
-    void Update()
-    {
-        //TryOpenInventory();
-    }
-
-    /*LEGACY
-
-    // { ProjectWiter 게임에는 필요하지 않는 기능
-    // I버튼은 눌렀을때에 인벤토리 열리는 기능
-    // ProjectWinter에 이 기능은 필요없을수도 있음
-    private void TryOpenInventory()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            inventoryActicated = !inventoryActicated;
-
-            if (inventoryActicated)
-            {
-                OpenInventory();
-            }
-            else
-            {
-                CloseInventory();
-            }
-        }
-    }
-
-
-
-    private void OpenInventory()
-    {
-        inventoryBase.SetActive(true);
-    }
-
-    private void CloseInventory()
-    {
-        inventoryBase.SetActive(false);
-    }
-    // } ProjectWiter 게임에는 필요하지 않는 기능
-
-    LEGACY*/
 
     // { AcquireItem()
     public void AcquireItem(SG_Item _item, int _count = 1)
     {
         // 아이템을 주우면 들어오는함수이지만 플레이어가 아니라면 바로 나가게 만듦
-        if(!topParentObj.CompareTag("Player"))
+        if (!topParentObj.CompareTag("Player"))
         {
             return;
         }
@@ -143,7 +108,7 @@ public class SG_Inventory : MonoBehaviour
         }
     }   // } AcquireItem()
 
-
+    // 포톤 붙여야 할듯
     public void ItemDestroyEventShot()
     {
         // 이 함수를 부르면 ItemDistroyEvent를 구독하고 있는 모든 함수를 호출함
@@ -195,17 +160,25 @@ public class SG_Inventory : MonoBehaviour
                 slots[i].slotCount = i + 130;
             }
         }
-        else { /*PASS*/ }
-        // 발전기 고유번호 삽입 해줄 else if
-        //else if(topParentObj.CompareTag(""))
-        //{
 
-        //}
+        else if (topParentObj.CompareTag("Box"))
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].slotCount = boxSlotCount;
+                boxSlotCount++;
+            }
+        }
+
+
+        else { /*PASS*/ }
+
+
+
     }
 
 
     // 아이템을 받아 왔을때에 슬롯을 확인해줄 함수
-    // 23.09.14 지금 건들일 함수가 아닌거같음 나중에 틀을 잡고 수정할것
     // { AcquireItem()
     public void AcquireMoveItem(SG_Item _item, int _count)
     {
@@ -248,13 +221,15 @@ public class SG_Inventory : MonoBehaviour
     }   // } AcquireItem()
 
 
+    // 포톤 붙어야함
+    // 발전소에서 아이템이 꽉차면 들어올 함수
     public void CheckClearPowerStation()
     {
-        if(topParentObj.CompareTag("PowerStation"))
+        if (topParentObj.CompareTag("PowerStation"))
         {
             missionClearCount++;
-            Debug.Log("슬롯이 만족하고 함수를 불렀는지");
-            Debug.LogFormat("클리어된 슬롯 카운터 -> {0} 총 슬롯 갯수 -> {1}", missionClearCount, slots.Length);
+            //Debug.Log("슬롯이 만족하고 함수를 불렀는지");
+            //Debug.LogFormat("클리어된 슬롯 카운터 -> {0} 총 슬롯 갯수 -> {1}", missionClearCount, slots.Length);
             if (slots.Length == missionClearCount)
             {
                 GameManager.instance.RepairPowerStation();
@@ -264,6 +239,8 @@ public class SG_Inventory : MonoBehaviour
         else { /*PASS*/ }
     }
 
+    // 포톤 붙여야함
+    // 헬리패드 인벤토리에 아이템갯수를 충족하면 들어올 함수
     public void CheckClearHeliPad()
     {
         if (topParentObj.CompareTag("HeliPad"))

@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
+using Photon.Pun;
 
-public class SG_ItemSwapManager : MonoBehaviour
+public class SG_ItemSwapManager : MonoBehaviourPun
 {
     // 플레이어 슬롯 번호는 10을 더해서 곂치는 부분이 없도록 하였음 10 11 12 13 이런번호로 나올거임
 
@@ -136,6 +137,34 @@ public class SG_ItemSwapManager : MonoBehaviour
         }
         else { /*PASS*/ }
         #endregion _GiveSlotCount가 산장창고일 경우
+
+        #region _GiveSlotCount가 BunkerBox일 경우
+
+        if (_GiveSlotCount >= 200 && _GiveSlotCount <= 400)
+        {
+            // 이번엔 부모의 부모의 부모 3번 찾아야함
+            //1 -> Grid
+            tempTrans001 = _giveSlots.transform.parent.GetComponent<Transform>();
+            //2 -> InventoryImg
+            tempTrans002 = tempTrans001.transform.parent.GetComponent<Transform>();
+            //3 -> Inventory
+            giveInvenClass = tempTrans002.transform.parent.GetComponent<SG_Inventory>();
+
+            for (byte i = 0; i < giveInvenClass.slots.Length; i++)    //슬롯들을 싹 뒤지면서 주는 Slot의 고유번호 찾기
+            {
+                if (giveInvenClass.slots[i].slotCount == _GiveSlotCount) // 고유번호를 찾았을때 들어갈 조건문
+                {
+                    // 아이템 정보를 임시로 집어넣어줌
+                    moveItem = giveInvenClass.slots[i].item;
+                    tempItemCount = giveInvenClass.slots[i].itemCount;
+                    giveSlotCount = i;
+                    break;
+                }
+            }
+            return; // 찾아서 아이템의 정보를 넣어주었다면 return으로 함수 즉시탈출
+        }
+        else { /*PASS*/ }
+        #endregion  _GiveSlotCount가 BunkerBox일 경우
 
     }   //SerchGiveSlot()
 
@@ -321,6 +350,51 @@ public class SG_ItemSwapManager : MonoBehaviour
         else { /*PASS*/ }
 
         #endregion 헬리패드가 받는 슬롯일떄
+
+        #region 벙커박스가 받는 슬롯일때
+        if (_AcceptSlotCount >= 200 && _AcceptSlotCount <= 400) // 플레이어가 받는 Slot일때에
+        {
+            // 이번엔 부모의 부모의 부모 3번 찾아야함
+            //1 -> Grid
+            tempTrans001 = _accepSlots.transform.parent.GetComponent<Transform>();
+            //2 -> InventoryImg
+            tempTrans002 = tempTrans001.transform.parent.GetComponent<Transform>();
+            //3 -> Inventory
+            acceptInvenClass = tempTrans002.transform.parent.GetComponent<SG_Inventory>();
+
+            for (byte i = 0; i < acceptInvenClass.slots.Length; i++)    //슬롯들을 싹 뒤지면서 주는 Slot의 고유번호 찾기
+            {
+                if (acceptInvenClass.slots[i].slotCount == _AcceptSlotCount) // 고유번호를 찾았을때 들어갈 조건문
+                {
+                    //아이템이 비어있지 않고 넣는아이템과 들어가 있는 아이템이 같지 않을때
+                    if (acceptInvenClass.slots[i].item != null && acceptInvenClass.slots[i].item != moveItem)
+                    {
+                        isSwap = false;
+                    }
+                    else if (acceptInvenClass.slots[i].item == moveItem)
+                    {
+                        acceptInvenClass.slots[i].itemCount = acceptInvenClass.slots[i].itemCount + tempItemCount;
+                        //Debug.LogFormat("받은얘의 아이템 갯수 -> {0}", acceptInvenClass.slots[i].itemCount);
+                        accepSlotCount = i;
+                        ItemExamine();
+                    }
+                    else if (acceptInvenClass.slots[i].item == null)
+                    {
+                        // 아이템 정보를 집어넣어줌
+                        acceptInvenClass.slots[i].item = moveItem;
+                        acceptInvenClass.slots[i].itemCount = tempItemCount;
+                        accepSlotCount = i;
+                        ItemExamine();
+                    }
+                    //Debug.LogFormat("Accept() Give -> {0} Accept -> {1}", giveSlotCount, accepSlotCount);
+                    break;
+                }
+            }
+            return; // 찾아서 슬롯에 아이템을 넣어주었다면 return으로 함수 즉시탈출
+        }
+        else { /*PASS*/ }
+
+        #endregion 벙커박스가 받는 슬롯일때
     }   //SerchAccepSlots
 
 

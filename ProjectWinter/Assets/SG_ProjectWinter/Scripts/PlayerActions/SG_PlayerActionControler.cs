@@ -49,7 +49,15 @@ public class SG_PlayerActionControler : MonoBehaviourPun
     public delegate void WorkStationOpenDelegate();
     public event WorkStationOpenDelegate WorkStationOpenEvent;
 
+    // 주방
+    public delegate void KitchenOpenDelegate();
+    public event KitchenOpenDelegate KitchenOpenEvent;
+
     public event System.Action<SG_Inventory> tossInventoryEvent;
+
+    // 벙커박스
+    public delegate void BunkerBoxDelegate();
+    public event BunkerBoxDelegate BunkerBoxEvent;
 
     //public SG_Inventory inventoryClass;
 
@@ -69,6 +77,7 @@ public class SG_PlayerActionControler : MonoBehaviourPun
         CheckItem();
         CheckOpenObj();
         //TryAction();
+        TESTTryAction();
 
     }
 
@@ -76,16 +85,25 @@ public class SG_PlayerActionControler : MonoBehaviourPun
     {
         //if (Input.GetKeyDown(KeyCode.E))
         //{
+        CheckItem();
+        CanPickUp();
+        //}
+    }
+
+    public void TESTTryAction()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
             CheckItem();
             CanPickUp();
-        //}
+        }
     }
 
     // 레이를 쏘아서 맞은것이 Item 이라는 Layer를 가지고 있다면통과하는 로직
     private void CheckItem()
     {
         if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f, itemLayerMask))
-           // if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range, itemLayerMask))
+        // if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range, itemLayerMask))
         {
             if (hitInfo.transform.CompareTag("Item"))
             {
@@ -113,18 +131,20 @@ public class SG_PlayerActionControler : MonoBehaviourPun
     }
 
     // 아이템을 인벤토리에 넣는 함수
+
+    // 마스터가 해줘야할듯?
     public void CanPickUp()
     {
         //if (pickupActivated == true)
         //{
-            if (hitInfo.transform != null)
-            {
-                //Debug.Log("아이템 획득");
-                theInventory.AcquireItem(hitInfo.transform.GetComponent<SG_ItemPickUp>().item);
-                //Destroy(hitInfo.transform.gameObject);
-                InfoDisappear();
+        if (hitInfo.transform != null)
+        {
+            //Debug.Log("아이템 획득");
+            theInventory.AcquireItem(hitInfo.transform.GetComponent<SG_ItemPickUp>().item);
+            //Destroy(hitInfo.transform.gameObject);
+            InfoDisappear();
 
-            }
+        }
         //}
     }
 
@@ -132,7 +152,7 @@ public class SG_PlayerActionControler : MonoBehaviourPun
     //   아이템이 잘 들어갔으면 인벤토리가 ActionControler의 Destroy함수를 발동해주고 들어가지 못했다면 return
     //      하도록 만들어봐야겠음
 
-    // 아이템을 먹었다면 Distroy 해줄 함수
+    // 아이템을 먹었다면 Distroy 해줄 함수      // Photon Destroy로 변경해야함
     public void ItemDestroy()
     {
         PhotonNetwork.Destroy(hitInfo.transform.gameObject);
@@ -193,6 +213,27 @@ public class SG_PlayerActionControler : MonoBehaviourPun
             }
             else { /*PASS*/ }
 
+            if (hitInfo.transform.CompareTag("Kitchen"))
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    KitchenOpenEvent?.Invoke();
+                    tossInventoryEvent?.Invoke(theInventory);
+                }
+                else { /*PASS*/ }
+
+            }
+
+            if(hitInfo.transform.CompareTag("Box"))
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    BunkerBoxEvent?.Invoke();
+
+                }
+                else { /*PASS*/ }
+            }
+            else { /*PASS*/ }
 
 
         }   // Ray IF

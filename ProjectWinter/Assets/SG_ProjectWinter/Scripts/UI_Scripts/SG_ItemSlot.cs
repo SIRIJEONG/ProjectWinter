@@ -26,6 +26,8 @@ public class SG_ItemSlot : MonoBehaviour
 
     public GameObject slotTopParentObj;
 
+    private Color defaultColor;     // Color 1,1,1,1 값
+    private Color transparentColor; // Color 1,1,1,0 값
     private Color weaponColorSet;   // 무기일때에 A값 투명하게 해줄 컬러 설정
 
     private Coroutine TextSpriteUpdateCoroutine;    // SetItemSprite_Count() 에 사용할 StartCoroutine박싱
@@ -42,6 +44,8 @@ public class SG_ItemSlot : MonoBehaviour
         GetThisTopParentObj();
 
         weaponColorSet = new Color(1f, 1f, 1f, 0f);
+        transparentColor = new Color(1f, 1f, 1f, 0f);
+        defaultColor = new Color(1f, 1f, 1f, 1f);
     }
 
 
@@ -144,7 +148,7 @@ public class SG_ItemSlot : MonoBehaviour
 
         if (item != null && this.gameObject.transform.childCount > 0)
         {
-            Debug.LogFormat("아이템 제작시 여기까지 들어오나?");
+            //Debug.LogFormat("아이템 제작시 여기까지 들어오나?");
             GameObject tempObj;
             tempObj = this.gameObject.transform.GetChild(0).gameObject;
             itemImage = tempObj.GetComponent<Image>();
@@ -219,8 +223,9 @@ public class SG_ItemSlot : MonoBehaviour
 
     private IEnumerator SetItemSprite_Count()
     {
+        itemImage.color = transparentColor; // 아이템 투명하게 해서 흰 박스 안보이게
         yield return null;
-
+        itemImage.color = defaultColor;     // 아이템 색 원래대로
         // 스프라이트와 텍스트 출력
 
         //Debug.LogFormat("코루틴 들어왔을때에 ItemCount -> {0}", itemCount);

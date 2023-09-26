@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class SG_WareHouseItemSlot : MonoBehaviour
 {
+    // LEGACY  : ItemSlot 한스크립트로 통합    23.09.26
+
     // 23.09.10 아래 는 플레이어의 ItemSlot을 그대로 가져온것임
     // 아래내용을 이제 산장창고 슬롯으로 잘 바꿔서 사용해야 함
     // 23.09.10 한번 했고 산장에 사용하는데에 큰 문제가 있어보이지 않기에 일단 사용

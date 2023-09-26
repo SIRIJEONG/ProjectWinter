@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class SG_PowerStationItemInIt : MonoBehaviour
+public class SG_PowerStationItemInIt : MonoBehaviourPun
 {
     // 발전소,헬리페드가 원하는 아이템을 넣어주어야하는데
     // 이 스크립트에서 발전소와 헬리페드가 원하는 아이템을 랜덤으로 정해줄거임
@@ -54,10 +55,10 @@ public class SG_PowerStationItemInIt : MonoBehaviour
         if (isFirstOpen == false)
         {
             SerchTopParentTrans();  //최상위 부모오브젝트찾는 로직
-            RamdomItemInIt();       // 넣어야할 아이템을 랜덤으로 정해주는 함수
-            RandomItemCountInIt();  // 넣어야하는 아이템 목표치 3 ~ 5로 정해주는 함수
+            RamdomItemInIt();       // 넣어야할 아이템을 랜덤으로 정해주는 함수       //포톤
+            RandomItemCountInIt();  // 넣어야하는 아이템 목표치 3 ~ 5로 정해주는 함수 // 포톤
             ItemImageInIt();        // 넣어야하는 아이템의 정보가가지고 있는 스프라이트를 넣어주는 함수
-            ItemTextUpdate();       // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수
+            ItemTextUpdate();       // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수 // 포톤
 
         }
     }   // FirstOpen()
@@ -81,6 +82,7 @@ public class SG_PowerStationItemInIt : MonoBehaviour
 
     }
 
+    //포톤
     private void RamdomItemInIt() // 넣어야할 아이템을 랜덤으로 정해주는 함수
     {
         if (topParentTrans.CompareTag("PowerStation"))
@@ -95,6 +97,7 @@ public class SG_PowerStationItemInIt : MonoBehaviour
         }
     }   // RamdomItemInIt()
 
+    //포톤
     private void RandomItemCountInIt()  // 넣어야하는 아이템 목표치 3 ~ 5로 정해주는 함수
     {
         if (topParentTrans.CompareTag("PowerStation"))
@@ -124,6 +127,8 @@ public class SG_PowerStationItemInIt : MonoBehaviour
 
     }   // ItemImageInIt()
 
+
+    // 포톤
     public void ItemTextUpdate()   // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수
     {
         #region Debug
@@ -136,6 +141,8 @@ public class SG_PowerStationItemInIt : MonoBehaviour
 
     }   // ItemTextUpdate()
 
+
+    // 포톤
     // SwapManager에서 Swap이 되었을때에 호출해줄 함수
     public void CheckSucceseMission() // 아이템 갯수가 요구하는 만큼 충족하다면 true로 될것임
     {
