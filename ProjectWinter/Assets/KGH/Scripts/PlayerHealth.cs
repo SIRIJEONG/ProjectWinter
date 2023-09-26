@@ -130,6 +130,7 @@ public class PlayerHealth : LivingEntity
 
             playerController.enabled = false;       // 컨트롤러 비활성화해서 못움직이게
 
+            GameManager.instance.DeadPlayerCheck();
         }
     }
 

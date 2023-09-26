@@ -72,7 +72,7 @@ public class PressEKey : MonoBehaviourPun
         {
             currentValue = 100f;
             progressBar.value = currentValue;
-            Desc001();
+            CallUi();
         }
         else
         {
@@ -82,9 +82,21 @@ public class PressEKey : MonoBehaviourPun
         }
     }
 
-    public void Desc001()
+    public void CallUi()
     {
-        photonView.RPC("CallCompleteUi", RpcTarget.AllBuffered);
+        if (transform.parent.CompareTag("Operate"))
+        {
+            photonView.RPC("CallCompleteUi", RpcTarget.AllBuffered);
+        }
+        //else if(transform.parent.CompareTag("PowerStation") || transform.parent.CompareTag("HeliPad"))
+        //{
+        //    transform.parent.GetComponent<SG_PowerStationControler>().PoweStationInvenController();
+        //    // Ui 출력하기
+        //}
+        else if(transform.parent.name == "Helicopter")
+        {
+            GFunc.GetRootObject("UiCanvas").FindChildObject("EscapeHeliUi").SetActive(true);
+        }
     }
 
     [PunRPC]

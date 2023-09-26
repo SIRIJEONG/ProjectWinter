@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     public int traitorNum;      // 배신자 역할의 ActorNumber
     public GameObject[] playerObjects;  // 플레이어 오브젝트들 모음
     public List<int> escapePlayerList;  // 탈출하는 사람들의 액터넘버 리스트
+    public int deadPlayers = 0;
 
     public bool isLimitOver = false;
     public bool isRepairPowerStation = false;
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         //캐릭터 산장 앞에 생성 (좌표 x : -200f z : 287f)
         PhotonNetwork.Instantiate("Player", new Vector3(-200f, 1f, 287f), Quaternion.identity);
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
     // Start is called before the first frame update
     void Start()
@@ -125,12 +127,24 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void RepairPowerStation()
     {
-        isRepairPowerStation = true;  
+        photonView.RPC("RPCRepairPowerStation", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void RPCRepairPowerStation()
+    {
+        isRepairPowerStation = true;
         UIManager.instance.UpdatePowerStaionText();
         progressManager.OpenRepairHeliPad();
     }
 
     public void RepairHelipad()
+    {
+        photonView.RPC("RPCRepairHelipad", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void RPCRepairHelipad()
     {
         isRepairHeliPad = true;
         UIManager.instance.UpdateHeliPadText();
@@ -143,5 +157,26 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
         UIManager.instance.UpdateEscapeText();
         progressManager.OpenHelicopter();
         playerObjects = GameObject.FindGameObjectsWithTag("Player");
+    }
+
+    public void DeadPlayerCheck()
+    {
+        if (PhotonNetwork.LocalPlayer.ActorNumber != traitorNum)
+        {
+            photonView.RPC("PlusDeadPlayer", RpcTarget.MasterClient);
+        }
+
+    }
+
+    [PunRPC]
+    public void PlusDeadPlayer()
+    {
+        deadPlayers += 1;
+
+        if(deadPlayers >= PhotonNetwork.PlayerList.Length - 1)
+        {
+            // 전멸 엔딩씬 출력
+            //PhotonNetwork.LoadLevel
+        }
     }
 }
