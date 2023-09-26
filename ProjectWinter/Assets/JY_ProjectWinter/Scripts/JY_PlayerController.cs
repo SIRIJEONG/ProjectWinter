@@ -1,213 +1,477 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+ï»¿//using Cinemachine;
+//using Photon.Pun;
+//using System.Collections;
+//using System.Collections.Generic;
+//using Unity.VisualScripting;
+//using UnityEditor;
+//using UnityEngine;
+//using static SG_Item;
 
-public class JY_PlayerController : MonoBehaviour
-{
-    private Rigidbody rb;
-    private Animator animator;
-    private float aniSpeed = 0;
+//public class JY_PlayerController : MonoBehaviourPun
+//{
+//    private Rigidbody rb;
+//    private Animator animator;
+//    private float aniSpeed = 0;
 
-    private float horizontal;
-    private float vertical;
-    public static int speed = 5;
+//    private float horizontal;
+//    private float vertical;
+//    public int speed = 5;
 
-    private bool doSomething = false;
+//    public bool doSomething = false;
 
-    // ÇÃ·¹ÀÌ¾îÀÇ Á÷¾÷
-    public static bool isSurvivor;
-    public static bool isTrator;
-    // ÇÃ·¹ÀÌ¾îÀÇ Á÷¾÷
+//    // í”Œë ˆì´ì–´ì˜ ì§ì—…
+//    public static bool isSurvivor;
+//    public static bool isTrator;
+//    // í”Œë ˆì´ì–´ì˜ ì§ì—…
 
-    private bool hand = false;
+//    public GameObject weapon;       // ë¬´ê¸° ë“¤ì—ˆì„ë•Œ ê³µê²©ë²”ìœ„
+//    public GameObject fist;         // ì£¼ë¨¹ì¼ë•Œ ê³µê²©ë²”ìœ„
+//    public GameObject ui;           // íŒŒì›Œ ê²Œì´ì§€ ui
+//    public PlayerInventory playerInventory;
+//    public SG_PlayerActionControler playerActionControler;
+//    public SG_Item playerItem;
+//    //public GameObject cameraObject;
 
-    private RaycastHit hitInfo;
+//    private bool hand = false;      // ì„ì‹œ : ì†ì— ë¬´ê¸° ë“¤ì—ˆëŠ”ì§€
+//    public Transform itemInHand;
+//    public Transform inven;
+//    private bool itemSet = false;
 
 
-    private Vector3 moveVec;
+//    private RaycastHit hitInfo;
+//    private Vector3 moveVec;
 
-    private GameObject hitObject;
-    // °ø°İ°ü·Ã
-    private float attackPower;  // ¸¶¿ì½º·Î °ø°İ Â÷Áö
-    private bool isAttack;
-    // °ø°İ°ü·Ã
+//    private float doingTime;    // í–‰ë™ì„ í•œ ì‹œê°„ ì²´í¬
+//    private float startTime;
+//    private bool shouldStartTiming = false;
+//    private int doingCase;      // ë­˜ í•˜ëŠ” ë„ì¤‘ì¸ì§€
+
+//    private UiFollowPlayer uiFollowPlayer;
+
+//    private PlayerHealth health;    // ë³¸ì¸ì˜ PlayerHealth
+
+//    // ê³µê²©ê´€ë ¨
+//    private float attackPower;  // ë§ˆìš°ìŠ¤ë¡œ ê³µê²© ì°¨ì§€
+//    private bool isAttack;
+//    public int damage;         // ì¤„ ë°ë¯¸ì§€
+//    private bool eat = false;       // ì„ì‹œë¡œ ë„£ì€ê²ƒ, ë‚˜ì¤‘ì— ìŒì‹ì„ ë¨¹ìœ¼ë©´ on, íšŒë³µ í›„ offë¡œ ì¬í™œìš©
+//    // ê³µê²©ê´€ë ¨
+
+//    private CameraFollow cameraFollow;
+
+//    public PlayerHealth playerHealth;   // ë‚¨ì˜ PlayerHealth
+
+//    private void Start()
+//    {
+//        rb = GetComponent<Rigidbody>();
+//        animator = GetComponent<Animator>();
+
+//        doingTime = 0;
+
+//        playerActionControler = transform.GetComponent<SG_PlayerActionControler>();
+
+//        playerInventory = transform.GetComponent<PlayerInventory>();
+
+//        uiFollowPlayer = ui.GetComponent<UiFollowPlayer>();
+
+//        health = transform.GetComponent<PlayerHealth>();
+
+//        if (photonView.IsMine)
+//        {
+//            CinemachineVirtualCamera followCam = FindObjectOfType<CinemachineVirtualCamera>();
+//            followCam.LookAt = transform;
+//            cameraFollow = transform.GetComponent<CameraFollow>();
+//            cameraFollow.playerController = this;
+//            cameraFollow.toFallow = transform;
+//            //followCam.LookAt = transform;
+//        }
+//    }
+
+//    private void Update()
+//    {
+//        if (!photonView.IsMine)
+//        { return; }
+//        animator.SetBool("attack", isAttack);
+//        if (!doSomething && !health.isDead)
+//        {
+//            PlayerMove();
+//            if (!health.isDown)
+//            {
+//                PLayerIsClick();
+//            }
+//        }
+
+//        if (Input.GetKeyDown(KeyCode.Q))
+//        {
+//            if (itemInHand != null)
+//            {
+//                Drop();
+//            }
+//        }
+
+//        if (shouldStartTiming)
+//        {
+//            doingTime = Time.time - startTime;
+//        }
+
+//        // itemInHand.Item = playerItem.itemType
+
+//        Debug.DrawRay(transform.position, transform.forward * 1.0f, Color.magenta);
+
+//        if (Input.GetKeyDown(KeyCode.E) && !doSomething && !health.isDead && !health.isDown)
+//        {
+//            if (!doSomething && !Input.GetMouseButton(0))
+//            {
+//                // í”Œë ˆì´ì–´ì˜ ì•ì— ìˆëŠ” ë¬¼ì²´ë¥¼ íŒë³„
+//                if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f))
+//                {
+
+//                    if (hitInfo.collider.gameObject.tag == "Player")
+//                    {
+//                        playerHealth = hitInfo.collider.gameObject.GetComponent<PlayerHealth>();
+//                        bool isPlayerDown = playerHealth.isDown;
+//                        bool isPlayerDeath = playerHealth.isDead;
+//                        if (isPlayerDown && !isPlayerDeath)
+//                        {
+//                            StartCoroutine(PressE());
+//                        }
+//                    }
+//                    if (hitInfo.collider.gameObject.tag == "Warehouse")     // ì•„ë˜ elseì™€ í•©ì³ë„ ë ë“¯?
+//                    {
+//                        StartCoroutine(PressE());
+//                    }
+//                    else
+//                    {
+//                        StartCoroutine(PressE());
+//                    }
+//                }
+//                // í”Œë ˆì´ì–´ì˜ ì•ì— ìˆëŠ” ë¬¼ì²´ë¥¼ íŒë³„
+//                else
+//                { }
+//            }
+
+//        }
+//        else if (Input.GetKey(KeyCode.E) && doSomething && !health.isDead && !health.isDown)
+//        {
+//            uiFollowPlayer.Gauge(60);
+
+//        }
+//        else if (Input.GetKeyUp(KeyCode.E) && doSomething && !health.isDead && !health.isDown)  // Eí‚¤ë¥¼ ë–¼ë©´ ì‘ì—…ì„ ë©ˆì¶”ê¸°
+//        {
+//            shouldStartTiming = false;
+//            doingTime = 0;
+//            doSomething = false;
+//            animator.SetBool("DoSomething", doSomething);
+//            animator.SetBool("Looting", false);
+//            uiFollowPlayer.currentValue = 0;
+//            uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
+//        }
+
+//        if (isAttack && health.health <= 0)
+//        {
+//            isAttack = false;
+//            animator.SetBool("attack", isAttack);
+//        }
+
+//        if (doingTime > 2 && doSomething)       // ì‘ì—…ì´ ëë‚¬ì„ ë•Œ í–‰ë™ì„ ë©ˆì¶”ê¸°
+//        {
+//            shouldStartTiming = false;
+
+//            doingTime = 0;
+//            uiFollowPlayer.currentValue = 0;
+//            uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
+//            doSomething = false;
+//            animator.SetBool("DoSomething", doSomething);
+
+//            DoSomething();
+//        }
+//    }
+
+//    private void DoSomething()
+//    {
+//        if (eat)
+//        {
+//            // ë¨¹ì€ ìŒì‹ì— ë”°ë¥¸ íšŒë³µ
+//            //playerInventory.playerinventory.slots[(int)inven].item
+//            playerHealth.health += playerInventory.hp;
+//            playerHealth.cold += playerInventory.cold;
+//            playerHealth.hunger += playerInventory.hunger;
+//        }
+
+//        // ì—¬ê¸°ì— ì™„ë£Œëì„ë•Œ ìƒí˜¸ì‘ìš©ì„ ì‹¤í–‰í•  ì½”ë“œë¥¼ ì¶”ê°€í•´ì•¼ë¨
+//        if (doingCase == 1)
+//        {
+//            //ì•„ì´í…œ
+//            PickUp();
+//            animator.SetBool("Looting", false);
+
+//            doingCase = 0;
+//        }
+//        else if (doingCase == 2)    // ë‹¤ìš´ëœ í”Œë ˆì´ì–´ì¼ë•Œ ì‚´ë¦¼
+//        {
+//            //í”Œë ˆì´ì–´
+//            Collider hitCollider = hitInfo.collider;
+
+//            GameObject toRevive = hitCollider.gameObject;
+
+//            playerHealth = toRevive.GetComponent<PlayerHealth>();
+//            //ë³€ê²½í•œ ë¶€ë¶„
+//            photonView.RPC("Revive",RpcTarget.All,playerHealth);
+
+//            doingCase = 0;
+//        }
+//        else if (doingCase == 3)
+//        {
+//            //ìƒì
+
+//            doingCase = 0;
+//        }
+//    }
     
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
+//    //ë³€ê²½í•œ ë¶€ë¶„
+//    [PunRPC]
+//    private void Revive(PlayerHealth playerHealth)
+//    {
+//        playerHealth.health = 20;
+//        playerHealth.playerDown = 100;
+//        playerHealth.isDown = false;
+//    }
 
-    }
+//    //ë³€ê²½í•œ ë¶€ë¶„
+//    [PunRPC]
+//    private void PickUp()
+//    {
+//        itemInHand = hitInfo.transform;
+//        itemInHand.transform.SetParent(inven);
 
-    private void Update()
-    {
-        if (!doSomething)
-        {
-            PlayerMove();
+//        Collider collider = hitInfo.collider;
+//        Rigidbody itemRb = itemInHand.transform.GetComponent<Rigidbody>();
+//        collider.enabled = false;               // ì½œë¼ì´ë” ì»´í¬ë„ŒíŠ¸ ë„ê³ 
+//        Destroy(itemRb);                        // ë¦¬ì§€ë“œë°”ë”” ì—†ì•° ( ì† ë”°ë¼ì˜¤ê²Œ í•˜ê¸° ìœ„í•´)
+//        itemInHand.transform.localPosition = Vector3.zero;
+//        itemInHand.transform.localRotation = Quaternion.identity;
+//        itemInHand.transform.localScale = Vector3.one;
+//    }
 
-            PLayerIsClick();
-        }
+//    private void Drop()
+//    {
+//        //Collider collider = hitInfo.collider;
+//        itemInHand.GetComponent<Collider>().enabled = true;
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if(!doSomething)
-            {
-                // ÇÃ·¹ÀÌ¾îÀÇ ¾Õ¿¡ ÀÖ´Â ¹°Ã¼¸¦ ÆÇº°
-                if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f))
-                {
-                    if (hitInfo.collider.gameObject.tag == "Player")
-                    {
-                        PlayerHealth playerHealth = hitInfo.collider.gameObject.GetComponent<PlayerHealth>();
-                        bool isPlayerDown = playerHealth.isDown;
-                        if (isPlayerDown)
-                        {
-                            PressE();        
-                        }
-                            
-                    }
-                }
-                // ÇÃ·¹ÀÌ¾îÀÇ ¾Õ¿¡ ÀÖ´Â ¹°Ã¼¸¦ ÆÇº°
+//        Rigidbody newRigidbody = itemInHand.transform.AddComponent<Rigidbody>();        // ë¦¬ì§€ë“œë°”ë”” ìƒˆë¡œ ë‹¬ê¸°
 
-                // Çàµ¿ÀÌ ¿Ï·áµÅ ³¡³µÀ»¶§µµ µÎ½æ¶ò °ÅÁşÀ¸·Î ¸¸µé±â
-            }
-            else
-            {
-                doSomething = false;
-                animator.SetBool("DoSomething", doSomething);
-            }
+//        itemInHand.SetParent(null);         //ì† ì˜¤ë¸Œì­íŠ¸ì™€ ë¶„ë¦¬
+//        itemInHand = null;
+//    }
 
-        }
-       
+//    // í”Œë ˆì´ì–´ ì›€ì§ì„
+//    #region
+//    private void PlayerMove()
+//    {
+//        // ï¿½ï¿½Ç¥ï¿½Ìµï¿½
+//        horizontal = Input.GetAxisRaw("Horizontal");
+//        vertical = Input.GetAxisRaw("Vertical");
 
-        // ÇÃ·¹ÀÌ¾îÀÇ ¾Õ¿¡ ÀÖ´Â ¹°Ã¼¸¦ ÆÇº°
-        //if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f))
-        //{
-        //    
-        //
-        //}
-        // ÇÃ·¹ÀÌ¾îÀÇ ¾Õ¿¡ ÀÖ´Â ¹°Ã¼¸¦ ÆÇº°        
+//        moveVec = new Vector3(horizontal, 0, vertical).normalized;
 
-    }
+//        transform.position += moveVec * speed * Time.deltaTime;
 
+//        transform.LookAt(transform.position + moveVec);
+//        // ï¿½ï¿½Ç¥ï¿½Ìµï¿½
 
-    private void PlayerMove()           // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ
-    {
-        // ÁÂÇ¥ÀÌµ¿
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
+//        // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
+//        if (Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0)
+//        {
+//            aniSpeed = Mathf.MoveTowards(aniSpeed, 1, Time.deltaTime * 3);
+//        }
+//        else
+//        {
+//            aniSpeed = Mathf.MoveTowards(aniSpeed, 0, Time.deltaTime * 3);
+//        }
+//        animator.SetFloat("Speed", aniSpeed);
+//        // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
+//    }
+//    #endregion
+//    // í”Œë ˆì´ì–´ ì›€ì§ì„
 
-        moveVec = new Vector3(horizontal, 0, vertical).normalized;
+//    // ê³µê²©
+//    #region
+//    private void PLayerIsClick()
+//    {
+//        if (Input.GetMouseButton(0) && !isAttack && !health.isInside && !health.isInside && !playerInventory.foodInHand)   // ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//        {
+//            Attack();
+//            uiFollowPlayer.Gauge(120);
+//        }
+//        else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside && !health.isInside && !playerInventory.foodInHand)    // ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//        {
+//            if (!eat)
+//            {
+//                isAttack = true;
+//                uiFollowPlayer.currentValue = 0;
+//                uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
+//                StartCoroutine(EndAttack());
+//            }
+//            else
+//            {
+//                eat = false;
+//                doSomething = false;
+//                shouldStartTiming = false;
 
-        transform.position += moveVec * speed * Time.deltaTime;
+//            }
+//        }
+//        else if (playerInventory.foodInHand)//(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+//        {
+//            uiFollowPlayer.Gauge(120);
+//            StartCoroutine(Eat());
+//        }
+//    }
 
-        transform.LookAt(transform.position + moveVec);
-        // ÁÂÇ¥ÀÌµ¿
+//    private void Attack()
+//    {
+//        if (!hand)
+//        {       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//            animator.SetBool("Weapon", false);
+//            animator.SetBool("Charge", true);
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç
-        if (Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0)
-        {
-            aniSpeed = Mathf.MoveTowards(aniSpeed, 1, Time.deltaTime * 3);
-        }
-        else
-        {
-            aniSpeed = Mathf.MoveTowards(aniSpeed, 0, Time.deltaTime * 3);
-        }
-        animator.SetFloat("Speed", aniSpeed);
-        // ¾Ö´Ï¸ŞÀÌ¼Ç
-    }
+//            attackPower += Time.deltaTime;
+//        }
+//        else
+//        {       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//            animator.SetBool("Weapon", true);
+//            animator.SetBool("Charge", true);
 
-    // °ø°İ
-    #region
-    private void PLayerIsClick()
-    {
-        if (Input.GetMouseButton(0) && !isAttack)
-        {
-            Attack();
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            isAttack = true;
-            StartCoroutine(EndAttack());
-        }
-    }
+//            attackPower += Time.deltaTime;
+//        }
+//    }
 
-    private void Attack()
-    {
-        if(!hand)
-        {       //¾ÆÀÌÅÛ ¾Èµé¾úÀ»¶§
-            animator.Play("Punch_R", -1, 0.35f);
+//    private IEnumerator EndAttack()
+//    {
 
-            attackPower += Time.deltaTime;
-        }
-        else
-        {       //¾ÆÀÌÅÛ µé¾úÀ»¶§
+//        if (!hand)
+//        {       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//            if (attackPower >= 0.9f)           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
+//            { damage = 2; }
+//            else
+//            { damage = 1; }
 
-            animator.Play("AttackAnimation", -1, 0.35f);
+//            animator.SetBool("Charge", false);
 
-            attackPower += Time.deltaTime;
-        }
-    }
+//            animator.SetBool("attack", isAttack);
+//            yield return new WaitForSeconds(0.2f);
+//            fist.SetActive(true);
+//            yield return new WaitForSeconds(0.3f);
+//            fist.SetActive(false);
 
-    private IEnumerator EndAttack()
-    {
-        if (!hand)
-        {       //¾ÆÀÌÅÛ ¾Èµé¾úÀ»¶§
-            animator.SetBool("attack", isAttack);
+//            isAttack = false;
+//            attackPower = 0;
+//        }
+//        else
+//        {       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//            if (attackPower >= 0.9f)           // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
+//            { damage = 2; }
+//            else
+//            { damage = 1; }
 
-            yield return new WaitForSeconds(0.8f);
-            isAttack = false;
-            attackPower = 0;
-        }
-        else
-        {       //¾ÆÀÌÅÛ µé¾úÀ»¶§
-            animator.SetBool("attack", isAttack);
+//            animator.SetBool("Charge", false);
 
-            yield return new WaitForSeconds(0.8f);
-            isAttack = false;
-            attackPower = 0;
-        }
-    }
-    #endregion
-    // °ø°İ   
+//            animator.SetBool("attack", isAttack);
+//            yield return new WaitForSeconds(0.1f);
+//            weapon.SetActive(true);
+//            yield return new WaitForSeconds(0.9f);
+//            weapon.SetActive(false);
 
-    private void PressE()
-    {
-        if (hitInfo.collider.gameObject.tag == "Item") // ·çÆÃ¸ğ¼Ç
-        {
-            
-        }
-        else        // ÀÛ¾÷¸ğ¼Ç
-        {
-            animator.SetFloat("Speed", 0);
-            doSomething = true;
-            animator.SetBool("DoSomething", doSomething);
-            animator.Play("DoSomething");
-        }
-        // Çàµ¿ÀÌ ¿Ï·áµÇ±â±îÁö ³²Àº ½Ã°£ °ÔÀÌÁö
-    }
+//            isAttack = false;
+//            attackPower = 0;
+//        }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Building"))
-        {
-            GameObject cameraObject = GameObject.Find("CM vcam1");
-            CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // Ä«¸Ş¶ó¸¦ µÑ ¿ÀºêÀèÆ®¸¦ Ã£¾Æ Ä«¸Ş¶ó¸¦ µÒ
-            bool isInside = cameraFollow.isInside;
-            cameraFollow.isInside = true;
-        }
+//    }
 
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Building"))
-        {
-            GameObject cameraObject = GameObject.Find("CM vcam1");
-            CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // Ä«¸Ş¶ó¸¦ µÑ ¿ÀºêÀèÆ®¸¦ Ã£¾Æ Ä«¸Ş¶ó¸¦ µÒ
-            bool isInside = cameraFollow.isInside;
-            cameraFollow.isInside = false;
-        }
-    }
+//    private IEnumerator Eat()
+//    {
+//        eat = true;
 
-}
-//animator.SetLayerWeight(1, 0.0f);       // µÎ¹øÂ°(1) ·¹ÀÌ¾îÀÇ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ¸ØÃã
+//        shouldStartTiming = true;
+//        startTime = Time.time;
+//        animator.SetBool("Eat", true);
+//        yield return new WaitForSeconds(1.2f);
+
+//    }
+
+//    #endregion
+//    // ê³µê²©
+
+//    private IEnumerator PressE()
+//    {
+//        shouldStartTiming = true;
+//        startTime = Time.time;
+//        if (hitInfo.collider.gameObject.tag == "Item") // ë£¨íŒ…ëª¨ì…˜
+//        {
+//            doSomething = true;
+//            animator.SetBool("DoSomething", doSomething);
+//            animator.SetBool("Looting", true);
+//            yield return new WaitForSeconds(1.2f);
+
+//            doingCase = 1;
+//        }
+//        else if (hitInfo.collider.gameObject.tag == "Player")
+//        {
+//            animator.SetFloat("Speed", 0);
+//            doSomething = true;
+//            animator.SetBool("DoSomething", doSomething);
+//            yield return new WaitForSeconds(1.2f);
+
+//            doingCase = 2;
+//        }
+//        else if (hitInfo.collider.gameObject.tag == "Warehouse") // ì‘ì—…ëª¨ì…˜
+//        {
+//            animator.SetFloat("Speed", 0);
+//            doSomething = true;
+//            animator.SetBool("DoSomething", doSomething);
+//            yield return new WaitForSeconds(1.2f);
+
+//            doingCase = 3;
+//        }
+//    }
+
+//    // ì‹¤ë‚´ ì—¬ë¶€
+//    #region
+//    // ###########################
+//    // isMineì¼ë•Œë§Œ ì‹¤í–‰
+//    // ###########################
+
+//    private void OnTriggerEnter(Collider other)
+//    {
+//        if (!photonView.IsMine)
+//        { return; }
+//        if (other.CompareTag("Building"))           // í”Œë ˆì´ì–´ê°€ ê±´ë¬¼ ì•ˆìœ¼ë¡œ ë“¤ì–´ê°”ìœ¼ë©´
+//        {
+//            //cameraObject = GameObject.Find("CM vcam1");
+//            //CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // ì¹´ë©”ë¼ë¥¼ ë‘˜ ì˜¤ë¸Œì­íŠ¸ë¥¼ ì°¾ì•„ ì¹´ë©”ë¼ë¥¼ ë‘ 
+//            cameraFollow.inside = other.gameObject;
+//            cameraFollow.isInside = true;
+//        }
+//    }
+//    private void OnTriggerExit(Collider other)
+//    {
+//        if (!photonView.IsMine)
+//        { return; }
+//        if (other.CompareTag("Building"))
+//        {
+//            //cameraObject = GameObject.Find("CM vcam1");
+//            //CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // ì¹´ë©”ë¼ë¥¼ ë‘˜ ì˜¤ë¸Œì­íŠ¸ë¥¼ ì°¾ì•„ ì¹´ë©”ë¼ë¥¼ ë‘ 
+//            //bool isInside = cameraFollow.isInside;
+//            cameraFollow.isInside =  false;
+
+//            //if (photonView.isMine)
+//            //{
+//            //    CinemachineVirtualCamera followCam = FindObjectOfType<CinemachineVirtualCamera>();
+//            //    followCam.LookAt = transform;
+//            //}
+//        }
+//    }
+//    #endregion
+//    // ì‹¤ë‚´ ì—¬ë¶€
+
+//}
+////animator.SetLayerWeight(1, 0.0f);       // ë‘ë²ˆì§¸(1) ë ˆì´ì–´ì˜ ì• ë‹ˆë©”ì´ì…˜ì„ ë©ˆì¶¤
