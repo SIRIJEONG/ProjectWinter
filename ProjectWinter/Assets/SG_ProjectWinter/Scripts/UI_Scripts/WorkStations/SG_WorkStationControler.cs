@@ -40,11 +40,23 @@ public class SG_WorkStationControler : MonoBehaviour
 
     private void EventSubscriber()  // PlayerAction Script속에 Open Event 구독
     {
-        playerActionClass.WorkStationOpenEvent += WorkStationInvenController;
+        if (topParentTrans.CompareTag("Workstation"))
+        {
+            playerActionClass.WorkStationOpenEvent += WorkStationInvenController;
+        }
+
+        else if(topParentTrans.CompareTag("Kitchen"))
+        {
+            // 여기서 PlauerAction에 Event구독해야함 주방 여는 이벤트
+            playerActionClass.KitchenOpenEvent += WorkStationInvenController;
+        }
+
+        else { /*PASS*/ }
     }
 
-    public void WorkStationInvenController()    // 이벤트 발생시 불려질 함수
-    {        
+    //23.09.26 주방과 제작대는 이함수를 같이 사용함 정상작동 확인했음
+    public void WorkStationInvenController()    // 이벤트 발생시 불려질 함수   
+    {
         if (isOpen == false)
         {
             OpenWorkStation();
@@ -68,7 +80,7 @@ public class SG_WorkStationControler : MonoBehaviour
         WorkStationObjs.SetActive(false);
     }
 
-    private void GetPlayerInventory(SG_Inventory _playerInventory)
+    private void GetPlayerInventory(SG_Inventory _playerInventory) // 제작시 플레이어의 인벤토리를 참조할 함수
     {
         // 23.09.22 Inventory 매개변수를 잘받는것을 확인
         //Debug.Log("함수 잘 call 되는가?");

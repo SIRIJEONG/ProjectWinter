@@ -24,10 +24,6 @@ public class SG_PowerStationItemImageColorSet : MonoBehaviour
         
     }
 
-
-
-
-
     private void GetThisTopParentObj()  //최상위 부모 오브젝트 태그를 가져오기 위해 찾는 로직
     {
         topParentObj = this.gameObject;

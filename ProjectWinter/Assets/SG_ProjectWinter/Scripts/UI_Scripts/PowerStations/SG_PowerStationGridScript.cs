@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class SG_PowerStationGridScript : MonoBehaviour
+public class SG_PowerStationGridScript : MonoBehaviourPun
 {
     [SerializeField]
     private GameObject slot;
@@ -18,13 +19,12 @@ public class SG_PowerStationGridScript : MonoBehaviour
 
     private void Awake()
     {
-
         //Debug.Log(makeSlotCount);
     }
     private void Start()
     {
         SerchTopParentTrans();
-        makeSlotCount = Random.Range(1, 3);  // 1 ~ 2 랜덤한 숫자를 삽입
+        
         MakeSlot(); // 슬롯을 랜덤하게 만들어서 자식오브젝트로 넣는 함수
     }
 
@@ -38,8 +38,11 @@ public class SG_PowerStationGridScript : MonoBehaviour
         }
     }
 
+    // Photon으로 해야할듯
     private void MakeSlot() // 슬롯을 랜덤하게 만들어서 자식오브젝트로 넣는 함수
     {
+        makeSlotCount = Random.Range(1, 3);  // 1 ~ 2 랜덤한 숫자를 삽입
+
         if (topParentTrans.CompareTag("PowerStation"))  // 발전소일때 Instance Slot
         {
             slotClone = Instantiate(slot);

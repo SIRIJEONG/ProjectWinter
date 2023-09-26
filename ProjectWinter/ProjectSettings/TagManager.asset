@@ -18,6 +18,7 @@ TagManager:
   - PowerStation
   - HeliPad
   - Workstation
+  - Kitchen
   layers:
   - Default
   - TransparentFX

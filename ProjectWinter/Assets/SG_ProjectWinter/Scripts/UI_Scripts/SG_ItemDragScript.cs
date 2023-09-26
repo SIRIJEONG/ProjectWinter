@@ -4,16 +4,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class SG_ItemDragScript : MonoBehaviour,
+public class SG_ItemDragScript : MonoBehaviourPun,
     IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     // 아이템의 프리펩에 들어갈 스크립트
 
     private Transform canvasTrans;      // UI가 소속되어있는 최상단의 Canvas Transform
     private Transform previousParent;   // 해당 오브젝트가 직전에 소속되어 있던 부모의 Transform
-    private RectTransform rectTrans;    // UI 위치 제어를 위한 RectTransform
-                                        //private CanvasGroup canvasGroup;    // UI의 A 값과 상호 작용 제어를 위한 CanvasGroup
+    private RectTransform rectTrans;    // UI 위치 제어를 위한 RectTransform  
 
     private Image itemImage;
 
@@ -47,7 +47,7 @@ public class SG_ItemDragScript : MonoBehaviour,
     // 헬리패드나 발전기를 드래그 시도했을때에 이것이 true가 되어서 end Drag에서 함수호출 넘겨줄거임
     private bool isPassTargetControll = false;
 
-    // Test
+    // 드래그할때에 아이템 이미지들의 RayTarger을 꺼줄 List
     public static List<SG_ItemDragScript> allItemDragScrip = default;
 
     private void Awake()
@@ -132,8 +132,6 @@ public class SG_ItemDragScript : MonoBehaviour,
         // 받는곳의 Slot이 어떤건지 UI로 체크 해주는 함수        
         ClickUp();
 
-
-
         RayTargerEvent?.Invoke();
 
         //itemImage.raycastTarget = true;
@@ -154,13 +152,12 @@ public class SG_ItemDragScript : MonoBehaviour,
         pointerEventDataUp.position = Input.mousePosition;
 
         EventSystem.current.RaycastAll(pointerEventDataUp, resultsUp);
-        Debug.Log("ClickUP은 들어오나?");    
+        //Debug.Log("ClickUP은 들어오나?");    
         if (resultsUp.Count > 0)
         {
             // UI 요소를 클릭했을 때의 처리를 여기에 추가
             GameObject clickedUIElement = resultsUp[0].gameObject;
 
-            // 여기에 감지된 clikedUIElement 변수에서 누른 슬롯을 추출해내면 될거같음
             //Debug.Log("클릭한 UI 요소: " + clickedUIElement.tag);
 
             //여기서 고유번호 추출
@@ -169,24 +166,22 @@ public class SG_ItemDragScript : MonoBehaviour,
                 acceptItemSlotClass = clickedUIElement.GetComponent<SG_ItemSlot>();
                 //누른 아이템슬롯의 고유번호 추출
                 acceptSlotCount = acceptItemSlotClass.slotCount;
-                //Debug.LogFormat("클릭을 땔때주는 스롯의 고유번호 -> {0}", acceptSlotCount);
 
-                // 클릭한 UI 요소에 대한 작업을 수행할 수 있습니다.
+                #region DEBUG
+                //Debug.LogFormat("클릭을 땔때주는 스롯의 고유번호 -> {0}", acceptSlotCount);                
                 //Debug.LogFormat("받는얘 번호 -> {0}", acceptSlotCount);
                 // 아래함수 테스트후 아래함수는 giveSlotCount != null && acceptSlotCount != null 로 조건넣으면 될듯
-                Debug.LogFormat("giveSlotCount -> {0} acceptSlotCount -> {1}", giveSlotCount, acceptSlotCount);
-                Debug.LogFormat("giveItemSlotClass = null? -> {0}  acceptItemSlotClass = null? -> {1}", giveItemSlotClass == null, acceptItemSlotClass == null);
+                //Debug.LogFormat("giveSlotCount -> {0} acceptSlotCount -> {1}", giveSlotCount, acceptSlotCount);
+                //Debug.LogFormat("giveItemSlotClass = null? -> {0}  acceptItemSlotClass = null? -> {1}", giveItemSlotClass == null, acceptItemSlotClass == null);
                 //Debug.LogFormat("giveItemSlotClass -> {0}  acceptItemSlotClass -> {1}", giveItemSlotClass, acceptItemSlotClass);
                 //Debug.Log(giveItemSlotClass.transform.parent.parent == gameObject);
-                Debug.LogFormat("Swap 매개변수 null 인지 thisClass -> {0}, giveSlotCount -> {1}, acceptSlotCount -> {2}" +
-                    "giveItemSlot == null? -> {3}, acceptItemSlotClass == null? -> {4} ", thisClass == null,giveSlotCount,acceptSlotCount
-                    ,giveItemSlotClass == null,acceptItemSlotClass == null);
+                //Debug.LogFormat("Swap 매개변수 null 인지 thisClass -> {0}, giveSlotCount -> {1}, acceptSlotCount -> {2}" +
+                //    "giveItemSlot == null? -> {3}, acceptItemSlotClass == null? -> {4} ", thisClass == null,giveSlotCount,acceptSlotCount
+                //    ,giveItemSlotClass == null,acceptItemSlotClass == null);
+                #endregion DEBUG
+                //아래 ItemSwap 함수를 Mastrt가 불러줘야 할수도 있음
                 swapManagerClass.ItemSwap(thisClass, giveSlotCount, acceptSlotCount, giveItemSlotClass, acceptItemSlotClass);
 
-                if (giveItemSlotClass != acceptItemSlotClass)
-                {
-
-                }
             }
         }
         else
@@ -286,7 +281,7 @@ public class SG_ItemDragScript : MonoBehaviour,
         pointerEventDataUp = new PointerEventData(EventSystem.current);
 
         // Init Test
-        if (allItemDragScrip == null || allItemDragScrip == default)
+        if (allItemDragScrip == null || allItemDragScrip == default)    // 만약 Static으로 올라간 allItemDragScript가 비어있으면 할당
         {
             allItemDragScrip = new List<SG_ItemDragScript>();
         }
@@ -301,7 +296,6 @@ public class SG_ItemDragScript : MonoBehaviour,
 
         SerchTopParentObj();
         FindCanvasTransform(topParentTrans);
-
     }
 
     public void CanvasUpdate()  // 아이템 이동시 지정되었던 Canvas를 최신화 해줌
@@ -326,17 +320,7 @@ public class SG_ItemDragScript : MonoBehaviour,
                 //Debug.LogFormat("What is this? -> {0}", canvasTrans);
                 return;
             }
-
-            //// 재귀적으로 자식들을 탐색합니다
-            //Transform result = FindCanvasTransform(child);
-            //if (result != null)
-            //{
-            //    Debug.Log("재귀적 들어옴");
-            //    previousParent = result;
-            //    return; 
-            //}
         }
-
         // Canvas를 찾지 못한 경우 null을 반환합니다
         Debug.Log("canvasTrans == null");
         return;
@@ -346,12 +330,11 @@ public class SG_ItemDragScript : MonoBehaviour,
     {
         topParentTrans = this.transform.parent;
 
-        ////최상위 부모 오브젝트 태그를 가져오기 위해 찾는 로직
+        //최상위 부모 오브젝트 태그를 가져오기 위해 찾는 로직
         while (topParentTrans.transform.parent != null)
         {
             topParentTrans = topParentTrans.transform.parent;
         }
-
     }
 
 }   // NAMESPACE

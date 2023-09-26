@@ -111,7 +111,7 @@ public class SG_WorkStationContentControler : MonoBehaviour
 
     }
 
-    private void SerchMakeItemList()
+    private void SerchMakeItemList()    // 제작버튼 누를때에 레시피들의 스크립트돌면서 클릭되어있다는 bool값을 찾아서 넣어줌
     {
         for (int i = 0; i < itemRecipeList.Length; i++)
         {
