@@ -98,7 +98,6 @@ public class SG_ItemDragScript : MonoBehaviour,
         // 현재 스크린상의 마우스 위치를 UI 위치로 설정 (UI가 마우스를 쫒아다니는 상태)
         if (topParentTrans.CompareTag("PowerStation") || topParentTrans.CompareTag("HeliPad"))
         {
-
             return;
         }
         rectTrans.position = eventData.position;
@@ -155,7 +154,7 @@ public class SG_ItemDragScript : MonoBehaviour,
         pointerEventDataUp.position = Input.mousePosition;
 
         EventSystem.current.RaycastAll(pointerEventDataUp, resultsUp);
-
+        Debug.Log("ClickUP은 들어오나?");    
         if (resultsUp.Count > 0)
         {
             // UI 요소를 클릭했을 때의 처리를 여기에 추가
@@ -175,13 +174,13 @@ public class SG_ItemDragScript : MonoBehaviour,
                 // 클릭한 UI 요소에 대한 작업을 수행할 수 있습니다.
                 //Debug.LogFormat("받는얘 번호 -> {0}", acceptSlotCount);
                 // 아래함수 테스트후 아래함수는 giveSlotCount != null && acceptSlotCount != null 로 조건넣으면 될듯
-                //Debug.LogFormat("giveSlotCount -> {0} acceptSlotCount -> {1}", giveSlotCount, acceptSlotCount);
-                //Debug.LogFormat("giveItemSlotClass = null? -> {0}  acceptItemSlotClass = null? -> {1}", giveItemSlotClass == null, acceptItemSlotClass == null);
+                Debug.LogFormat("giveSlotCount -> {0} acceptSlotCount -> {1}", giveSlotCount, acceptSlotCount);
+                Debug.LogFormat("giveItemSlotClass = null? -> {0}  acceptItemSlotClass = null? -> {1}", giveItemSlotClass == null, acceptItemSlotClass == null);
                 //Debug.LogFormat("giveItemSlotClass -> {0}  acceptItemSlotClass -> {1}", giveItemSlotClass, acceptItemSlotClass);
                 //Debug.Log(giveItemSlotClass.transform.parent.parent == gameObject);
-                //Debug.LogFormat("Swap 매개변수 null 인지 thisClass -> {0}, giveSlotCount -> {1}, acceptSlotCount -> {2}" +
-                //    "giveItemSlot == null? -> {3}, acceptItemSlotClass == null? -> {4} ", thisClass == null,giveSlotCount,acceptSlotCount
-                //    ,giveItemSlotClass == null,acceptItemSlotClass == null);
+                Debug.LogFormat("Swap 매개변수 null 인지 thisClass -> {0}, giveSlotCount -> {1}, acceptSlotCount -> {2}" +
+                    "giveItemSlot == null? -> {3}, acceptItemSlotClass == null? -> {4} ", thisClass == null,giveSlotCount,acceptSlotCount
+                    ,giveItemSlotClass == null,acceptItemSlotClass == null);
                 swapManagerClass.ItemSwap(thisClass, giveSlotCount, acceptSlotCount, giveItemSlotClass, acceptItemSlotClass);
 
                 if (giveItemSlotClass != acceptItemSlotClass)

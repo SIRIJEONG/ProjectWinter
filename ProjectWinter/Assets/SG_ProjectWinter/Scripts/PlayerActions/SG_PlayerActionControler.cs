@@ -67,24 +67,24 @@ public class SG_PlayerActionControler : MonoBehaviour
     {
         CheckItem();
         CheckOpenObj();
-        TryAction();
+        //TryAction();
 
     }
 
-    private void TryAction()
+    public void TryAction()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
             CheckItem();
             CanPickUp();
-        }
+        //}
     }
 
     // 레이를 쏘아서 맞은것이 Item 이라는 Layer를 가지고 있다면통과하는 로직
     private void CheckItem()
     {
-        if (Physics.Raycast
-            (transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range, itemLayerMask))
+        if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f, itemLayerMask))
+           // if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, range, itemLayerMask))
         {
             if (hitInfo.transform.CompareTag("Item"))
             {
@@ -112,10 +112,10 @@ public class SG_PlayerActionControler : MonoBehaviour
     }
 
     // 아이템을 인벤토리에 넣는 함수
-    private void CanPickUp()
+    public void CanPickUp()
     {
-        if (pickupActivated == true)
-        {
+        //if (pickupActivated == true)
+        //{
             if (hitInfo.transform != null)
             {
                 //Debug.Log("아이템 획득");
@@ -124,7 +124,7 @@ public class SG_PlayerActionControler : MonoBehaviour
                 InfoDisappear();
 
             }
-        }
+        //}
     }
 
     // TODO : 위 함수가 발동 되었을때에 인벤토리에서 비어있는곳을 찾아 넣는데 들어갔는지 못들어갔는지 확인하고

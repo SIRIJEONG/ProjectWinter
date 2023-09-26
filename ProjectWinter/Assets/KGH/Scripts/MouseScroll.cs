@@ -5,7 +5,11 @@ using UnityEngine;
 public class MouseScroll : MonoBehaviour
 {
     public float slot = 1;
-    // Start is called before the first frame update
+
+    public delegate void ScrollDelegate();
+
+    public event ScrollDelegate scrollEvent;
+
     void Start()
     {
         
@@ -22,6 +26,8 @@ public class MouseScroll : MonoBehaviour
 
             slot += verticalMovement;
             invenCheck();
+
+            scrollEvent?.Invoke();
         }
         else if (scrollInput < 0f)
         {
@@ -29,6 +35,8 @@ public class MouseScroll : MonoBehaviour
 
             slot += verticalMovement;
             invenCheck();
+
+            scrollEvent?.Invoke();
         }
     }
 
