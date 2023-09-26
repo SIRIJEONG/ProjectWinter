@@ -217,8 +217,6 @@ public class BearMoving : LivingEntity
         animalAnimator.SetTrigger("Die");
 
         StartCoroutine(DeathMotion());
-        // 사망 효과음 재생
-        //zombieAudioPlayer.PlayOneShot(deathSound);
     }
 
     IEnumerator DeathMotion()

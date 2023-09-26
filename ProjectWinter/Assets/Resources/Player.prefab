@@ -5536,6 +5536,7 @@ MonoBehaviour:
   ui: {fileID: 6597706487353474727}
   playerInventory: {fileID: 0}
   playerActionControler: {fileID: 0}
+  playerItem: {fileID: 0}
   itemInHand: {fileID: 0}
   inven: {fileID: 0}
   damage: 0

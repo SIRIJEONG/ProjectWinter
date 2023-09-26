@@ -191,7 +191,6 @@ public class MooseMoving : LivingEntity
         base.OnDamage(damage, hitPoint, hitNormal);
     }
 
-    // 사망 처리
     public override void Die()
     {
         // LivingEntity의 Die()를 실행하여 기본 사망 처리 실행
@@ -211,8 +210,18 @@ public class MooseMoving : LivingEntity
         // 사망 애니메이션 재생
         animalAnimator.SetTrigger("Die");
 
-        // 사망 효과음 재생
-        //zombieAudioPlayer.PlayOneShot(deathSound);
+        StartCoroutine(DeathMotion());
+    }
+
+    IEnumerator DeathMotion()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        PhotonNetwork.Instantiate("RawMeat", transform.position, Quaternion.identity);
+        PhotonNetwork.Instantiate("RawMeat", transform.position + Vector3.forward, Quaternion.identity);
+        PhotonNetwork.Instantiate("RawMeat", transform.position + Vector3.left, Quaternion.identity);
+
+        PhotonNetwork.Destroy(gameObject);
     }
 
     private void OnTriggerStay(Collider other)
@@ -266,7 +275,7 @@ public class MooseMoving : LivingEntity
         transform.LookAt(currentWaypoint);
 
         // 경로 포인트에 도달한 경우 다음 포인트로 이동
-        if (Vector3.Distance(transform.position, currentWaypoint.position) < 0.5f)
+        if (Vector3.Distance(transform.position, currentWaypoint.position) < 1f)
         {
             // 다음 경로 포인트로 이동
             currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;

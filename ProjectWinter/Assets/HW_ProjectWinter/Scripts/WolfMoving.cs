@@ -124,7 +124,7 @@ public class WolfMoving : LivingEntity
                 {
                     animalAnimator.SetBool("WolfWalk", false);
                     animalAnimator.SetBool("WolfAttack", true);
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(1f);
                     animalAnimator.SetBool("WolfAttack", false);
                     yield return new WaitForSeconds(1f);
 
@@ -219,8 +219,18 @@ public class WolfMoving : LivingEntity
         // 사망 애니메이션 재생
         animalAnimator.SetTrigger("Die");
 
-        // 사망 효과음 재생
-        //zombieAudioPlayer.PlayOneShot(deathSound);
+        StartCoroutine(DeathMotion());
+    }
+
+    IEnumerator DeathMotion()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        PhotonNetwork.Instantiate("RawMeat", transform.position, Quaternion.identity);
+        PhotonNetwork.Instantiate("RawMeat", transform.position + Vector3.forward, Quaternion.identity);
+        PhotonNetwork.Instantiate("RawMeat", transform.position + Vector3.left, Quaternion.identity);
+
+        PhotonNetwork.Destroy(gameObject);
     }
 
     private void OnTriggerStay(Collider other)
@@ -259,8 +269,8 @@ public class WolfMoving : LivingEntity
         else
         {
             // 공격 중이 아니라면 추적을 멈추고 애니메이션을 초기화
-            navMeshAgent.isStopped = true;
-            animalAnimator.SetBool("WolfAttack", false);
+            //navMeshAgent.isStopped = true;
+            //animalAnimator.SetBool("WolfAttack", false);
         }
     }
 

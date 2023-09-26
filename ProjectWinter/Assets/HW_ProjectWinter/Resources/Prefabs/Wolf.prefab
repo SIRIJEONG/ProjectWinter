@@ -950,10 +950,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.6200714
+  m_Radius: 0.9463829
   m_Height: 2.3470917
   m_Direction: 2
-  m_Center: {x: -0.08818054, y: 0.5, z: 0.57901764}
+  m_Center: {x: -0.08818054, y: 0.82631147, z: 0.57901764}
 --- !u!195 &5798460402567197437
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -988,13 +988,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76db6829da4e0df4ab7a02e78f1fd078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
+  startingHealth: 20
   health: 0
   isDead: 0
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 64
-  damage: 20
+  damage: 3
   timeBetAttack: 0.5
   speed: 3
   rotationSpeed: 5
@@ -1059,6 +1059,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 1
     Name: WolfWalk
+  - Type: 9
+    SynchronizeType: 0
+    Name: Die
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
