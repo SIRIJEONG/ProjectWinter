@@ -442,7 +442,7 @@ public class PlayerController : MonoBehaviourPun
             {
                 attackPower = 1f;
             }
-            damage = playerInventory.damage * (1.0f + attackPower * (4 - 1)); 
+            damage = (1.0f + attackPower * (4 - 1)); 
            
 
             animator.SetBool("Charge", false);
@@ -455,6 +455,8 @@ public class PlayerController : MonoBehaviourPun
 
             isAttack = false;
             attackPower = 0;
+            Debug.Log(damage);
+
         }
         else
         {       //������ �������
@@ -462,7 +464,7 @@ public class PlayerController : MonoBehaviourPun
             {
                 attackPower = 1f;
             }
-            damage = 2 * (1.0f + attackPower * (4 - 1));
+            damage = playerInventory.damage * (1.0f + attackPower * (4 - 1));
 
             animator.SetBool("Charge", false);
 
@@ -474,8 +476,8 @@ public class PlayerController : MonoBehaviourPun
 
             isAttack = false;
             attackPower = 0;
+            Debug.Log(damage);
         }
-        
     }
 
     private IEnumerator Eat()
