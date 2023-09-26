@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
+//using UnityEditor.PackageManager;
 using UnityEngine;
 using static SG_Item;
-//using static UnityEditor.Progress;
 
 public class PlayerInventory : MonoBehaviour
 {

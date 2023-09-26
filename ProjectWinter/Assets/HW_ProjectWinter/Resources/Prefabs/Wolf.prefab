@@ -988,13 +988,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76db6829da4e0df4ab7a02e78f1fd078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 20
+  startingHealth: 10
   health: 0
   isDead: 0
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 64
-  damage: 3
+  damage: 2
   timeBetAttack: 0.5
   speed: 3
   rotationSpeed: 5

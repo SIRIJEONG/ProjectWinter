@@ -221,13 +221,17 @@ public class BearMoving : LivingEntity
 
     IEnumerator DeathMotion()
     {
-        yield return new WaitForSeconds(3.0f);
 
-        PhotonNetwork.Instantiate("RawMeat", transform.position, Quaternion.identity);
-        PhotonNetwork.Instantiate("RawMeat", transform.position + Vector3.forward, Quaternion.identity);
-        PhotonNetwork.Instantiate("RawMeat", transform.position + Vector3.left, Quaternion.identity);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            yield return new WaitForSeconds(3.0f);
 
-        PhotonNetwork.Destroy(gameObject);
+            PhotonNetwork.Instantiate("RawMeat", transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate("RawMeat", transform.position + Vector3.forward, Quaternion.identity);
+            PhotonNetwork.Instantiate("RawMeat", transform.position + Vector3.left, Quaternion.identity);
+
+            PhotonNetwork.Destroy(gameObject);
+        }
     }
 
     private void OnTriggerStay(Collider other)

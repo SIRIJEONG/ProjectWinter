@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using static SG_Item;
-using static UnityEditor.Progress;
 
 public class PlayerController : MonoBehaviourPun
 {
