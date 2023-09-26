@@ -213,8 +213,8 @@ public class PlayerController : MonoBehaviourPun
         if (doingCase == 1)
         {
             //아이템
-            //PickUp();
-            playerActionControler.TryAction();
+            photonView.RPC("PickUp", RpcTarget.All);
+            
             animator.SetBool("Looting", false);
 
             doingCase = 0;
@@ -228,7 +228,7 @@ public class PlayerController : MonoBehaviourPun
 
             playerHealth = toRevive.GetComponent<PlayerHealth>();
 
-            Revive(playerHealth);
+            photonView.RPC("Revive", RpcTarget.All, playerHealth);
 
             doingCase = 0;
         }
@@ -240,13 +240,14 @@ public class PlayerController : MonoBehaviourPun
         }
     }
 
-
+    [PunRPC]
     private void Revive(PlayerHealth playerHealth)
     {
         playerHealth.health = 20;
         playerHealth.playerDown = 100;
         playerHealth.isDown = false;
     }
+
     //private void duplicationChek()
     //{
     //    for (int i = 0; playerInventory.inventory.Count > i; i++)
@@ -284,19 +285,25 @@ public class PlayerController : MonoBehaviourPun
 
     //    }
     //}
-    private void PickUp()//Transform _inven)
-    {
-        itemInHand = hitInfo.transform;
-        itemInHand.transform.SetParent(inven); //(_inven);
 
-        Collider collider = hitInfo.collider;
-        Rigidbody itemRb = itemInHand.transform.GetComponent<Rigidbody>();
-        collider.enabled = false;               // 콜라이더 컴포넌트 끄고
-        Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
-        itemInHand.transform.localPosition = Vector3.zero;
-        itemInHand.transform.localRotation = Quaternion.identity;
-        itemInHand.transform.localScale = Vector3.one;
+    [PunRPC]
+    private void PickUp()
+    {
+        /*  LEGACY
+        //itemInHand = hitInfo.transform;
+        //itemInHand.transform.SetParent(inven); //(_inven);
+
+        //Collider collider = hitInfo.collider;
+        //Rigidbody itemRb = itemInHand.transform.GetComponent<Rigidbody>();
+        //collider.enabled = false;               // 콜라이더 컴포넌트 끄고
+        //Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
+        //itemInHand.transform.localPosition = Vector3.zero;
+        //itemInHand.transform.localRotation = Quaternion.identity;
+        //itemInHand.transform.localScale = Vector3.one;
+        LEGACY  */
+        playerActionControler.TryAction();
     }
+    #region
     private void AddItem(Transform _inven)
     {
         itemInHand = hitInfo.transform;
@@ -321,8 +328,9 @@ public class PlayerController : MonoBehaviourPun
         itemInHand.SetParent(null);         //손 오브잭트와 분리
         itemInHand = null; 
     }
+    #endregion
+    // 아이템 관련 (이제 사용 X)
 
-    // 플레이어 움직임
     #region
     private void PlayerMove()          
     {

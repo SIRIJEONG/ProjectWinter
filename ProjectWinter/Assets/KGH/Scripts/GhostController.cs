@@ -2,8 +2,9 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class GhostController : MonoBehaviour
+public class GhostController : MonoBehaviourPun
 {
     private float aniSpeed = 0;
 
@@ -22,7 +23,7 @@ public class GhostController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
 
-        //if (photonView.isMine)
+        if (photonView.IsMine)
         {
             CinemachineVirtualCamera followCam = FindObjectOfType<CinemachineVirtualCamera>();
             followCam.LookAt = transform;

@@ -5536,13 +5536,15 @@ MonoBehaviour:
   weapon: {fileID: 2946341540094289389}
   fist: {fileID: 7152909172748167825}
   ui: {fileID: 6597706487353474727}
-  playerInventory: {fileID: 0}
+  _playerInventory: {fileID: 0}
   playerActionControler: {fileID: 0}
   playerItem: {fileID: 0}
   itemInHand: {fileID: 0}
   inven: {fileID: 0}
-  damage: 0
+  health: {fileID: 0}
   playerHealth: {fileID: 0}
+  damage: 0
+  inventoryClass: {fileID: 0}
 --- !u!114 &630844152944850945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5662,14 +5664,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb958f5190456db4082bfe2f90fa5fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory:
-  - {fileID: 6591346344680415182}
-  - {fileID: 757846975930773175}
-  - {fileID: 6563398500618552355}
-  - {fileID: 2540956972795214265}
   item: {fileID: 0}
   playerinventory: {fileID: 0}
-  inven: 0
   hp: 0
   cold: 0
   hunger: 0
@@ -5677,6 +5673,11 @@ MonoBehaviour:
   invenNumber: 0
   weapomInHand: 0
   foodInHand: 0
+  slotNum: 1
+  handChildTrans: {fileID: 0}
+  handItemClone: {fileID: 0}
+  handItemCopy: {fileID: 0}
+  health: {fileID: 0}
 --- !u!114 &5819366883051259965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8158,3 +8159,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   player: {fileID: 1931998680901495963}
+--- !u!114 &1198669322165606293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370397581863312534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
