@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 //using UnityEditor.PackageManager;
 using UnityEngine;
+using Photon.Pun;
 using static SG_Item;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : MonoBehaviourPun
 {
     //public List<GameObject> inventory;
 
@@ -159,21 +160,19 @@ public class PlayerInventory : MonoBehaviour
     {
         if (playerinventory.slots[(int)slotNum - 1].item != null)
         {
-            handItemClone = playerinventory.slots[(int)slotNum - 1].item.itemPrefab;
+            handItemClone = playerinventory.slots[(int)slotNum - 1].item.handPrefab;
         }
         else { /*PASS*/ }
 
         if (handItemClone != null)
         {
-            handItemClone = Instantiate(playerinventory.slots[(int)slotNum - 1].item.itemPrefab);
-            handItemClone.transform.SetParent(this.transform);
-
-            Collider collider = handItemClone.GetComponent<Collider>();
-            Rigidbody itemRb = handItemClone.transform.GetComponent<Rigidbody>();
-            collider.enabled = false;               // 콜라이더 컴포넌트 끄고
-            Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
-            handItemClone.transform.localPosition = Vector3.zero;
-            handItemClone.transform.localRotation = Quaternion.identity;
+            handItemClone = PhotonNetwork.Instantiate
+                (playerinventory.slots[(int)slotNum - 1].item.handPrefab.name,transform.position,Quaternion.identity);
+            photonView.RPC("ChangePositionItem", RpcTarget.All, handItemClone);
+            //Collider collider = handItemClone.GetComponent<Collider>();
+            //Rigidbody itemRb = handItemClone.transform.GetComponent<Rigidbody>();
+            //collider.enabled = false;               // 콜라이더 컴포넌트 끄고
+            //Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
             //handItemClone.transform.localScale = Vector3.one;
         }
         else { /*PASS*/ }
@@ -181,7 +180,7 @@ public class PlayerInventory : MonoBehaviour
     }
     public void Eat()
     {
-        health.health += playerinventory.slots[(int)slotNum - 1].item.itemHealth;
+        health.RestoreHealth(playerinventory.slots[(int)slotNum - 1].item.itemHealth);
         health.cold += playerinventory.slots[(int)slotNum - 1].item.itemWarmth;
         health.hunger += playerinventory.slots[(int)slotNum - 1].item.itemSatiety;
     }
@@ -197,17 +196,31 @@ public class PlayerInventory : MonoBehaviour
 
     public void Drop()
     {
+        handItemCopy = PhotonNetwork.Instantiate(playerinventory.slots[(int)slotNum - 1].item.name,
+            transform.position,Quaternion.identity);
+        photonView.RPC("ChangePositionItem", RpcTarget.All, handItemCopy);
+        //Rigidbody newRigidbody = handItemCopy.AddComponent<Rigidbody>();
+        //handItemCopy.GetComponent<Collider>().enabled = true;
+        photonView.RPC("SetParentNull", RpcTarget.All, handItemCopy);
+        PhotonNetwork.Destroy(handItemClone);
+    }
 
-        handItemCopy = Instantiate(handItemClone);
-        handItemCopy.transform.SetParent(this.transform);
-        handItemCopy.transform.localPosition = Vector3.zero;
-        handItemCopy.transform.localRotation = Quaternion.identity;
-        Rigidbody newRigidbody = handItemCopy.AddComponent<Rigidbody>();
-        handItemCopy.GetComponent<Collider>().enabled = true;
+    [PunRPC]
+    public void ChangePositionItem(GameObject item)
+    {
+        item.transform.SetParent(transform);
+        //Collider collider = handItemClone.GetComponent<Collider>();
+        //Rigidbody itemRb = handItemClone.transform.GetComponent<Rigidbody>();
+        //collider.enabled = false;               // 콜라이더 컴포넌트 끄고
+        //Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
+        item.transform.localPosition = Vector3.zero;
+        item.transform.localRotation = Quaternion.identity;
+    }
 
-        handItemCopy.transform.SetParent(null);
-
-        Destroy(handItemClone);
+    [PunRPC]
+    public void SetParentNull(GameObject item)
+    {
+        item.transform.SetParent(null);
     }
 
     // ------------------------------------------------------------------------------------------------------

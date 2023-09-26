@@ -4,8 +4,9 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class SG_PlayerActionControler : MonoBehaviour
+public class SG_PlayerActionControler : MonoBehaviourPun
 {
 
     [SerializeField]
@@ -134,7 +135,7 @@ public class SG_PlayerActionControler : MonoBehaviour
     // 아이템을 먹었다면 Distroy 해줄 함수
     public void ItemDestroy()
     {
-        Destroy(hitInfo.transform.gameObject);
+        PhotonNetwork.Destroy(hitInfo.transform.gameObject);
     }
 
     // ---------------------------------- 인벤토리 Open 함수 -----------------------------------

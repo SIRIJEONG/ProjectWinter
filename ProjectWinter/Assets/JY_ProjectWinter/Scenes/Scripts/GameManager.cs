@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     }
     void Awake()
     {
-        //캐릭터 산장 앞에 생성 (좌표 x : -200f z : 287f)
+        //캐릭터 산장 앞에 생성 (좌표 x : -200f z : 287f)        
         PhotonNetwork.Instantiate("Player", new Vector3(-200f, 1f, 287f), Quaternion.identity);
         PhotonNetwork.AutomaticallySyncScene = true;
     }

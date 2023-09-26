@@ -1674,19 +1674,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   doSomething: 0
-  weapon: {fileID: 1948394823190378183}
-  fist: {fileID: 5813487683657103803}
-  ui: {fileID: 7522796820926999949}
-  _playerInventory: {fileID: 2112663594529825275}
+  weapon: {fileID: 2946341540094289389}
+  fist: {fileID: 7152909172748167825}
+  ui: {fileID: 6597706487353474727}
+  _playerInventory: {fileID: 0}
   playerActionControler: {fileID: 0}
   playerItem: {fileID: 0}
   itemInHand: {fileID: 0}
   inven: {fileID: 0}
   health: {fileID: 0}
   playerHealth: {fileID: 0}
-  damage: 0
+  damage: 0s
   inventoryClass: {fileID: 0}
---- !u!114 &4262834806856624939
+--- !u!114 &630844152944850945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1799,8 +1799,34 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2965130322940592049}
-  m_Enabled: 1
+  m_GameObject: {fileID: 1931998680901495963}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb958f5190456db4082bfe2f90fa5fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  playerinventory: {fileID: 0}
+  hp: 0
+  cold: 0
+  hunger: 0
+  damage: 0
+  invenNumber: 0
+  weapomInHand: 0
+  foodInHand: 0
+  slotNum: 1
+  handChildTrans: {fileID: 0}
+  handItemClone: {fileID: 0}
+  handItemCopy: {fileID: 0}
+  health: {fileID: 0}
+--- !u!114 &5819366883051259965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931998680901495963}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c296670ea48e21641b5c41bba45aa343, type: 3}
   m_Name: 
