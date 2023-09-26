@@ -30,9 +30,9 @@ public class PlayerInventory : MonoBehaviourPun
     public bool weapomInHand = false;
     public bool foodInHand = false;
 
-    public float slotNum = 1;   // ÇöÀç ½½·ÔÀÌ ¹«¾úÀÎÁö Ã¼Å©ÇÒ º¯¼ö
+    public float slotNum = 1;   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    public Transform handChildTrans;   // ÀÚ½Ä¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏ´ÂÁö ÆÇº°ÇØÁÙ Transform
+    public Transform handChildTrans;   // ï¿½Ú½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ Transform
 
     public GameObject handItemClone;
 
@@ -66,7 +66,7 @@ public class PlayerInventory : MonoBehaviourPun
         //    else
         //    {
         //        Debug.Log(i + 1);
-        //        Debug.LogFormat("ÀÎº¥ {0}", inven);
+        //        Debug.LogFormat("ï¿½Îºï¿½ {0}", inven);
 
         //        inventory[i].SetActive(false);
         //    }            
@@ -127,62 +127,82 @@ public class PlayerInventory : MonoBehaviourPun
     }
 
 
-    private void InItNowSlotNum() // ÇöÀç ½½·ÔÀÌ ¹«¾ùÀÎÁö ÀÌº¥Æ®·Î È£Ãâ´çÇÒÇÔ¼ö
+    private void InItNowSlotNum() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½
     {
         slotNum = mouseScroll.slot;
 
         CheckHand();
     }
 
-    private void CheckHand()    // ÇöÀç ¼Õ¿¡ µç°ÍÀÌ ÀÖ´ÂÁö È®ÀÎÇÏ´Â ÇÔ¼ö
+    private void CheckHand()    // ï¿½ï¿½ï¿½ï¿½ ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     {
         //handChildTrans = this.transform.GetChild(0);
 
         handChildTrans = this.transform;
-        Debug.LogFormat("handChildTransCount ->  {0}", handChildTrans.childCount);
-        if (handChildTrans.childCount > 0)  //¼Õ¿¡ ¹«¾ð°¡ µé°í ÀÖ´Â°æ¿ì
+        //Debug.LogFormat("handChildTransCount ->  {0}", handChildTrans.childCount);
+        if (handChildTrans.childCount > 0)  //ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½ï¿½
         {
             Destroy(handItemClone);
-            NowItemSlotInstance();
+            //handItemClone = null;
+            foodInHand = false;
+            weapomInHand = false;
+            StartCoroutine(NowItemSlotInstance());
+
+
+            //NowItemSlotInstance();
         }
 
-        else if (handChildTrans.childCount == 0) //¼Õ¿¡ µé°í ÀÖ´Â ¾ÆÀÌÅÛÀÌ ¾ø´Â°æ¿ì
+        else if (handChildTrans.childCount == 0) //ï¿½Õ¿ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ï¿½
         {
-            NowItemSlotInstance();
+            handItemClone = null;
+            foodInHand = false;
+            weapomInHand = false;
+            StartCoroutine(NowItemSlotInstance());
+
+            //NowItemSlotInstance();
         }
 
-        else { Debug.Log("¹º°¡ Àß¸øµÇ¾ú´Ù"); }
+        else { Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ß¸ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½"); }
 
 
     }
 
-    private void NowItemSlotInstance()
+    private IEnumerator NowItemSlotInstance()
     {
+        yield return null;
+
         if (playerinventory.slots[(int)slotNum - 1].item != null)
         {
             handItemClone = playerinventory.slots[(int)slotNum - 1].item.handPrefab;
         }
         else { /*PASS*/ }
 
-        if (handItemClone != null)
+        if (handItemClone != null && handChildTrans.childCount == 0)
         {
             handItemClone = PhotonNetwork.Instantiate
                 (playerinventory.slots[(int)slotNum - 1].item.handPrefab.name,transform.position,Quaternion.identity);
             photonView.RPC("ChangePositionItem", RpcTarget.All, handItemClone);
             //Collider collider = handItemClone.GetComponent<Collider>();
             //Rigidbody itemRb = handItemClone.transform.GetComponent<Rigidbody>();
-            //collider.enabled = false;               // ÄÝ¶óÀÌ´õ ÄÄÆ÷³ÍÆ® ²ô°í
-            //Destroy(itemRb);                        // ¸®Áöµå¹Ùµð ¾ø¾Ú ( ¼Õ µû¶ó¿À°Ô ÇÏ±â À§ÇØ)
+            //collider.enabled = false;               // ï¿½Ý¶ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+            //Destroy(itemRb);                        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½)
             //handItemClone.transform.localScale = Vector3.one;
+
+
+            HandItemCheck();
         }
         else { /*PASS*/ }
 
     }
+
+    
     public void Eat()
     {
-        health.RestoreHealth(playerinventory.slots[(int)slotNum - 1].item.itemHealth);
-        health.cold += playerinventory.slots[(int)slotNum - 1].item.itemWarmth;
-        health.hunger += playerinventory.slots[(int)slotNum - 1].item.itemSatiety;
+        hp = playerinventory.slots[(int)slotNum - 1].item.itemHealth;
+        cold = playerinventory.slots[(int)slotNum - 1].item.itemWarmth;
+        hunger = playerinventory.slots[(int)slotNum - 1].item.itemSatiety;
+        Destroy(handItemClone);
+
     }
     public void MissItem()
     {
@@ -191,7 +211,28 @@ public class PlayerInventory : MonoBehaviourPun
         {
             playerinventory.slots[(int)slotNum - 1].DisconnectedItem();
         }
+        foodInHand = false;
+        weapomInHand = false;
+    }
 
+    private void HandItemCheck()
+    {
+        if (playerinventory.slots[(int)slotNum - 1].item.itemType == ItemType.Weapon)
+        {
+            damage = playerinventory.slots[(int)slotNum - 1].item.itemDamage;
+            weapomInHand = true;
+            foodInHand = false;
+        }
+        else if (playerinventory.slots[(int)slotNum - 1].item.itemType == ItemType.Used)
+        {
+            foodInHand = true;
+            weapomInHand = false;
+        }
+        else
+        {
+            foodInHand = false;
+            weapomInHand = false;
+        }
     }
 
     public void Drop()
@@ -211,8 +252,8 @@ public class PlayerInventory : MonoBehaviourPun
         item.transform.SetParent(transform);
         //Collider collider = handItemClone.GetComponent<Collider>();
         //Rigidbody itemRb = handItemClone.transform.GetComponent<Rigidbody>();
-        //collider.enabled = false;               // ÄÝ¶óÀÌ´õ ÄÄÆ÷³ÍÆ® ²ô°í
-        //Destroy(itemRb);                        // ¸®Áöµå¹Ùµð ¾ø¾Ú ( ¼Õ µû¶ó¿À°Ô ÇÏ±â À§ÇØ)
+        //collider.enabled = false;               // ï¿½Ý¶ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+        //Destroy(itemRb);                        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½)
         item.transform.localPosition = Vector3.zero;
         item.transform.localRotation = Quaternion.identity;
     }
@@ -222,24 +263,6 @@ public class PlayerInventory : MonoBehaviourPun
     {
         item.transform.SetParent(null);
     }
+}
 
     // ------------------------------------------------------------------------------------------------------
-
-    private void Heal()
-    {
-        if (item.itemName == "Carrot")
-        {
-            hp = 10;
-            cold = 5;
-            hunger = 20;
-        }
-    }
-
-    private void Damage()
-    {
-        if (item.name == "")
-        {
-            damage = 0;
-        }
-    }
-}
