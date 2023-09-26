@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WebSocketSharp;
 
 public class MouseScroll : MonoBehaviour
 {
@@ -10,33 +11,37 @@ public class MouseScroll : MonoBehaviour
 
     public event ScrollDelegate scrollEvent;
 
+    private PlayerController playerController;
     void Start()
     {
-        
+        playerController = transform.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        
-        if (scrollInput > 0f)
+        if (!playerController.doSomething && !playerController.eat && !playerController.isAttack)
         {
-            float verticalMovement = scrollInput * 10;
 
-            slot += verticalMovement;
-            invenCheck();
+            if (scrollInput > 0f)
+            {
+                float verticalMovement = scrollInput * 10;
 
-            scrollEvent?.Invoke();
-        }
-        else if (scrollInput < 0f)
-        {
-            float verticalMovement = scrollInput * 10;
+                slot += verticalMovement;
+                invenCheck();
 
-            slot += verticalMovement;
-            invenCheck();
+                scrollEvent?.Invoke();
+            }
+            else if (scrollInput < 0f)
+            {
+                float verticalMovement = scrollInput * 10;
 
-            scrollEvent?.Invoke();
+                slot += verticalMovement;
+                invenCheck();
+
+                scrollEvent?.Invoke();
+            }
         }
     }
 

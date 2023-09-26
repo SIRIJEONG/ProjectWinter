@@ -20,5 +20,5 @@ MonoBehaviour:
   itemDamage: 0
   itemHealth: 0
   itemWarmth: 0
-  itemSatiety: 0
+  itemSatiety: 10
   itemType: 1

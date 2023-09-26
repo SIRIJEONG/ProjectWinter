@@ -18,7 +18,7 @@ MonoBehaviour:
   handPrefab: {fileID: 295501102063401722, guid: 1c8067bea5822c34287001a4a9fa8668, type: 3}
   weaponType: 
   itemDamage: 0
-  itemHealth: 0
+  itemHealth: -4
   itemWarmth: 0
-  itemSatiety: 0
+  itemSatiety: 17
   itemType: 1

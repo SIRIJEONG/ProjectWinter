@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using static SG_Item;
-using static UnityEditor.Progress;
 
 public class PlayerController : MonoBehaviourPun
 {
@@ -34,7 +33,6 @@ public class PlayerController : MonoBehaviourPun
     public SG_Item playerItem;
     //public GameObject cameraObject;
 
-    private bool hand = false;      // 임시 : 손에 무기 들었는지
     public Transform itemInHand;
     public Transform inven;
     private bool itemSet = false;
@@ -55,9 +53,10 @@ public class PlayerController : MonoBehaviourPun
 
     // 공격관련
     private float attackPower;  // 마우스로 공격 차지
-    private bool isAttack;
-    public int damage;         // 줄 데미지
-    private bool eat = false;       // 임시로 넣은것, 나중에 음식을 먹으면 on, 회복 후 off로 재활용
+    public bool isAttack;
+    public float damage;         // 줄 데미지
+    public bool eat = false;       // 임시로 넣은것, 나중에 음식을 먹으면 on, 회복 후 off로 재활용
+    private bool hand = false;      // 임시 : 손에 무기 들었는지
     // 공격관련
 
     private CameraFollow cameraFollow;
@@ -184,7 +183,20 @@ public class PlayerController : MonoBehaviourPun
         if (doingTime > 2 && doSomething)       // 작업이 끝났을 때 행동을 멈추기
         {
             shouldStartTiming = false;
+            Debug.Log("111");
 
+            doingTime = 0;
+            uiFollowPlayer.currentValue = 0;
+            uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
+            doSomething = false;
+            animator.SetBool("DoSomething", doSomething);
+
+            DoSomething();
+        }
+        else if (doingTime > 2 && eat)       // 작업이 끝났을 때 행동을 멈추기
+        {
+            shouldStartTiming = false;
+            Debug.Log("123");
             doingTime = 0;
             uiFollowPlayer.currentValue = 0;
             uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
@@ -197,7 +209,7 @@ public class PlayerController : MonoBehaviourPun
 
     private void DoSomething()
     {
-        if (eat)
+        if (playerInventory.foodInHand)
         {
             // 먹은 음식에 따른 회복
             //playerInventory.playerinventory.slots[(int)inven].item
@@ -206,7 +218,16 @@ public class PlayerController : MonoBehaviourPun
             //playerHealth.hunger += playerInventory.hunger;
 
             playerInventory.Eat();
-   
+            playerInventory.MissItem();
+            health.RestoreHealth(playerInventory.hp);
+            health.cold += playerInventory.cold;
+            health.hunger += playerInventory.hunger;
+            
+            animator.SetBool("Eat", false);
+
+            eat = false;
+
+            playerInventory.foodInHand = false;
         }
 
         // 여기에 완료됐을때 상호작용을 실행할 코드를 추가해야됨
@@ -356,29 +377,31 @@ public class PlayerController : MonoBehaviourPun
     #region
     private void PLayerIsClick()
     {
-        if (Input.GetMouseButton(0) && !isAttack && !health.isInside && !health.isInside && !playerInventory.foodInHand)   // �߰����� : �տ� ������ ������
+        if (Input.GetMouseButton(0) && !isAttack && !health.isInside && !playerInventory.foodInHand)   // �߰����� : �տ� ������ ������
         {
             Attack();
             uiFollowPlayer.Gauge(120);
         }       
-        else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside && !health.isInside && !playerInventory.foodInHand)    // �߰����� : �տ� ������ ������
+        else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside)    // �߰����� : �տ� ������ ������
         {
-            if (!eat)
+            if (!playerInventory.foodInHand)
             {
                 isAttack = true;
                 uiFollowPlayer.currentValue = 0;
                 uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
                 StartCoroutine(EndAttack());
             }
-            else
+            else if (playerInventory.foodInHand && eat)
             {
+                animator.SetBool("Eat", false);
                 eat = false;
                 doSomething = false;
                 shouldStartTiming = false;
-
+                uiFollowPlayer.currentValue = 0;
+                uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
             }
         }
-        else if (playerInventory.foodInHand)//(������ �տ� ������)
+        else if (Input.GetMouseButton(0) && !isAttack && playerInventory.foodInHand)//(������ �տ� ������)
         {
             uiFollowPlayer.Gauge(120);
             StartCoroutine(Eat());
@@ -387,7 +410,7 @@ public class PlayerController : MonoBehaviourPun
 
     private void Attack()
     {
-        if(!hand)
+        if(!playerInventory.weapomInHand)
         {       //������ �ȵ������
             animator.SetBool("Weapon", false);
             animator.SetBool("Charge", true);
@@ -404,14 +427,15 @@ public class PlayerController : MonoBehaviourPun
     }
 
     private IEnumerator EndAttack()
-    {
-        
-        if (!hand)
+    {        
+        if (!playerInventory.weapomInHand)
         {       //������ �ȵ������
-            if (attackPower >= 0.9f)           // ������ ��ġ ���� �ʿ�
-            { damage = 2; }
-            else
-            { damage = 1; }
+            if (attackPower >= 1f)           // ������ ��ġ ���� �ʿ�
+            {
+                attackPower = 1f;
+            }
+            damage = playerInventory.damage * (1.0f + attackPower * (4 - 1)); 
+           
 
             animator.SetBool("Charge", false);
 
@@ -426,17 +450,18 @@ public class PlayerController : MonoBehaviourPun
         }
         else
         {       //������ �������
-            if (attackPower >= 0.9f)           // ������ ��ġ ���� �ʿ�
-            { damage = 2; }
-            else
-            { damage = 1; }
+            if (attackPower >= 1f)           // ������ ��ġ ���� �ʿ�
+            {
+                attackPower = 1f;
+            }
+            damage = 2 * (1.0f + attackPower * (4 - 1));
 
             animator.SetBool("Charge", false);
 
             animator.SetBool("attack", isAttack);
             yield return new WaitForSeconds(0.1f);
             weapon.SetActive(true);
-            yield return new WaitForSeconds(0.9f);
+            yield return new WaitForSeconds(0.6f);
             weapon.SetActive(false);
 
             isAttack = false;
@@ -447,12 +472,12 @@ public class PlayerController : MonoBehaviourPun
 
     private IEnumerator Eat()
     {
-        eat = true;
-
+        doSomething = true;
         shouldStartTiming = true;
         startTime = Time.time;
         animator.SetBool("Eat", true);
-        yield return new WaitForSeconds(1.2f);
+        eat = true;
+        yield return null;
 
     }
 

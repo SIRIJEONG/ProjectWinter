@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
+//using UnityEditor.PackageManager;
 using UnityEngine;
 using static SG_Item;
 //using static UnityEditor.Progress;
@@ -139,16 +139,27 @@ public class PlayerInventory : MonoBehaviour
         //handChildTrans = this.transform.GetChild(0);
 
         handChildTrans = this.transform;
-        Debug.LogFormat("handChildTransCount ->  {0}", handChildTrans.childCount);
+        //Debug.LogFormat("handChildTransCount ->  {0}", handChildTrans.childCount);
         if (handChildTrans.childCount > 0)  //손에 무언가 들고 있는경우
         {
             Destroy(handItemClone);
-            NowItemSlotInstance();
+            //handItemClone = null;
+            foodInHand = false;
+            weapomInHand = false;
+            StartCoroutine(NowItemSlotInstance());
+
+
+            //NowItemSlotInstance();
         }
 
         else if (handChildTrans.childCount == 0) //손에 들고 있는 아이템이 없는경우
         {
-            NowItemSlotInstance();
+            handItemClone = null;
+            foodInHand = false;
+            weapomInHand = false;
+            StartCoroutine(NowItemSlotInstance());
+
+            //NowItemSlotInstance();
         }
 
         else { Debug.Log("뭔가 잘못되었다"); }
@@ -156,35 +167,46 @@ public class PlayerInventory : MonoBehaviour
 
     }
 
-    private void NowItemSlotInstance()
+    private IEnumerator NowItemSlotInstance()
     {
+        yield return null;
+
         if (playerinventory.slots[(int)slotNum - 1].item != null)
         {
-            handItemClone = playerinventory.slots[(int)slotNum - 1].item.itemPrefab;
+            handItemClone = playerinventory.slots[(int)slotNum - 1].item.handPrefab;
         }
         else { /*PASS*/ }
 
-        if (handItemClone != null)
+        if (handItemClone != null && handChildTrans.childCount == 0)
         {
-            handItemClone = Instantiate(playerinventory.slots[(int)slotNum - 1].item.itemPrefab);
+            //Debug.Log(playerinventory.slots[(int)slotNum - 1].item.handPrefab.name);
+            handItemClone = Instantiate(playerinventory.slots[(int)slotNum - 1].item.handPrefab);
             handItemClone.transform.SetParent(this.transform);
 
-            Collider collider = handItemClone.GetComponent<Collider>();
-            Rigidbody itemRb = handItemClone.transform.GetComponent<Rigidbody>();
-            collider.enabled = false;               // 콜라이더 컴포넌트 끄고
-            Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
+
+            //Collider collider = handItemClone.GetComponent<Collider>();
+            //Rigidbody itemRb = handItemClone.transform.GetComponent<Rigidbody>();
+            //collider.enabled = false;               // 콜라이더 컴포넌트 끄고
+            //Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
             handItemClone.transform.localPosition = Vector3.zero;
             handItemClone.transform.localRotation = Quaternion.identity;
             //handItemClone.transform.localScale = Vector3.one;
+
+
+            HandItemCheck();
         }
         else { /*PASS*/ }
 
     }
+
+    
     public void Eat()
     {
-        health.health += playerinventory.slots[(int)slotNum - 1].item.itemHealth;
-        health.cold += playerinventory.slots[(int)slotNum - 1].item.itemWarmth;
-        health.hunger += playerinventory.slots[(int)slotNum - 1].item.itemSatiety;
+        hp = playerinventory.slots[(int)slotNum - 1].item.itemHealth;
+        cold = playerinventory.slots[(int)slotNum - 1].item.itemWarmth;
+        hunger = playerinventory.slots[(int)slotNum - 1].item.itemSatiety;
+        Destroy(handItemClone);
+
     }
     public void MissItem()
     {
@@ -193,41 +215,45 @@ public class PlayerInventory : MonoBehaviour
         {
             playerinventory.slots[(int)slotNum - 1].DisconnectedItem();
         }
+        foodInHand = false;
+        weapomInHand = false;
+    }
 
+    private void HandItemCheck()
+    {
+        if (playerinventory.slots[(int)slotNum - 1].item.itemType == ItemType.Weapon)
+        {
+            damage = playerinventory.slots[(int)slotNum - 1].item.itemDamage;
+            weapomInHand = true;
+            foodInHand = false;
+        }
+        else if (playerinventory.slots[(int)slotNum - 1].item.itemType == ItemType.Used)
+        {
+            foodInHand = true;
+            weapomInHand = false;
+        }
+        else
+        {
+            foodInHand = false;
+            weapomInHand = false;
+        }
     }
 
     public void Drop()
     {
+        handItemClone = Instantiate(playerinventory.slots[(int)slotNum - 1].item.itemPrefab);
 
-        handItemCopy = Instantiate(handItemClone);
+        //handItemCopy = Instantiate(handItemClone);
         handItemCopy.transform.SetParent(this.transform);
         handItemCopy.transform.localPosition = Vector3.zero;
         handItemCopy.transform.localRotation = Quaternion.identity;
         Rigidbody newRigidbody = handItemCopy.AddComponent<Rigidbody>();
-        handItemCopy.GetComponent<Collider>().enabled = true;
+        //handItemCopy.GetComponent<Collider>().enabled = true;
 
         handItemCopy.transform.SetParent(null);
 
         Destroy(handItemClone);
     }
+}
 
     // ------------------------------------------------------------------------------------------------------
-
-    private void Heal()
-    {
-        if (item.itemName == "Carrot")
-        {
-            hp = 10;
-            cold = 5;
-            hunger = 20;
-        }
-    }
-
-    private void Damage()
-    {
-        if (item.name == "")
-        {
-            damage = 0;
-        }
-    }
-}
