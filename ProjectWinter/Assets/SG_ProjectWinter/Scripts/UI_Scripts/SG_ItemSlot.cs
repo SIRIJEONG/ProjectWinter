@@ -158,15 +158,7 @@ public class SG_ItemSlot : MonoBehaviour
             tempObj = tempObj002.gameObject.transform.GetChild(0).gameObject;
             text_Count = tempObj.GetComponent<TextMeshProUGUI>();
 
-
             TextSpriteUpdateCoroutine = StartCoroutine(SetItemSprite_Count());
-
-            //// 스프라이트와 텍스트 출력
-            //text_Count.text = itemCount.ToString();
-            //itemImage.sprite = item.itemImage;
-
-            //// Canvas재설정
-            //ItemImageGetScript();  //스크립트 가져오기 시도
 
         }
         else { /*PASS*/ }

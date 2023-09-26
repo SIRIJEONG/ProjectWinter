@@ -15,5 +15,10 @@ MonoBehaviour:
   itemName: RawMeat
   itemImage: {fileID: 21300000, guid: e2272f79a0c55b640a930fd28d9e7463, type: 3}
   itemPrefab: {fileID: 7773602194585776036, guid: 78f93aafc4f94df4c9b46f98ba2fddfa, type: 3}
+  handPrefab: {fileID: 295501102063401722, guid: 1c8067bea5822c34287001a4a9fa8668, type: 3}
   weaponType: 
+  itemDamage: 0
+  itemHealth: 0
+  itemWarmth: 0
+  itemSatiety: 0
   itemType: 1

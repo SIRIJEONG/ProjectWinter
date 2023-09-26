@@ -15,5 +15,10 @@ MonoBehaviour:
   itemName: CookedMeat
   itemImage: {fileID: 21300000, guid: 93dc52e85ddbcee4d8dee139817d9a39, type: 3}
   itemPrefab: {fileID: 7665561979490874879, guid: df37be112d93ef241bffe9807788fc0d, type: 3}
+  handPrefab: {fileID: 7665561979490874879, guid: 0f4645a873cec7a44b8e8a7c1b2f4992, type: 3}
   weaponType: 
+  itemDamage: 0
+  itemHealth: 0
+  itemWarmth: 0
+  itemSatiety: 0
   itemType: 1
