@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 //using UnityEditor.PackageManager;
 using UnityEngine;
+using Photon.Pun;
 using static SG_Item;
 //using static UnityEditor.Progress;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : MonoBehaviourPun
 {
     //public List<GameObject> inventory;
 
@@ -83,6 +84,8 @@ public class PlayerInventory : MonoBehaviour
 
     public void InItNowSlotNum() // 현재 슬롯이 무엇인지 이벤트로 호출당할함수
     {
+        if (!photonView.IsMine)
+        { return; }
         slotNum = mouseScroll.slot;
 
         CheckHand();

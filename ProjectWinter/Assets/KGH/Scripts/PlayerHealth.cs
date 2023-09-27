@@ -6,6 +6,9 @@ using Photon.Pun;
 public class PlayerHealth : LivingEntity
 {
     private Animator animator;
+    private AudioSource sound;
+    public AudioClip hurt;
+
 
     // 체력관련
     public float playerDown = 100;
@@ -33,7 +36,8 @@ public class PlayerHealth : LivingEntity
 
         // onDeath += Down;
         playerEnd = false;
-
+        sound = GetComponent<AudioSource>();
+        sound.clip = hurt;
     }
 
     // Update is called once per frame
@@ -171,6 +175,7 @@ public class PlayerHealth : LivingEntity
             Vector3 hitpoint = other.ClosestPoint(transform.position);
             Vector3 hitnormal = transform.position - other.transform.position;
             photonView.RPC("OnDamage", RpcTarget.MasterClient, getdamage, hitpoint, hitnormal);
+            sound.Play();
         }
         if (other.CompareTag("Building"))
         {
