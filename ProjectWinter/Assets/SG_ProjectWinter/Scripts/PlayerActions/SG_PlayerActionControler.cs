@@ -114,17 +114,17 @@ public class SG_PlayerActionControler : MonoBehaviour
     // 아이템을 인벤토리에 넣는 함수
     public void CanPickUp()
     {
-        //if (pickupActivated == true)
-        //{
+        if (pickupActivated == true)
+        {
             if (hitInfo.transform != null)
             {
                 //Debug.Log("아이템 획득");
                 theInventory.AcquireItem(hitInfo.transform.GetComponent<SG_ItemPickUp>().item);
-                //Destroy(hitInfo.transform.gameObject);
                 InfoDisappear();
+                //Destroy(hitInfo.transform.gameObject);
 
             }
-        //}
+        }
     }
 
     // TODO : 위 함수가 발동 되었을때에 인벤토리에서 비어있는곳을 찾아 넣는데 들어갔는지 못들어갔는지 확인하고

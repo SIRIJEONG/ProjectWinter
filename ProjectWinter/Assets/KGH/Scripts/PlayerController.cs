@@ -31,11 +31,9 @@ public class PlayerController : MonoBehaviourPun
     public GameObject _playerInventory;
     public SG_PlayerActionControler playerActionControler;
     public SG_Item playerItem;
-    //public GameObject cameraObject;
 
     public Transform itemInHand;
     public Transform inven;
-    private bool itemSet = false;
 
 
     private RaycastHit hitInfo;
@@ -56,13 +54,16 @@ public class PlayerController : MonoBehaviourPun
     public bool isAttack;
     public float damage;         // 줄 데미지
     public bool eat = false;       // 임시로 넣은것, 나중에 음식을 먹으면 on, 회복 후 off로 재활용
-    private bool hand = false;      // 임시 : 손에 무기 들었는지
     // 공격관련
 
     private CameraFollow cameraFollow;
 
     public SG_Inventory inventoryClass;
 
+    private bool setTimel = false;
+    private bool setAttack = false;
+
+    public RectTransform targetArea; // 마우스 클릭 불가한 공간
 
     private void Start()
     {
@@ -79,8 +80,6 @@ public class PlayerController : MonoBehaviourPun
 
         health = transform.GetComponent<PlayerHealth>();
 
-        //playerItem = GetComponent<SG_Item>();
-
         if (photonView.IsMine)
         {
             CinemachineVirtualCamera followCam = FindObjectOfType<CinemachineVirtualCamera>();
@@ -88,7 +87,6 @@ public class PlayerController : MonoBehaviourPun
             cameraFollow = transform.GetComponent<CameraFollow>();
             cameraFollow.playerController = this;
             cameraFollow.toFallow = transform;
-            //followCam.LookAt = transform;
         }
     }
 
@@ -96,32 +94,43 @@ public class PlayerController : MonoBehaviourPun
     {
         if (!photonView.IsMine)
         { return; }
-        animator.SetBool("attack", isAttack);
+        PlayerAction();
+    }
+
+    private void PlayerAction()
+    {
         if (!doSomething && !health.isDead)
         {
             PlayerMove();
             if (!health.isDown)
             {
-                PLayerIsClick();
+                // 마우스 포인터의 스크린 좌표를 RectTransform의 로컬 좌표로 변환합니다.
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(targetArea, Input.mousePosition, null, out Vector2 localMousePos);
+
+                // 로컬 좌표가 RectTransform의 경계 내에 있는지 확인합니다.
+                bool isMouseOverTargetArea = targetArea.rect.Contains(localMousePos);
+
+                // 특정 영역 안에 클릭이 발생한 경우
+                if (!isMouseOverTargetArea)
+                {
+                    PLayerIsClick();
+                }
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && !doSomething && !isAttack && !eat && !setAttack)
         {
-            if(playerInventory.handItemClone != null)
+            if (playerInventory.handItemClone != null)
             {
-                //Drop();
-                playerInventory.MissItem();
                 playerInventory.Drop();
+                playerInventory.MissItem();
             }
         }
 
         if (shouldStartTiming)
         {
             doingTime = Time.time - startTime;
-        }
-
-       // itemInHand.Item = playerItem.itemType
+        }   
 
         Debug.DrawRay(transform.position, transform.forward * 1.0f, Color.magenta);
 
@@ -154,14 +163,13 @@ public class PlayerController : MonoBehaviourPun
                 }
                 // 플레이어의 앞에 있는 물체를 판별
                 else
-                {   }
+                { }
             }
 
         }
         else if (Input.GetKey(KeyCode.E) && doSomething && !health.isDead && !health.isDown)
         {
             uiFollowPlayer.Gauge(60);
-
         }
         else if (Input.GetKeyUp(KeyCode.E) && doSomething && !health.isDead && !health.isDown)  // E키를 떼면 작업을 멈추기
         {
@@ -183,7 +191,6 @@ public class PlayerController : MonoBehaviourPun
         if (doingTime > 2 && doSomething)       // 작업이 끝났을 때 행동을 멈추기
         {
             shouldStartTiming = false;
-            Debug.Log("111");
 
             doingTime = 0;
             uiFollowPlayer.currentValue = 0;
@@ -196,7 +203,6 @@ public class PlayerController : MonoBehaviourPun
         else if (doingTime > 2 && eat)       // 작업이 끝났을 때 행동을 멈추기
         {
             shouldStartTiming = false;
-            Debug.Log("123");
             doingTime = 0;
             uiFollowPlayer.currentValue = 0;
             uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
@@ -209,14 +215,8 @@ public class PlayerController : MonoBehaviourPun
 
     private void DoSomething()
     {
-        if (playerInventory.foodInHand)
+        if (playerInventory.foodInHand && eat)
         {
-            // 먹은 음식에 따른 회복
-            //playerInventory.playerinventory.slots[(int)inven].item
-            //playerHealth.health += playerInventory.hp;
-            //playerHealth.cold += playerInventory.cold;
-            //playerHealth.hunger += playerInventory.hunger;
-
             playerInventory.Eat();
             playerInventory.MissItem();
             health.RestoreHealth(playerInventory.hp);
@@ -226,17 +226,17 @@ public class PlayerController : MonoBehaviourPun
             animator.SetBool("Eat", false);
 
             eat = false;
+            setTimel = false;
 
             playerInventory.foodInHand = false;
         }
 
-        // 여기에 완료됐을때 상호작용을 실행할 코드를 추가해야됨
         if (doingCase == 1)
         {
             //아이템
-            //PickUp();
             playerActionControler.TryAction();
             animator.SetBool("Looting", false);
+            playerInventory.InItNowSlotNum();
 
             doingCase = 0;
         }
@@ -268,44 +268,8 @@ public class PlayerController : MonoBehaviourPun
         playerHealth.playerDown = 100;
         playerHealth.isDown = false;
     }
-    //private void duplicationChek()
-    //{
-    //    for (int i = 0; playerInventory.inventory.Count > i; i++)
-    //    {
-    //        SG_Item item = playerInventory.inventory[i].transform.GetChild(0).GetComponent<SG_Item>();
-    //        SG_Item.ItemType itemType = item.itemType;
-
-    //        if ( itemType == SG_Item.ItemType.Used ) // 소비탬일떄
-    //        {
-    //            if (playerInventory.inventory[i].transform.GetChild(0).name == hitInfo.transform.name) // 아이탬이 같을때
-    //            {
-    //                if (playerInventory.inventory[i].transform.childCount < 3) // 3개 미만일떄
-    //                {
-    //                    AddItem(playerInventory.inventory[i].transform);
-    //                }
-    //                else if(playerInventory.inventory[i].transform.childCount >= 3/*탬창이 비었을때*/)
-    //                {
-
-    //                }
-    //            }
-    //            else if(playerInventory.inventory[i].transform.GetChild(0).name != hitInfo.transform.name/*아이탬이 다를때*/)
-    //            {
-    //                for(int j = 0; j < playerInventory.inventory.Count; j++)
-    //                {
-
-    //                }
-    //            }
-    //        }
-    //        else
-    //        {
-
-    //        }
-
-    //        // 인벤이 꽉 차 있을때
-
-    //    }
-    //}
-    private void PickUp()//Transform _inven)
+   
+    private void PickUp()
     {
         itemInHand = hitInfo.transform;
         itemInHand.transform.SetParent(inven); //(_inven);
@@ -381,36 +345,42 @@ public class PlayerController : MonoBehaviourPun
         {
             Attack();
             uiFollowPlayer.Gauge(120);
-        }       
+        }
         else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside)    // �߰����� : �տ� ������ ������
         {
             if (!playerInventory.foodInHand)
             {
                 isAttack = true;
-                uiFollowPlayer.currentValue = 0;
-                uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
+                GaugeReset();
                 StartCoroutine(EndAttack());
             }
             else if (playerInventory.foodInHand && eat)
             {
                 animator.SetBool("Eat", false);
                 eat = false;
+                setTimel = false;
                 doSomething = false;
                 shouldStartTiming = false;
-                uiFollowPlayer.currentValue = 0;
-                uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
+                GaugeReset();
             }
         }
         else if (Input.GetMouseButton(0) && !isAttack && playerInventory.foodInHand)//(������ �տ� ������)
         {
             uiFollowPlayer.Gauge(120);
-            StartCoroutine(Eat());
+            Eat();
         }
+    }
+
+    private void GaugeReset()
+    {
+        uiFollowPlayer.currentValue = 0;
+        uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
     }
 
     private void Attack()
     {
-        if(!playerInventory.weapomInHand)
+        setAttack = true;
+        if (!playerInventory.weapomInHand)
         {       //������ �ȵ������
             animator.SetBool("Weapon", false);
             animator.SetBool("Charge", true);
@@ -446,6 +416,8 @@ public class PlayerController : MonoBehaviourPun
             fist.SetActive(false);
 
             isAttack = false;
+            animator.SetBool("attack", isAttack);
+
             attackPower = 0;
         }
         else
@@ -465,22 +437,24 @@ public class PlayerController : MonoBehaviourPun
             weapon.SetActive(false);
 
             isAttack = false;
+            animator.SetBool("attack", isAttack);
+
             attackPower = 0;
         }
-        
+        setAttack = false;
     }
 
-    private IEnumerator Eat()
+    private void Eat()
     {
-        doSomething = true;
         shouldStartTiming = true;
-        startTime = Time.time;
+        if (!setTimel)
+        {
+            startTime = Time.time;
+            setTimel = true;
+        }
         animator.SetBool("Eat", true);
         eat = true;
-        yield return null;
-
     }
-
     #endregion
     // 공격
 
@@ -519,19 +493,12 @@ public class PlayerController : MonoBehaviourPun
        
     // 실내 여부
     #region
-    // ###########################
-    // isMine일때만 실행
-    // ###########################
-
     private void OnTriggerEnter(Collider other)
     {
         if (!photonView.IsMine)
         { return; }
         if (other.CompareTag("Building"))           // 플레이어가 건물 안으로 들어갔으면
-        {
-            //cameraObject = GameObject.Find("CM vcam1");
-            //CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // 카메라를 둘 오브잭트를 찾아 카메라를 둠
-            cameraFollow.inside = other.gameObject;
+        {           
             cameraFollow.isInside = true;           
         }
     }
@@ -540,21 +507,10 @@ public class PlayerController : MonoBehaviourPun
         if (!photonView.IsMine)
         { return; }
         if (other.CompareTag("Building"))
-        {
-            //cameraObject = GameObject.Find("CM vcam1");
-            //CameraFollow cameraFollow = cameraObject.gameObject.GetComponent<CameraFollow>(); // 카메라를 둘 오브잭트를 찾아 카메라를 둠
-            //bool isInside = cameraFollow.isInside;
+        {            
             cameraFollow.isInside =  false;
-            
-            //if (photonView.isMine)
-            //{
-            //    CinemachineVirtualCamera followCam = FindObjectOfType<CinemachineVirtualCamera>();
-            //    followCam.LookAt = transform;
-            //}
         }
     }
     #endregion
     // 실내 여부
-
 }
-//animator.SetLayerWeight(1, 0.0f);       // 두번째(1) 레이어의 애니메이션을 멈춤

@@ -49,51 +49,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update()
     {
-        //for(int i = 0; i < inventory.Count; i++)
-        //{         
-        //    if((int)inven - 1 == i)
-        //    {
-        //        inventory[i].SetActive(true);
-        //        playercontroller.inven = inventory[i].transform;
-        //        invenNumber = i;
 
-        //        if(inventory[i].transform.GetChild(0) != null)
-        //        {
-        //            playercontroller.itemInHand = inventory[i].transform.GetChild(0);
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        Debug.Log(i + 1);
-        //        Debug.LogFormat("인벤 {0}", inven);
-
-        //        inventory[i].SetActive(false);
-        //    }            
-        //}
-
-
-
-        //if (playerinventory.slots[(int)slotNum].item != null)
-        //{
-        //    if (playerinventory.slots[(int)slotNum].item.itemType == ItemType.Weapon)
-        //    {
-        //        Damage();
-        //        weapomInHand = true;
-        //        foodInHand = false;
-        //    }
-        //    else if (playerinventory.slots[(int)slotNum].item.itemType == ItemType.Used)
-        //    {
-        //        Heal();
-        //        foodInHand = true;
-        //        weapomInHand = false;
-        //    }
-        //    else
-        //    {
-        //        weapomInHand = false;
-        //        foodInHand = false;
-        //    }
-        //}
     }
 
     //-----------------------------------------------------------------------------------------------------
@@ -106,8 +62,6 @@ public class PlayerInventory : MonoBehaviour
         mouseScroll = topParentTrans.GetComponent<MouseScroll>();
 
         playercontroller = topParentTrans.GetComponent<PlayerController>();
-
-        //playerinventory = gameObject.GetComponent<SG_Inventory>();
 
         playercontroller.inventoryClass = playerinventory;
 
@@ -127,7 +81,7 @@ public class PlayerInventory : MonoBehaviour
     }
 
 
-    private void InItNowSlotNum() // 현재 슬롯이 무엇인지 이벤트로 호출당할함수
+    public void InItNowSlotNum() // 현재 슬롯이 무엇인지 이벤트로 호출당할함수
     {
         slotNum = mouseScroll.slot;
 
@@ -136,20 +90,15 @@ public class PlayerInventory : MonoBehaviour
 
     private void CheckHand()    // 현재 손에 든것이 있는지 확인하는 함수
     {
-        //handChildTrans = this.transform.GetChild(0);
-
         handChildTrans = this.transform;
-        //Debug.LogFormat("handChildTransCount ->  {0}", handChildTrans.childCount);
+
         if (handChildTrans.childCount > 0)  //손에 무언가 들고 있는경우
         {
-            Destroy(handItemClone);
-            //handItemClone = null;
+            DestroyImmediate(handItemClone);
+            handItemClone = null;
             foodInHand = false;
             weapomInHand = false;
             StartCoroutine(NowItemSlotInstance());
-
-
-            //NowItemSlotInstance();
         }
 
         else if (handChildTrans.childCount == 0) //손에 들고 있는 아이템이 없는경우
@@ -158,13 +107,9 @@ public class PlayerInventory : MonoBehaviour
             foodInHand = false;
             weapomInHand = false;
             StartCoroutine(NowItemSlotInstance());
-
-            //NowItemSlotInstance();
         }
 
         else { Debug.Log("뭔가 잘못되었다"); }
-
-
     }
 
     private IEnumerator NowItemSlotInstance()
@@ -179,19 +124,11 @@ public class PlayerInventory : MonoBehaviour
 
         if (handItemClone != null && handChildTrans.childCount == 0)
         {
-            //Debug.Log(playerinventory.slots[(int)slotNum - 1].item.handPrefab.name);
             handItemClone = Instantiate(playerinventory.slots[(int)slotNum - 1].item.handPrefab);
             handItemClone.transform.SetParent(this.transform);
 
-
-            //Collider collider = handItemClone.GetComponent<Collider>();
-            //Rigidbody itemRb = handItemClone.transform.GetComponent<Rigidbody>();
-            //collider.enabled = false;               // 콜라이더 컴포넌트 끄고
-            //Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
             handItemClone.transform.localPosition = Vector3.zero;
             handItemClone.transform.localRotation = Quaternion.identity;
-            //handItemClone.transform.localScale = Vector3.one;
-
 
             HandItemCheck();
         }
@@ -206,7 +143,6 @@ public class PlayerInventory : MonoBehaviour
         cold = playerinventory.slots[(int)slotNum - 1].item.itemWarmth;
         hunger = playerinventory.slots[(int)slotNum - 1].item.itemSatiety;
         Destroy(handItemClone);
-
     }
     public void MissItem()
     {
@@ -217,6 +153,22 @@ public class PlayerInventory : MonoBehaviour
         }
         foodInHand = false;
         weapomInHand = false;
+    }
+    public void Drop()
+    {
+        Debug.LogFormat("slotNum  {0}", playerinventory.slots[(int)slotNum]);
+        handItemCopy = Instantiate(playerinventory.slots[(int)slotNum - 1].item.itemPrefab);
+
+        handItemCopy.transform.SetParent(this.transform);
+        handItemCopy.transform.localPosition = Vector3.zero;
+        handItemCopy.transform.localRotation = Quaternion.identity;
+        Rigidbody newRigidbody = handItemCopy.AddComponent<Rigidbody>();
+
+        handItemCopy.transform.SetParent(null);
+        if(playerinventory.slots[(int)slotNum - 1].itemCount == 1)
+        {
+            Destroy(handItemClone);
+        }
     }
 
     private void HandItemCheck()
@@ -237,23 +189,7 @@ public class PlayerInventory : MonoBehaviour
             foodInHand = false;
             weapomInHand = false;
         }
-    }
-
-    public void Drop()
-    {
-        handItemClone = Instantiate(playerinventory.slots[(int)slotNum - 1].item.itemPrefab);
-
-        //handItemCopy = Instantiate(handItemClone);
-        handItemCopy.transform.SetParent(this.transform);
-        handItemCopy.transform.localPosition = Vector3.zero;
-        handItemCopy.transform.localRotation = Quaternion.identity;
-        Rigidbody newRigidbody = handItemCopy.AddComponent<Rigidbody>();
-        //handItemCopy.GetComponent<Collider>().enabled = true;
-
-        handItemCopy.transform.SetParent(null);
-
-        Destroy(handItemClone);
-    }
+    }   
 }
 
     // ------------------------------------------------------------------------------------------------------
