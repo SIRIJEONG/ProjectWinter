@@ -39,15 +39,15 @@ public class HeliPad : MonoBehaviourPun
                 }
             }
         }
-        photonView.RPC("AddEscapePalyerList", RpcTarget.All, playerActorNum, escapePlayer);
+        photonView.RPC("AddEscapePalyerList", RpcTarget.All, playerActorNum);
 
     }
 
     [PunRPC]
-    public void AddEscapePalyerList(int playerActorNum_ , GameObject escapePlayer_)
+    public void AddEscapePalyerList(int playerActorNum_)
     {
         GameManager.instance.escapePlayerList.Add(playerActorNum_);
-        escapePlayer_.SetActive(false);
+        escapePlayer.SetActive(false);
     }
 
 

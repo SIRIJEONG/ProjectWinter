@@ -149,6 +149,8 @@ GameObject:
   - component: {fileID: 6821628706376860073}
   - component: {fileID: 6821628706376860074}
   - component: {fileID: 2406612508766454950}
+  - component: {fileID: 2860960188226926508}
+  - component: {fileID: -585878771377401621}
   m_Layer: 5
   m_Name: MissionSlot01
   m_TagString: ItemSlot
@@ -246,6 +248,7 @@ MonoBehaviour:
   itemImage: {fileID: 0}
   text_Count: {fileID: 0}
   itemCountImg: {fileID: 0}
+  itemCountImage: {fileID: 0}
   slotTopParentObj: {fileID: 0}
 --- !u!114 &2406612508766454950
 MonoBehaviour:
@@ -266,3 +269,41 @@ MonoBehaviour:
   itemImageObj: {fileID: 5055461764579745357, guid: 73c8ee7e8ceff0147bc00d38ce74f0e3, type: 3}
   wantItemCountText: {fileID: 2564552489005606421}
   wantItemCount: 0
+--- !u!114 &2860960188226926508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6821628706376860076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &-585878771377401621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6821628706376860076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1

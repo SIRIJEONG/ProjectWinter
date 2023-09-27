@@ -142,7 +142,7 @@ public class PlayerInventory : MonoBehaviourPun
         //Debug.LogFormat("handChildTransCount ->  {0}", handChildTrans.childCount);
         if (handChildTrans.childCount > 0)  //�տ� ���� ��� �ִ°��
         {
-            Destroy(handItemClone);
+            PhotonNetwork.Destroy(handItemClone);
             //handItemClone = null;
             foodInHand = false;
             weapomInHand = false;
@@ -180,8 +180,13 @@ public class PlayerInventory : MonoBehaviourPun
         if (handItemClone != null && handChildTrans.childCount == 0)
         {
             handItemClone = PhotonNetwork.Instantiate
-                (playerinventory.slots[(int)slotNum - 1].item.handPrefab.name,transform.position,Quaternion.identity);
-            photonView.RPC("ChangePositionItem", RpcTarget.All, handItemClone);
+                (playerinventory.slots[(int)slotNum - 1].item.handPrefab.name, transform.position, Quaternion.identity);
+
+            Debug.Log("RPC 부르기 전까진 오는가?");
+
+            photonView.RPC("ChangePositionItemScroll", RpcTarget.All);
+
+            Debug.Log("RPC 부른후 오는가?");
             //Collider collider = handItemClone.GetComponent<Collider>();
             //Rigidbody itemRb = handItemClone.transform.GetComponent<Rigidbody>();
             //collider.enabled = false;               // �ݶ��̴� ������Ʈ ����
@@ -195,18 +200,18 @@ public class PlayerInventory : MonoBehaviourPun
 
     }
 
-    
+
     public void Eat()
     {
         hp = playerinventory.slots[(int)slotNum - 1].item.itemHealth;
         cold = playerinventory.slots[(int)slotNum - 1].item.itemWarmth;
         hunger = playerinventory.slots[(int)slotNum - 1].item.itemSatiety;
-        Destroy(handItemClone);
-
+        PhotonNetwork.Destroy(handItemClone);
     }
     public void MissItem()
     {
         playerinventory.slots[(int)slotNum - 1].itemCount -= 1;
+        playerinventory.slots[(int)slotNum - 1].TextUpdate();
         if (playerinventory.slots[(int)slotNum - 1].itemCount <= 0)
         {
             playerinventory.slots[(int)slotNum - 1].DisconnectedItem();
@@ -238,31 +243,34 @@ public class PlayerInventory : MonoBehaviourPun
     public void Drop()
     {
         handItemCopy = PhotonNetwork.Instantiate(playerinventory.slots[(int)slotNum - 1].item.name,
-            transform.position,Quaternion.identity);
-        photonView.RPC("ChangePositionItem", RpcTarget.All, handItemCopy);
+            transform.position, Quaternion.identity);
         //Rigidbody newRigidbody = handItemCopy.AddComponent<Rigidbody>();
         //handItemCopy.GetComponent<Collider>().enabled = true;
-        photonView.RPC("SetParentNull", RpcTarget.All, handItemCopy);
+        photonView.RPC("ChangePositionItemDrop", RpcTarget.All);
         PhotonNetwork.Destroy(handItemClone);
     }
 
     [PunRPC]
-    public void ChangePositionItem(GameObject item)
+    public void ChangePositionItemScroll()
     {
-        item.transform.SetParent(transform);
+        //Debug.LogFormat("매개변수 정보 -> {0} , 현재 transform 정보 -> {1}",item.name,this.transform.name);
+        handItemClone.transform.SetParent(transform);
         //Collider collider = handItemClone.GetComponent<Collider>();
         //Rigidbody itemRb = handItemClone.transform.GetComponent<Rigidbody>();
         //collider.enabled = false;               // �ݶ��̴� ������Ʈ ����
         //Destroy(itemRb);                        // ������ٵ� ���� ( �� ������� �ϱ� ����)
-        item.transform.localPosition = Vector3.zero;
-        item.transform.localRotation = Quaternion.identity;
+        handItemClone.transform.localPosition = Vector3.zero;
+        handItemClone.transform.localRotation = Quaternion.identity;
     }
 
     [PunRPC]
-    public void SetParentNull(GameObject item)
+    public void ChangePositionItemDrop()
     {
-        item.transform.SetParent(null);
+        handItemCopy.transform.SetParent(transform);
+        handItemCopy.transform.localPosition = Vector3.zero;
+        handItemCopy.transform.localRotation = Quaternion.identity;
+        handItemCopy.transform.SetParent(null);
     }
 }
 
-    // ------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------

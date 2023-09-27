@@ -108,7 +108,7 @@ public class SG_Inventory : MonoBehaviourPun
         }
     }   // } AcquireItem()
 
-    // 포톤 붙여야 할듯
+    
     public void ItemDestroyEventShot()
     {
         // 이 함수를 부르면 ItemDistroyEvent를 구독하고 있는 모든 함수를 호출함
@@ -133,7 +133,7 @@ public class SG_Inventory : MonoBehaviourPun
             // 처음에 시작하면 슬롯에 고유번호 넣어줌    10 ~ 13
             for (int i = 0; i < slots.Length; i++)
             {
-                slots[i].slotCount = i + 10;
+                slots[i].slotCount = i + 10 + GameManager.instance.slotUniqueNum;
             }
         }
         // 산장창고 인벤토리 일때에 산장창고의 고유번호 넣어줌 100 ~ 115 
@@ -221,7 +221,7 @@ public class SG_Inventory : MonoBehaviourPun
     }   // } AcquireItem()
 
 
-    // 포톤 붙어야함
+
     // 발전소에서 아이템이 꽉차면 들어올 함수
     public void CheckClearPowerStation()
     {
@@ -239,7 +239,6 @@ public class SG_Inventory : MonoBehaviourPun
         else { /*PASS*/ }
     }
 
-    // 포톤 붙여야함
     // 헬리패드 인벤토리에 아이템갯수를 충족하면 들어올 함수
     public void CheckClearHeliPad()
     {

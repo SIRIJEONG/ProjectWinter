@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     public List<int> escapePlayerList;  // 탈출하는 사람들의 액터넘버 리스트
     public int deadPlayers = 0;
 
+    public int slotUniqueNum = default;
+
     public bool isLimitOver = false;
     public bool isRepairPowerStation = false;
     public bool isRepairHeliPad = false;
@@ -71,6 +73,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
         //캐릭터 산장 앞에 생성 (좌표 x : -200f z : 287f)        
         PhotonNetwork.Instantiate("Player", new Vector3(-200f, 1f, 287f), Quaternion.identity);
         PhotonNetwork.AutomaticallySyncScene = true;
+        slotUniqueNum = PhotonNetwork.LocalPlayer.ActorNumber * 4 - 4;
     }
     // Start is called before the first frame update
     void Start()

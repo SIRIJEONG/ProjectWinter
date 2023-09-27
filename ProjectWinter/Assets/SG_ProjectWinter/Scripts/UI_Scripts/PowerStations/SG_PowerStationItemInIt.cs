@@ -33,7 +33,7 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
     public int wantItemCount;      // 랜덤이 선택한 원하는 아이템의 Count
     private int tempItemListCount;  // 랜덤이 선택한 배열의 Index 변수
 
-    private bool isFirstOpen = false;   // 처음 열때에만 Instace되고 아이템 Count or Item Pcik 해주도록 해줄 변수
+    private bool isFirstOpen = false;   // 처음 열때에만 Instace되고 아이템 Count or Item Pick 해주도록 해줄 변수
     private bool missionClear = false;  // 미션이 클리어 된다면 아이템 갯수 충족한지 부족한지 체크해줄 함수 넘기기위한 변수
 
 
@@ -45,8 +45,10 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
     void Start()
     {
         FirstInitialize();  // 변수에 Getcomponent 해야할것들이나 사용전 미리 삽입해야하는것들 넣어주는 함수
-        FirstOpen();        // 발전소,헬리페드 처음 열때만 아이템이 랜덤으로 지정되도록 해주는 함수
-
+        if (PhotonNetwork.IsMasterClient)
+        {
+            FirstOpen();        // 발전소,헬리페드 처음 열때만 아이템이 랜덤으로 지정되도록 해주는 함수
+        }
     }
 
 
@@ -54,12 +56,12 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
     {
         if (isFirstOpen == false)
         {
-            SerchTopParentTrans();  //최상위 부모오브젝트찾는 로직
+            photonView.RPC("SerchTopParentTrans", RpcTarget.All);  //최상위 부모오브젝트찾는 로직 
             RamdomItemInIt();       // 넣어야할 아이템을 랜덤으로 정해주는 함수       //포톤
             RandomItemCountInIt();  // 넣어야하는 아이템 목표치 3 ~ 5로 정해주는 함수 // 포톤
-            ItemImageInIt();        // 넣어야하는 아이템의 정보가가지고 있는 스프라이트를 넣어주는 함수
-            ItemTextUpdate();       // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수 // 포톤
-
+            photonView.RPC("ApplyMissionItem", RpcTarget.Others, itemSlotClass.item, wantItemCount);
+            photonView.RPC("ItemImageInIt", RpcTarget.All);       // 넣어야하는 아이템의 정보가가지고 있는 스프라이트를 넣어주는 함수
+            photonView.RPC("ItemTextUpdate", RpcTarget.All);      // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수 // 포톤
         }
     }   // FirstOpen()
 
@@ -71,6 +73,7 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
         itemSlotClass = GetComponent<SG_ItemSlot>();
     }
 
+    [PunRPC]
     private void SerchTopParentTrans() //최상위 부모오브젝트찾는 로직
     {
         topParentTrans = transform;
@@ -82,7 +85,7 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
 
     }
 
-    //포톤
+
     private void RamdomItemInIt() // 넣어야할 아이템을 랜덤으로 정해주는 함수
     {
         if (topParentTrans.CompareTag("PowerStation"))
@@ -97,7 +100,7 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
         }
     }   // RamdomItemInIt()
 
-    //포톤
+
     private void RandomItemCountInIt()  // 넣어야하는 아이템 목표치 3 ~ 5로 정해주는 함수
     {
         if (topParentTrans.CompareTag("PowerStation"))
@@ -111,6 +114,14 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
 
     }   // RandomItemCountInIt()
 
+    [PunRPC]
+    public void ApplyMissionItem(SG_Item item, int count)
+    {
+        itemSlotClass.item = item;
+        wantItemCount = count;
+    }
+
+    [PunRPC]
     private void ItemImageInIt()
     {
         // 이미지 가져오는것이 자식 오브젝트에 Image를 낳아서 거기다 넣는 식이기 떄문에 원래 있는 prefab 에서 조금 수정해서 
@@ -128,7 +139,7 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
     }   // ItemImageInIt()
 
 
-    // 포톤
+    [PunRPC]
     public void ItemTextUpdate()   // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수
     {
         #region Debug
@@ -154,24 +165,32 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
 
         if (missionClear == false)  // 미션이 클리어 된적이 없을떄에만 함수 조건 체크
         {
-            if (topParentTrans.CompareTag("PowerStation"))
-            {
-                if (itemSlotClass.itemCount == wantItemCount)
-                {
-                    inventoryClass.CheckClearPowerStation();
-                }
-                else { /*PASS*/ }
-            }
-
-            else if(topParentTrans.CompareTag("HeliPad"))
-            {
-                if(itemSlotClass.itemCount == wantItemCount)
-                {
-                    inventoryClass.CheckClearHeliPad();
-                }
-            }
+            photonView.RPC("CheckMissionComplete", RpcTarget.All);
         }
         else { /*PASS*/ }
+    }
+
+    [PunRPC]
+    public void CheckMissionComplete()
+    {
+        if (topParentTrans.CompareTag("PowerStation"))
+        {
+            if (itemSlotClass.itemCount == wantItemCount)
+            {
+                missionClear = true;
+                inventoryClass.CheckClearPowerStation();
+            }
+            else { /*PASS*/ }
+        }
+
+        else if (topParentTrans.CompareTag("HeliPad"))
+        {
+            if (itemSlotClass.itemCount == wantItemCount)
+            {
+                missionClear = true;
+                inventoryClass.CheckClearHeliPad();
+            }
+        }
     }
 
 }   // NameSpace

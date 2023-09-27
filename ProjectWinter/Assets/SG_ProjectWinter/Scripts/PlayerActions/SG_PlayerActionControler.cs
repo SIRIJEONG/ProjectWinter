@@ -77,7 +77,7 @@ public class SG_PlayerActionControler : MonoBehaviourPun
         CheckItem();
         CheckOpenObj();
         //TryAction();
-        TESTTryAction();
+        //TESTTryAction();
 
     }
 

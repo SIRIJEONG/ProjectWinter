@@ -126,7 +126,10 @@ public class PlayerHealth : LivingEntity
 
             ui.SetActive(false);
 
-            GhostOn();
+            if(photonView.IsMine)
+            {
+                GhostOn();
+            }
 
             playerController.enabled = false;       // 컨트롤러 비활성화해서 못움직이게
 
