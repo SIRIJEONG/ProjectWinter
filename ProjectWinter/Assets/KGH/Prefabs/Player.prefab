@@ -1651,6 +1651,7 @@ MonoBehaviour:
   startingHealth: 100
   health: 0
   isDead: 0
+  hurt: {fileID: 8300000, guid: dd01e054af66d194d9f5f680e53ec707, type: 3}
   playerDown: 100
   hunger: 100
   cold: 100
