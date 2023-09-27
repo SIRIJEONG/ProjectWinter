@@ -168,22 +168,7 @@ public class PlayerInventory : MonoBehaviourPun
         foodInHand = false;
         weapomInHand = false;
     }
-    public void Drop()
-    {
-        Debug.LogFormat("slotNum  {0}", playerinventory.slots[(int)slotNum]);
-        handItemCopy = Instantiate(playerinventory.slots[(int)slotNum - 1].item.itemPrefab);
 
-        handItemCopy.transform.SetParent(this.transform);
-        handItemCopy.transform.localPosition = Vector3.zero;
-        handItemCopy.transform.localRotation = Quaternion.identity;
-        Rigidbody newRigidbody = handItemCopy.AddComponent<Rigidbody>();
-
-        handItemCopy.transform.SetParent(null);
-        if(playerinventory.slots[(int)slotNum - 1].itemCount == 1)
-        {
-            Destroy(handItemClone);
-        }
-    }
 
     private void HandItemCheck()
     {
@@ -212,7 +197,11 @@ public class PlayerInventory : MonoBehaviourPun
         //Rigidbody newRigidbody = handItemCopy.AddComponent<Rigidbody>();
         //handItemCopy.GetComponent<Collider>().enabled = true;
         photonView.RPC("ChangePositionItemDrop", RpcTarget.All);
-        PhotonNetwork.Destroy(handItemClone);
+        if (playerinventory.slots[(int)slotNum - 1].itemCount == 1)
+        {
+            PhotonNetwork.Destroy(handItemClone);
+        }
+        
     }
 
     [PunRPC]

@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviourPun
         if (photonView.IsMine)
         {
             CinemachineVirtualCamera followCam = FindObjectOfType<CinemachineVirtualCamera>();
-            followCam.LookAt = transform;           
+            followCam.LookAt = transform;
             cameraFollow = transform.GetComponent<CameraFollow>();
             cameraFollow.playerController = this;
             cameraFollow.toFallow = transform;
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviourPun
         if (shouldStartTiming)
         {
             doingTime = Time.time - startTime;
-        }   
+        }
 
         Debug.DrawRay(transform.position, transform.forward * 1.0f, Color.magenta);
 
@@ -222,7 +222,7 @@ public class PlayerController : MonoBehaviourPun
             health.RestoreHealth(playerInventory.hp);
             health.cold += playerInventory.cold;
             health.hunger += playerInventory.hunger;
-            
+
             animator.SetBool("Eat", false);
 
             eat = false;
@@ -235,7 +235,7 @@ public class PlayerController : MonoBehaviourPun
         {
             //아이템
             photonView.RPC("PickUp", RpcTarget.All);
-            
+
             animator.SetBool("Looting", false);
             playerInventory.InItNowSlotNum();
 
@@ -269,263 +269,259 @@ public class PlayerController : MonoBehaviourPun
         playerHealth.playerDown = 100;
         playerHealth.isDown = false;
     }
-   
-    private void PickUp()
-    {
-        itemInHand = hitInfo.transform;
-        itemInHand.transform.SetParent(inven); //(_inven);
 
-    [PunRPC]
-    private void PickUp()
-    {
-        /*  LEGACY
-        //itemInHand = hitInfo.transform;
-        //itemInHand.transform.SetParent(inven); //(_inven);
-
-        //Collider collider = hitInfo.collider;
-        //Rigidbody itemRb = itemInHand.transform.GetComponent<Rigidbody>();
-        //collider.enabled = false;               // 콜라이더 컴포넌트 끄고
-        //Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
-        //itemInHand.transform.localPosition = Vector3.zero;
-        //itemInHand.transform.localRotation = Quaternion.identity;
-        //itemInHand.transform.localScale = Vector3.one;
-        LEGACY  */
-        playerActionControler.TryAction();
-    }
-    #region
-    private void AddItem(Transform _inven)
-    {
-        itemInHand = hitInfo.transform;
-        itemInHand.transform.SetParent(_inven);
-
-        Collider collider = hitInfo.collider;
-        Rigidbody itemRb = itemInHand.transform.GetComponent<Rigidbody>();
-        collider.enabled = false;               // 콜라이더 컴포넌트 끄고
-        Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
-        itemInHand.transform.localPosition = Vector3.zero;
-        itemInHand.transform.localRotation = Quaternion.identity;
-        itemInHand.transform.localScale = Vector3.one;
-    }
-
-    private void Drop()
-    {
-        //Collider collider = hitInfo.collider;
-        itemInHand.GetComponent<Collider>().enabled = true;
-
-        Rigidbody newRigidbody = itemInHand.transform.AddComponent<Rigidbody>();        // 리지드바디 새로 달기
-       
-        itemInHand.SetParent(null);         //손 오브잭트와 분리
-        itemInHand = null; 
-    }
-    #endregion
-    // 아이템 관련 (이제 사용 X)
-
-    #region
-    private void PlayerMove()          
-    {
-        // ��ǥ�̵�
-        horizontal = Input.GetAxisRaw("Horizontal");
-        vertical = Input.GetAxisRaw("Vertical");
-
-        moveVec = new Vector3(horizontal, 0, vertical).normalized;
-
-        transform.position += moveVec * speed * Time.deltaTime;
-
-        transform.LookAt(transform.position + moveVec);
-        // ��ǥ�̵�
-
-        // �ִϸ��̼�
-        if (Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0)
+  
+        [PunRPC]
+        private void PickUp()
         {
-            aniSpeed = Mathf.MoveTowards(aniSpeed, 1, Time.deltaTime * 3);
+            /*  LEGACY
+            //itemInHand = hitInfo.transform;
+            //itemInHand.transform.SetParent(inven); //(_inven);
+
+            //Collider collider = hitInfo.collider;
+            //Rigidbody itemRb = itemInHand.transform.GetComponent<Rigidbody>();
+            //collider.enabled = false;               // 콜라이더 컴포넌트 끄고
+            //Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
+            //itemInHand.transform.localPosition = Vector3.zero;
+            //itemInHand.transform.localRotation = Quaternion.identity;
+            //itemInHand.transform.localScale = Vector3.one;
+            LEGACY  */
+            playerActionControler.TryAction();
         }
-        else
+        #region
+        private void AddItem(Transform _inven)
         {
-            aniSpeed = Mathf.MoveTowards(aniSpeed, 0, Time.deltaTime * 3);
-        }
-        animator.SetFloat("Speed", aniSpeed);
-        // �ִϸ��̼�
-    }
-    #endregion
-    // 플레이어 움직임
+            itemInHand = hitInfo.transform;
+            itemInHand.transform.SetParent(_inven);
 
-    // 공격
-    #region
-    private void PLayerIsClick()
-    {
-        if (Input.GetMouseButton(0) && !isAttack && !health.isInside && !playerInventory.foodInHand)   // �߰����� : �տ� ������ ������
-        {
-            Attack();
-            uiFollowPlayer.Gauge(120);
+            Collider collider = hitInfo.collider;
+            Rigidbody itemRb = itemInHand.transform.GetComponent<Rigidbody>();
+            collider.enabled = false;               // 콜라이더 컴포넌트 끄고
+            Destroy(itemRb);                        // 리지드바디 없앰 ( 손 따라오게 하기 위해)
+            itemInHand.transform.localPosition = Vector3.zero;
+            itemInHand.transform.localRotation = Quaternion.identity;
+            itemInHand.transform.localScale = Vector3.one;
         }
-        else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside)    // �߰����� : �տ� ������ ������
+
+        private void Drop()
         {
-            if (!playerInventory.foodInHand)
+            //Collider collider = hitInfo.collider;
+            itemInHand.GetComponent<Collider>().enabled = true;
+
+            Rigidbody newRigidbody = itemInHand.transform.AddComponent<Rigidbody>();        // 리지드바디 새로 달기
+
+            itemInHand.SetParent(null);         //손 오브잭트와 분리
+            itemInHand = null;
+        }
+        #endregion
+        // 아이템 관련 (이제 사용 X)
+
+        #region
+        private void PlayerMove()
+        {
+            // ��ǥ�̵�
+            horizontal = Input.GetAxisRaw("Horizontal");
+            vertical = Input.GetAxisRaw("Vertical");
+
+            moveVec = new Vector3(horizontal, 0, vertical).normalized;
+
+            transform.position += moveVec * speed * Time.deltaTime;
+
+            transform.LookAt(transform.position + moveVec);
+            // ��ǥ�̵�
+
+            // �ִϸ��̼�
+            if (Mathf.Abs(horizontal) > 0 || Mathf.Abs(vertical) > 0)
             {
-                isAttack = true;
-                GaugeReset();
-                StartCoroutine(EndAttack());
+                aniSpeed = Mathf.MoveTowards(aniSpeed, 1, Time.deltaTime * 3);
             }
-            else if (playerInventory.foodInHand && eat)
+            else
             {
-                animator.SetBool("Eat", false);
-                eat = false;
-                setTimel = false;
-                doSomething = false;
-                shouldStartTiming = false;
-                GaugeReset();
+                aniSpeed = Mathf.MoveTowards(aniSpeed, 0, Time.deltaTime * 3);
             }
+            animator.SetFloat("Speed", aniSpeed);
+            // �ִϸ��̼�
         }
-        else if (Input.GetMouseButton(0) && !isAttack && playerInventory.foodInHand)//(������ �տ� ������)
+        #endregion
+        // 플레이어 움직임
+
+        // 공격
+        #region
+        private void PLayerIsClick()
         {
-            uiFollowPlayer.Gauge(120);
-            Eat();
-        }
-    }
-
-    private void GaugeReset()
-    {
-        uiFollowPlayer.currentValue = 0;
-        uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
-    }
-
-    private void Attack()
-    {
-        setAttack = true;
-        if (!playerInventory.weapomInHand)
-        {       //������ �ȵ������
-            animator.SetBool("Weapon", false);
-            animator.SetBool("Charge", true);
-
-            attackPower += Time.deltaTime;
-        }
-        else
-        {       //������ �������
-            animator.SetBool("Weapon", true);
-            animator.SetBool("Charge", true);
-
-            attackPower += Time.deltaTime;
-        }
-    }
-
-    private IEnumerator EndAttack()
-    {        
-        if (!playerInventory.weapomInHand)
-        {       //������ �ȵ������
-            if (attackPower >= 1f)           // ������ ��ġ ���� �ʿ�
+            if (Input.GetMouseButton(0) && !isAttack && !health.isInside && !playerInventory.foodInHand)   // �߰����� : �տ� ������ ������
             {
-                attackPower = 1f;
+                Attack();
+                uiFollowPlayer.Gauge(120);
             }
-            damage = (1.0f + attackPower * (4 - 1)); 
-           
-
-            animator.SetBool("Charge", false);
-
-            animator.SetBool("attack", isAttack);
-            yield return new WaitForSeconds(0.2f);
-            fist.SetActive(true);
-            yield return new WaitForSeconds(0.3f);
-            fist.SetActive(false);
-
-            isAttack = false;
-            animator.SetBool("attack", isAttack);
-
-            attackPower = 0;
-            Debug.Log(damage);
-
-        }
-        else
-        {       //������ �������
-            if (attackPower >= 1f)           // ������ ��ġ ���� �ʿ�
+            else if (Input.GetMouseButtonUp(0) && !isAttack && !health.isInside)    // �߰����� : �տ� ������ ������
             {
-                attackPower = 1f;
+                if (!playerInventory.foodInHand)
+                {
+                    isAttack = true;
+                    GaugeReset();
+                    StartCoroutine(EndAttack());
+                }
+                else if (playerInventory.foodInHand && eat)
+                {
+                    animator.SetBool("Eat", false);
+                    eat = false;
+                    setTimel = false;
+                    doSomething = false;
+                    shouldStartTiming = false;
+                    GaugeReset();
+                }
             }
-            damage = playerInventory.damage * (1.0f + attackPower * (4 - 1));
-
-            animator.SetBool("Charge", false);
-
-            animator.SetBool("attack", isAttack);
-            yield return new WaitForSeconds(0.1f);
-            weapon.SetActive(true);
-            yield return new WaitForSeconds(0.6f);
-            weapon.SetActive(false);
-
-            isAttack = false;
-            animator.SetBool("attack", isAttack);
-
-            attackPower = 0;
-            Debug.Log(damage);
+            else if (Input.GetMouseButton(0) && !isAttack && playerInventory.foodInHand)//(������ �տ� ������)
+            {
+                uiFollowPlayer.Gauge(120);
+                Eat();
+            }
         }
-        setAttack = false;
-    }
 
-    private void Eat()
-    {
-        shouldStartTiming = true;
-        if (!setTimel)
+        private void GaugeReset()
         {
+            uiFollowPlayer.currentValue = 0;
+            uiFollowPlayer.LoadingBar.fillAmount = uiFollowPlayer.currentValue / 100;
+        }
+
+        private void Attack()
+        {
+            setAttack = true;
+            if (!playerInventory.weapomInHand)
+            {       //������ �ȵ������
+                animator.SetBool("Weapon", false);
+                animator.SetBool("Charge", true);
+
+                attackPower += Time.deltaTime;
+            }
+            else
+            {       //������ �������
+                animator.SetBool("Weapon", true);
+                animator.SetBool("Charge", true);
+
+                attackPower += Time.deltaTime;
+            }
+        }
+
+        private IEnumerator EndAttack()
+        {
+            if (!playerInventory.weapomInHand)
+            {       //������ �ȵ������
+                if (attackPower >= 1f)           // ������ ��ġ ���� �ʿ�
+                {
+                    attackPower = 1f;
+                }
+                damage = (1.0f + attackPower * (4 - 1));
+
+
+                animator.SetBool("Charge", false);
+
+                animator.SetBool("attack", isAttack);
+                yield return new WaitForSeconds(0.2f);
+                fist.SetActive(true);
+                yield return new WaitForSeconds(0.3f);
+                fist.SetActive(false);
+
+                isAttack = false;
+                animator.SetBool("attack", isAttack);
+
+                attackPower = 0;
+                Debug.Log(damage);
+
+            }
+            else
+            {       //������ �������
+                if (attackPower >= 1f)           // ������ ��ġ ���� �ʿ�
+                {
+                    attackPower = 1f;
+                }
+                damage = playerInventory.damage * (1.0f + attackPower * (4 - 1));
+
+                animator.SetBool("Charge", false);
+
+                animator.SetBool("attack", isAttack);
+                yield return new WaitForSeconds(0.1f);
+                weapon.SetActive(true);
+                yield return new WaitForSeconds(0.6f);
+                weapon.SetActive(false);
+
+                isAttack = false;
+                animator.SetBool("attack", isAttack);
+
+                attackPower = 0;
+                Debug.Log(damage);
+            }
+            setAttack = false;
+        }
+
+        private void Eat()
+        {
+            shouldStartTiming = true;
+            if (!setTimel)
+            {
+                startTime = Time.time;
+                setTimel = true;
+            }
+            animator.SetBool("Eat", true);
+            eat = true;
+        }
+        #endregion
+        // 공격
+
+        private IEnumerator PressE()
+        {
+            shouldStartTiming = true;
             startTime = Time.time;
-            setTimel = true;
-        }
-        animator.SetBool("Eat", true);
-        eat = true;
-    }
-    #endregion
-    // 공격
+            if (hitInfo.collider.gameObject.tag == "Item") // 루팅모션
+            {
+                doSomething = true;
+                animator.SetBool("DoSomething", doSomething);
+                animator.SetBool("Looting", true);
+                yield return new WaitForSeconds(1.2f);
 
-    private IEnumerator PressE()
-    {
-        shouldStartTiming = true;
-        startTime = Time.time;
-        if (hitInfo.collider.gameObject.tag == "Item") // 루팅모션
+                doingCase = 1;
+            }
+            else if (hitInfo.collider.gameObject.tag == "Player")
+            {
+                animator.SetFloat("Speed", 0);
+                doSomething = true;
+                animator.SetBool("DoSomething", doSomething);
+                yield return new WaitForSeconds(1.5f);
+
+                doingCase = 2;
+            }
+            else if (hitInfo.collider.gameObject.tag == "Warehouse") // 작업모션
+            {
+                animator.SetFloat("Speed", 0);
+                doSomething = true;
+                animator.SetBool("DoSomething", doSomething);
+                yield return new WaitForSeconds(1.5f);
+
+                doingCase = 3;
+            }
+        }
+
+        // 실내 여부
+        #region
+        private void OnTriggerEnter(Collider other)
         {
-            doSomething = true;
-            animator.SetBool("DoSomething", doSomething);
-            animator.SetBool("Looting", true);
-            yield return new WaitForSeconds(1.2f);
-
-            doingCase = 1;
+            if (!photonView.IsMine)
+            { return; }
+            if (other.CompareTag("Building"))           // 플레이어가 건물 안으로 들어갔으면
+            {
+                cameraFollow.isInside = true;
+            }
         }
-        else if(hitInfo.collider.gameObject.tag == "Player")
+        private void OnTriggerExit(Collider other)
         {
-            animator.SetFloat("Speed", 0);
-            doSomething = true;
-            animator.SetBool("DoSomething", doSomething);
-            yield return new WaitForSeconds(1.5f);
-
-            doingCase = 2;
+            if (!photonView.IsMine)
+            { return; }
+            if (other.CompareTag("Building"))
+            {
+                cameraFollow.isInside = false;
+            }
         }
-        else if (hitInfo.collider.gameObject.tag == "Warehouse") // 작업모션
-        {
-            animator.SetFloat("Speed", 0);
-            doSomething = true;
-            animator.SetBool("DoSomething", doSomething);
-            yield return new WaitForSeconds(1.5f);
-
-            doingCase = 3;
-        }
+        #endregion
+        // 실내 여부
     }
-       
-    // 실내 여부
-    #region
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!photonView.IsMine)
-        { return; }
-        if (other.CompareTag("Building"))           // 플레이어가 건물 안으로 들어갔으면
-        {           
-            cameraFollow.isInside = true;           
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (!photonView.IsMine)
-        { return; }
-        if (other.CompareTag("Building"))
-        {            
-            cameraFollow.isInside =  false;
-        }
-    }
-    #endregion
-    // 실내 여부
-}
