@@ -19,6 +19,10 @@ TagManager:
   - HeliPad
   - Workstation
   - Kitchen
+  - N_area
+  - S_area
+  - E_area
+  - W_area
   layers:
   - Default
   - TransparentFX

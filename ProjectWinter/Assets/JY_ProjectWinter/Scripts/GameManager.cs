@@ -176,7 +176,14 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
         if(deadPlayers >= PhotonNetwork.PlayerList.Length - 1)
         {
             // Àü¸ê ¿£µù¾À Ãâ·Â
-            //PhotonNetwork.LoadLevel
+            PhotonNetwork.LoadLevel("BadEnding");
         }
+    }
+
+    [PunRPC]
+    public void LoadGoodEnding()
+    {
+        //Å»Ãâ ¼º°ø¾À Ãâ·Â 
+        PhotonNetwork.LoadLevel("GoodEnding");
     }
 }

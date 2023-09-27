@@ -169,6 +169,32 @@ public class PlayerHealth : LivingEntity
                 isInside = true;
             }
         }
+
+
+        if(other.CompareTag("N_area"))
+        {
+            UIManager.instance.positionState = UIManager.PositionState.North;
+            UIManager.instance.ChangeMiniMap();
+        }
+        else if (other.CompareTag("S_area"))
+        {
+            UIManager.instance.positionState = UIManager.PositionState.South;
+            UIManager.instance.ChangeMiniMap();
+        }
+        else if (other.CompareTag("E_area"))
+        {
+            UIManager.instance.positionState = UIManager.PositionState.East;
+            UIManager.instance.ChangeMiniMap();
+        }
+        else if (other.CompareTag("W_area"))
+        {
+            UIManager.instance.positionState = UIManager.PositionState.West;
+            UIManager.instance.ChangeMiniMap();
+        }
+
+
+
+
     }
 
     // 데미지 처리

@@ -461,19 +461,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: BearWalk
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Die
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1489,13 +1489,13 @@ AnimatorStateMachine:
     m_Position: {x: 432, y: -36, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102756856094620544}
-    m_Position: {x: 432, y: 36, z: 0}
+    m_Position: {x: 430, y: 30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102715718637660020}
     m_Position: {x: 432, y: 216, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102381513821526242}
-    m_Position: {x: 432, y: 156, z: 0}
+    m_Position: {x: 430, y: 160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102601926242725576}
     m_Position: {x: 430, y: 100, z: 0}
@@ -1528,13 +1528,13 @@ AnimatorStateMachine:
     m_Position: {x: 590, y: 450, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102050940639944696}
-    m_Position: {x: 730, y: 360, z: 0}
+    m_Position: {x: 680, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102587138815932466}
-    m_Position: {x: 948, y: -180, z: 0}
+    m_Position: {x: 950, y: -180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102606902934671292}
-    m_Position: {x: 948, y: -120, z: 0}
+    m_Position: {x: 950, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102964885544053264}
     m_Position: {x: 950, y: -60, z: 0}
