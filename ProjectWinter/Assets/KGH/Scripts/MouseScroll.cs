@@ -21,22 +21,12 @@ public class MouseScroll : MonoBehaviour
     void Update()
     {
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        int verticalMovement = Mathf.RoundToInt(scrollInput * 10); // 휠 움직임에 따라 정수값으로 변환합니다.
+
         if (!playerController.doSomething && !playerController.eat && !playerController.isAttack)
         {
-
-            if (scrollInput > 0f)
+            if (verticalMovement != 0) // 0이 아닌 정수값을 검사합니다.
             {
-                float verticalMovement = scrollInput * 10;
-
-                slot += verticalMovement;
-                invenCheck();
-
-                scrollEvent?.Invoke();
-            }
-            else if (scrollInput < 0f)
-            {
-                float verticalMovement = scrollInput * 10;
-
                 slot += verticalMovement;
                 invenCheck();
 

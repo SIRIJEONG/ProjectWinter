@@ -6,6 +6,9 @@ using Photon.Pun;
 public class PlayerHealth : LivingEntity
 {
     private Animator animator;
+    private AudioSource sound;
+    public AudioClip hurt;
+
 
     // 체력관련
     public float playerDown = 100;
@@ -33,25 +36,14 @@ public class PlayerHealth : LivingEntity
 
         // onDeath += Down;
         playerEnd = false;
-
+        sound = GetComponent<AudioSource>();
+        sound.clip = hurt;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (health > maxHP)     //최대치를 넘길시 최대치로 초기화
-        { health = maxHP; }
-        if (hunger > 100)
-        { hunger = 100; }
-        if (cold > 100)
-        { cold = 100; }
-
-        if (health < 0) //최소치를 넘길시 최소치로 초기화
-        { health = 0; }
-        if (cold < 0)
-        { cold = 0; }
-        if (hunger < 0)
-        { hunger = 0; }
+        ResetStat();
 
         if (!isDown)
         {
@@ -71,6 +63,28 @@ public class PlayerHealth : LivingEntity
             downGauge.SetActive(false);
         }
 
+        GaugeManager();
+    }
+
+    private void ResetStat()
+    {
+        if (health > maxHP)     //최대치를 넘길시 최대치로 초기화
+        { health = maxHP; }
+        if (hunger > 100)
+        { hunger = 100; }
+        if (cold > 100)
+        { cold = 100; }
+
+        if (health < 0) //최소치를 넘길시 최소치로 초기화
+        { health = 0; }
+        if (cold < 0)
+        { cold = 0; }
+        if (hunger < 0)
+        { hunger = 0; }
+    }
+
+    private void GaugeManager()
+    {
         if (hunger > 0)
         {
             hunger -= Time.deltaTime / 5;       // 매 프레임마다 허기 감소
@@ -164,6 +178,7 @@ public class PlayerHealth : LivingEntity
             Vector3 hitpoint = other.ClosestPoint(transform.position);
             Vector3 hitnormal = transform.position - other.transform.position;
             photonView.RPC("OnDamage", RpcTarget.MasterClient, getdamage, hitpoint, hitnormal);
+            sound.Play();
         }
         if (other.CompareTag("Building"))
         {

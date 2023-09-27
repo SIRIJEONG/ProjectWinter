@@ -10,52 +10,52 @@ public class SG_PlayerActionControler : MonoBehaviourPun
 {
 
     [SerializeField]
-    private float range;    //½Àµæ °Å¸®
+    private float range;    //ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
 
-    private bool pickupActivated = false;   //½Àµæ °¡´ÉÇÒ ¶§ true
+    private bool pickupActivated = false;   //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ true
 
-    private RaycastHit hitInfo; // Ãæµ¹Ã¼ ÀúÀå
+    private RaycastHit hitInfo; // ï¿½æµ¹Ã¼ ï¿½ï¿½ï¿½ï¿½
 
-    // ¾ÆÀÌÅÛ ·¹ÀÌ¾î¿¡¸¸ ¹ÝÀÀ ÇÏµµ·Ï ·¹ÀÌ¾î ¸¶½ºÅ© ¼³Á¤
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½
     [SerializeField]
     private LayerMask itemLayerMask;
-    // ¿þ¾î ÇÏ¿ì½º°¡ ¾Æ´Ï¸é Á¶°ÇÀ» Åë°úÇÏÁö ¸øÇÏ°Ô ÇØÁÙ LayerMask ¼±¾ð
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¿ì½ºï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ LayerMask ï¿½ï¿½ï¿½ï¿½
     [SerializeField]
     private LayerMask whreHouseMask;
 
 
-    // ÇÊ¿äÇÑ ÄÄÆ÷³ÍÆ®
+    // ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     [SerializeField]
     private TextMeshProUGUI actionText;
 
     [SerializeField]
     private SG_Inventory theInventory;
 
-    //Ã¢°í
-    // Ã¢°í¸¦ ¿­±âÀ§ÇÑ  ÇÃ·¹ÀÌ¾îÀÇ ÀÌº¥Æ® ¼±¾ð Ã¢°í°¡ ÀÎ½ÄÇÏ¸é Ã¢°í¸¦ ¿­°í ´Ý°í ÇØÁÙ ÀÌº¥Æ® µ¨¸®°ÔÀÌÆ®
+    //Ã¢ï¿½ï¿½
+    // Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï¸ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     public delegate void WareHouseDelegate();
     public event WareHouseDelegate WareHouseEvent;
 
-    // ¹ßÀü±â
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public delegate void PowerStationInventoryDelegate();
-    // event¸¦ µ¨¸®°ÔÀÌÆ®¸¦ ÁöÁ¤ÇØ¼­ µ¨¸®°ÔÀÌÆ®°¡ °¡Áö°í ÀÖ´Â void ÀÇ ¸®ÅÏ°ª°ú ¸Å°³º¯¼ö°¡ ¾ø¾î¾ßÇÑ´Ù´Â Á¶°ÇÀ»³Ö¾îÁØ»ùÀÌµÊ
+    // eventï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ void ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½Ø»ï¿½ï¿½Ìµï¿½
     public event PowerStationInventoryDelegate PowerStationInventoryEvent;
 
-    // Çï¸®Æäµå
+    // ï¿½ï¸®ï¿½ï¿½ï¿½
     public delegate void HeliPadInventoryDelegate();
     public event PowerStationInventoryDelegate HeliPadInventoryEvent;
 
-    // Á¦ÀÛ´ë
+    // ï¿½ï¿½ï¿½Û´ï¿½
     public delegate void WorkStationOpenDelegate();
     public event WorkStationOpenDelegate WorkStationOpenEvent;
 
-    // ÁÖ¹æ
+    // ï¿½Ö¹ï¿½
     public delegate void KitchenOpenDelegate();
     public event KitchenOpenDelegate KitchenOpenEvent;
 
     public event System.Action<SG_Inventory> tossInventoryEvent;
 
-    // º¡Ä¿¹Ú½º
+    // ï¿½ï¿½Ä¿ï¿½Ú½ï¿½
     public delegate void BunkerBoxDelegate();
     public event BunkerBoxDelegate BunkerBoxEvent;
 
@@ -99,7 +99,7 @@ public class SG_PlayerActionControler : MonoBehaviourPun
         }
     }
 
-    // ·¹ÀÌ¸¦ ½î¾Æ¼­ ¸ÂÀº°ÍÀÌ Item ÀÌ¶ó´Â Layer¸¦ °¡Áö°í ÀÖ´Ù¸éÅë°úÇÏ´Â ·ÎÁ÷
+    // ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Item ï¿½Ì¶ï¿½ï¿½ Layerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void CheckItem()
     {
         if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 1.0f, itemLayerMask))
@@ -114,7 +114,7 @@ public class SG_PlayerActionControler : MonoBehaviourPun
     }
 
 
-    // ·¹ÀÌ¸¦ ½î¾Æ¼­ ¾ÆÀÌÅÛÀÌ¶ó´Â ·¹ÀÌ¾î ¸¶½ºÅ©°¡ ÀÖÀ¸¸é ¾ÆÀÌÅÛÀÌ¸§ E Å°¸¦ ´­·¯¶ó ¶ó´Â text Ãâ·ÂÇÏ´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ E Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ text ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     private void ItemInfoAppear()
     {
         pickupActivated = true;
@@ -123,23 +123,23 @@ public class SG_PlayerActionControler : MonoBehaviourPun
             + " Get Input Key E";
     }
 
-    // ¾ÆÀÌÅÛ ÁÝ°í³ª¸é E ¸¦ ´©¸£¶ó´Â text ²ô´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½ï¿½ï¿½ï¿½ï¿½ E ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ text ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     private void InfoDisappear()
     {
         pickupActivated = false;
         actionText.gameObject.SetActive(false);
     }
 
-    // ¾ÆÀÌÅÛÀ» ÀÎº¥Åä¸®¿¡ ³Ö´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ô¼ï¿½
 
-    // ¸¶½ºÅÍ°¡ ÇØÁà¾ßÇÒµí?
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½?
     public void CanPickUp()
     {
         //if (pickupActivated == true)
         //{
         if (hitInfo.transform != null)
         {
-            //Debug.Log("¾ÆÀÌÅÛ È¹µæ");
+            //Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½");
             theInventory.AcquireItem(hitInfo.transform.GetComponent<SG_ItemPickUp>().item);
             //Destroy(hitInfo.transform.gameObject);
             InfoDisappear();
@@ -148,17 +148,17 @@ public class SG_PlayerActionControler : MonoBehaviourPun
         //}
     }
 
-    // TODO : À§ ÇÔ¼ö°¡ ¹ßµ¿ µÇ¾úÀ»¶§¿¡ ÀÎº¥Åä¸®¿¡¼­ ºñ¾îÀÖ´Â°÷À» Ã£¾Æ ³Ö´Âµ¥ µé¾î°¬´ÂÁö ¸øµé¾î°¬´ÂÁö È®ÀÎÇÏ°í
-    //   ¾ÆÀÌÅÛÀÌ Àß µé¾î°¬À¸¸é ÀÎº¥Åä¸®°¡ ActionControlerÀÇ DestroyÇÔ¼ö¸¦ ¹ßµ¿ÇØÁÖ°í µé¾î°¡Áö ¸øÇß´Ù¸é return
-    //      ÇÏµµ·Ï ¸¸µé¾îºÁ¾ß°ÚÀ½
+    // TODO : ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ßµï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Â°ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½Ö´Âµï¿½ ï¿½ï¿½î°¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½î°¬ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½
+    //   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½î°¬ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ActionControlerï¿½ï¿½ Destroyï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ßµï¿½ï¿½ï¿½ï¿½Ö°ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½ï¿½ï¿½ß´Ù¸ï¿½ return
+    //      ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½ï¿½ï¿½
 
-    // ¾ÆÀÌÅÛÀ» ¸Ô¾ú´Ù¸é Distroy ÇØÁÙ ÇÔ¼ö      // Photon Destroy·Î º¯°æÇØ¾ßÇÔ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¾ï¿½ï¿½Ù¸ï¿½ Distroy ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½      // Photon Destroyï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
     public void ItemDestroy()
     {
         PhotonNetwork.Destroy(hitInfo.transform.gameObject);
     }
 
-    // ---------------------------------- ÀÎº¥Åä¸® Open ÇÔ¼ö -----------------------------------
+    // ---------------------------------- ï¿½Îºï¿½ï¿½ä¸® Open ï¿½Ô¼ï¿½ -----------------------------------
 
     private void CheckOpenObj()
     {
@@ -170,14 +170,14 @@ public class SG_PlayerActionControler : MonoBehaviourPun
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    //Debug.Log("·¹ÀÌ¸¦ ½î°í Ã¢°í°¡ ¸ÂÀ»¶§ E ¸¦ ´­·¯¾ßÇÑ´Ù´Â Á¶°ÇÀÌ Àßµé¾î¿À³ª?");
-                    // »êÀåÃ¢°í ¿­°í ´Ý´Â ÇÔ¼ö ºÎ¸£±â
+                    //Debug.Log("ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ E ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½?");
+                    // ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý´ï¿½ ï¿½Ô¼ï¿½ ï¿½Î¸ï¿½ï¿½ï¿½
                     WareHouseEvent?.Invoke();
                 }
             }
             else { /*PASS*/ }
 
-            //if (GameManager.instance.isRepairPowerStation == false)   // ¹Ì¼Ç ³¡³ª¸é ¹ßÀü¼Ò ¸ø¿­°Ô ÇÒ if ¹®
+            //if (GameManager.instance.isRepairPowerStation == false)   // ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ if ï¿½ï¿½
             //{
 
             if (hitInfo.transform.CompareTag("PowerStation"))
@@ -188,9 +188,9 @@ public class SG_PlayerActionControler : MonoBehaviourPun
                 }
             }
             else { /*PASS*/ }
-            //}   // ¹Ì¼Ç ³¡³ª¸é ¹ßÀü¼Ò ¸ø¿­°Ô ÇÒ if ¹®
+            //}   // ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ if ï¿½ï¿½
 
-            //if (GameManager.instance.isRepairHeliPad == false)  // ¹Ì¼Ç ³¡³ª¸é Çï¸®ÆÐµå ¸ø¿­°Ô ÇÒ if ¹®
+            //if (GameManager.instance.isRepairHeliPad == false)  // ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¸®ï¿½Ðµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ if ï¿½ï¿½
             //{
             if (hitInfo.transform.CompareTag("HeliPad"))
             {
@@ -200,14 +200,14 @@ public class SG_PlayerActionControler : MonoBehaviourPun
                 }
             }
             else { /*PASS*/ }
-            //}   // ¹Ì¼Ç ³¡³ª¸é Çï¸®ÆÐµå ¸ø¿­°Ô ÇÒ if ¹®
+            //}   // ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¸®ï¿½Ðµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ if ï¿½ï¿½
 
             if (hitInfo.transform.CompareTag("Workstation"))
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     WorkStationOpenEvent?.Invoke();
-                    //InvokeÇÑµÚ¿¡ action event·Î ºÒ·¯¿À¸é µÉµí
+                    //Invokeï¿½ÑµÚ¿ï¿½ action eventï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Éµï¿½
                     tossInventoryEvent?.Invoke(theInventory);
                 }
             }

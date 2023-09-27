@@ -35,11 +35,16 @@ public class CameraFollow : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+        CameraPosition();
+    }
+
+    private void CameraPosition()
+    {
         if (!photonView.IsMine)
         {
             return;
         }
-            if (ghostController != null)
+        if (ghostController != null)
         {
             player = ghostController.gameObject;
         }
@@ -52,13 +57,11 @@ public class CameraFollow : MonoBehaviourPun
         else
         {
             Transform cameraObject = inside.transform.Find("Inside Camera");    // Inside Camera = 건물 안에 들어갔을떄 고정시킬 카메라 위치에 둘 오브잭트의 이름
-            //GameObject moveCameraHere = cameraObject.gameObject;  // Legacy
             toFallow = cameraObject;
 
             followCam.transform.position = toFallow.position;
         }
     }
-
 
     private void OnTriggerEnter(Collider other)
     {

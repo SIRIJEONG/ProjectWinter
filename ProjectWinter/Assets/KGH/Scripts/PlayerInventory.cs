@@ -49,51 +49,7 @@ public class PlayerInventory : MonoBehaviourPun
 
     private void Update()
     {
-        //for(int i = 0; i < inventory.Count; i++)
-        //{         
-        //    if((int)inven - 1 == i)
-        //    {
-        //        inventory[i].SetActive(true);
-        //        playercontroller.inven = inventory[i].transform;
-        //        invenNumber = i;
 
-        //        if(inventory[i].transform.GetChild(0) != null)
-        //        {
-        //            playercontroller.itemInHand = inventory[i].transform.GetChild(0);
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        Debug.Log(i + 1);
-        //        Debug.LogFormat("�κ� {0}", inven);
-
-        //        inventory[i].SetActive(false);
-        //    }            
-        //}
-
-
-
-        //if (playerinventory.slots[(int)slotNum].item != null)
-        //{
-        //    if (playerinventory.slots[(int)slotNum].item.itemType == ItemType.Weapon)
-        //    {
-        //        Damage();
-        //        weapomInHand = true;
-        //        foodInHand = false;
-        //    }
-        //    else if (playerinventory.slots[(int)slotNum].item.itemType == ItemType.Used)
-        //    {
-        //        Heal();
-        //        foodInHand = true;
-        //        weapomInHand = false;
-        //    }
-        //    else
-        //    {
-        //        weapomInHand = false;
-        //        foodInHand = false;
-        //    }
-        //}
     }
 
     //-----------------------------------------------------------------------------------------------------
@@ -106,8 +62,6 @@ public class PlayerInventory : MonoBehaviourPun
         mouseScroll = topParentTrans.GetComponent<MouseScroll>();
 
         playercontroller = topParentTrans.GetComponent<PlayerController>();
-
-        //playerinventory = gameObject.GetComponent<SG_Inventory>();
 
         playercontroller.inventoryClass = playerinventory;
 
@@ -127,8 +81,10 @@ public class PlayerInventory : MonoBehaviourPun
     }
 
 
-    private void InItNowSlotNum() // ���� ������ �������� �̺�Ʈ�� ȣ������Լ�
+    public void InItNowSlotNum() // ���� ������ �������� �̺�Ʈ�� ȣ������Լ�
     {
+        if (!photonView.IsMine)
+        { return; }
         slotNum = mouseScroll.slot;
 
         CheckHand();
@@ -136,8 +92,6 @@ public class PlayerInventory : MonoBehaviourPun
 
     private void CheckHand()    // ���� �տ� ����� �ִ��� Ȯ���ϴ� �Լ�
     {
-        //handChildTrans = this.transform.GetChild(0);
-
         handChildTrans = this.transform;
         //Debug.LogFormat("handChildTransCount ->  {0}", handChildTrans.childCount);
         if (handChildTrans.childCount > 0)  //�տ� ���� ��� �ִ°��
@@ -147,9 +101,6 @@ public class PlayerInventory : MonoBehaviourPun
             foodInHand = false;
             weapomInHand = false;
             StartCoroutine(NowItemSlotInstance());
-
-
-            //NowItemSlotInstance();
         }
 
         else if (handChildTrans.childCount == 0) //�տ� ��� �ִ� �������� ���°��
@@ -158,8 +109,6 @@ public class PlayerInventory : MonoBehaviourPun
             foodInHand = false;
             weapomInHand = false;
             StartCoroutine(NowItemSlotInstance());
-
-            //NowItemSlotInstance();
         }
 
         else { Debug.Log("���� �߸��Ǿ���"); }
@@ -218,6 +167,22 @@ public class PlayerInventory : MonoBehaviourPun
         }
         foodInHand = false;
         weapomInHand = false;
+    }
+    public void Drop()
+    {
+        Debug.LogFormat("slotNum  {0}", playerinventory.slots[(int)slotNum]);
+        handItemCopy = Instantiate(playerinventory.slots[(int)slotNum - 1].item.itemPrefab);
+
+        handItemCopy.transform.SetParent(this.transform);
+        handItemCopy.transform.localPosition = Vector3.zero;
+        handItemCopy.transform.localRotation = Quaternion.identity;
+        Rigidbody newRigidbody = handItemCopy.AddComponent<Rigidbody>();
+
+        handItemCopy.transform.SetParent(null);
+        if(playerinventory.slots[(int)slotNum - 1].itemCount == 1)
+        {
+            Destroy(handItemClone);
+        }
     }
 
     private void HandItemCheck()
