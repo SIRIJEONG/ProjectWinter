@@ -4,7 +4,7 @@ using System.Collections;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class LoadingBarController : MonoBehaviour
+public class LoadingBarController : MonoBehaviourPun
 {
     public AudioClip lodingMusic; // 배경음악으로 사용할 오디오 클립
 
@@ -17,7 +17,7 @@ public class LoadingBarController : MonoBehaviour
     void Start()
     {
         AudioSource.PlayClipAtPoint(lodingMusic, Camera.main.transform.position);
-
+        PhotonNetwork.AutomaticallySyncScene = true;
         loadingSlider.value = 0f; // 초기에 Slider의 FillAmount를 0으로 설정
         StartCoroutine(StartLoading());
     }
@@ -32,8 +32,10 @@ public class LoadingBarController : MonoBehaviour
 
             yield return null;
         }
-
-        PhotonNetwork.LoadLevel("MainScene");
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("MainScene");
+        }
 
         // 로딩이 완료되면 다음 작업을 수행하거나 다음 씬으로 이동할 수 있습니다.
     }

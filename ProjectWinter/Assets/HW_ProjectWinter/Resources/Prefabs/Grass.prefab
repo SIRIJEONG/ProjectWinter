@@ -115,7 +115,7 @@ MonoBehaviour:
   startingHealth: 20
   health: 0
   isDead: 0
-  dropFruit: {fileID: 6003194671638326875, guid: 6b9eeed3020f0064da6b3e7432a077ed, type: 3}
+  dropFruit: {fileID: 1716362865950279632, guid: 7ba191da322424344a34e1d4ce8d2338, type: 3}
 --- !u!114 &2785228795908796846
 MonoBehaviour:
   m_ObjectHideFlags: 0

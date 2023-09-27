@@ -1,21 +1,25 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if PHOTON_NETWORK_ENABLE
 using Photon.Pun;
 
 public class SG_PowerStationGridScript : MonoBehaviourPun
+#else
+public class SG_PowerStationGridScript : MonoBehaviour
+#endif
 {
     [SerializeField]
     private GameObject slot;
 
     private GameObject slotClone;
+    private GameObject slotClone_;
+
+    private GameObject makeClone;
+
     private Transform topParentTrans;
 
-    // ¿øÇÏ´Â ¾ÆÀÌÅÛ ½½·ÔÀ» ¸î°³¸¦ ¸¸µéÁö ¾Ë·ÁÁÙ º¯¼ö
-    private int makeSlotCount;  // 1 ~ 2 µé¾î°¥ ¿¹Á¤
-
-    private short repetitionMakeSlotCount = 1;  // MakeSlot ÇÔ¼ö¸¦ Àç±ÍÇÔ¼ö·Î »ç¿ëÇÏ±â À§ÇØ º¯¼ö ¼±¾ğ
-    
+    public bool isMake = false;
 
     private void Awake()
     {
@@ -24,11 +28,13 @@ public class SG_PowerStationGridScript : MonoBehaviourPun
     private void Start()
     {
         SerchTopParentTrans();
-        
-        MakeSlot(); // ½½·ÔÀ» ·£´ıÇÏ°Ô ¸¸µé¾î¼­ ÀÚ½Ä¿ÀºêÁ§Æ®·Î ³Ö´Â ÇÔ¼ö
+        if (!isMake)
+        {
+            MakeSlot(); // ìŠ¬ë¡¯ì„ ëœë¤í•˜ê²Œ ë§Œë“¤ì–´ì„œ ìì‹ì˜¤ë¸Œì íŠ¸ë¡œ ë„£ëŠ” í•¨ìˆ˜
+        }
     }
 
-    private void SerchTopParentTrans() // ÃÖ»óÀ§ ºÎ¸ğ ¿ÀºêÁ§Æ® Ã£´Â ·ÎÁ÷
+    private void SerchTopParentTrans() // ìµœìƒìœ„ ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ ì°¾ëŠ” ë¡œì§
     {
         topParentTrans = transform;
 
@@ -38,30 +44,44 @@ public class SG_PowerStationGridScript : MonoBehaviourPun
         }
     }
 
-    // PhotonÀ¸·Î ÇØ¾ßÇÒµí
-    private void MakeSlot() // ½½·ÔÀ» ·£´ıÇÏ°Ô ¸¸µé¾î¼­ ÀÚ½Ä¿ÀºêÁ§Æ®·Î ³Ö´Â ÇÔ¼ö
+    // Photonìœ¼ë¡œ í•´ì•¼í• ë“¯
+    private void MakeSlot() // ìŠ¬ë¡¯ì„ ëœë¤í•˜ê²Œ ë§Œë“¤ì–´ì„œ ìì‹ì˜¤ë¸Œì íŠ¸ë¡œ ë„£ëŠ” í•¨ìˆ˜
     {
-        makeSlotCount = Random.Range(1, 3);  // 1 ~ 2 ·£´ıÇÑ ¼ıÀÚ¸¦ »ğÀÔ
 
-        if (topParentTrans.CompareTag("PowerStation"))  // ¹ßÀü¼ÒÀÏ¶§ Instance Slot
+        if (topParentTrans.CompareTag("PowerStation"))  // ë°œì „ì†Œì¼ë•Œ Instance Slot
         {
-            slotClone = Instantiate(slot);
-            slotClone.transform.SetParent(this.transform);
-
-            if (repetitionMakeSlotCount < makeSlotCount)
-            {
-                repetitionMakeSlotCount++;
-                MakeSlot();
-            }
-            else { /*PASS*/ }
-        }        
-        else if(topParentTrans.CompareTag("HeliPad"))   // Çï¸®ÆĞµåÀÏ¶§ Instance Slot
+            slotClone = PhotonNetwork.Instantiate(slot.name, transform.position, Quaternion.identity);
+            slotClone_ = PhotonNetwork.Instantiate(slot.name, transform.position, Quaternion.identity);
+            photonView.RPC("ChangePositionItem", RpcTarget.All, topParentTrans);
+        }
+        else if (topParentTrans.CompareTag("HeliPad"))   // í—¬ë¦¬íŒ¨ë“œì¼ë•Œ Instance Slot
         {
-            slotClone = Instantiate(slot);
-            slotClone.transform.SetParent(this.transform);
+            slotClone = PhotonNetwork.Instantiate(slot.name, transform.position, Quaternion.identity);
+            photonView.RPC("ChangePositionItem", RpcTarget.All, topParentTrans);
         }
         else { /*PASS*/ }
 
     }   // MakeSlot()
+
+#if PHOTON_NETWORK_ENABLE
+    [PunRPC]
+    public void ChangePositionItem(Transform topParentTrans_)
+    {
+        isMake = true;
+        topParentTrans = topParentTrans_;
+        slotClone.transform.SetParent(transform);
+        slotClone_.transform.SetParent(transform);
+        // ìœ„ SetParent ì˜¤ë¥˜ê°€ ìƒê¸¸ìˆ˜ë„ ìˆëŠ” ê²ƒì„ 23.09.27 ì—†ìœ¼ë©´ ì£¼ì„ì‚­ì œí• ê±°ì„
+    }
+#else
+    public void ChangePositionItem(Transform topParentTrans_)
+    {
+        topParentTrans = topParentTrans_;
+        slotClone.transform.SetParent(transform);
+        slotClone_.transform.SetParent(transform);
+        // ìœ„ SetParent ì˜¤ë¥˜ê°€ ìƒê¸¸ìˆ˜ë„ ìˆëŠ” ê²ƒì„ 23.09.27 ì—†ìœ¼ë©´ ì£¼ì„ì‚­ì œí• ê±°ì„
+    }
+#endif      // PHOTON_NETWORK_ENABLE
+
 
 }   //NameSpace
