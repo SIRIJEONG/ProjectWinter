@@ -2,7 +2,6 @@ using Cinemachine;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using static SG_Item;
@@ -308,9 +307,9 @@ public class PlayerController : MonoBehaviourPun
             //Collider collider = hitInfo.collider;
             itemInHand.GetComponent<Collider>().enabled = true;
 
-            Rigidbody newRigidbody = itemInHand.transform.AddComponent<Rigidbody>();        // 리지드바디 새로 달기
+            Rigidbody newRigidbody = itemInHand.        // 리지드바디 새로 달기
 
-            itemInHand.SetParent(null);         //손 오브잭트와 분리
+            
             itemInHand = null;
         }
         #endregion

@@ -256,8 +256,8 @@ public class SG_ProductionManager : MonoBehaviourPun
         spawnPosition = _PlayerInven.slots[0].slotTopParentObj.transform.position;
         spawnRotation = _PlayerInven.slots[0].slotTopParentObj.transform.rotation;
 
-        // 만든 아리템을 플레이어의 위치로 Instance
-        madeItemObjClone = Instantiate(madeItemObj, spawnPosition, spawnRotation);
+        // 만든 아이템을 플레이어의 위치로 Instance
+        madeItemObjClone = PhotonNetwork.Instantiate(madeItemObj.name, spawnPosition, spawnRotation);
         
 
 
