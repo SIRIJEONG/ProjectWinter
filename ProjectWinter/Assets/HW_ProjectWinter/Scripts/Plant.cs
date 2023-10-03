@@ -16,10 +16,10 @@ public class Plant : LivingEntity
     {
         isDead = true;
         Debug.Log("죽었나?");
-        photonView.RPC("DisableAllChildren", RpcTarget.All);        
+        DisableAllChildren();    
     }
 
-    [PunRPC]
+
     public void DisableAllChildren()
     {
         // 모든 자식 오브젝트를 가져옵니다.
@@ -40,7 +40,7 @@ public class Plant : LivingEntity
         if (PhotonNetwork.IsMasterClient)
         {
             // 부모 오브젝트의 위치와 회전값을 가져옵니다.
-            Vector3 parentPosition = new Vector3(transform.position.x + 1, transform.position.y + 1, transform.position.z - 2);
+            Vector3 parentPosition = new Vector3(transform.position.x + 1, transform.position.y + 5, transform.position.z - 2);
             Quaternion parentRotation = transform.rotation;
 
             // 대체할 스프라이트를 인스턴스화하고 위치 및 회전값을 설정합니다.

@@ -75,6 +75,9 @@ MonoBehaviour:
   - ItemImageInIt
   - ItemTextUpdate
   - LoadGoodEnding
+  - DisconnectedItemRPC
+  - MoveItemSetRPC
+  - ItemTextUpdateRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

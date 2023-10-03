@@ -61,7 +61,7 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
             RandomItemCountInIt();  // 넣어야하는 아이템 목표치 3 ~ 5로 정해주는 함수 // 포톤
             photonView.RPC("ApplyMissionItem", RpcTarget.Others, itemSlotClass.item, wantItemCount);
             photonView.RPC("ItemImageInIt", RpcTarget.All);       // 넣어야하는 아이템의 정보가가지고 있는 스프라이트를 넣어주는 함수
-            photonView.RPC("ItemTextUpdate", RpcTarget.All);      // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수 // 포톤
+            photonView.RPC("ItemTextUpdateRPC", RpcTarget.All);      // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수 // 포톤
         }
     }   // FirstOpen()
 
@@ -138,9 +138,13 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
 
     }   // ItemImageInIt()
 
+    public void ItemTextUpdate()
+    {
+        photonView.RPC("ItemTextUpdateRPC", RpcTarget.All);
+    }
 
     [PunRPC]
-    public void ItemTextUpdate()   // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수
+    public void ItemTextUpdateRPC()   // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수
     {
         #region Debug
         //Debug.LogFormat("wantItemCountText == null? -> {0}", wantItemCountText == null);
@@ -151,6 +155,7 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
         wantItemCountText.text = itemSlotClass.itemCount.ToString() + " / " + wantItemCount.ToString();
 
     }   // ItemTextUpdate()
+
 
 
     // 포톤

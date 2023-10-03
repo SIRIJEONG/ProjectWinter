@@ -59,6 +59,19 @@ public class SG_ItemSwapManager : MonoBehaviourPun
             //스왑시 필요한 로직
             SearchGiveSlot(_GiveSlotCount, _giveSlots);     // 주는슬롯을 찾아서 아이템을 저장하는 함수
             SerchAccepSlots(_AcceptSlotCount, _accepSlots); // 받는 슬롯을 찾고 아이템을 조건에 따라받고 검수하는 함수로 넘겨주는 함수
+
+            #region 네트워크 추가 LJY
+            if (_GiveSlotCount > 99)
+            {
+
+            }
+            else if (_AcceptSlotCount > 99)
+            {
+
+            }
+            else { /*Pass*/ };
+            #endregion
+
             GiveExchangeAfter();  // 아이템을 정상적으로 넘겼을때에 준 슬롯을 초기화 하는 함수
             AcceptExchangeAfter();// 아이템을 정상적으로 넘겼을때 받은슬롯이 정상적으로 출력되도록 해주는 함수            
         }
@@ -468,8 +481,16 @@ public class SG_ItemSwapManager : MonoBehaviourPun
         {
             if (isPassExamine == true)
             {
-                giveInvenClass.slots[giveSlotCount].DisconnectedItem();
-                //isPassExamine = false;
+                // 23.10.02 LJY : 네트워크 수정부분 -> 주는 슬롯이 플레이어가 아닐경우 네트워크로 동기화
+                if (giveSlotCount > 99)
+                {
+                    photonView.RPC("DisconnectedItemRPC", RpcTarget.All, giveInvenClass.slots[giveSlotCount]);
+                }
+                else
+                {
+                    giveInvenClass.slots[giveSlotCount].DisconnectedItem();
+                }
+                
             }
             else
             {
@@ -481,6 +502,11 @@ public class SG_ItemSwapManager : MonoBehaviourPun
         //else { Debug.LogError("Invalid giveSlotCount: " + giveSlotCount); }
     }
 
+    [PunRPC]
+    public void DisconnectedItemRPC(SG_ItemSlot slot_)
+    {
+        slot_.DisconnectedItem();
+    }
 
     // 아이템을받고 후처리해주는 함수 -> 슬롯이 다시 받은아이템을 출력하기
     public void AcceptExchangeAfter()
@@ -490,8 +516,21 @@ public class SG_ItemSwapManager : MonoBehaviourPun
 
         if (isMissionInven == true) { return; } // 발전소,헬리패드는 따로 ItemImage를 관리하기 때문에 오류방지 return
         else { /*PASS*/ }
+        // 23.10.02 LJY : 네트워크 수정부분 -> 받는 슬롯이 플레이어가 아닐경우 네트워크로 동기화
+        if (accepSlotCount > 99)
+        {
+            photonView.RPC("MoveItemSetRPC", RpcTarget.All, giveInvenClass.slots[giveSlotCount]);
+        }
+        else
+        {
+            acceptInvenClass.slots[accepSlotCount].MoveItemSet();
+        }
+    }
 
-        acceptInvenClass.slots[accepSlotCount].MoveItemSet();
+    [PunRPC]
+    public void MoveItemSetRPC(SG_ItemSlot slot_)
+    {
+        slot_.MoveItemSet();
     }
 
     // 마지막에 무조건적으로 다시 원래대로 초기화 되어야 하는 변수를 원래대로 해주는 함수
