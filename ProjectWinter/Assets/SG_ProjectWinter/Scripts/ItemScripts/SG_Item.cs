@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 [CreateAssetMenu(fileName = "SG_New Item", menuName = "SG_New Item/SG_item")]
@@ -37,6 +38,4 @@ public class SG_Item : ScriptableObject
         Ingredient,
         ETC
     }
-   
-
 }

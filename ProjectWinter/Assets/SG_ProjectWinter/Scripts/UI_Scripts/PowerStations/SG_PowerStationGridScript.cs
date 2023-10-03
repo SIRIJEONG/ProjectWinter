@@ -52,12 +52,19 @@ public class SG_PowerStationGridScript : MonoBehaviour
         {
             slotClone = PhotonNetwork.Instantiate(slot.name, transform.position, Quaternion.identity);
             slotClone_ = PhotonNetwork.Instantiate(slot.name, transform.position, Quaternion.identity);
-            photonView.RPC("ChangePositionItem", RpcTarget.All, topParentTrans);
+
+            int childId = slotClone.GetComponent<PhotonView>().ViewID;
+            int childId_ = slotClone_.GetComponent<PhotonView>().ViewID;
+            int topParentId = topParentTrans.GetComponent<PhotonView>().ViewID;
+
+            photonView.RPC("ChangePositionItem", RpcTarget.All, childId, childId_, topParentId);
         }
         else if (topParentTrans.CompareTag("HeliPad"))   // 헬리패드일때 Instance Slot
         {
             slotClone = PhotonNetwork.Instantiate(slot.name, transform.position, Quaternion.identity);
-            photonView.RPC("ChangePositionItem", RpcTarget.All, topParentTrans);
+            int childId = slotClone.GetComponent<PhotonView>().ViewID;
+            int topParentId = topParentTrans.GetComponent<PhotonView>().ViewID;
+            photonView.RPC("ChangePositionItemHeil", RpcTarget.All, childId, topParentId);
         }
         else { /*PASS*/ }
 
@@ -65,14 +72,33 @@ public class SG_PowerStationGridScript : MonoBehaviour
 
 #if PHOTON_NETWORK_ENABLE
     [PunRPC]
-    public void ChangePositionItem(Transform topParentTrans_)
+    public void ChangePositionItem(int childId, int childId_, int topParentId_)
     {
         isMake = true;
+        PhotonView childView = PhotonView.Find(childId);
+        Transform childTrans = childView.transform;
+        PhotonView childView_ = PhotonView.Find(childId_);
+        Transform childTrans_ = childView_.transform;
+        PhotonView topParentView = PhotonView.Find(topParentId_);
+        Transform topParentTrans_ = topParentView.transform;
         topParentTrans = topParentTrans_;
-        slotClone.transform.SetParent(transform);
-        slotClone_.transform.SetParent(transform);
+        childTrans.SetParent(transform);
+        childTrans_.SetParent(transform);
         // 위 SetParent 오류가 생길수도 있는 것임 23.09.27 없으면 주석삭제할거임
     }
+
+    [PunRPC]
+    public void ChangePositionItemHeil(int childId_, int topParentId_)
+    {
+        PhotonView childView_ = PhotonView.Find(childId_);
+        Transform childTrans_ = childView_.transform;
+        PhotonView topParentView = PhotonView.Find(topParentId_);
+        Transform topParentTrans_ = topParentView.transform;
+        topParentTrans = topParentTrans_;
+        childTrans_.SetParent(transform);
+    }
+        
+
 #else
     public void ChangePositionItem(Transform topParentTrans_)
     {
