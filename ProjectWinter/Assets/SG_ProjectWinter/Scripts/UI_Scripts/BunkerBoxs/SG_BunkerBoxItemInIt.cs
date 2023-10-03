@@ -66,8 +66,8 @@ public class SG_BunkerBoxItemInIt : MonoBehaviourPun
     // 아이템 슬롯에 아이템 정보와 아이템 카운트 넣어줄 함수
     private void SlotItemInIt()
     {
-        Debug.LogFormat("RandomIndet -> {0}",tempItemListIndex);
-        Debug.LogFormat("Item 정보 -> {0}", itemList[tempItemListIndex]);
+        //Debug.LogFormat("RandomIndet -> {0}",tempItemListIndex);
+        //Debug.LogFormat("Item 정보 -> {0}", itemList[tempItemListIndex]);
         itemSlotClass.item = itemList[tempItemListIndex];
         itemSlotClass.itemCount = giveItemCount;
     }

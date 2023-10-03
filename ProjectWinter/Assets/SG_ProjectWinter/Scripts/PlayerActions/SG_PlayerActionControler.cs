@@ -55,8 +55,11 @@ public class SG_PlayerActionControler : MonoBehaviourPun
     public event System.Action<SG_Inventory> tossInventoryEvent;
 
     // ��Ŀ�ڽ�
-    public delegate void BunkerBoxDelegate();
-    public event BunkerBoxDelegate BunkerBoxEvent;
+    public event System.Action<int> BunkerBoxEvent;
+
+    private SG_Inventory boxInventoryClass;
+    //public delegate int BunkerBoxDelegate();
+    //public event BunkerBoxDelegate BunkerBoxEvent;
 
     //public SG_Inventory inventoryClass;
 
@@ -227,7 +230,12 @@ public class SG_PlayerActionControler : MonoBehaviourPun
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    BunkerBoxEvent?.Invoke();
+              
+                    boxInventoryClass = hitInfo.transform.GetChild(0).GetChild(0).GetComponent<SG_Inventory>();
+
+                    Debug.LogFormat("BoxInvenClassNull? -> {0},     WhatName? -> {1}", boxInventoryClass == null, boxInventoryClass);
+                    Debug.LogFormat("thisBoxIndex -> {0}", boxInventoryClass.thisBoxindex);
+                    BunkerBoxEvent?.Invoke(boxInventoryClass.thisBoxindex);
 
                 }
                 else { /*PASS*/ }

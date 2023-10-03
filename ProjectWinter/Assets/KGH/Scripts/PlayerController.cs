@@ -307,10 +307,10 @@ public class PlayerController : MonoBehaviourPun
             //Collider collider = hitInfo.collider;
             itemInHand.GetComponent<Collider>().enabled = true;
 
-            Rigidbody newRigidbody = itemInHand.        // 리지드바디 새로 달기
+            //Rigidbody newRigidbody = itemInHand      // 리지드바디 새로 달기
 
             
-            itemInHand = null;
+            //itemInHand = null;
         }
         #endregion
         // 아이템 관련 (이제 사용 X)
