@@ -47,8 +47,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause) => print("연결끊김");
 
-    //public void JoinLobby() => PhotonNetwork.JoinLobby();
-
     public override void OnJoinedLobby() => print("로비접속완료");
 
     public void CreateRoom() 

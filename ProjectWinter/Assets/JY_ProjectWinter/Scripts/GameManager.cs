@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
 
         if(deadPlayers >= PhotonNetwork.PlayerList.Length - 1)
         {
-            // 전멸 엔딩씬 출력
+            // 전멸 엔딩씬 출력wnrdm
             PhotonNetwork.LoadLevel("BadEnding");
         }
     }
