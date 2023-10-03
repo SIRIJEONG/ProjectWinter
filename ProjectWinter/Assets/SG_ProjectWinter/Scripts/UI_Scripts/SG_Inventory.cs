@@ -11,8 +11,14 @@ public class SG_Inventory : MonoBehaviourPun
     // 플레이어와 많은 친구들이 사용해야하기에 static으로 선언
     // 하지만 인벤토리가 ProjcetWinter 는 인벤토리가 켜지고 다른 행동이 제약이 되야할때는
     // 크래프팅,창고열때,발전기같은곳에 재료를 넣을때에이기에 추후 바뀔수도 있음 23.09.07
+
     public static bool inventoryActicated = false;
 
+    public static int boxSlotCount = 200;
+
+    public static int boxIntex = 1;
+
+    public int thisBoxindex;
 
     // 필요한 컴포넌트
 
@@ -39,7 +45,10 @@ public class SG_Inventory : MonoBehaviourPun
 
     private int missionClearCount = 0;
 
-    public static int boxSlotCount = 200;
+    private void Awake()
+    {
+       
+    }
 
     void Start()
     {
@@ -49,6 +58,14 @@ public class SG_Inventory : MonoBehaviourPun
     {
         //TryOpenInventory();
     }
+
+    public void BoxIndexInIt()
+    {
+        thisBoxindex = boxIntex;
+        boxIntex++;
+    }
+
+    
 
     private void StartInIt()    // Start시점에서 넣어줄 변수
     {

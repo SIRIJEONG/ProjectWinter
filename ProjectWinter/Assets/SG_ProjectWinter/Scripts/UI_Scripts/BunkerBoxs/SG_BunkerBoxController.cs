@@ -12,10 +12,15 @@ public class SG_BunkerBoxController : MonoBehaviour
 
     SG_PlayerActionControler playerActionClass;
 
+    public int openBoxIndex;    // 박스 지정해서 열기위한 변수
+
+    SG_Inventory inventoryClass;
+
+    Coroutine eventCoroutine;
 
     private void Awake()
     {
-      
+
     }
     private void Start()
     {
@@ -28,6 +33,13 @@ public class SG_BunkerBoxController : MonoBehaviour
         bunkerBoxObjs.SetActive(false);
         playerActionClass = FindAnyObjectByType<SG_PlayerActionControler>();
         EventSubscriber();      //이벤트 구독하는 함수
+
+        inventoryClass = this.transform.GetChild(0).GetChild(0).GetComponent<SG_Inventory>();
+
+        inventoryClass.BoxIndexInIt();
+        
+
+        //Debug.LogFormat("Class Null? -> {0}, ClassName -> {1}", inventoryClass == null, inventoryClass); //잘가져옴
     }
 
     private void EventSubscriber()
@@ -35,9 +47,15 @@ public class SG_BunkerBoxController : MonoBehaviour
         playerActionClass.BunkerBoxEvent += BunkerBoxInvenController;
     }
 
-    public void BunkerBoxInvenController()
-    {
-        //Debug.Log("이벤트로 발전기 여는 함수 조건이 잘들어와지나");
+    public void BunkerBoxInvenController(int _OpenIndex)
+    {   
+
+        if (inventoryClass.thisBoxindex != _OpenIndex) // 플레이어가 Hit한 Ray가가지고있는 slot[0].SlotCount 가아니라면 return
+        {
+            return;
+        }
+        else { /*PASS*/ }
+
         if (isOpen == false)
         {
             OpenBunkerBox();
@@ -46,6 +64,7 @@ public class SG_BunkerBoxController : MonoBehaviour
         {
             CloseBunkerBox();
         }
+        else { /*PASS*/ }
     }
 
     private void OpenBunkerBox()
@@ -59,4 +78,5 @@ public class SG_BunkerBoxController : MonoBehaviour
         isOpen = false;
         bunkerBoxObjs.SetActive(false);
     }
+
 }

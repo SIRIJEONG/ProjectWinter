@@ -74,7 +74,7 @@ public class SG_ItemDragScript : MonoBehaviourPun,
         previousParent = this.transform.parent;
         //Debug.LogFormat("PrebiousParentName -> {0}     PrebiousParentTag -> {1}", previousParent.name, previousParent.tag);
         // 현재 드래그중인 UI가 화면의 최상단에 출력되도록 하기 위해
-        Debug.LogFormat("canvasTransName == null? -> {0}", canvasTrans == null);
+        //Debug.LogFormat("canvasTransName == null? -> {0}", canvasTrans == null);
         this.transform.SetParent(canvasTrans);  // 부모 오브젝트를 Canvas로 설정
         transform.SetAsFirstSibling();
         //transform.SetAsLastSibling();           // 가장 앞에 보이도록 마지막 자식으로 설정
@@ -321,7 +321,7 @@ public class SG_ItemDragScript : MonoBehaviourPun,
             }
         }
         // Canvas를 찾지 못한 경우 null을 반환합니다
-        Debug.Log("canvasTrans == null");
+        //Debug.Log("canvasTrans == null");
         return;
     }
 
