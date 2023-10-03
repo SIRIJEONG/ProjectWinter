@@ -56,10 +56,11 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
     {
         if (isFirstOpen == false)
         {
+            isFirstOpen = true;
             photonView.RPC("SerchTopParentTrans", RpcTarget.All);  //최상위 부모오브젝트찾는 로직 
             RamdomItemInIt();       // 넣어야할 아이템을 랜덤으로 정해주는 함수       //포톤
             RandomItemCountInIt();  // 넣어야하는 아이템 목표치 3 ~ 5로 정해주는 함수 // 포톤
-            photonView.RPC("ApplyMissionItem", RpcTarget.Others, itemSlotClass.item, wantItemCount);
+            photonView.RPC("ApplyMissionItem", RpcTarget.Others, tempItemListCount, wantItemCount);
             photonView.RPC("ItemImageInIt", RpcTarget.All);       // 넣어야하는 아이템의 정보가가지고 있는 스프라이트를 넣어주는 함수
             photonView.RPC("ItemTextUpdateRPC", RpcTarget.All);      // 현재 넣은 아이템의 갯수와 넣어야 하는 아이템의 갯수를 택스트로 보여주는 함수 // 포톤
         }
@@ -115,9 +116,10 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
     }   // RandomItemCountInIt()
 
     [PunRPC]
-    public void ApplyMissionItem(SG_Item item, int count)
+    public void ApplyMissionItem(int tempItemListCount_,int count)
     {
-        itemSlotClass.item = item;
+        //itemSlotClass.item.itemImage = itemImage;
+        tempItemListCount = tempItemListCount_;
         wantItemCount = count;
     }
 
@@ -130,11 +132,11 @@ public class SG_PowerStationItemInIt : MonoBehaviourPun
 
         itemImageObjClone = Instantiate(itemImageObj);
         itemImageObjClone.transform.SetParent(this.transform);
+        itemImageObjClone.transform.localPosition = Vector3.zero;
 
         itemImage = itemImageObjClone.GetComponent<Image>();
 
-        itemImage.sprite = itemSlotClass.item.itemImage;
-
+        itemImage.sprite = itemLists[tempItemListCount].itemImage;
 
     }   // ItemImageInIt()
 

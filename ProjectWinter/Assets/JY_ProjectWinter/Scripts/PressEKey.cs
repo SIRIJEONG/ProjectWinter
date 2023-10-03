@@ -21,7 +21,7 @@ public class PressEKey : MonoBehaviourPun
 
     void Start()
     {
-        if (!transform.parent.CompareTag("Untagged"))
+        if (transform.parent.CompareTag("Operate") || transform.parent.CompareTag("Repair") || transform.parent.CompareTag("Box"))
         {
             noticeText.text = string.Format("{0}", UIManager.instance.FormatNoticeText(transform.parent));
         }
