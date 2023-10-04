@@ -26,23 +26,23 @@ public class HeliPad : MonoBehaviourPun
 
 
 
-        int playerActorNum = PhotonNetwork.LocalPlayer.ActorNumber;
+        //int playerActorNum = PhotonNetwork.LocalPlayer.ActorNumber;
 
-        foreach (GameObject playerObject in GameManager.instance.playerObjects)
-        {
-            // 플레이어 오브젝트의 PhotonView 컴포넌트를 가져옴
-            PhotonView photonView = playerObject.GetComponent<PhotonView>();
+        //foreach (GameObject playerObject in GameManager.instance.playerObjects)
+        //{
+        //    // 플레이어 오브젝트의 PhotonView 컴포넌트를 가져옴
+        //    PhotonView photonView = playerObject.GetComponent<PhotonView>();
 
-            if (photonView != null)
-            {
-                // PhotonView가 로컬 플레이어의 것인지 확인
-                if (photonView.IsMine)
-                {
-                    escapePlayer = playerObject;
-                }
-            }
-        }
-        photonView.RPC("AddEscapePalyerList", RpcTarget.All, playerActorNum);
+        //    if (photonView != null)
+        //    {
+        //        // PhotonView가 로컬 플레이어의 것인지 확인
+        //        if (photonView.IsMine)
+        //        {
+        //            escapePlayer = playerObject;
+        //        }
+        //    }
+        //}
+        //photonView.RPC("AddEscapePalyerList", RpcTarget.All, playerActorNum);
 
         StartCoroutine(DelayedSceneChange());
 
@@ -62,26 +62,26 @@ public class HeliPad : MonoBehaviourPun
 
     }
 
-    [PunRPC]
-    public void AddEscapePalyerList(int playerActorNum_)
-    {
-        GameManager.instance.escapePlayerList.Add(playerActorNum_);
-        foreach (GameObject playerObject in GameManager.instance.playerObjects)
-        {
-            // 플레이어 오브젝트의 PhotonView 컴포넌트를 가져옴
-            PhotonView photonView = playerObject.GetComponent<PhotonView>();
+    //[PunRPC]
+    //public void AddEscapePalyerList(int playerActorNum_)
+    //{
+    //    GameManager.instance.escapePlayerList.Add(playerActorNum_);
+    //    foreach (GameObject playerObject in GameManager.instance.playerObjects)
+    //    {
+    //        // 플레이어 오브젝트의 PhotonView 컴포넌트를 가져옴
+    //        PhotonView photonView = playerObject.GetComponent<PhotonView>();
 
-            if (photonView != null)
-            {
-                // PhotonView가 로컬 플레이어의 것인지 확인
-                if (photonView.Owner.ActorNumber == playerActorNum_)
-                {
-                    escapePlayer = playerObject;
-                }
-            }
-        }
-        escapePlayer.SetActive(false);
-    }
+    //        if (photonView != null)
+    //        {
+    //            // PhotonView가 로컬 플레이어의 것인지 확인
+    //            if (photonView.Owner.ActorNumber == playerActorNum_)
+    //            {
+    //                escapePlayer = playerObject;
+    //            }
+    //        }
+    //    }
+    //    escapePlayer.SetActive(false);
+    //}
 
 
 }

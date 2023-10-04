@@ -21,9 +21,10 @@ public class Tree : LivingEntity
     {
         isDead = true;
         Debug.Log("Á×¾ú³ª?");
-        TreeDestroy();
+        photonView.RPC("TreeDestroy", RpcTarget.All);
     }
 
+    [PunRPC]
     public void TreeDestroy()
     {
 

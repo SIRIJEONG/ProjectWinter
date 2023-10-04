@@ -4,19 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
-//using UnityEditor.XR;
 
 public class WaitingRoomManager : MonoBehaviourPunCallbacks
 {
-
     public Slider masterVolumeSlider; // 마스터 볼륨을 조절하는 슬라이더
     private float initialMasterVolume; // 초기 마스터 볼륨 설정
 
     public AudioClip buttonClickSoundClip; // 버튼 클릭 사운드를 재생할 오디오 클립
 
-
-    public GameObject optionUI; // NeighbourUI 전투시작 할 때 오른쪽 위에 ui
-
+    public GameObject optionUI; // OptionUI 전투시작 할 때 오른쪽 위에 UI
 
     public Text nicknameBoxOne;
     public Text nicknameBoxOne2;
@@ -28,7 +24,6 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
 
     public Image[] targetImages; // 불투명도를 조절할 대상 이미지 배열
 
-
     private Color originalColor; // 초기 이미지 색상
     private Color transparentColor; // 클릭 후 색상 
 
@@ -39,12 +34,10 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
 
     public bool readyButton = true;
 
-
     // Start is called before the first frame updated
     void Start()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-
 
         // 초기 마스터 볼륨을 저장
         initialMasterVolume = AudioListener.volume;
@@ -54,7 +47,6 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
 
         // 슬라이더의 값이 변경될 때마다 이벤트 핸들러 호출
         masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeSliderChanged);
-
 
         // 텍스트 UI를 리스트에 추가
         nicknameBoxes.Add(nicknameBoxOne);
@@ -67,16 +59,16 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         // 플레이어 입장 및 퇴장과 관련된 이벤트 핸들러 등록
         PhotonNetwork.AddCallbackTarget(this);
 
-
-        //// 초기 이미지 색상을 저장
+        // 초기 이미지 색상을 저장
         originalColor = targetImages[0].color;
 
-        // 클릭후 색상 
+        // 클릭 후 색상 
         transparentColor = new Color(originalColor.r, originalColor.g, originalColor.b, 170f);
         UpdateNicknameText();
-        UpdateUserCount();     
+        UpdateUserCount();
     }
 
+    // 플레이어의 준비 상태를 설정합니다.
     public void SetPlayerReady(bool isReady)
     {
         ExitGames.Client.Photon.Hashtable customProperties = new ExitGames.Client.Photon.Hashtable();
@@ -84,7 +76,7 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.SetCustomProperties(customProperties);
     }
 
-
+    // 모든 플레이어가 준비 상태인지 확인합니다.
     public bool AreAllPlayersReady()
     {
         foreach (var player in PhotonNetwork.PlayerList)
@@ -105,8 +97,6 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         return true; // 모든 플레이어가 준비 완료
     }
 
-
-
     // 다른 플레이어가 방에 입장할 때 호출되는 콜백
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -117,6 +107,8 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         UpdateNicknameText();
         UpdateUserCount();
     }
+
+
 
     // 다른 플레이어가 방에서 퇴장할 때 호출되는 콜백
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -144,7 +136,6 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
     // Text UI를 초기화하는 메서드
     void ResetNicknameText(string playerNickname)
     {
-
         foreach (var text in nicknameBoxes)
         {
             if (text.text == playerNickname)
@@ -154,7 +145,7 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         }
     }
 
-
+    // 모든 Text UI를 초기화하는 메서드
     void AllResetNicknameText()
     {
         for (int i = PhotonNetwork.PlayerList.Length; i < 6; i++)
@@ -164,33 +155,11 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         }
     }
 
+    // 현재 플레이어 수를 업데이트합니다.
     public void UpdateUserCount()
     {
         userCount.text = PhotonNetwork.CurrentRoom.PlayerCount.ToString() + "/6";
     }
-
-
-
-
-
-    //public void SetPlayerReadyState(string playerNickname, bool isReady)
-    //{
-    //    playerReadyStates[playerNickname] = isReady;
-    //}
-
-    //public bool AreAllPlayersReady()
-    //{
-    //    foreach (var rc in playerReadyStates)
-    //    {
-    //        if (rc.Value)
-    //        {
-    //            return false; // 하나 이상의 플레이어가 아직 준비하지 않음
-    //        }
-    //    }
-    //    return true; // 모든 플레이어가 준비 완료
-    //}
-
-
 
     // 게임 시작 버튼을 누를 때 호출되는 메서드
     public void StartGame()
@@ -206,24 +175,12 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         else
         {
             Debug.Log("게임 시작 조건 미충족: 아직 모든 플레이어가 준비 상태가 아닙니다.");
-            // 아직 모든 플레이어가 준비 상태가 아님을 메시지로 표시하거나 다른 동작을 수행합니다.
         }
     }
 
-
-
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    // 준비 버튼을 클릭했을 때 호출되는 메서드
     public void GetReadyButton()
     {
-
         string localPlayerNickname = PhotonNetwork.LocalPlayer.NickName;
         int playerIndex = GetPlayerIndex(localPlayerNickname);
 
@@ -231,7 +188,7 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         {
             if (readyButton == true)
             {
-                // 클릭 후 이미지 색상
+                // 클릭 후 이미지 색상 변경
                 photonView.RPC("SetImageColor", RpcTarget.AllBuffered, playerIndex);
                 readyButton = false;
                 AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);
@@ -245,11 +202,9 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         }
 
         SetPlayerReady(!readyButton);
-
     }
 
-
-
+    // 플레이어의 인덱스를 찾는 메서드
     private int GetPlayerIndex(string playerNickname)
     {
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
@@ -277,9 +232,7 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         }
     }
 
-
-
-    // RPC를 통해 이미지의 색상을 설정하는 메서드
+    // RPC를 통해 이미지의 색상을 원래 색상으로 변경하는 메서드
     [PunRPC]
     public void UnSetImageColor(int playerIndex)
     {
@@ -294,8 +247,7 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         }
     }
 
-
-
+    // 게임에서 떠날 때 호출되는 메서드
     public void LeftGame()
     {
         PhotonNetwork.Disconnect(); // 서버와의 연결을 끊음
@@ -312,8 +264,7 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
     }
 
-
-
+    // UI 크기 조절 메서드
     public void UIScale()
     {
         AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);
@@ -325,6 +276,7 @@ public class WaitingRoomManager : MonoBehaviourPunCallbacks
         optionUI.transform.localScale = newScale;
     }
 
+    // UI 크기 복원 메서드
     public void UIScale2()
     {
         AudioSource.PlayClipAtPoint(buttonClickSoundClip, Camera.main.transform.position);

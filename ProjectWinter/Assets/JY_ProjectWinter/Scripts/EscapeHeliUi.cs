@@ -22,6 +22,8 @@ public class EscapeHeliUi : MonoBehaviourPun
     public void EscapeButton()
     {        
         heliPad.TakeHeli();
+
+        gameObject.SetActive(false);
     }
 
     public void CancleButton()

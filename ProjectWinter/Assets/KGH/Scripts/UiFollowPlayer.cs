@@ -20,7 +20,7 @@ public class UiFollowPlayer : MonoBehaviour
     {
         if (player != null)
         {
-            transform.position = player.position + new Vector3(0, 2.2f, 0); 
+            transform.position = player.position + new Vector3(0, 3f, 0); 
         }        
     }
 

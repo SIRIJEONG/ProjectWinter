@@ -26,6 +26,7 @@ public class BearMoving : LivingEntity
     public float rotationSpeed = 5f; // 바라보는 속도
 
 
+
     // 추적할 대상이 존재하는지 알려주는 프로퍼티
     private bool hasTarget
     {
@@ -64,25 +65,11 @@ public class BearMoving : LivingEntity
 
     private void Start()
     {
-        //// 호스트가 아니라면 AI의 추적 루틴을 실행하지 않음
-        //if (!PhotonNetwork.IsMasterClient)
-        //{
-        //    return;
-        //}
-
-        // 게임 오브젝트 활성화와 동시에 AI의 추적 루틴 시작
         StartCoroutine(UpdatePath());
-
     }
 
     private void Update()
     {
-        // 호스트가 아니라면 애니메이션의 파라미터를 직접 갱신하지 않음
-        // 호스트가 파라미터를 갱신하면 클라이언트들에게 자동으로 전달되기 때문.
-        //if (!PhotonNetwork.IsMasterClient)
-        //{
-        //    return;
-        //}
 
         bool hasValidTarget = hasTarget && targetEntity != null && !targetEntity.isDead;
 
@@ -145,8 +132,6 @@ public class BearMoving : LivingEntity
                 animalAnimator.SetBool("BearAttack", false);
                 animalAnimator.SetBool("BearWalk", false);
 
-                //WayPointMoving();
-
                 // 20 유닛의 반지름을 가진 가상의 구를 그렸을때, 구와 겹치는 모든 콜라이더를 가져옴
                 // 단, targetLayers에 해당하는 레이어를 가진 콜라이더만 가져오도록 필터링
                 Collider[] colliders =
@@ -180,18 +165,6 @@ public class BearMoving : LivingEntity
     [PunRPC]
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        //// 아직 사망하지 않은 경우에만 피격 효과 재생
-        //if (!dead)
-        //{
-        //    // 공격 받은 지점과 방향으로 파티클 효과를 재생
-        //    hitEffect.transform.position = hitPoint;
-        //    hitEffect.transform.rotation = Quaternion.LookRotation(hitNormal);
-        //    hitEffect.Play();
-
-        //    // 피격 효과음 재생
-        //    //zombieAudioPlayer.PlayOneShot(hitSound);
-        //}
-
         // LivingEntity의 OnDamage()를 실행하여 데미지 적용
         base.OnDamage(damage, hitPoint, hitNormal);
     }

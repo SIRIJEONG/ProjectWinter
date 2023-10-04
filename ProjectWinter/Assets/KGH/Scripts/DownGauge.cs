@@ -37,7 +37,7 @@ public class DownGauge : MonoBehaviour
     {
         if (player != null)
         {
-            transform.position = player.transform.position + new Vector3(0, 2.2f, 0);
+            transform.position = player.transform.position + new Vector3(0, 3f, 0);
         }
         GaugeBar.fillAmount = playerHealth.playerDown / 100;
     }

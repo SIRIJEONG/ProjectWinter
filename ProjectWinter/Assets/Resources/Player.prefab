@@ -472,6 +472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6627232525431727870}
   - component: {fileID: 6035300832803580200}
+  - component: {fileID: 6257750738827239094}
   m_Layer: 6
   m_Name: punch
   m_TagString: Attack
@@ -507,6 +508,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.3, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6257750738827239094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3600163101577548309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2237ba410c396445a864b9b1ee245de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: dd01e054af66d194d9f5f680e53ec707, type: 3}
 --- !u!1 &3972900268144120382
 GameObject:
   m_ObjectHideFlags: 0
@@ -5964,6 +5978,7 @@ GameObject:
   - component: {fileID: 6608161522472387144}
   - component: {fileID: 175903046529151161}
   - component: {fileID: 3975133672155344317}
+  - component: {fileID: 3545141456932312161}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -6242,6 +6257,102 @@ MonoBehaviour:
     m_Bits: 288
   actionText: {fileID: 3975133670164564408}
   theInventory: {fileID: 617159742051169953}
+--- !u!82 &3545141456932312161
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223528139734258719}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5223528139759510554
 GameObject:
   m_ObjectHideFlags: 0
@@ -7439,6 +7550,7 @@ GameObject:
   m_Component:
   - component: {fileID: 141172647716740746}
   - component: {fileID: 1515466615793979026}
+  - component: {fileID: 3222310855129781346}
   m_Layer: 6
   m_Name: Weapon
   m_TagString: Attack
@@ -7474,6 +7586,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.35, y: 0.2, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3222310855129781346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8814080756335385961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2237ba410c396445a864b9b1ee245de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: dd01e054af66d194d9f5f680e53ec707, type: 3}
 --- !u!1 &8938028033233341013
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,10 +14,10 @@ public class Rock : LivingEntity
     {
         isDead = true;
         Debug.Log("Á×¾ú³ª?");
-        DestroyObjectAndInstantiatePrefab();
+        photonView.RPC("DestroyObjectAndInstantiatePrefab", RpcTarget.All);
     }
 
-
+    [PunRPC]
     public void DestroyObjectAndInstantiatePrefab()
     {
 
