@@ -307,7 +307,7 @@ public class PlayerController : MonoBehaviourPun
             //Collider collider = hitInfo.collider;
             itemInHand.GetComponent<Collider>().enabled = true;
 
-            Rigidbody newRigidbody = itemInHand.        // 리지드바디 새로 달기
+            //Rigidbody newRigidbody = itemInHand.        // 리지드바디 새로 달기
 
             
             itemInHand = null;
@@ -406,8 +406,8 @@ public class PlayerController : MonoBehaviourPun
         private IEnumerator EndAttack()
         {
             if (!playerInventory.weapomInHand)
-            {       //������ �ȵ������
-                if (attackPower >= 1f)           // ������ ��ġ ���� �ʿ�
+            {      
+                if (attackPower >= 1f)       
                 {
                     attackPower = 1f;
                 }
@@ -426,12 +426,10 @@ public class PlayerController : MonoBehaviourPun
                 animator.SetBool("attack", isAttack);
 
                 attackPower = 0;
-                Debug.Log(damage);
-
             }
             else
-            {       //������ �������
-                if (attackPower >= 1f)           // ������ ��ġ ���� �ʿ�
+            {     
+                if (attackPower >= 1f)        
                 {
                     attackPower = 1f;
                 }
@@ -449,7 +447,6 @@ public class PlayerController : MonoBehaviourPun
                 animator.SetBool("attack", isAttack);
 
                 attackPower = 0;
-                Debug.Log(damage);
             }
             setAttack = false;
         }

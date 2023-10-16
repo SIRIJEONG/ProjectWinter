@@ -30,6 +30,8 @@ public class PlayerInventory : MonoBehaviourPun
     public bool weapomInHand = false;
     public bool foodInHand = false;
 
+    public bool isLastfood = false;
+
     public float slotNum = 1;   // ���� ������ �������� üũ�� ����
 
     public Transform handChildTrans;   // �ڽĿ�����Ʈ�� �����ϴ��� �Ǻ����� Transform
@@ -81,7 +83,7 @@ public class PlayerInventory : MonoBehaviourPun
     }
 
 
-    public void InItNowSlotNum() // ���� ������ �������� �̺�Ʈ�� ȣ������Լ�
+    public void InItNowSlotNum() 
     {
         if (!photonView.IsMine)
         { return; }
@@ -90,20 +92,18 @@ public class PlayerInventory : MonoBehaviourPun
         CheckHand();
     }
 
-    private void CheckHand()    // ���� �տ� ����� �ִ��� Ȯ���ϴ� �Լ�
+    private void CheckHand()
     {
         handChildTrans = this.transform;
-        //Debug.LogFormat("handChildTransCount ->  {0}", handChildTrans.childCount);
-        if (handChildTrans.childCount > 0)  //�տ� ���� ��� �ִ°��
+        if (handChildTrans.childCount > 0) 
         {
             PhotonNetwork.Destroy(handItemClone);
-            //handItemClone = null;
             foodInHand = false;
             weapomInHand = false;
             StartCoroutine(NowItemSlotInstance());
         }
 
-        else if (handChildTrans.childCount == 0) //�տ� ��� �ִ� �������� ���°��
+        else if (handChildTrans.childCount == 0) 
         {
             handItemClone = null;
             foodInHand = false;
@@ -131,22 +131,11 @@ public class PlayerInventory : MonoBehaviourPun
             handItemClone = PhotonNetwork.Instantiate
                 (playerinventory.slots[(int)slotNum - 1].item.handPrefab.name, transform.position, Quaternion.identity);
 
-            Debug.Log("RPC 부르기 전까진 오는가?");
-
             photonView.RPC("ChangePositionItemScroll", RpcTarget.All);
-
-            Debug.Log("RPC 부른후 오는가?");
-            //Collider collider = handItemClone.GetComponent<Collider>();
-            //Rigidbody itemRb = handItemClone.transform.GetComponent<Rigidbody>();
-            //collider.enabled = false;               // �ݶ��̴� ������Ʈ ����
-            //Destroy(itemRb);                        // ������ٵ� ���� ( �� ������� �ϱ� ����)
-            //handItemClone.transform.localScale = Vector3.one;
-
 
             HandItemCheck();
         }
         else { /*PASS*/ }
-
     }
 
 
@@ -155,7 +144,10 @@ public class PlayerInventory : MonoBehaviourPun
         hp = playerinventory.slots[(int)slotNum - 1].item.itemHealth;
         cold = playerinventory.slots[(int)slotNum - 1].item.itemWarmth;
         hunger = playerinventory.slots[(int)slotNum - 1].item.itemSatiety;
-        PhotonNetwork.Destroy(handItemClone);
+        if (playerinventory.slots[(int)slotNum - 1].itemCount == 1)
+        {
+            PhotonNetwork.Destroy(handItemClone);
+        }
     }
     public void MissItem()
     {
@@ -194,25 +186,19 @@ public class PlayerInventory : MonoBehaviourPun
     {
         handItemCopy = PhotonNetwork.Instantiate(playerinventory.slots[(int)slotNum - 1].item.name,
             transform.position, Quaternion.identity);
-        //Rigidbody newRigidbody = handItemCopy.AddComponent<Rigidbody>();
-        //handItemCopy.GetComponent<Collider>().enabled = true;
+
         photonView.RPC("ChangePositionItemDrop", RpcTarget.All);
         if (playerinventory.slots[(int)slotNum - 1].itemCount == 1)
         {
             PhotonNetwork.Destroy(handItemClone);
-        }
-        
+        }        
     }
 
     [PunRPC]
     public void ChangePositionItemScroll()
     {
-        //Debug.LogFormat("매개변수 정보 -> {0} , 현재 transform 정보 -> {1}",item.name,this.transform.name);
         handItemClone.transform.SetParent(transform);
-        //Collider collider = handItemClone.GetComponent<Collider>();
-        //Rigidbody itemRb = handItemClone.transform.GetComponent<Rigidbody>();
-        //collider.enabled = false;               // �ݶ��̴� ������Ʈ ����
-        //Destroy(itemRb);                        // ������ٵ� ���� ( �� ������� �ϱ� ����)
+
         handItemClone.transform.localPosition = Vector3.zero;
         handItemClone.transform.localRotation = Quaternion.identity;
     }

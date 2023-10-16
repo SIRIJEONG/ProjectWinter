@@ -1,13 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if PHOTON_NETWORK_ENABLE
 using Photon.Pun;
 
 public class SG_PowerStationGridScript : MonoBehaviourPun
-#else
-public class SG_PowerStationGridScript : MonoBehaviour
-#endif
+
 {
     [SerializeField]
     private GameObject slot;
